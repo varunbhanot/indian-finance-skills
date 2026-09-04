@@ -16,6 +16,15 @@ skill-name/
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add a new skill.
 
+## Vendored skills
+
+`.claude/skills/` holds general-purpose engineering skills vendored in from
+[mattpocock/skills](https://github.com/mattpocock/skills) (MIT-licensed).
+Claude Code auto-loads that directory, so they're available in every
+session in this repo. See `.claude/skills/README.md` for provenance and how
+to update them. These are separate from the top-level, Indian-finance
+skills this repo exists to build.
+
 ## Status
 
-This repository is newly set up and does not yet contain any skills.
+This repository does not yet contain any Indian-finance skills of its own.

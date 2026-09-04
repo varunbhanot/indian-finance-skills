@@ -16,19 +16,14 @@ skill-name/
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add a new skill.
 
-## General-purpose engineering skills
+## Vendored skills
 
-This repo enables [mattpocock/skills](https://github.com/mattpocock/skills)
-(MIT-licensed) as a Claude Code plugin via `.claude/settings.json`
-(`extraKnownMarketplaces` + `enabledPlugins`), so its engineering/productivity
-skills (TDD, code review, spec/ticket flows, domain modelling, etc.) are
-available in every session in this repo, kept current with upstream. These
-are separate from the top-level, Indian-finance skills this repo exists to
-build.
-
-Earlier revisions of this repo vendored copies of these skills directly into
-`.claude/skills/`; that was replaced by the plugin so there's one source of
-truth instead of a snapshot to keep in sync by hand.
+`.claude/skills/` holds general-purpose engineering skills vendored in from
+[mattpocock/skills](https://github.com/mattpocock/skills) (MIT-licensed).
+Claude Code auto-loads that directory, so they're available in every
+session in this repo. See `.claude/skills/README.md` for provenance and how
+to update them. These are separate from the top-level, Indian-finance
+skills this repo exists to build.
 
 ## Status
 

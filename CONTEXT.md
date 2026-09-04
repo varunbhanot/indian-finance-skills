@@ -26,4 +26,9 @@ its own set of permitted deductions.
 the rate applying to income within that band. Slabs are ordered; the final
 slab has no upper bound.
 
+**Statutory rounding** — the two points where the Income Tax Act requires a
+figure to be rounded: §288A rounds **total income** to the nearest ₹10, and
+§288B rounds **tax payable** to the nearest ₹1. Nothing else is rounded;
+intermediate figures are carried at full precision.
+
 <!-- Terms are added here as they are settled, not in advance. -->

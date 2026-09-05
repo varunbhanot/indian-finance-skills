@@ -64,7 +64,8 @@ export interface EquityGrantInput {
   strike?: number;
   /** The discount a share purchase plan offers, in basis points, as the letter states it. */
   discount_basis_points?: number;
-  vesting: VestingInput;
+  /** Absent only where the instrument has no vesting to state; `equity.ts` decides which. */
+  vesting?: VestingInput;
 }
 
 export interface OfferComponentInput {
@@ -104,7 +105,14 @@ const COMPONENT_KEYS = [
   "clawback_months",
   "equity",
 ];
-const EQUITY_KEYS = ["listed", "units", "grant_date_fair_market_value", "strike", "discount_basis_points", "vesting"];
+const EQUITY_KEYS = [
+  "listed",
+  "units",
+  "grant_date_fair_market_value",
+  "strike",
+  "discount_basis_points",
+  "vesting",
+];
 const VESTING_KEYS = ["years", "cliff_months"];
 const INLINE_KEYS = ["certainty", "form", "recurring", "instrument"];
 
@@ -203,7 +211,6 @@ function validateTakeHomeRequest(root: { [key: string]: unknown }): TakeHomeRequ
       : {
           professional_tax: validateWholeRupees(
             professionalTax,
-            "annual",
             "professional_tax",
             "professional_tax",
           ),
@@ -224,7 +231,7 @@ function validateComponent(raw: unknown, path: string): OfferComponentInput {
     throw invalid(`${path}.period`, 'period must be "annual" or "monthly"');
   }
 
-  const amount = validateWholeRupees(component["amount"], period as Period, `${path}.amount`, "amount");
+  const amount = validatePeriodicRupees(component["amount"], period as Period, `${path}.amount`, "amount");
   const classify = validateClassification(component, path);
   const clawbackMonths = validateClawbackMonths(component["clawback_months"], `${path}.clawback_months`);
   const equity = validateEquityGrant(component["equity"], `${path}.equity`);
@@ -257,13 +264,14 @@ function validateEquityGrant(raw: unknown, path: string): EquityGrantInput | und
     );
   }
 
-  const units = validateCount(grant["units"], `${path}.units`, "units");
+  const units = validateUnits(grant["units"], `${path}.units`);
   const fairMarketValue = validatePerUnitRupees(grant, "grant_date_fair_market_value", path);
   const strike = validatePerUnitRupees(grant, "strike", path);
   const discount = validateDiscountBasisPoints(
     grant["discount_basis_points"],
     `${path}.discount_basis_points`,
   );
+  const vesting = validateVesting(grant["vesting"], `${path}.vesting`);
 
   return {
     listed,
@@ -271,7 +279,7 @@ function validateEquityGrant(raw: unknown, path: string): EquityGrantInput | und
     ...(fairMarketValue === undefined ? {} : { grant_date_fair_market_value: fairMarketValue }),
     ...(strike === undefined ? {} : { strike }),
     ...(discount === undefined ? {} : { discount_basis_points: discount }),
-    vesting: validateVesting(grant["vesting"], `${path}.vesting`),
+    ...(vesting === undefined ? {} : { vesting }),
   };
 }
 
@@ -282,9 +290,7 @@ function validatePerUnitRupees(
   path: string,
 ): number | undefined {
   const raw = grant[field];
-  return raw === undefined
-    ? undefined
-    : validateWholeRupees(raw, "annual", `${path}.${field}`, field);
+  return raw === undefined ? undefined : validateWholeRupees(raw, `${path}.${field}`, field);
 }
 
 /**
@@ -292,14 +298,13 @@ function validatePerUnitRupees(
  * grant. A schedule summing to anything but 10000 basis points describes a
  * grant the letter has not fully described, and averaging the difference away
  * is exactly the reading ADR 0005 exists to refuse.
+ *
+ * Whether a schedule is required at all is the instrument's question, not this
+ * one's: a grant that vests must state how, and a share purchase plan has
+ * nothing to state. `equity.ts` asks it.
  */
-function validateVesting(raw: unknown, path: string): VestingInput {
-  if (raw === undefined) {
-    throw invalid(
-      path,
-      "an equity grant must carry the vesting schedule the letter states: a grant reduced to one annual figure is the number the decoder exists to take apart",
-    );
-  }
+function validateVesting(raw: unknown, path: string): VestingInput | undefined {
+  if (raw === undefined) return undefined;
   const vesting = expectObject(raw, path, VESTING_KEYS);
 
   const rawYears = vesting["years"];
@@ -336,13 +341,13 @@ function validateVesting(raw: unknown, path: string): VestingInput {
 }
 
 /** A count of units: whole, at least one, and bounded like a rupee figure so products of the two stay safe. */
-function validateCount(raw: unknown, path: string, label: string): number | undefined {
+function validateUnits(raw: unknown, path: string): number | undefined {
   if (raw === undefined) return undefined;
   if (typeof raw !== "number" || !Number.isInteger(raw) || raw <= 0) {
-    throw invalid(path, `${label} must be a whole number greater than zero`);
+    throw invalid(path, "units must be a whole number greater than zero");
   }
   if (raw > RUPEE_INPUT_CAP) {
-    throw aboveCap(path, `${label} must not exceed ${RUPEE_INPUT_CAP}, got ${raw}`);
+    throw aboveCap(path, `units must not exceed ${RUPEE_INPUT_CAP}, got ${raw}`);
   }
   return raw;
 }
@@ -410,11 +415,12 @@ function validateClawbackMonths(raw: unknown, path: string): number | undefined 
 }
 
 /**
- * Whole, non-negative rupees, and at most ₹100 crore both as typed and once
- * annualised, so every later product of paise and basis points stays a safe
- * integer (spec #4).
+ * Whole, non-negative rupees, and at most ₹100 crore, so every later product of
+ * paise and basis points stays a safe integer (spec #4). This is the check for
+ * a figure that stands on its own — a price per unit, which has no period to
+ * annualise over and none to report in a rejection.
  */
-function validateWholeRupees(raw: unknown, period: Period, path: string, label: string): number {
+function validateWholeRupees(raw: unknown, path: string, label: string): number {
   if (typeof raw !== "number" || !Number.isFinite(raw)) {
     throw invalid(path, `${label} must be a number of whole rupees`);
   }
@@ -432,18 +438,34 @@ function validateWholeRupees(raw: unknown, period: Period, path: string, label: 
       path,
     });
   }
-  const annualPaise = annualise(rupeesToPaise(raw), period);
-  if (annualPaise > CAP_PAISE) {
-    const typed = formatIndianRupees(rupeesToPaise(raw));
-    const annual = formatIndianRupees(annualPaise);
+  if (rupeesToPaise(raw) > CAP_PAISE) {
     throw aboveCap(
       path,
-      period === "monthly"
-        ? `${label} must not exceed ${formatIndianRupees(CAP_PAISE)} a year; ${typed} monthly is ${annual} a year`
-        : `${label} must not exceed ${formatIndianRupees(CAP_PAISE)}, got ${typed}`,
+      `${label} must not exceed ${formatIndianRupees(CAP_PAISE)}, got ${formatIndianRupees(rupeesToPaise(raw))}`,
     );
   }
   return raw;
+}
+
+/**
+ * The same check for a figure the letter states per period: the cap binds what
+ * it comes to over a year, so ₹1 crore a month is refused and says why.
+ */
+function validatePeriodicRupees(
+  raw: unknown,
+  period: Period,
+  path: string,
+  label: string,
+): number {
+  const rupees = validateWholeRupees(raw, path, label);
+  const annualPaise = annualise(rupeesToPaise(rupees), period);
+  if (annualPaise > CAP_PAISE) {
+    throw aboveCap(
+      path,
+      `${label} must not exceed ${formatIndianRupees(CAP_PAISE)} a year; ${formatIndianRupees(rupeesToPaise(rupees))} monthly is ${formatIndianRupees(annualPaise)} a year`,
+    );
+  }
+  return rupees;
 }
 
 function expectObject(

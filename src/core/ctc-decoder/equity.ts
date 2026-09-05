@@ -29,7 +29,7 @@ import { money, rate, rupeesToPaise, RUPEE_INPUT_CAP, type Money, type Rate } fr
 import type { RulesFile } from "../rules/files.ts";
 import type { EquityReading, Instrument } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
-import type { EquityGrantInput } from "./input.ts";
+import type { EquityGrantInput, VestingInput } from "./input.ts";
 import { rulesGroup, type Citation } from "./rules-reader.ts";
 
 /** How a grant was valued. Each one is a branch below, and each states its own assumption. */
@@ -74,7 +74,8 @@ export interface EquityGrant {
   discount?: Rate;
   /** What was assumed to reach `valued`, for the skill to say out loud. */
   assumption: string;
-  vesting: Vesting;
+  /** Absent only for an instrument with nothing to vest; see `measure`. */
+  vesting?: Vesting;
   perquisite: Perquisite;
 }
 
@@ -89,7 +90,7 @@ const ASSUMPTIONS: { [method in ValuationMethod]: string } = {
   "intrinsic-value":
     "Intrinsic value at grant, held flat: the units multiplied by the amount the fair market value per unit exceeds the strike, and nil where it does not exceed it. No growth in the share price is modelled, so an option struck at or above the grant-date price is held at nil here.",
   unvaluable:
-    "Held at nil, and named rather than dropped: shares in an unlisted company have no market price, and what this grant is worth turns on a liquidity event that may never happen. The value the letter claims is carried beside it, unchanged.",
+    "Held at nil, and named rather than dropped: shares in an unlisted company have no market price, and what this grant is worth turns on a liquidity event that may never happen. The value the letter claims is carried beside it, unchanged, and so is any price per share it states — which is a company's own valuation of itself and not a price anyone has paid.",
   "employee-funded":
     "Held at nil in every valuation: the employee buys the shares with their own money, so the plan moves pay rather than adding to it. The discount is the part that is not the employee's own money, and it is stated rather than valued.",
 };
@@ -122,7 +123,7 @@ export function valueGrant(
       ? {}
       : { discount: rate(grant.discount_basis_points) }),
     assumption: ASSUMPTIONS[method],
-    vesting: vestingOf(grant),
+    ...(grant.vesting === undefined ? {} : { vesting: vestingOf(grant.vesting) }),
     perquisite: perquisiteFor(instrument, rules),
   };
 }
@@ -166,19 +167,21 @@ function measure(
   path: string,
 ): { method: ValuationMethod; valued: number } {
   if (instrument === "espp") {
-    rejectPricing(grant, path, "a share purchase plan is held at nil whatever the shares cost");
     requireDiscount(grant, path);
     return { method: "employee-funded", valued: 0 };
   }
   rejectDiscount(grant, path, instrument);
+  requireVesting(grant, path, instrument);
 
-  if (!grant.listed) {
-    rejectPricing(grant, path, "shares in an unlisted company have no market price to value them at");
-    return { method: "unvaluable", valued: 0 };
-  }
+  // An unlisted grant is refused a valuation, not a description. Letters for one
+  // routinely state units, a strike and a price per share from the last funding
+  // round, and the branch that exists for exactly those letters cannot be the
+  // one that rejects them: the figures are carried into the output, and the
+  // assumption says why none of them was multiplied out.
+  if (!grant.listed) return { method: "unvaluable", valued: 0 };
 
   if (instrument === "rsu") {
-    rejectField(grant, "strike", path, "a restricted stock unit has no strike price");
+    rejectStrike(grant, path);
     if (grant.units === undefined && grant.grant_date_fair_market_value === undefined) {
       return { method: "claimed-as-grant-date-value", valued: claimedPaise };
     }
@@ -198,7 +201,10 @@ function measure(
   // value cannot stand in for it: the letter quotes the whole value of the
   // shares, which is what the employee would have to buy them for.
   const units = requiredForOption(grant.units, `${path}.units`);
-  const fairMarketValue = requiredForOption(grant.grant_date_fair_market_value, `${path}.grant_date_fair_market_value`);
+  const fairMarketValue = requiredForOption(
+    grant.grant_date_fair_market_value,
+    `${path}.grant_date_fair_market_value`,
+  );
   const strike = requiredForOption(grant.strike, `${path}.strike`);
   const spread = fairMarketValue - strike;
   return {
@@ -226,13 +232,10 @@ function product(units: number, rupeesPerUnit: number, path: string): number {
   return units * rupeesToPaise(rupeesPerUnit);
 }
 
-function vestingOf(grant: EquityGrantInput): Vesting {
-  const years = grant.vesting.years.map((share, index) => ({ year: index + 1, share: rate(share) }));
+function vestingOf(vesting: VestingInput): Vesting {
   return {
-    years,
-    ...(grant.vesting.cliff_months === undefined
-      ? {}
-      : { cliff_months: grant.vesting.cliff_months }),
+    years: vesting.years.map((share, index) => ({ year: index + 1, share: rate(share) })),
+    ...(vesting.cliff_months === undefined ? {} : { cliff_months: vesting.cliff_months }),
   };
 }
 
@@ -243,23 +246,19 @@ function perquisiteFor(instrument: Instrument, rules: RulesFile): Perquisite {
 }
 
 /**
- * A price the method will not use is refused rather than ignored, the way a
- * professional tax figure with no wage base is: a number the caller typed and
- * the decoder never read would look, in the output, like a number it had used.
+ * A figure the method will not multiply out is still carried, because the output
+ * reports it beside the assumption that says why — which is the opposite of a
+ * professional tax figure typed with no wage base, where the number would vanish
+ * into a total that never read it. What is refused here is narrower and is a
+ * category error rather than an unused figure: a strike on an instrument that
+ * has none, and a purchase discount on an instrument nobody purchases.
  */
-function rejectPricing(grant: EquityGrantInput, path: string, reason: string): void {
-  rejectField(grant, "grant_date_fair_market_value", path, reason);
-  rejectField(grant, "strike", path, reason);
-}
-
-function rejectField(
-  grant: EquityGrantInput,
-  field: "grant_date_fair_market_value" | "strike",
-  path: string,
-  reason: string,
-): void {
-  if (grant[field] === undefined) return;
-  throw invalid(`${path}.${field}`, `${reason}, so ${field} is a figure the decoder would not read`);
+function rejectStrike(grant: EquityGrantInput, path: string): void {
+  if (grant.strike === undefined) return;
+  throw invalid(
+    `${path}.strike`,
+    "a restricted stock unit is a promise of shares rather than a right to buy them, so it has no strike price",
+  );
 }
 
 function rejectDiscount(grant: EquityGrantInput, path: string, instrument: Instrument): void {
@@ -267,6 +266,19 @@ function rejectDiscount(grant: EquityGrantInput, path: string, instrument: Instr
   throw invalid(
     `${path}.discount_basis_points`,
     `a discount off a purchase price belongs to a share purchase plan, and this grant is classified as ${instrument}`,
+  );
+}
+
+/**
+ * A grant that vests must say how. A share purchase plan does not reach this,
+ * because it has no vesting to state and typing one in to satisfy a required
+ * field would be invented input dressed as something read off the letter.
+ */
+function requireVesting(grant: EquityGrantInput, path: string, instrument: Instrument): void {
+  if (grant.vesting !== undefined) return;
+  throw invalid(
+    `${path}.vesting`,
+    `a grant of ${instrument} arrives over the years its schedule names, so the schedule the letter states is required: a grant reduced to one annual figure is the number the decoder exists to take apart`,
   );
 }
 

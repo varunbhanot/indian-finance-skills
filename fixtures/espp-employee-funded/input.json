@@ -7,11 +7,7 @@
       "type": "espp",
       "amount": 500000,
       "period": "annual",
-      "equity": {
-        "listed": true,
-        "discount_basis_points": 1500,
-        "vesting": { "years": [10000] }
-      }
+      "equity": { "listed": true, "discount_basis_points": 1500 }
     }
   ]
 }

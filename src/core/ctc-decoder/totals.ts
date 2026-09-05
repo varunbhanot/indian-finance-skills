@@ -34,7 +34,13 @@ export interface OfferTotals {
   equity_as_claimed: Total;
   /** What the decoder holds those same grants at (ADR 0005). */
   equity_as_valued: Total;
-  /** The claimed value of the grants the decoder refuses to value; never dropped, never counted as cash. */
+  /**
+   * The **claimed** value of the grants the decoder refuses to value — the same
+   * basis as `equity_as_claimed` and not as `equity_as_valued`, which holds
+   * every one of them at nil. It answers "how much of what the letter counted
+   * rests on a figure nobody can check", so it has to be the letter's number.
+   * Never dropped from the output, and in no total of cash.
+   */
   unvaluable_equity: Total;
 }
 
@@ -118,32 +124,47 @@ export function totalsFor(components: readonly ClassifiedComponent[]): OfferTota
   };
 }
 
+/**
+ * The one shape a total takes: what each component contributes, or nothing when
+ * it is outside the reading. Both builders below reduce to this, so a figure and
+ * the names beside it can never come apart — `components` lists exactly what was
+ * added up, whichever reading did the adding.
+ */
+function totalOf(
+  components: readonly ClassifiedComponent[],
+  contribution: (component: ClassifiedComponent) => number | undefined,
+): Total {
+  const included: { name: string; paise: number }[] = [];
+  for (const component of components) {
+    const paise = contribution(component);
+    if (paise !== undefined) included.push({ name: component.name, paise });
+  }
+  return {
+    ...money(included.reduce((sum, one) => sum + one.paise, 0)),
+    components: included.map((one) => one.name),
+  };
+}
+
+/** A total of the amounts as typed, over the components a predicate on the axes admits. */
 function total(
   components: readonly ClassifiedComponent[],
   includes: (classification: Classification) => boolean,
 ): Total {
-  const included = components.filter((component) => includes(component.classification));
-  const paise = included.reduce((sum, component) => sum + component.annual_paise, 0);
-  return { ...money(paise), components: included.map((component) => component.name) };
+  return totalOf(components, (component) =>
+    includes(component.classification) ? component.annual_paise : undefined,
+  );
 }
 
 /**
  * A total over the equity grants alone, summing whatever figure the reading
  * names rather than the amount typed — because what a grant is held at is not
- * what the letter counted it as. A grant the reading passes over is left out of
- * the names as well as the sum, so `components` still lists exactly what was
- * added up.
+ * what the letter counted it as.
  */
 function totalOfGrants(
   components: readonly ClassifiedComponent[],
   paiseOf: (equity: EquityReading, component: ClassifiedComponent) => number | undefined,
 ): Total {
-  const included: { name: string; paise: number }[] = [];
-  for (const component of components) {
-    if (component.equity === undefined) continue;
-    const paise = paiseOf(component.equity, component);
-    if (paise !== undefined) included.push({ name: component.name, paise });
-  }
-  const paise = included.reduce((sum, one) => sum + one.paise, 0);
-  return { ...money(paise), components: included.map((one) => one.name) };
+  return totalOf(components, (component) =>
+    component.equity === undefined ? undefined : paiseOf(component.equity, component),
+  );
 }

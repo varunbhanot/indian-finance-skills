@@ -10,6 +10,8 @@
       "equity": {
         "listed": false,
         "units": 10000,
+        "grant_date_fair_market_value": 800,
+        "strike": 40,
         "vesting": { "cliff_months": 12, "years": [2500, 2500, 2500, 2500] }
       }
     }

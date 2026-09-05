@@ -13,6 +13,11 @@ Never put arithmetic in the skill layer. Never put prose in the core. The core
 classifies ("this offer is back-loaded"); the skill decides what to say and what
 to lead with.
 
+Exactly one sentence is authored in the core instead of chosen by the skill: an
+equity valuation's `assumption`, because it describes which branch of the core
+ran and why it declined to guess, so it belongs beside that branch and nowhere
+else (ADR 0016). Nothing else may follow that pattern without its own ADR.
+
 ## The model never computes, and never recalls a rate
 
 Every rate, slab, limit, threshold and formula lives in `rules/`. If you find
@@ -42,7 +47,11 @@ emits display strings; never reformat a number yourself.
   `{ title, url }` beside each figure and a consolidated `sources` list built by
   walking the finished output (ADR 0015).
 - **Never value the unvaluable.** Illiquid equity is ₹0 and is always named
-  (ADR 0005). Never model share-price growth.
+  (ADR 0005). Never model share-price growth. A nil valuation is a statement,
+  so it carries the assumption that produced it and never deletes what the
+  letter claimed: `equity_as_claimed` and `headline_ctc` keep the claim,
+  `equity_as_valued` alone moves, and the distance between them is the reader's
+  to see and never the decoder's to compute (ADR 0016).
 - **Never encode claims about a named employer.** Vesting schedules are typed
   input, not a lookup table.
 

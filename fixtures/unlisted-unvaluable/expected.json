@@ -68,7 +68,15 @@
           "display": "₹80,00,000"
         },
         "units": 10000,
-        "assumption": "Held at nil, and named rather than dropped: shares in an unlisted company have no market price, and what this grant is worth turns on a liquidity event that may never happen. The value the letter claims is carried beside it, unchanged.",
+        "grant_date_fair_market_value": {
+          "paise": 80000,
+          "display": "₹800"
+        },
+        "strike": {
+          "paise": 4000,
+          "display": "₹40"
+        },
+        "assumption": "Held at nil, and named rather than dropped: shares in an unlisted company have no market price, and what this grant is worth turns on a liquidity event that may never happen. The value the letter claims is carried beside it, unchanged, and so is any price per share it states — which is a company's own valuation of itself and not a price anyone has paid.",
         "vesting": {
           "years": [
             {

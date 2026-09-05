@@ -72,17 +72,6 @@
           "display": "15%"
         },
         "assumption": "Held at nil in every valuation: the employee buys the shares with their own money, so the plan moves pay rather than adding to it. The discount is the part that is not the employee's own money, and it is stated rather than valued.",
-        "vesting": {
-          "years": [
-            {
-              "year": 1,
-              "share": {
-                "bp": 10000,
-                "display": "100%"
-              }
-            }
-          ]
-        },
         "perquisite": {
           "statement": "Shares bought under an employee share purchase plan are a specified security allotted at a concessional rate, so the discount -- fair market value less the price the employee actually paid -- is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so the discount enters total income for the tax year and bears the same rates as the rest of the salary. The purchase price itself is the employee's own money and is not income; the gain on a later sale is a separate charge under the head \"Capital gains\".",
           "citation": {

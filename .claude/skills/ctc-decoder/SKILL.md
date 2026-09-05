@@ -42,12 +42,18 @@ whole of what makes it valuable or not. Ask, for each grant:
   after a one-year cliff", "5/15/40/40") and write it as basis points per year
   summing to 10000. Ask; never assume, and never fill it in from what you know
   about the employer — this repository carries no employer's vesting shape
-  (ADR 0005). An instrument that arrives all at once is one year of `10000`.
-- **Units and the grant-date fair market value per unit**, where the letter
-  states them, and the **strike** for an option. A listed option needs all
-  three: what the letter quotes is the value of the shares, not of the option
-  over them, so without a strike the grant cannot be valued at all.
+  (ADR 0005). A share purchase plan has no schedule, and inventing one for it to
+  fill the field is the exact thing this rule forbids.
+- **Units, the grant-date fair market value per unit, and the strike** for an
+  option, wherever the letter states them — including for an unlisted company,
+  whose letters usually state all three. They are carried into the output either
+  way; whether they are multiplied out is the decoder's to decide.
 - **The discount**, for a share purchase plan, in basis points.
+
+A listed option is the one grant that cannot be valued without all three: what
+the letter quotes is the value of the shares, not of the option over them. If
+the letter does not give the strike, ask for it; the decoder will refuse the
+grant rather than guess, and say so.
 
 Do not ask what the shares might be worth later, and do not accept an answer
 framed that way. No growth rate exists anywhere in the input.
@@ -79,10 +85,12 @@ The CLI takes one JSON document. Amounts are whole rupees; `period` is
 
 An equity line's `amount` is what the **letter claims** the grant is worth; the
 `equity` block is what the decoder values it from. The block is required on
-every equity line and refused on every other. `units`,
-`grant_date_fair_market_value`, `strike` and `discount_basis_points` are each
-carried only where the instrument uses them — a rejection naming the field is
-the decoder saying it would not have read that figure.
+every equity line and refused on every other. Type every figure the letter
+states: a figure the valuation does not multiply out is still reported, beside
+the assumption that says why. Only two things are refused, and both are category
+errors rather than unused numbers — a `strike` on a restricted stock unit, which
+is a promise of shares and not a right to buy them, and a
+`discount_basis_points` on anything but a share purchase plan.
 
 For every line keep its **source**: the pasted text, the user's words, or the
 letter's own sentence. A one-time line whose fine print names a recovery
@@ -137,7 +145,9 @@ Then the equity, when any component carries an `equity` block. Say
 side, and `totals.unvaluable_equity.display` with the grants it names. The
 distance between the first two is the point of the reading, and like every other
 difference it is not a figure the tool emitted: put the two figures next to each
-other and let them stand.
+other and let them stand. `unvaluable_equity` is on the **claimed** basis, not
+the valued one — it is how much of what the letter counted rests on a figure
+nobody can check — so say which basis it is on when you say it.
 
 Then each grant, from its own `equity` block and nothing else:
 
@@ -145,10 +155,11 @@ Then each grant, from its own `equity` block and nothing else:
 - `assumption`, said and not paraphrased. It is what stops a figure held flat
   or held at nil from being read as a forecast, and it is the reason the number
   is what it is.
-- `vesting` — each year by its `share.display`, in order, and `cliff_months`
-  where present. Say the schedule; a grant divided across it is not a figure the
-  tool emitted, and the flat annual average is the number this reading exists to
-  take apart.
+- `vesting`, where the grant has one — each year by its `share.display`, in
+  order, and `cliff_months` where present. Say the schedule; a grant divided
+  across it is not a figure the tool emitted, and the flat annual average is the
+  number this reading exists to take apart. A share purchase plan carries no
+  `vesting` and needs none said of it.
 - `units`, `grant_date_fair_market_value.display`, `strike.display` and
   `discount.display` where the block carries them.
 - `perquisite.statement`, with its `citation` — the value is taxed as salary,

@@ -17,7 +17,7 @@ Code session on the web that install runs for you, from
 npm run ctc-decoder -- '{"financial_year":"2026-27","components":[{"name":"Basic","type":"basic","amount":600000,"period":"annual"}]}'
 npm run lint        # no floating-point arithmetic in src/core
 npm run typecheck
-npm test            # fixtures, rules schema check, output invariants, loader tests, traceability eval
+npm test            # fixtures, rules schema check, output invariants, duplicate goldens, loader tests, traceability eval
 ```
 
 The decoder prints one JSON document to stdout, or a JSON error
@@ -37,6 +37,13 @@ exact stdout) or `expected-error.json` (the exact stderr). The suite discovers
 the directory and runs it through `npm run ctc-decoder`. Expected values must
 come from an independent source (a worked example, an official calculator, a
 hand-checked literal), never from running the decoder and pasting its output.
+
+Two fixtures may share an input and a golden — `take-home-new-regime` and
+`take-home-old-regime` are one package under two names, since the decoder
+reports both regimes from one decode and each name carries the cross-check for
+its own regime. What they may not do is share them silently: a fixture
+byte-identical to another must name it in its README and say what the pair is
+for, and `npm test` fails until it does (issue #38).
 
 A fixture that needs a rules file this repository does not ship — one missing a
 group, or one carrying a catalogue entry that does not exist yet — may add a

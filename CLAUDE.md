@@ -113,14 +113,16 @@ discovers them. A fixture may also hold a `rules/` directory or a
 not ship — an absent group, a catalogue entry added without code (ADR 0009), or
 a threshold moved to show that what is flagged is data and not code. Both
 variables are test affordances and are not part of the JSON contract.
-Five checks sit beside the seam: the rules schema check
+Six checks sit beside the seam: the rules schema check
 (every `rules/*.yaml` loads, and titles each document it cites exactly once),
 the heuristics schema check (every threshold gives a `rationale`, and none
 carries a `source` at any depth — the guarantee ADR 0006 rests on, and the one
 the rules schema cannot give), the no-float lint, the output invariants over
 every fixture's `expected.json` (`sources` is the complete deduplicated union of
 the documents cited above it, and nothing in the output reads as advice —
-ADR 0007), and the two loaders' own tests against test-only YAML documents (the
+ADR 0007), the duplicate-goldens check (a fixture sharing both its input and its
+golden with another names that twin in its README, so a copy is never silent —
+issue #38), and the two loaders' own tests against test-only YAML documents (the
 ticket that built the rules loader permits this, since no statutory value may be
 typed from memory to test it).
 

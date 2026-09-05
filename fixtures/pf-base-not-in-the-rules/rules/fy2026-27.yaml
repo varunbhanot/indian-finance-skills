@@ -531,9 +531,11 @@ groups:
         refuse requests from this environment. So 0.12 is not the rate read off
         the section. It is the rate the Government states is applied: an
         employee of a covered establishment "is statutorily required to join the
-        fund and to contribute 12% of wages". Re-source it from the notification
-        when that becomes reachable, and until then treat any figure computed
-        from it as resting on this statement rather than on the Act.
+        fund and to contribute 12% of wages". That statement is accepted as the
+        basis here rather than the figure being withheld, and this note is
+        permanent rather than provisional -- ADR 0019 gives the reasoning and the
+        four conditions it depends on. Treat any figure computed from this rate
+        as resting on the Ministry's statement rather than on the Act.
       rate: 0.12
     # Also NOT sourced to the instrument that fixes it; same caveat. The Act
     # fixes the employer's share in the same sentence as the employee's, and its
@@ -553,7 +555,8 @@ groups:
         notified establishments "at both the places where they occur" -- that
         notification could not be retrieved. So 0.12 is the rate the Government
         states is applied, not the rate read off the section: "The employer is
-        also required to contribute 12% of the wages."
+        also required to contribute 12% of the wages." That statement is
+        accepted as the basis here, permanently, on the reasoning in ADR 0019.
         This is the WHOLE employer share. Section 6A(2)(a) diverts part of it to
         the Employees' Pension Scheme, but the Act fixes only a ceiling on that
         part -- "not exceeding eight and one-third per cent of the basic wages,
@@ -576,7 +579,9 @@ groups:
         no ceiling at all -- it lives in the Employees' Provident Fund Scheme,
         1952, whose consolidated text could not be retrieved, and the 2014
         notification that set it could not be retrieved either. This is the
-        Government's statement of the figure, not the instrument that fixed it.
+        Government's statement of the figure, not the instrument that fixed it,
+        and it is accepted as the basis here, permanently, on the reasoning in
+        ADR 0019.
       monthly_rupees: 15000
     wage_components:
       section: Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6

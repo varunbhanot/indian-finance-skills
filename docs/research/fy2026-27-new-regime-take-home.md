@@ -318,6 +318,13 @@ labour.gov.in):
   to Parliament, not from the EPF Scheme, 1952 text or the s.6 proviso
   notification. Medium-high confidence, but see §9 — these two should be
   re-sourced from the Scheme text before they go into `rules/`.
+- **Superseded on that last point.** #24 re-probed every publisher named in §9
+  and found EPFO still refusing this environment and `egazette.gov.in` no longer
+  connecting at all. ADR 0019 records the decision to accept the Ministry's
+  statement as the basis rather than withhold the figures, and the four
+  conditions that decision depends on. The confidence assessment above stands;
+  what has changed is that re-sourcing is an improvement rather than a
+  precondition.
 
 ---
 

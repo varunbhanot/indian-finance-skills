@@ -9,7 +9,8 @@
 
 ## Adding a new skill
 
-1. Create a new top-level directory named after the skill (kebab-case).
+1. Create `.claude/skills/<skill-name>/` (kebab-case). A top-level directory
+   will not be loaded by Claude Code.
 2. Add a `SKILL.md` with frontmatter (`name`, `description`) and clear instructions.
 3. Keep helper scripts in `scripts/` and reference-only material in `references/`.
 4. Open a PR describing what the skill does and when it should trigger.

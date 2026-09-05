@@ -47,6 +47,32 @@ arithmetic in the core, percentages included. Rounding only at §288A and §288B
 URL, CI-enforced (ADR 0001). `heuristics.yaml` is authored judgement, carrying a
 `rationale` instead of a URL (ADR 0006). Never put an opinion in the rules file.
 
+## Tooling
+
+npm, TypeScript, a YAML parser, and Node's built-in test runner. No decimal
+library (ADR 0002). GitHub Actions runs lint, typecheck and the fixture suite on
+every push and pull request, with no secrets.
+
+Skills live in `.claude/skills/<name>/SKILL.md` — that is the only directory
+Claude Code auto-loads project skills from. A top-level skill directory does
+nothing.
+
+## Evals
+
+Fixtures test the CLI seam only: JSON in, JSON out, through the same entrypoint
+the skill uses. Nothing is tested below it.
+
+The traceability eval (ADR 0003) runs **in CI against checked-in recorded
+transcripts**. Recording a transcript needs a model and is run on demand; CI
+only replays the recordings. No API key lives in the repository.
+
+## Decisions must be committed
+
+A decision that is not in an ADR, this file, or a ticket does not exist to the
+next session. Sessions are isolated; an uncommitted decision will be re-decided
+differently by whoever comes next. If you settle something, write it down
+before you move on.
+
 ## Tickets
 
 Every ticket names the `rules/` key(s) it reads and the fixture(s) it must make

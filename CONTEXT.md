@@ -29,8 +29,10 @@ slab has no upper bound.
 **Statutory rounding** — the two points where the Income Tax Act requires a
 figure to be rounded: §288A rounds **total income** to the nearest ₹10, and
 §288B rounds **tax payable** to the nearest ₹1. Nothing else is rounded;
-intermediate figures are carried at full precision.
-
+intermediate figures are carried at full precision. The section numbers here are
+from the Income-tax Act, 1961; the Income-tax Act, 2025 is in force from
+1 April 2026 and renumbers sections, so FY 2026-27 rules must cite the in-force
+provision as sourced, not these numbers.
 
 ## Pay
 

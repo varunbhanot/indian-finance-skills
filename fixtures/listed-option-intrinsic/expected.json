@@ -458,6 +458,7 @@
       {
         "name": "Stock options",
         "unvaluable": false,
+        "spread": "vesting-schedule",
         "cliff_months": 12,
         "years": [
           {

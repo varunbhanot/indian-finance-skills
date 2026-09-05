@@ -37,7 +37,9 @@ import {
   BASES,
   countsTowardGuaranteedRecurringCash,
   landsWholeInYearOne,
+  total,
   type Basis,
+  type Total,
 } from "./totals.ts";
 
 /**
@@ -50,13 +52,21 @@ const MINIMUM_YEARS = 4;
 /** The year the offer starts in, which is the year every one-time component lands in. */
 const FIRST_YEAR = 1;
 
-/** One year of one grant: the share the letter's schedule gives it, on both readings. */
+/** One year of one grant: what it is claimed at and held at, and the share behind that. */
 export interface GrantVestYear {
   year: number;
-  share: Rate;
+  /**
+   * The share of the grant this year takes, present only where the letter states
+   * a schedule to take it from. A grant with none carries no share here: naming
+   * one would be the invented schedule ADR 0016 refuses.
+   */
+  share?: Rate;
   as_valued: Money;
   as_claimed: Money;
 }
+
+/** How a grant's value was placed in the years; see `yearsOfGrant`. */
+export type Spread = "vesting-schedule" | "recurring" | "lands-in-year-one";
 
 export interface GrantVesting {
   /** The component name as the user typed it, which is how the rows name it back. */
@@ -64,17 +74,18 @@ export interface GrantVesting {
   /** True where every `as_valued` below is nil because the grant cannot be valued (ADR 0005). */
   unvaluable: boolean;
   /**
+   * Which of the three readings below put this grant into its years, so a reader
+   * of the rows never has to infer it from a missing `share`.
+   */
+  spread: Spread;
+  /**
    * The months before which nothing vests, repeated here from the grant's own
    * block: the table is where a reader asks why year one is small, and the
    * answer has to be beside the rows rather than a scroll away. It moves no
    * value between the years below it.
    */
   cliff_months?: number;
-  /**
-   * One row per year of the table. Empty for a grant with nothing that vests: a
-   * share purchase plan carries no schedule, and dividing it across the years
-   * would be the invented schedule ADR 0016 refuses.
-   */
+  /** One row per year of the table, always the table's full span. */
   years: GrantVestYear[];
 }
 
@@ -125,32 +136,46 @@ export interface YearByYear {
 }
 
 export function yearByYearFor(components: readonly ClassifiedComponent[]): YearByYear {
-  const grantComponents = components.filter((component) => component.equity !== undefined);
-  const yearsCovered = yearsCoveredBy(grantComponents);
+  // Narrowed once, into the pair every grant reading needs, rather than filtered
+  // and then asserted back into shape at each use.
+  const grants = components.flatMap((component) =>
+    component.equity === undefined ? [] : [{ component, equity: component.equity }],
+  );
+  const yearsCovered = yearsCoveredBy(grants);
 
   // Everything but the variable column is the same on both bases, so each of
   // these is derived once and both bases are built from them.
-  const table = {
+  const table: SharedTable = {
     years_covered: yearsCovered,
-    guaranteed_paise: sum(components, countsTowardGuaranteedRecurringCash),
-    one_time: oneTimeIn(components),
-    grants: grantComponents.map((component) => vestingOf(component, yearsCovered)),
+    guaranteed: total(components, countsTowardGuaranteedRecurringCash),
+    one_time: total(components, landsWholeInYearOne),
+    grants: grants.map((grant) => vestingOf(grant, yearsCovered)),
   };
 
   return {
     years_covered: yearsCovered,
-    bases: BASES.map(({ basis, counts }) =>
-      onBasis(basis, sum(components, counts) - table.guaranteed_paise, table),
-    ),
+    bases: BASES.map(({ basis, counts }) => {
+      // What this basis counts beyond what is guaranteed, which is the whole
+      // difference between the two: nil on the zero basis, because there it
+      // counts exactly the guaranteed cash, and the quoted target on the other.
+      const variablePaise = total(components, counts).paise - table.guaranteed.paise;
+      return onBasis(basis, variablePaise, table);
+    }),
     grants: table.grants,
   };
+}
+
+/** An equity component and its reading, kept together because every grant reading needs both. */
+interface Grant {
+  component: ClassifiedComponent;
+  equity: EquityReading;
 }
 
 /** What a table shares between its two bases; only the variable column is outside it. */
 interface SharedTable {
   years_covered: number;
-  guaranteed_paise: number;
-  one_time: { paise: number; names: string[] };
+  guaranteed: Total;
+  one_time: Total;
   grants: GrantVesting[];
 }
 
@@ -159,58 +184,83 @@ interface SharedTable {
  * further. Compared rather than maximised by a library, because the core has no
  * `Math` (ADR 0002).
  */
-function yearsCoveredBy(grants: readonly ClassifiedComponent[]): number {
+function yearsCoveredBy(grants: readonly Grant[]): number {
   let longest = MINIMUM_YEARS;
-  for (const grant of grants) {
-    const years = grant.equity?.vesting?.years.length ?? 0;
+  for (const { equity } of grants) {
+    const years = equity.vesting?.years.length ?? 0;
     if (years > longest) longest = years;
   }
   return longest;
 }
 
-/** The one-time components and their total, named because the average has to name them. */
-function oneTimeIn(components: readonly ClassifiedComponent[]): {
-  paise: number;
-  names: string[];
-} {
-  const landing = components.filter((component) => landsWholeInYearOne(component.classification));
-  return {
-    paise: landing.reduce((running, one) => running + one.annual_paise, 0),
-    names: landing.map((component) => component.name),
-  };
-}
-
 /**
- * One grant's vests, year by year. A year the schedule does not reach gets a nil
- * share rather than being left out, so every grant's rows line up with the
- * table's and with each other.
+ * One grant, year by year, on both readings. Three ways a grant reaches its
+ * years, and only the first is a vesting schedule:
  *
- * Each year's figure is that year's share of the whole grant, so the shares
- * truncate independently and their total can fall a few paise short of the grant
- * itself. That is the truncation `applyRate` makes everywhere else, and it is
- * why the table reports each year rather than inviting the reader to add the
- * years back up into a grant.
+ * - the schedule the letter states, each year taking its own share;
+ * - no schedule and recurring — a share purchase plan is the case — so the
+ *   letter claims it again in every year, exactly as the recurring flag says of
+ *   basic pay, and no share is named because there is no schedule to name one
+ *   from;
+ * - no schedule and not recurring, so it lands whole in year one like any other
+ *   one-time item.
+ *
+ * The last two are the ordinary recurring flag doing its ordinary job, not an
+ * invented schedule: ADR 0016 refuses a made-up `years: [10000]`, and what it
+ * refuses is a *schedule*, not the reading every non-equity component already
+ * gets. Leaving such a grant out of the years instead would put ₹0 in every
+ * `as_claimed` — an assertion that the letter claimed nothing, which is the one
+ * thing a nil valuation must never become (ADR 0016).
+ *
+ * Where a schedule does exist, each year's figure is that year's share of the
+ * whole grant, so the shares truncate independently and their total can fall a
+ * few paise short of the grant itself. That is the truncation `applyRate` makes
+ * everywhere else, and it is why the table reports each year rather than
+ * inviting the reader to add the years back up into a grant.
  */
-function vestingOf(component: ClassifiedComponent, yearsCovered: number): GrantVesting {
-  const equity = component.equity as EquityReading;
+function vestingOf(grant: Grant, yearsCovered: number): GrantVesting {
+  const { component, equity } = grant;
   const schedule = equity.vesting;
+  const spread: Spread =
+    schedule !== undefined
+      ? "vesting-schedule"
+      : component.classification.recurring
+        ? "recurring"
+        : "lands-in-year-one";
+
   const years: GrantVestYear[] = [];
-  if (schedule !== undefined) {
-    for (let year = 1; year <= yearsCovered; year += 1) {
-      const basisPoints = schedule.years[year - 1]?.share.bp ?? 0;
-      years.push({
-        year,
-        share: rate(basisPoints),
-        as_valued: money(applyRate(equity.valued_paise, basisPoints)),
-        as_claimed: money(applyRate(component.annual_paise, basisPoints)),
-      });
-    }
+  for (let year = FIRST_YEAR; year <= yearsCovered; year += 1) {
+    years.push(yearOfGrant(grant, spread, year));
   }
+
   return {
     name: component.name,
     unvaluable: equity.unvaluable,
+    spread,
     ...(schedule?.cliff_months === undefined ? {} : { cliff_months: schedule.cliff_months }),
     years,
+  };
+}
+
+/** One year of one grant, under whichever of the three readings placed it. */
+function yearOfGrant(grant: Grant, spread: Spread, year: number): GrantVestYear {
+  const { component, equity } = grant;
+  if (spread === "vesting-schedule") {
+    // A year the schedule does not reach takes a nil share rather than being
+    // left out, so every grant's rows line up with the table's and each other's.
+    const basisPoints = equity.vesting?.years[year - 1]?.share.bp ?? 0;
+    return {
+      year,
+      share: rate(basisPoints),
+      as_valued: money(applyRate(equity.valued_paise, basisPoints)),
+      as_claimed: money(applyRate(component.annual_paise, basisPoints)),
+    };
+  }
+  const whole = spread === "recurring" || year === FIRST_YEAR;
+  return {
+    year,
+    as_valued: money(whole ? equity.valued_paise : 0),
+    as_claimed: money(whole ? component.annual_paise : 0),
   };
 }
 
@@ -223,12 +273,12 @@ function onBasis(basis: Basis, variablePaise: number, table: SharedTable): YearB
     const oneTimePaise = year === FIRST_YEAR ? table.one_time.paise : 0;
     return {
       year,
-      guaranteed_recurring_cash: money(table.guaranteed_paise),
+      guaranteed_recurring_cash: money(table.guaranteed.paise),
       variable_pay_at_target: money(variablePaise),
       one_time: money(oneTimePaise),
       equity_as_valued: money(vested.valued),
       equity_as_claimed: money(vested.claimed),
-      total: money(table.guaranteed_paise + variablePaise + oneTimePaise + vested.valued),
+      total: money(table.guaranteed.paise + variablePaise + oneTimePaise + vested.valued),
     };
   }
 
@@ -250,7 +300,7 @@ function onBasis(basis: Basis, variablePaise: number, table: SharedTable): YearB
       over_years: years.length,
       with_one_time: money(averageOver(total, years.length)),
       without_one_time: money(averageOver(total - table.one_time.paise, years.length)),
-      one_time_components: table.one_time.names,
+      one_time_components: table.one_time.components,
     },
   };
 }
@@ -263,7 +313,9 @@ function vestedIn(
   let valued = 0;
   let claimed = 0;
   for (const grant of grants) {
-    const vest = grant.years[year - 1];
+    // Matched on the year rather than the position: the rows are built to the
+    // table's span, and looking the year up says so instead of assuming it.
+    const vest = grant.years.find((one) => one.year === year);
     if (vest === undefined) continue;
     valued += vest.as_valued.paise;
     claimed += vest.as_claimed.paise;
@@ -279,15 +331,4 @@ function vestedIn(
  */
 function averageOver(totalPaise: number, years: number): number {
   return divideWithRemainder(totalPaise, years).quotient;
-}
-
-function sum(
-  components: readonly ClassifiedComponent[],
-  counts: (classification: ClassifiedComponent["classification"]) => boolean,
-): number {
-  return components.reduce(
-    (running, component) =>
-      counts(component.classification) ? running + component.annual_paise : running,
-    0,
-  );
 }

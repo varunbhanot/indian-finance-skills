@@ -460,6 +460,7 @@
       {
         "name": "ESOP grant",
         "unvaluable": true,
+        "spread": "vesting-schedule",
         "cliff_months": 12,
         "years": [
           {

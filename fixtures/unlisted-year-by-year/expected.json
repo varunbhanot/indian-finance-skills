@@ -455,6 +455,7 @@
       {
         "name": "ESOP grant",
         "unvaluable": true,
+        "spread": "vesting-schedule",
         "years": [
           {
             "year": 1,

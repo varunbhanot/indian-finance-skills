@@ -173,8 +173,13 @@ function totalOf(
   };
 }
 
-/** A total of the amounts as typed, over the components a predicate on the axes admits. */
-function total(
+/**
+ * A total of the amounts as typed, over the components a predicate on the axes
+ * admits. Exported because the year-by-year reading needs the same figure in the
+ * same shape — a sum and the names behind it — and a second adder would be a
+ * second chance for a figure and its names to come apart.
+ */
+export function total(
   components: readonly ClassifiedComponent[],
   includes: (classification: Classification) => boolean,
 ): Total {

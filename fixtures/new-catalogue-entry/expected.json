@@ -448,6 +448,7 @@
       {
         "name": "RSU grant as the letter values it",
         "unvaluable": false,
+        "spread": "vesting-schedule",
         "cliff_months": 12,
         "years": [
           {

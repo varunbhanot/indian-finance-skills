@@ -177,8 +177,8 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
               "paise": 240000000,
@@ -204,8 +204,8 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
               "paise": 240000000,
@@ -231,8 +231,8 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
               "paise": 240000000,
@@ -258,8 +258,8 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
               "paise": 240000000,
@@ -306,8 +306,8 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
               "paise": 240000000,
@@ -333,8 +333,8 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
               "paise": 240000000,
@@ -360,8 +360,8 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
               "paise": 240000000,
@@ -387,8 +387,8 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
               "paise": 240000000,
@@ -418,7 +418,53 @@
       {
         "name": "Share purchase plan",
         "unvaluable": false,
-        "years": []
+        "spread": "recurring",
+        "years": [
+          {
+            "year": 1,
+            "as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "as_claimed": {
+              "paise": 50000000,
+              "display": "₹5,00,000"
+            }
+          },
+          {
+            "year": 2,
+            "as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "as_claimed": {
+              "paise": 50000000,
+              "display": "₹5,00,000"
+            }
+          },
+          {
+            "year": 3,
+            "as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "as_claimed": {
+              "paise": 50000000,
+              "display": "₹5,00,000"
+            }
+          },
+          {
+            "year": 4,
+            "as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "as_claimed": {
+              "paise": 50000000,
+              "display": "₹5,00,000"
+            }
+          }
+        ]
       }
     ]
   },

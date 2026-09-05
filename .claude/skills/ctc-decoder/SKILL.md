@@ -196,19 +196,27 @@ say which it is: `variable-pay-at-zero` counts no variable pay, and
   figure without being named (CONTEXT.md).
 
 Then `year_by_year.grants`, one per equity line, each by `name` and each year's
-`share.display`, `as_valued.display` and `as_claimed.display`. A grant with
-`unvaluable: true` is ₹0 in every `as_valued` and keeps every `as_claimed`: say
-both columns, and give the reason from the grant's own `assumption`.
+`as_valued.display` and `as_claimed.display`. A grant with `unvaluable: true` is
+₹0 in every `as_valued` and keeps every `as_claimed`: say both columns, and give
+the reason from the grant's own `assumption`.
+
+`spread` says how the grant reached its years, and it decides what you say:
+
+- `vesting-schedule` — each year carries a `share.display`; say the schedule.
+- `recurring` — the letter has no schedule for this line and offers it again
+  every year, so the same claimed figure repeats down the column and no `share`
+  exists to say. A share purchase plan is the case.
+- `lands-in-year-one` — no schedule and not recurring, so the whole of it sits
+  in year one.
+
+Never say a share the block does not carry: a grant with no schedule has none,
+and supplying one is the invented schedule ADR 0005 forbids.
 
 `cliff_months`, where a grant carries it, is the months before which nothing
 vests at all. Say that: an employee leaving inside those months takes none of
 the first vest, whatever the row for year one says. Then say the thing the rows
 already show — the cliff moved no value between the years, and the schedule is
 the one the letter states. The core carries the months; the sentence is yours.
-
-A grant with an empty `years` list has no schedule to spread — a share purchase
-plan is the case — so say it is named here and vests nothing, rather than
-letting it drop out of the table in silence.
 
 Then `basic`, when the output carries it: `share_of_fixed_pay.display` beside
 `totals.fixed_pay.display` and `basic.annual.display`. Name the lines on both

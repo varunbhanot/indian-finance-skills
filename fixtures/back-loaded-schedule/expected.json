@@ -453,6 +453,7 @@
       {
         "name": "RSU grant",
         "unvaluable": false,
+        "spread": "vesting-schedule",
         "years": [
           {
             "year": 1,

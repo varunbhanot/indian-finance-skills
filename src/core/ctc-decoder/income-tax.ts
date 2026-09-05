@@ -8,9 +8,11 @@
  * walked, tax payable after the cess — and nowhere else, which is why the
  * figures either side of them keep their paise.
  *
- * Its own module because it is its own subject: the old regime and surcharge
- * are separate tickets that extend this computation, not the take-home
- * assembly around it.
+ * Its own module because it is its own subject: surcharge is a separate
+ * ticket that extends this computation, not the take-home assembly around it.
+ * The old and new regimes share every step here — only the rules group each
+ * reads from differs (`new_regime` or `old_regime`) — so one function serves
+ * both, and a caller names which regime it wants.
  */
 import {
   applyRate,
@@ -49,9 +51,11 @@ export interface Rounded {
   citation: Citation;
 }
 
+export type Regime = "new" | "old";
+
 export interface IncomeTax {
   period: "annual";
-  regime: "new";
+  regime: Regime;
   salary: Money;
   standard_deduction: { amount: Money; citation: Citation };
   total_income: Rounded;
@@ -66,10 +70,11 @@ export function incomeTaxFor(
   salaryPaise: number,
   incomeTax: RulesNode,
   rounding: RulesNode,
+  regime: Regime,
 ): IncomeTax {
-  const newRegime = incomeTax.child("new_regime");
+  const regimeNode = incomeTax.child(`${regime}_regime`);
 
-  const standardDeductionNode = newRegime.child("standard_deduction");
+  const standardDeductionNode = regimeNode.child("standard_deduction");
   // Never more than the salary it is deducted from, as the rules file's own
   // note records: a negative total income is not a smaller tax bill.
   const standardDeduction = atMost(
@@ -79,11 +84,11 @@ export function incomeTaxFor(
 
   const totalIncome = roundStatutorily(salaryPaise - standardDeduction, rounding.child("total_income"));
 
-  const slabsNode = newRegime.child("slabs");
+  const slabsNode = regimeNode.child("slabs");
   const charges = chargesFor(totalIncome.after.paise, slabsNode);
   const taxBeforeRebate = charges.reduce((running, charge) => running + charge.tax.paise, 0);
 
-  const rebateNode = newRegime.child("rebate");
+  const rebateNode = regimeNode.child("rebate");
   const rebateThreshold = rupeesToPaise(rebateNode.integer("total_income_threshold"));
   const rebateMaximum = rupeesToPaise(rebateNode.integer("maximum"));
   const rebateApplies = totalIncome.after.paise <= rebateThreshold;
@@ -96,7 +101,7 @@ export function incomeTaxFor(
 
   return {
     period: "annual",
-    regime: "new",
+    regime,
     salary: money(salaryPaise),
     standard_deduction: {
       amount: money(standardDeduction),

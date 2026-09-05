@@ -20,6 +20,8 @@ import {
 import type { Certainty, Classification, Form, Instrument } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
 import { validateOfferInput, type OfferComponentInput } from "./input.ts";
+import { RulesReader } from "./rules-reader.ts";
+import { takeHomeFor, type TakeHome } from "./take-home.ts";
 import { countsTowardGuaranteedRecurringCash, totalsFor, type OfferTotals } from "./totals.ts";
 
 /**
@@ -50,6 +52,8 @@ export interface DecodedOffer {
   rules_file: string;
   components: DecodedComponent[];
   totals: OfferTotals;
+  /** Present only when the caller typed `pf_wage_base`; see `input.ts`. */
+  take_home?: TakeHome;
 }
 
 export function decode(raw: unknown): DecodedOffer {
@@ -61,6 +65,17 @@ export function decode(raw: unknown): DecodedOffer {
     decodeComponent(component, `components[${index}]`, rules, catalogue),
   );
 
+  // One shape travels from the classification to every reading of the offer:
+  // what it is worth, what it is, and which catalogue entry said so.
+  const totallable = decoded.map((one) => ({
+    name: one.component.name,
+    annual_paise: one.component.annual.paise,
+    classification: one.classification,
+    ...(one.component.classified_by.kind === "catalogue"
+      ? { catalogue_entry: one.component.classified_by.entry }
+      : {}),
+  }));
+
   return {
     financial_year: input.financial_year,
     rules_file: rules.path,
@@ -68,13 +83,10 @@ export function decode(raw: unknown): DecodedOffer {
     // The classification travels whole from the reader to the totals; it is
     // never taken apart and put back together, which is how a field added to it
     // reaches the totals without anyone remembering to copy it across.
-    totals: totalsFor(
-      decoded.map((one) => ({
-        name: one.component.name,
-        annual_paise: one.component.annual.paise,
-        classification: one.classification,
-      })),
-    ),
+    totals: totalsFor(totallable),
+    ...(input.take_home === undefined
+      ? {}
+      : { take_home: takeHomeFor(totallable, input.take_home, new RulesReader(rules)) }),
   };
 }
 

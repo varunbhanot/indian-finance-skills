@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "invalid_input",
+    "message": "professional_tax: professional_tax is only used in the take-home figures, which need pf_wage_base as well",
+    "path": "professional_tax"
+  }
+}

@@ -47,6 +47,21 @@ export function countsTowardGuaranteedRecurringCash(classification: Classificati
 }
 
 /**
+ * The same reading with variable pay at its quoted target: still cash, still
+ * annual, but no longer only what is certain. The two predicates differ in one
+ * axis, which is the whole difference between the two bases take-home is
+ * reported on.
+ */
+export function countsTowardRecurringCashAtTarget(classification: Classification): boolean {
+  return (
+    (classification.certainty === "guaranteed" ||
+      classification.certainty === "conditional-on-performance") &&
+    classification.form === "cash-now" &&
+    classification.recurring
+  );
+}
+
+/**
  * Retirals are derived as "counted in CTC, but not cash now" — the deferred and
  * locked-savings forms. That is broader than the three employer contributions
  * CONTEXT.md names: a user-defined deferred component joins them. Broader is

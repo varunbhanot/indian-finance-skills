@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "invalid_input",
+    "message": "pf_wage_base: pf_wage_base must be one of full_basic, statutory_ceiling, got \"ceiling\"",
+    "path": "pf_wage_base"
+  }
+}

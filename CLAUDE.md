@@ -41,8 +41,10 @@ emits display strings; never reformat a number yourself.
 ## Money
 
 Integer paise, rates as integer basis points after load. No floating-point
-arithmetic in the core, percentages included. Rounding only at §288A and §288B
-(ADR 0002). `npm run lint` walks the AST of `src/core` and fails on any float
+arithmetic in the core, percentages included. Rounding only at the two statutory
+points, and the unit for each is read from the rules file, never assumed — for
+FY 2026-27 both are §516 of the Income-tax Act, 2025 and both are ₹10
+(ADR 0002, CONTEXT.md). `npm run lint` walks the AST of `src/core` and fails on any float
 literal, `/`, `**`, `Math`, `parseFloat`, `Number(...)` or unary `+`;
 `parseInt(digits, 10)` is the sanctioned parse, and the lint has **no
 carve-out**: nothing in `src/core` is exempt. Division goes through

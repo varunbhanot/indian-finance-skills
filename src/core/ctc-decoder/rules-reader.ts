@@ -25,6 +25,13 @@ export interface Citation {
   retrieved: string;
   /** The dotted key in the rules file, e.g. `groups.income_tax.cess`. */
   rules_key: string;
+  /**
+   * What the rules file wants said alongside the figure: a caveat on how well
+   * it is sourced, a limit on when it applies, a provision that qualifies it.
+   * Present only when the rules file wrote one, and carried through to the
+   * output verbatim so a shaky figure cannot be quoted as a firm one.
+   */
+  note?: string;
 }
 
 const RULES_KEY_ROOT = "groups";
@@ -102,11 +109,14 @@ export class RulesNode {
   }
 
   text(name: string): string {
-    const node = this.child(name);
-    if (typeof node.value !== "string" || node.value.trim() === "") {
-      throw invalid(this.file, node.key, "expected a non-empty string");
+    return this.child(name).asText();
+  }
+
+  asText(): string {
+    if (typeof this.value !== "string" || this.value.trim() === "") {
+      throw invalid(this.file, this.key, "expected a non-empty string");
     }
-    return node.value;
+    return this.value;
   }
 
   /** The items of a sequence, each as a node carrying its own indexed key. */
@@ -120,12 +130,7 @@ export class RulesNode {
 
   /** Every item read as a non-empty string, for a list of names. */
   strings(name: string): string[] {
-    return this.items(name).map((item) => {
-      if (typeof item.value !== "string" || item.value.trim() === "") {
-        throw invalid(this.file, item.key, "expected a non-empty string");
-      }
-      return item.value;
-    });
+    return this.items(name).map((item) => item.asText());
   }
 
   /** This node's own provenance: the in-force provision, its URL, and when it was read. */
@@ -134,11 +139,13 @@ export class RulesNode {
     if (!source.startsWith("https://")) {
       throw invalid(this.file, `${this.key}.source`, "source must be an https URL");
     }
+    const note = this.optionalChild("note");
     return {
       section: this.text("section"),
       source,
       retrieved: this.text("retrieved"),
       rules_key: this.key,
+      ...(note === undefined ? {} : { note: note.asText() }),
     };
   }
 

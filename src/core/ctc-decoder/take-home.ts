@@ -60,7 +60,9 @@ export interface EmployeePf extends PeriodicMoney {
   /** The components the wage was summed from, by the name the user typed. */
   wage_components: string[];
   rate_basis_points: number;
-  rate_rules_key: string;
+  rate_citation: Citation;
+  /** Which catalogue entries the rules file counts as the wage, and why. */
+  wage_citation: Citation;
   /** Present only when the ceiling was chosen, whether or not it bit. */
   ceiling?: { monthly: Money; applied: boolean; citation: Citation };
 }
@@ -114,7 +116,7 @@ export interface TakeHomeOnBasis {
   take_home: PeriodicMoney;
 }
 
-export interface Exclusion {
+export interface Statement {
   name: string;
   why: string;
 }
@@ -122,7 +124,10 @@ export interface Exclusion {
 export interface TakeHome {
   regime: "new";
   bases: TakeHomeOnBasis[];
-  excludes: Exclusion[];
+  /** What had to be true for these figures to be the right ones. */
+  assumes: Statement[];
+  /** What these figures do not attempt, so a confident number cannot imply completeness. */
+  excludes: Statement[];
 }
 
 export function takeHomeFor(
@@ -170,7 +175,7 @@ export function takeHomeFor(
     };
   });
 
-  return { regime: "new", bases, excludes: excludesFor(request) };
+  return { regime: "new", bases, assumes: ASSUMPTIONS, excludes: excludesFor(request) };
 }
 
 /**
@@ -185,7 +190,8 @@ function employeePfFor(
   basis: PfWageBase,
   epf: RulesNode,
 ): EmployeePf {
-  const wageEntries = new Set(epf.strings("wage_components"));
+  const wageNode = epf.child("wage_components");
+  const wageEntries = new Set(wageNode.strings("entries"));
   const included = components.filter(
     (component) =>
       component.catalogue_entry !== undefined && wageEntries.has(component.catalogue_entry),
@@ -197,14 +203,16 @@ function employeePfFor(
   const ceilingAnnual = annualise(ceilingMonthly, "monthly");
   const capped = basis === "statutory_ceiling" && fullWage > ceilingAnnual;
   const wage = capped ? ceilingAnnual : fullWage;
-  const rate = epf.rate("employee_rate");
+  const rateNode = epf.child("employee_rate");
+  const rate = rateNode.rate("rate");
 
   return {
     basis,
     wage: periodic(wage),
     wage_components: included.map((component) => component.name),
     rate_basis_points: rate,
-    rate_rules_key: `${epf.key}.employee_rate`,
+    rate_citation: rateNode.citation(),
+    wage_citation: wageNode.citation(),
     ...(basis === "statutory_ceiling"
       ? {
           ceiling: {
@@ -315,7 +323,7 @@ function chargesFor(totalIncome: number, slabs: RulesNode): SlabCharge[] {
  * appears only when the user did not type one, since a typed figure is in the
  * breakdown instead.
  */
-function excludesFor(request: TakeHomeRequest): Exclusion[] {
+function excludesFor(request: TakeHomeRequest): Statement[] {
   return [
     {
       name: "HRA exemption",
@@ -342,8 +350,12 @@ function excludesFor(request: TakeHomeRequest): Exclusion[] {
       why: "Arises on vest or exercise at slab rate, on a value this decoder refuses to guess (ADR 0005).",
     },
     {
-      name: "Surcharge and marginal relief",
-      why: "Not yet computed by this decoder; the tax shown is therefore too low above the first surcharge threshold.",
+      name: "Surcharge",
+      why: "Not yet computed by this decoder, so the tax shown is too low above the first surcharge threshold. The cess is charged on tax plus surcharge, so it is understated there too.",
+    },
+    {
+      name: "Marginal relief on the rebate",
+      why: "The rules file gives the rebate a marginal relief the decoder does not yet compute, so the tax shown is too high just above the rebate threshold.",
     },
     {
       name: "One-time components",
@@ -355,6 +367,27 @@ function excludesFor(request: TakeHomeRequest): Exclusion[] {
     },
   ];
 }
+
+/**
+ * The conditions under which these figures are the right ones. They are not
+ * caveats about precision: each is a fact about the taxpayer that the offer
+ * letter does not state and the decoder does not ask for, and each would change
+ * the numbers if it were untrue.
+ */
+const ASSUMPTIONS: Statement[] = [
+  {
+    name: "The new regime applies",
+    why: "It is the default, but the taxpayer may opt out of it and be taxed under the old regime instead.",
+  },
+  {
+    name: "A resident individual",
+    why: "The rules file's rebate is available to a resident individual only, and the slabs are the ones for an individual.",
+  },
+  {
+    name: "A full year on this package, in a year with no one-time component",
+    why: "Steady state: a year joined part-way through, or the first year with its joining bonus, is a different year.",
+  },
+];
 
 function sum(components: readonly TakeHomeComponent[]): number {
   return components.reduce((running, component) => running + component.annual_paise, 0);

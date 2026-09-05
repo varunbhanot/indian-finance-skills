@@ -83,6 +83,14 @@ is where they are recorded against the tests (issue #40).
 - **Employees' state insurance.** Not in the rules file at all, so a low-wage
   letter where ESI bites is missing a deduction. `take-home-below-the-first-slab`
   is such a letter, and asserts the figures the decoder does compute.
+- **A one-time payment scheduled into a later year.** A retention bonus paid in
+  tranches — part at twelve months, part at twenty-four — cannot be modelled:
+  every one-time component lands in year one (`year-by-year.ts`, spread
+  `lands-in-year-one`) and there is no input field for the year a payment
+  arrives in. Typed as two lines, both tranches would be counted in year one.
+  `two-clawbacks-one-letter` covers what *is* supported — two clawback-bound
+  lines on different periods, each raising its own flag — and its README records
+  what closing this would take.
 - **Retaining allowance**, which section 6 counts into the provident fund wage
   base beside basic and dearness allowance. No catalogue entry yet; the `note`
   on `groups.epf.wage_components` says so, and a ticket adding the entry must

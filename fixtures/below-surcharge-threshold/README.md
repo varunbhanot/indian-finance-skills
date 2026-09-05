@@ -45,3 +45,13 @@ came to nothing.
 
 **What is not cross-checked:** employee provident fund, as in every other
 take-home fixture — see `pf-statutory-ceiling`'s README and `docs/research/…` §9.
+
+## Independent recomputation
+
+Every figure in `expected.json` — total income, the slab walk, the rebate, the
+surcharge, the marginal relief, the cess, both section 516 roundings, and the
+take-home assembly on both bases of both regimes — was recomputed from the
+statute in ordinary floating-point arithmetic, by a separate implementation
+written against the Finance Act text rather than against the core, and agreed
+throughout. That is the second independent source behind these figures; the
+Department's engine above is the first.

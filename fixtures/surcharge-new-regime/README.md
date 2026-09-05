@@ -1,7 +1,9 @@
 # surcharge-new-regime
 
 A package well inside the **first** surcharge band on both bases, so the
-breakdown gains a `surcharge` block naming the band it fell in, and the cess is
+breakdown gains a `surcharge` block naming the band it fell in — by the clause
+of the table the citation beside it names, as well as by the band's own bounds
+and rate, and the cess is
 charged on the income-tax **and** the surcharge rather than on the income-tax
 alone. Marginal relief is computed and does not bite: the ceiling sits far above
 what is payable, which is what `marginal_relief.applied: false` records.
@@ -61,3 +63,13 @@ itself evidence that no relief is due on these figures.
   apply the section 516 ₹10 rounding, so it is not a valid check on a salary
   whose tax is not already a multiple of ₹10 — see `rounding-boundary`. Every
   figure in this fixture lands on a whole ten rupees before that rounding.
+
+## Independent recomputation
+
+Every figure in `expected.json` — total income, the slab walk, the rebate, the
+surcharge, the marginal relief, the cess, both section 516 roundings, and the
+take-home assembly on both bases of both regimes — was recomputed from the
+statute in ordinary floating-point arithmetic, by a separate implementation
+written against the Finance Act text rather than against the core, and agreed
+throughout. That is the second independent source behind these figures; the
+Department's engine above is the first.

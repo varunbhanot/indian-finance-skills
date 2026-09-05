@@ -55,6 +55,8 @@ export interface Rebate {
 
 /** The surcharge band a total income fell in, as the rules file states it. */
 export interface SurchargeBand {
+  /** The clause of the table the citation names, so the band can be looked up. */
+  clause: string;
   above: Money;
   /** Absent on the final band, which has no upper bound. */
   upto?: Money;
@@ -143,9 +145,8 @@ export function incomeTaxFor(
 
   const surcharge = surchargeFor(
     charged,
-    totalIncome.after.paise,
     charging,
-    incomeTax.child("marginal_relief"),
+    incomeTax.child("marginal_relief").child(`${regime}_regime`),
   );
   const taxAndSurcharge = charged.taxAfterRebate + (surcharge?.amount.paise ?? 0);
 
@@ -195,7 +196,9 @@ interface ChargingRules {
  * total income — the threshold the real one has just crossed — so it is a
  * function of a total income and nothing else.
  */
-interface Charge {
+interface TaxBeforeCess {
+  /** The total income all of this was computed from. */
+  totalIncome: number;
   charges: SlabCharge[];
   taxBeforeRebate: number;
   rebateThreshold: number;
@@ -204,11 +207,11 @@ interface Charge {
   rebateAmount: number;
   taxAfterRebate: number;
   /** Absent below the first threshold: the rules file's bands start above it. */
-  band: BandMatch | undefined;
+  band: BandInPaise | undefined;
   surcharge: number;
 }
 
-function chargeOn(totalIncome: number, rules: ChargingRules): Charge {
+function chargeOn(totalIncome: number, rules: ChargingRules): TaxBeforeCess {
   const charges = chargesFor(totalIncome, rules.slabs);
   const taxBeforeRebate = charges.reduce((running, charge) => running + charge.tax.paise, 0);
 
@@ -220,6 +223,7 @@ function chargeOn(totalIncome: number, rules: ChargingRules): Charge {
 
   const band = bandFor(totalIncome, rules.surcharge);
   return {
+    totalIncome,
     charges,
     taxBeforeRebate,
     rebateThreshold,
@@ -238,17 +242,17 @@ function chargeOn(totalIncome: number, rules: ChargingRules): Charge {
  * the first threshold, so a salary below it has no surcharge line rather than a
  * zero one.
  *
- * The ceiling is read from the total income at the band's own lower bound: the
- * rules file records that each regime's relief table measures from exactly the
- * `above` figures of that regime's surcharge bands, so the threshold is not a
- * second table to be encoded. Charging that threshold through the same three
+ * The ceiling is read from the total income at the band's own lower bound: a
+ * relief threshold *is* a surcharge threshold, so it is derived from the band
+ * rather than encoded a second time, which is the one place in this repository
+ * where a statutory threshold is not stated in `rules/` (ADR 0014). Charging
+ * that threshold through the same three
  * rules is what makes "income-tax and surcharge on the threshold amount" mean
  * the same thing here as in the statute — at a threshold the band before it
  * applies, which is why the surcharge there is usually, but not always, nil.
  */
 function surchargeFor(
-  charged: Charge,
-  totalIncome: number,
+  charged: TaxBeforeCess,
   rules: ChargingRules,
   marginalRelief: RulesNode,
 ): Surcharge | undefined {
@@ -257,13 +261,14 @@ function surchargeFor(
 
   const atThreshold = chargeOn(band.above, rules);
   const taxAndSurchargeAtThreshold = atThreshold.taxAfterRebate + atThreshold.surcharge;
-  const incomeAboveThreshold = totalIncome - band.above;
+  const incomeAboveThreshold = charged.totalIncome - band.above;
   const ceiling = taxAndSurchargeAtThreshold + incomeAboveThreshold;
   const payable = charged.taxAfterRebate + charged.surcharge;
   const relieved = payable > ceiling ? payable - ceiling : 0;
 
   return {
     band: {
+      clause: band.clause,
       above: money(band.above),
       ...(band.upto === undefined ? {} : { upto: money(band.upto) }),
       rate: rate(band.rateBasisPoints),
@@ -299,8 +304,7 @@ function chargesFor(totalIncome: number, slabs: RulesNode): SlabCharge[] {
   let from = 0;
   const charges: SlabCharge[] = [];
   for (const band of slabs.items("bands")) {
-    const uptoRupees = band.optionalChild("upto");
-    const upto = uptoRupees === undefined ? undefined : rupeesToPaise(uptoRupees.asInteger());
+    const upto = optionalRupees(band, "upto");
     const ceiling = upto === undefined ? totalIncome : atMost(upto, totalIncome);
     const inBand = ceiling > from ? ceiling - from : 0;
     const basisPoints = band.rateBasisPoints("rate");
@@ -317,8 +321,9 @@ function chargesFor(totalIncome: number, slabs: RulesNode): SlabCharge[] {
   return charges;
 }
 
-/** A surcharge band as read from the rules file, in paise. */
-interface BandMatch {
+/** A surcharge band as the core reads it: paise and basis points, not the output's `SurchargeBand`. */
+interface BandInPaise {
+  clause: string;
   above: number;
   upto?: number;
   rateBasisPoints: number;
@@ -331,20 +336,30 @@ interface BandMatch {
  * income sitting exactly on a threshold belongs to the band below it, and one
  * sitting exactly on the first threshold belongs to no band at all.
  */
-function bandFor(totalIncome: number, surcharge: RulesNode): BandMatch | undefined {
+function bandFor(totalIncome: number, surcharge: RulesNode): BandInPaise | undefined {
   for (const band of surcharge.items("bands")) {
     const above = rupeesToPaise(band.integer("above"));
     if (totalIncome <= above) continue;
-    const uptoNode = band.optionalChild("upto");
-    const upto = uptoNode === undefined ? undefined : rupeesToPaise(uptoNode.asInteger());
+    const upto = optionalRupees(band, "upto");
     if (upto !== undefined && totalIncome > upto) continue;
     return {
+      clause: band.text("clause"),
       above,
       ...(upto === undefined ? {} : { upto }),
       rateBasisPoints: band.rateBasisPoints("rate"),
     };
   }
   return undefined;
+}
+
+/**
+ * A whole-rupee bound in paise, or nothing where the band does not carry one.
+ * Both band tables end in an unbounded band, and both say so the same way: by
+ * leaving `upto` out.
+ */
+function optionalRupees(node: RulesNode, name: string): number | undefined {
+  const child = node.optionalChild(name);
+  return child === undefined ? undefined : rupeesToPaise(child.asInteger());
 }
 
 function atMost(value: number, limit: number): number {

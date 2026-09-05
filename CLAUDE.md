@@ -19,6 +19,10 @@ Every rate, slab, limit, threshold and formula lives in `rules/`. If you find
 yourself recalling a tax rate from memory, stop: look it up in the rules file, or
 say the rules file doesn't have it yet.
 
+Exactly one threshold is derived instead of stated: marginal relief measures from
+the surcharge band it relieves, because a relief threshold *is* a surcharge
+threshold (ADR 0014). Nothing else may follow that pattern without its own ADR.
+
 Skills call the core through its CLI entrypoint and narrate the JSON it returns.
 Every rupee figure in a skill's response must appear in that tool's input or
 output — this is enforced by an eval, not by good intentions (ADR 0003). The tool

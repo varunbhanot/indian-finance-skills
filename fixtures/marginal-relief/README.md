@@ -68,6 +68,11 @@ Without the relief, ₹50,000 more salary costs ₹1,29,480 more tax and take-ho
 allows, plus 4% cess on it — so take-home falls by ₹2,000 rather than ₹79,480.
 The old regime is the same shape: ₹3,000 rather than ₹87,240.
 
+`test/marginal-relief.test.ts` checks the invariant this table is about, so it
+does not rest on the prose here: across a sweep either side of every surcharge
+threshold in both regimes, income-tax plus surcharge never rises by more than the
+income does, and the whole of the extra cost above that is the cess on it.
+
 That ₹2,000 is not a rounding artefact and not an error in this computation. The
 ceiling in s.3(5) and in Paragraph F Table 2 is on "income-tax and surcharge"
 only; the Health and Education Cess is imposed separately by s.3(15) on that sum,
@@ -101,5 +106,22 @@ call shape.
 
 Exact to the rupee on all four, relief and no-relief alike.
 
+The two threshold figures the boundary tables above turn on are the engine's own
+as well, not this repo's arithmetic: at total income ₹50,00,000 it returns tax at
+the slabs ₹10,80,000, surcharge ₹0, cess ₹43,200, **total ₹11,23,200** under the
+new regime, and ₹13,12,500 / ₹0 / ₹52,500, **total ₹13,65,000** under the old.
+The "without relief" column is the engine's *basic* calculator on the same
+salaries.
+
 **What is not cross-checked:** employee provident fund, as in every other
 take-home fixture — see `pf-statutory-ceiling`'s README and `docs/research/…` §9.
+
+## Independent recomputation
+
+Every figure in `expected.json` — total income, the slab walk, the rebate, the
+surcharge, the marginal relief, the cess, both section 516 roundings, and the
+take-home assembly on both bases of both regimes — was recomputed from the
+statute in ordinary floating-point arithmetic, by a separate implementation
+written against the Finance Act text rather than against the core, and agreed
+throughout. That is the second independent source behind these figures; the
+Department's engine above is the first.

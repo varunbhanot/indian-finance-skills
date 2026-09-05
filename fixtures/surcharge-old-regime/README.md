@@ -49,3 +49,13 @@ The rules file follows the Paragraph and carries 37%; the `note` on
 `groups.income_tax.old_regime.surcharge` records the divergence, and
 `docs/research/…` §11.4 quotes the engine's code. No fixture in this repository
 reaches that band, so nothing here is asserted on the strength of either reading.
+
+## Independent recomputation
+
+Every figure in `expected.json` — total income, the slab walk, the rebate, the
+surcharge, the marginal relief, the cess, both section 516 roundings, and the
+take-home assembly on both bases of both regimes — was recomputed from the
+statute in ordinary floating-point arithmetic, by a separate implementation
+written against the Finance Act text rather than against the core, and agreed
+throughout. That is the second independent source behind these figures; the
+Department's engine above is the first.

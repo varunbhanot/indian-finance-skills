@@ -1011,7 +1011,8 @@ Its Table 2, **Sl. No. 1** ("Table 1: Sl. No. 1.B" — the individuals of §11.2
    50/100/200 lakh against bands above 50/100/200 lakh; old regime
    50/100/200/500 lakh against bands above 50/100/200/500 lakh. No threshold in
    either relief table is absent from that regime's surcharge table, and none is
-   extra.
+   extra. (What this repository does with that finding, and what it costs, is
+   ADR 0014.)
 
 **What the ceiling covers, and what it does not.** "the total amount payable as
 income-tax **and surcharge** thereon". The Health and Education Cess is imposed by

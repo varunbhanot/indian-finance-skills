@@ -522,6 +522,7 @@
                 },
                 "surcharge": {
                   "band": {
+                    "clause": "(i)",
                     "above": {
                       "paise": 500000000,
                       "display": "₹50,00,000"
@@ -562,11 +563,11 @@
                       "display": "₹0"
                     },
                     "citation": {
-                      "section": "Finance Act, 2026 (No. 4 of 2026), section 3(5) (income chargeable under section 202 of the Income-tax Act, 2025) and First Schedule, Part I-B, Paragraph F, Table 2, Sl. No. 1 (income charged at the Part I-B Paragraph A rates)",
+                      "section": "Finance Act, 2026 (No. 4 of 2026), section 3(5), and its Table Sl. No. 6 (\"Persons specified against Sl. Nos. 10 and 11 in column C\")",
                       "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
                       "retrieved": "2026-09-05",
-                      "rules_key": "groups.income_tax.marginal_relief",
-                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed\" Tn = Rn + Sn, where Rn is \"the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C\" -- the threshold the income has just crossed -- and Sn is \"the total income - amount as specified in column C\". So the ceiling is the tax and surcharge at the threshold plus every rupee earned above it, and the relief is whatever the surcharge has to give up to reach that ceiling. Note what the ceiling covers: income-tax and surcharge, and not the cess charged on them, which the Finance Act imposes separately at section 3(15). A rupee of salary above the threshold therefore still costs the cess on its own rupee of tax."
+                      "rules_key": "groups.income_tax.marginal_relief.new_regime",
+                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed the amount determined as per the following formula: Tn = Rn + Sn\", where \"Rn = the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C\" -- the threshold the income has just crossed -- and \"Sn = the total income - amount as specified in column C\". So the ceiling is the tax and surcharge at the threshold plus every rupee earned above it, and the relief is whatever the surcharge has to give up to reach that ceiling. Note what the ceiling covers: income-tax and surcharge, and not the cess charged on them, which the Finance Act imposes separately at section 3(15). A rupee of salary above the threshold therefore still costs the cess on its own rupee of tax."
                     }
                   },
                   "amount": {
@@ -933,6 +934,7 @@
                 },
                 "surcharge": {
                   "band": {
+                    "clause": "(i)",
                     "above": {
                       "paise": 500000000,
                       "display": "₹50,00,000"
@@ -973,11 +975,11 @@
                       "display": "₹0"
                     },
                     "citation": {
-                      "section": "Finance Act, 2026 (No. 4 of 2026), section 3(5) (income chargeable under section 202 of the Income-tax Act, 2025) and First Schedule, Part I-B, Paragraph F, Table 2, Sl. No. 1 (income charged at the Part I-B Paragraph A rates)",
+                      "section": "Finance Act, 2026 (No. 4 of 2026), section 3(5), and its Table Sl. No. 6 (\"Persons specified against Sl. Nos. 10 and 11 in column C\")",
                       "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
                       "retrieved": "2026-09-05",
-                      "rules_key": "groups.income_tax.marginal_relief",
-                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed\" Tn = Rn + Sn, where Rn is \"the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C\" -- the threshold the income has just crossed -- and Sn is \"the total income - amount as specified in column C\". So the ceiling is the tax and surcharge at the threshold plus every rupee earned above it, and the relief is whatever the surcharge has to give up to reach that ceiling. Note what the ceiling covers: income-tax and surcharge, and not the cess charged on them, which the Finance Act imposes separately at section 3(15). A rupee of salary above the threshold therefore still costs the cess on its own rupee of tax."
+                      "rules_key": "groups.income_tax.marginal_relief.new_regime",
+                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed the amount determined as per the following formula: Tn = Rn + Sn\", where \"Rn = the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C\" -- the threshold the income has just crossed -- and \"Sn = the total income - amount as specified in column C\". So the ceiling is the tax and surcharge at the threshold plus every rupee earned above it, and the relief is whatever the surcharge has to give up to reach that ceiling. Note what the ceiling covers: income-tax and surcharge, and not the cess charged on them, which the Finance Act imposes separately at section 3(15). A rupee of salary above the threshold therefore still costs the cess on its own rupee of tax."
                     }
                   },
                   "amount": {
@@ -1294,6 +1296,7 @@
                 },
                 "surcharge": {
                   "band": {
+                    "clause": "(i)",
                     "above": {
                       "paise": 500000000,
                       "display": "₹50,00,000"
@@ -1334,11 +1337,11 @@
                       "display": "₹0"
                     },
                     "citation": {
-                      "section": "Finance Act, 2026 (No. 4 of 2026), section 3(5) (income chargeable under section 202 of the Income-tax Act, 2025) and First Schedule, Part I-B, Paragraph F, Table 2, Sl. No. 1 (income charged at the Part I-B Paragraph A rates)",
+                      "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph F, the passage following Table 1, and Table 2, Sl. No. 1 (\"Table 1: Sl. No. 1.B\")",
                       "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
                       "retrieved": "2026-09-05",
-                      "rules_key": "groups.income_tax.marginal_relief",
-                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed\" Tn = Rn + Sn, where Rn is \"the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C\" -- the threshold the income has just crossed -- and Sn is \"the total income - amount as specified in column C\". So the ceiling is the tax and surcharge at the threshold plus every rupee earned above it, and the relief is whatever the surcharge has to give up to reach that ceiling. Note what the ceiling covers: income-tax and surcharge, and not the cess charged on them, which the Finance Act imposes separately at section 3(15). A rupee of salary above the threshold therefore still costs the cess on its own rupee of tax."
+                      "rules_key": "groups.income_tax.marginal_relief.old_regime",
+                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed the amount determined as per the following formula: Wn = Un + Vn\", where \"Un = the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C of the Table 2 below\" -- the threshold the income has just crossed -- and \"Vn = the total income - amount as specified in column C\". The same rule as the new regime's at section 3(5), under different letters, and the same limit on it: the ceiling covers income-tax and surcharge, not the cess charged on them at section 3(15), so a rupee of salary above the threshold still costs the cess on its own rupee of tax."
                     }
                   },
                   "amount": {
@@ -1639,6 +1642,7 @@
                 },
                 "surcharge": {
                   "band": {
+                    "clause": "(i)",
                     "above": {
                       "paise": 500000000,
                       "display": "₹50,00,000"
@@ -1679,11 +1683,11 @@
                       "display": "₹0"
                     },
                     "citation": {
-                      "section": "Finance Act, 2026 (No. 4 of 2026), section 3(5) (income chargeable under section 202 of the Income-tax Act, 2025) and First Schedule, Part I-B, Paragraph F, Table 2, Sl. No. 1 (income charged at the Part I-B Paragraph A rates)",
+                      "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph F, the passage following Table 1, and Table 2, Sl. No. 1 (\"Table 1: Sl. No. 1.B\")",
                       "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
                       "retrieved": "2026-09-05",
-                      "rules_key": "groups.income_tax.marginal_relief",
-                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed\" Tn = Rn + Sn, where Rn is \"the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C\" -- the threshold the income has just crossed -- and Sn is \"the total income - amount as specified in column C\". So the ceiling is the tax and surcharge at the threshold plus every rupee earned above it, and the relief is whatever the surcharge has to give up to reach that ceiling. Note what the ceiling covers: income-tax and surcharge, and not the cess charged on them, which the Finance Act imposes separately at section 3(15). A rupee of salary above the threshold therefore still costs the cess on its own rupee of tax."
+                      "rules_key": "groups.income_tax.marginal_relief.old_regime",
+                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed the amount determined as per the following formula: Wn = Un + Vn\", where \"Un = the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C of the Table 2 below\" -- the threshold the income has just crossed -- and \"Vn = the total income - amount as specified in column C\". The same rule as the new regime's at section 3(5), under different letters, and the same limit on it: the ceiling covers income-tax and surcharge, not the cess charged on them at section 3(15), so a rupee of salary above the threshold still costs the cess on its own rupee of tax."
                     }
                   },
                   "amount": {

@@ -231,14 +231,17 @@ groups:
           right only for a total income with no dividend income and no such
           capital gains in it.
         bands:
-          - above: 5000000
+          - clause: (i)
+            above: 5000000
             upto: 10000000
             rate: 0.10
-          - above: 10000000
+          - clause: (ii)
+            above: 10000000
             upto: 20000000
             rate: 0.15
-          # Clause (iii), "exceeds 20000000": the final band has no upper bound.
-          - above: 20000000
+          # "exceeds 20000000": the final band has no upper bound.
+          - clause: (iii)
+            above: 20000000
             rate: 0.25
     # Old regime, for tax year 2026-27 (spec #11). Unlike the new regime, this
     # rate table does NOT live in the Income-tax Act, 2025 itself -- it lives in
@@ -331,17 +334,21 @@ groups:
           under the old regime; that is the engine departing from Paragraph F,
           and this file follows the Paragraph.
         bands:
-          - above: 5000000
+          - clause: (i)
+            above: 5000000
             upto: 10000000
             rate: 0.10
-          - above: 10000000
+          - clause: (ii)
+            above: 10000000
             upto: 20000000
             rate: 0.15
-          - above: 20000000
+          - clause: (iii)
+            above: 20000000
             upto: 50000000
             rate: 0.25
-          # Clause (iv), "exceeds 50000000": the final band has no upper bound.
-          - above: 50000000
+          # "exceeds 50000000": the final band has no upper bound.
+          - clause: (iv)
+            above: 50000000
             rate: 0.37
     # Marginal relief on the surcharge, for a total income that has just crossed
     # a surcharge band's threshold (spec #12). One rule, enacted twice because
@@ -354,21 +361,52 @@ groups:
     # C amounts are exactly the `above` figures of that regime's own surcharge
     # bands above, checked row by row for both regimes on the retrieval date.
     marginal_relief:
-      section: Finance Act, 2026 (No. 4 of 2026), section 3(5) (income chargeable under section 202 of the Income-tax Act, 2025) and First Schedule, Part I-B, Paragraph F, Table 2, Sl. No. 1 (income charged at the Part I-B Paragraph A rates)
-      source: https://egazette.gov.in/WriteReadData/2026/271439.pdf
-      retrieved: 2026-09-05
-      note: >-
-        "the total amount payable as income-tax and surcharge thereon shall not
-        exceed" Tn = Rn + Sn, where Rn is "the total amount payable as income-tax
-        and surcharge, if applicable, on an amount as specified in column C" --
-        the threshold the income has just crossed -- and Sn is "the total income
-        - amount as specified in column C". So the ceiling is the tax and
-        surcharge at the threshold plus every rupee earned above it, and the
-        relief is whatever the surcharge has to give up to reach that ceiling.
-        Note what the ceiling covers: income-tax and surcharge, and not the cess
-        charged on them, which the Finance Act imposes separately at section
-        3(15). A rupee of salary above the threshold therefore still costs the
-        cess on its own rupee of tax.
+      # One rule enacted twice, because the two regimes are charged down two
+      # different paths -- so each regime cites its own provision rather than
+      # both carrying a citation naming the other's. The two are word for word
+      # the same formula under different variable letters, Tn = Rn + Sn against
+      # Wn = Un + Vn.
+      #
+      # Neither relief table's column C amounts are repeated here: they are
+      # exactly the `above` figures of that regime's own surcharge bands, and
+      # the core reads them from there. Checked row for row on the retrieval
+      # date -- new regime 50/100/200 lakh against bands above 50/100/200 lakh,
+      # old regime 50/100/200/500 lakh against bands above 50/100/200/500 lakh,
+      # with nothing missing from either side and nothing extra. A year in which
+      # they diverge is a year that needs its own thresholds encoded here, and a
+      # change to the core to read them (ADR 0014).
+      new_regime:
+        section: Finance Act, 2026 (No. 4 of 2026), section 3(5), and its Table Sl. No. 6 ("Persons specified against Sl. Nos. 10 and 11 in column C")
+        source: https://egazette.gov.in/WriteReadData/2026/271439.pdf
+        retrieved: 2026-09-05
+        note: >-
+          "the total amount payable as income-tax and surcharge thereon shall not
+          exceed the amount determined as per the following formula: Tn = Rn +
+          Sn", where "Rn = the total amount payable as income-tax and surcharge,
+          if applicable, on an amount as specified in column C" -- the threshold
+          the income has just crossed -- and "Sn = the total income - amount as
+          specified in column C". So the ceiling is the tax and surcharge at the
+          threshold plus every rupee earned above it, and the relief is whatever
+          the surcharge has to give up to reach that ceiling. Note what the
+          ceiling covers: income-tax and surcharge, and not the cess charged on
+          them, which the Finance Act imposes separately at section 3(15). A
+          rupee of salary above the threshold therefore still costs the cess on
+          its own rupee of tax.
+      old_regime:
+        section: 'Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph F, the passage following Table 1, and Table 2, Sl. No. 1 ("Table 1: Sl. No. 1.B")'
+        source: https://egazette.gov.in/WriteReadData/2026/271439.pdf
+        retrieved: 2026-09-05
+        note: >-
+          "the total amount payable as income-tax and surcharge thereon shall not
+          exceed the amount determined as per the following formula: Wn = Un +
+          Vn", where "Un = the total amount payable as income-tax and surcharge,
+          if applicable, on an amount as specified in column C of the Table 2
+          below" -- the threshold the income has just crossed -- and "Vn = the
+          total income - amount as specified in column C". The same rule as the
+          new regime's at section 3(5), under different letters, and the same
+          limit on it: the ceiling covers income-tax and surcharge, not the cess
+          charged on them at section 3(15), so a rupee of salary above the
+          threshold still costs the cess on its own rupee of tax.
     cess:
       section: Finance Act, 2026 (No. 4 of 2026), section 3(15) ("Health and Education Cess on income-tax")
       source: https://egazette.gov.in/WriteReadData/2026/271439.pdf

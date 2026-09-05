@@ -1140,3 +1140,57 @@ directly. Two notes on getting to it:
 | 9 | Old regime surcharge | 10 / 15 / 25 / 37% above 50 / 100 / 200 / 500 lakh | Settled — FA 2026 First Sch. Pt. I-B Para F Tbl. 1 Sl. No. 1; re-source each year |
 | 10 | Marginal relief on surcharge | ceiling = tax and surcharge at the threshold + income above it | Settled — FA 2026 s.3(5) and Pt. I-B Para F Tbl. 2 |
 | 11 | Surcharge on dividends / capital gains | capped at 15% on that part of income | **Not encoded** — salary-only decoder; the `note` on both surcharge keys says so |
+
+## 12. Break-even deduction (spec #17)
+
+No new statutory research: `break-even.ts` reads only the two regimes'
+slabs, standard deduction and rebate that §7–§11 already sourced, applied at
+a reduced salary rather than as any new provision. This section records how
+`fixtures/break-even-mid-income` and `fixtures/break-even-rebate-boundary`
+were cross-checked against the Department's engine, alongside §8.5 and
+§11.5 rather than duplicating their method.
+
+### 12.1 Cross-check method
+
+Re-fetched `https://static.incometax.gov.in/iec/foservices/assets/js/tax-calc/itdcalc.js`
+on 2026-09-05: 198,608 bytes, MD5 `4315734cbad59b03dccd77bc921a8618` —
+byte-identical to every earlier copy in this document. Loaded with Node's
+`vm` module and driven at the same granularity as §8.5's "lower-level
+globals directly" method, rather than through `calcType: "basic"` or the
+advanced calculator's `GetTaxCal(js)`: `TaxIndOld`, `TaxIndNew`,
+`RebateCalculation` and `SurChargeCalculation` were called directly on a
+total income figure taken from this repository's own output, with the
+ambient globals the old-regime helper reads (`cStatus`, `rstatus`, `age`,
+`assYr`) set to `'IND'`, `'R'`, `'NM'`, `'2027-28'` before each call, and the
+cess formula from `doCalculation` (`parseInt((tax - rebate + surcharge) * 4 /
+100)`) applied by hand afterwards.
+
+Calling on a *total income* rather than a *gross salary and deduction* sidesteps
+a real gap between this repository and the engine: the engine has no
+equivalent of section 516's ₹10 rounding at all (§8.4), so feeding it a raw
+`gross − deduction` and rounding only at the end disagrees with this
+repository by a few rupees whenever that raw figure is not already a
+multiple of ten — which a break-even deduction found by binary search over
+whole rupees usually is not. Comparing at the *rounded* total income this
+repository already computed removes that mismatch from the slab, rebate and
+cess arithmetic itself, which is the thing actually worth checking; separately,
+rounding the engine's own raw total by hand and comparing it against this
+repository's pre-rounding `tax_payable.before` confirms the two agree before
+section 516 as well (`break-even-mid-income`'s README shows this: engine
+₹1,50,802 unrounded, this repository's own `tax_payable.before` the same
+₹1,50,802, and ₹1,50,800 either way once rounded).
+
+### 12.2 Runs
+
+| case | regime | total income ₹ | tax at slabs ₹ | rebate ₹ | cess ₹ | total (unrounded) ₹ | this repo agrees |
+|---|---|---|---|---|---|---|---|
+| mid-income | new | 17,25,000 | 1,45,000 | 0 | 5,800 | 1,50,800 | yes |
+| mid-income | old, at the break-even (₹6,41,656) | 11,08,340 | 1,45,002 | 0 | 5,800 | 1,50,802 | yes (pre-rounding figure; rounds to 1,50,800, matching new) |
+| rebate-boundary | new | 5,25,000 | 6,250 | 6,250 | 0 | 0 | yes |
+| rebate-boundary | old, at the break-even (₹49,996) | 5,00,000 | 12,500 | 12,500 | 0 | 0 | yes |
+
+Exact to the rupee in every case. `fixtures/break-even-old-never-wins` is not
+in this table: its new regime is invented for that fixture alone (ADR 0009,
+its own README explains why), so the Department's engine — which implements
+the real statute — is not a valid check on it; that fixture's own README
+records its cross-check as an exhaustive brute-force search instead.

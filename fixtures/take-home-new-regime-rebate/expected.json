@@ -2135,6 +2135,34 @@
           "Floor: excluding HRA exemption and Chapter VI-A deductions can only lower this further, never raise it"
         ]
       }
+    ],
+    "break_even": [
+      {
+        "basis": "variable-pay-at-zero",
+        "kind": "deduction",
+        "amount": {
+          "paise": 69999600,
+          "display": "₹6,99,996"
+        },
+        "assumes": [
+          "Below 60 years of age",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ]
+      },
+      {
+        "basis": "variable-pay-at-target",
+        "kind": "deduction",
+        "amount": {
+          "paise": 55622600,
+          "display": "₹5,56,226"
+        },
+        "assumes": [
+          "Below 60 years of age",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ]
+      }
     ]
   },
   "flags": [],

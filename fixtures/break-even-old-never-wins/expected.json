@@ -1,0 +1,1522 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "fixtures/break-even-old-never-wins/rules/fy2026-27.yaml",
+  "components": [
+    {
+      "name": "Basic",
+      "as_typed": {
+        "amount": {
+          "paise": 100000000,
+          "display": "₹10,00,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 100000000,
+        "display": "₹10,00,000"
+      },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "basic",
+        "rules_key": "groups.components.entries.basic",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "The whole of this fixture's offer, so its guaranteed recurring cash is exactly the salary the break-even is computed from."
+        }
+      }
+    }
+  ],
+  "totals": {
+    "headline_ctc": {
+      "paise": 100000000,
+      "display": "₹10,00,000",
+      "components": [
+        "Basic"
+      ]
+    },
+    "fixed_pay": {
+      "paise": 100000000,
+      "display": "₹10,00,000",
+      "components": [
+        "Basic"
+      ]
+    },
+    "variable_pay_at_target": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "guaranteed_recurring_cash": {
+      "paise": 100000000,
+      "display": "₹10,00,000",
+      "components": [
+        "Basic"
+      ]
+    },
+    "retirals": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "one_time_components": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "benefits_in_kind": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "equity_as_claimed": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "equity_as_valued": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "unvaluable_equity": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    }
+  },
+  "year_by_year": {
+    "years_covered": 4,
+    "bases": [
+      {
+        "basis": "variable-pay-at-zero",
+        "years": [
+          {
+            "year": 1,
+            "guaranteed_recurring_cash": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            }
+          },
+          {
+            "year": 2,
+            "guaranteed_recurring_cash": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            }
+          },
+          {
+            "year": 3,
+            "guaranteed_recurring_cash": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            }
+          },
+          {
+            "year": 4,
+            "guaranteed_recurring_cash": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            }
+          }
+        ],
+        "year_one": {
+          "paise": 100000000,
+          "display": "₹10,00,000"
+        },
+        "average": {
+          "over_years": 4,
+          "with_one_time": {
+            "paise": 100000000,
+            "display": "₹10,00,000"
+          },
+          "without_one_time": {
+            "paise": 100000000,
+            "display": "₹10,00,000"
+          },
+          "one_time_components": []
+        }
+      },
+      {
+        "basis": "variable-pay-at-target",
+        "years": [
+          {
+            "year": 1,
+            "guaranteed_recurring_cash": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            }
+          },
+          {
+            "year": 2,
+            "guaranteed_recurring_cash": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            }
+          },
+          {
+            "year": 3,
+            "guaranteed_recurring_cash": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            }
+          },
+          {
+            "year": 4,
+            "guaranteed_recurring_cash": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            }
+          }
+        ],
+        "year_one": {
+          "paise": 100000000,
+          "display": "₹10,00,000"
+        },
+        "average": {
+          "over_years": 4,
+          "with_one_time": {
+            "paise": 100000000,
+            "display": "₹10,00,000"
+          },
+          "without_one_time": {
+            "paise": 100000000,
+            "display": "₹10,00,000"
+          },
+          "one_time_components": []
+        }
+      }
+    ],
+    "grants": []
+  },
+  "take_home": {
+    "regimes": [
+      {
+        "regime": "new",
+        "bases": [
+          {
+            "basis": "variable-pay-at-zero",
+            "recurring_cash": {
+              "annual": {
+                "paise": 100000000,
+                "display": "₹10,00,000"
+              },
+              "monthly": {
+                "paise": 8333333,
+                "display": "₹83,333.33"
+              },
+              "components": [
+                "Basic"
+              ]
+            },
+            "deductions": {
+              "employee_pf": {
+                "basis": "full_basic",
+                "contribution": {
+                  "annual": {
+                    "paise": 12000000,
+                    "display": "₹1,20,000"
+                  },
+                  "monthly": {
+                    "paise": 1000000,
+                    "display": "₹10,000"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 100000000,
+                    "display": "₹10,00,000"
+                  },
+                  "monthly": {
+                    "paise": 8333333,
+                    "display": "₹83,333.33"
+                  }
+                },
+                "wage_components": [
+                  "Basic"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "Test-only employee rate",
+                  "document": {
+                    "title": "Test-only provident fund rates",
+                    "url": "https://example.test/break-even-old-never-wins"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate"
+                },
+                "wage_citation": {
+                  "section": "Test-only wage base",
+                  "document": {
+                    "title": "Test-only provident fund rates",
+                    "url": "https://example.test/break-even-old-never-wins"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components"
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "new",
+                "salary": {
+                  "paise": 100000000,
+                  "display": "₹10,00,000"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Test-only new-regime standard deduction",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.standard_deduction"
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 100000000,
+                    "display": "₹10,00,000"
+                  },
+                  "after": {
+                    "paise": 100000000,
+                    "display": "₹10,00,000"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Test-only total income rounding",
+                    "document": {
+                      "title": "Test-only statutory rounding",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income"
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 90000000,
+                        "display": "₹9,00,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 90000000,
+                        "display": "₹9,00,000"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 90000000,
+                        "display": "₹9,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 10000000,
+                        "display": "₹1,00,000"
+                      },
+                      "tax": {
+                        "paise": 500000,
+                        "display": "₹5,000"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 500000,
+                    "display": "₹5,000"
+                  },
+                  "citation": {
+                    "section": "Test-only new-regime slabs",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.slabs"
+                  }
+                },
+                "rebate": {
+                  "applied": false,
+                  "total_income_threshold": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "maximum": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Test-only new-regime rebate",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.rebate"
+                  }
+                },
+                "tax_after_rebate": {
+                  "paise": 500000,
+                  "display": "₹5,000"
+                },
+                "cess": {
+                  "rate": {
+                    "bp": 400,
+                    "display": "4%"
+                  },
+                  "amount": {
+                    "paise": 20000,
+                    "display": "₹200"
+                  },
+                  "citation": {
+                    "section": "Test-only cess",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess"
+                  }
+                },
+                "tax_payable": {
+                  "before": {
+                    "paise": 520000,
+                    "display": "₹5,200"
+                  },
+                  "after": {
+                    "paise": 520000,
+                    "display": "₹5,200"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Test-only tax payable rounding",
+                    "document": {
+                      "title": "Test-only statutory rounding",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable"
+                  }
+                }
+              },
+              "total": {
+                "annual": {
+                  "paise": 12520000,
+                  "display": "₹1,25,200"
+                },
+                "monthly": {
+                  "paise": 1043333,
+                  "display": "₹10,433.33"
+                }
+              }
+            },
+            "take_home": {
+              "annual": {
+                "paise": 87480000,
+                "display": "₹8,74,800"
+              },
+              "monthly": {
+                "paise": 7290000,
+                "display": "₹72,900"
+              }
+            }
+          },
+          {
+            "basis": "variable-pay-at-target",
+            "recurring_cash": {
+              "annual": {
+                "paise": 100000000,
+                "display": "₹10,00,000"
+              },
+              "monthly": {
+                "paise": 8333333,
+                "display": "₹83,333.33"
+              },
+              "components": [
+                "Basic"
+              ]
+            },
+            "deductions": {
+              "employee_pf": {
+                "basis": "full_basic",
+                "contribution": {
+                  "annual": {
+                    "paise": 12000000,
+                    "display": "₹1,20,000"
+                  },
+                  "monthly": {
+                    "paise": 1000000,
+                    "display": "₹10,000"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 100000000,
+                    "display": "₹10,00,000"
+                  },
+                  "monthly": {
+                    "paise": 8333333,
+                    "display": "₹83,333.33"
+                  }
+                },
+                "wage_components": [
+                  "Basic"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "Test-only employee rate",
+                  "document": {
+                    "title": "Test-only provident fund rates",
+                    "url": "https://example.test/break-even-old-never-wins"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate"
+                },
+                "wage_citation": {
+                  "section": "Test-only wage base",
+                  "document": {
+                    "title": "Test-only provident fund rates",
+                    "url": "https://example.test/break-even-old-never-wins"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components"
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "new",
+                "salary": {
+                  "paise": 100000000,
+                  "display": "₹10,00,000"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Test-only new-regime standard deduction",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.standard_deduction"
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 100000000,
+                    "display": "₹10,00,000"
+                  },
+                  "after": {
+                    "paise": 100000000,
+                    "display": "₹10,00,000"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Test-only total income rounding",
+                    "document": {
+                      "title": "Test-only statutory rounding",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income"
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 90000000,
+                        "display": "₹9,00,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 90000000,
+                        "display": "₹9,00,000"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 90000000,
+                        "display": "₹9,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 10000000,
+                        "display": "₹1,00,000"
+                      },
+                      "tax": {
+                        "paise": 500000,
+                        "display": "₹5,000"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 500000,
+                    "display": "₹5,000"
+                  },
+                  "citation": {
+                    "section": "Test-only new-regime slabs",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.slabs"
+                  }
+                },
+                "rebate": {
+                  "applied": false,
+                  "total_income_threshold": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "maximum": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Test-only new-regime rebate",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.rebate"
+                  }
+                },
+                "tax_after_rebate": {
+                  "paise": 500000,
+                  "display": "₹5,000"
+                },
+                "cess": {
+                  "rate": {
+                    "bp": 400,
+                    "display": "4%"
+                  },
+                  "amount": {
+                    "paise": 20000,
+                    "display": "₹200"
+                  },
+                  "citation": {
+                    "section": "Test-only cess",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess"
+                  }
+                },
+                "tax_payable": {
+                  "before": {
+                    "paise": 520000,
+                    "display": "₹5,200"
+                  },
+                  "after": {
+                    "paise": 520000,
+                    "display": "₹5,200"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Test-only tax payable rounding",
+                    "document": {
+                      "title": "Test-only statutory rounding",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable"
+                  }
+                }
+              },
+              "total": {
+                "annual": {
+                  "paise": 12520000,
+                  "display": "₹1,25,200"
+                },
+                "monthly": {
+                  "paise": 1043333,
+                  "display": "₹10,433.33"
+                }
+              }
+            },
+            "take_home": {
+              "annual": {
+                "paise": 87480000,
+                "display": "₹8,74,800"
+              },
+              "monthly": {
+                "paise": 7290000,
+                "display": "₹72,900"
+              }
+            }
+          }
+        ],
+        "assumes": [
+          "The new regime",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ],
+        "excludes": [
+          "HRA exemption",
+          "Chapter VI-A deductions",
+          "Employer NPS deduction",
+          "Professional tax",
+          "Perquisite tax on vesting equity"
+        ]
+      },
+      {
+        "regime": "old",
+        "bases": [
+          {
+            "basis": "variable-pay-at-zero",
+            "recurring_cash": {
+              "annual": {
+                "paise": 100000000,
+                "display": "₹10,00,000"
+              },
+              "monthly": {
+                "paise": 8333333,
+                "display": "₹83,333.33"
+              },
+              "components": [
+                "Basic"
+              ]
+            },
+            "deductions": {
+              "employee_pf": {
+                "basis": "full_basic",
+                "contribution": {
+                  "annual": {
+                    "paise": 12000000,
+                    "display": "₹1,20,000"
+                  },
+                  "monthly": {
+                    "paise": 1000000,
+                    "display": "₹10,000"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 100000000,
+                    "display": "₹10,00,000"
+                  },
+                  "monthly": {
+                    "paise": 8333333,
+                    "display": "₹83,333.33"
+                  }
+                },
+                "wage_components": [
+                  "Basic"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "Test-only employee rate",
+                  "document": {
+                    "title": "Test-only provident fund rates",
+                    "url": "https://example.test/break-even-old-never-wins"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate"
+                },
+                "wage_citation": {
+                  "section": "Test-only wage base",
+                  "document": {
+                    "title": "Test-only provident fund rates",
+                    "url": "https://example.test/break-even-old-never-wins"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components"
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "old",
+                "salary": {
+                  "paise": 100000000,
+                  "display": "₹10,00,000"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 5000000,
+                    "display": "₹50,000"
+                  },
+                  "citation": {
+                    "section": "Test-only old-regime standard deduction, copied from rules/fy2026-27.yaml",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.standard_deduction"
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 95000000,
+                    "display": "₹9,50,000"
+                  },
+                  "after": {
+                    "paise": 95000000,
+                    "display": "₹9,50,000"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Test-only total income rounding",
+                    "document": {
+                      "title": "Test-only statutory rounding",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income"
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "upto": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "tax": {
+                        "paise": 1250000,
+                        "display": "₹12,500"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "upto": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 2000,
+                        "display": "20%"
+                      },
+                      "income_in_band": {
+                        "paise": 45000000,
+                        "display": "₹4,50,000"
+                      },
+                      "tax": {
+                        "paise": 9000000,
+                        "display": "₹90,000"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 3000,
+                        "display": "30%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 10250000,
+                    "display": "₹1,02,500"
+                  },
+                  "citation": {
+                    "section": "Test-only old-regime slabs, copied from rules/fy2026-27.yaml",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.slabs"
+                  }
+                },
+                "rebate": {
+                  "applied": false,
+                  "total_income_threshold": {
+                    "paise": 50000000,
+                    "display": "₹5,00,000"
+                  },
+                  "maximum": {
+                    "paise": 1250000,
+                    "display": "₹12,500"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Test-only old-regime rebate, copied from rules/fy2026-27.yaml",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.rebate"
+                  }
+                },
+                "tax_after_rebate": {
+                  "paise": 10250000,
+                  "display": "₹1,02,500"
+                },
+                "cess": {
+                  "rate": {
+                    "bp": 400,
+                    "display": "4%"
+                  },
+                  "amount": {
+                    "paise": 410000,
+                    "display": "₹4,100"
+                  },
+                  "citation": {
+                    "section": "Test-only cess",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess"
+                  }
+                },
+                "tax_payable": {
+                  "before": {
+                    "paise": 10660000,
+                    "display": "₹1,06,600"
+                  },
+                  "after": {
+                    "paise": 10660000,
+                    "display": "₹1,06,600"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Test-only tax payable rounding",
+                    "document": {
+                      "title": "Test-only statutory rounding",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable"
+                  }
+                }
+              },
+              "total": {
+                "annual": {
+                  "paise": 22660000,
+                  "display": "₹2,26,600"
+                },
+                "monthly": {
+                  "paise": 1888333,
+                  "display": "₹18,883.33"
+                }
+              }
+            },
+            "take_home": {
+              "annual": {
+                "paise": 77340000,
+                "display": "₹7,73,400"
+              },
+              "monthly": {
+                "paise": 6445000,
+                "display": "₹64,450"
+              }
+            }
+          },
+          {
+            "basis": "variable-pay-at-target",
+            "recurring_cash": {
+              "annual": {
+                "paise": 100000000,
+                "display": "₹10,00,000"
+              },
+              "monthly": {
+                "paise": 8333333,
+                "display": "₹83,333.33"
+              },
+              "components": [
+                "Basic"
+              ]
+            },
+            "deductions": {
+              "employee_pf": {
+                "basis": "full_basic",
+                "contribution": {
+                  "annual": {
+                    "paise": 12000000,
+                    "display": "₹1,20,000"
+                  },
+                  "monthly": {
+                    "paise": 1000000,
+                    "display": "₹10,000"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 100000000,
+                    "display": "₹10,00,000"
+                  },
+                  "monthly": {
+                    "paise": 8333333,
+                    "display": "₹83,333.33"
+                  }
+                },
+                "wage_components": [
+                  "Basic"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "Test-only employee rate",
+                  "document": {
+                    "title": "Test-only provident fund rates",
+                    "url": "https://example.test/break-even-old-never-wins"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate"
+                },
+                "wage_citation": {
+                  "section": "Test-only wage base",
+                  "document": {
+                    "title": "Test-only provident fund rates",
+                    "url": "https://example.test/break-even-old-never-wins"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components"
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "old",
+                "salary": {
+                  "paise": 100000000,
+                  "display": "₹10,00,000"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 5000000,
+                    "display": "₹50,000"
+                  },
+                  "citation": {
+                    "section": "Test-only old-regime standard deduction, copied from rules/fy2026-27.yaml",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.standard_deduction"
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 95000000,
+                    "display": "₹9,50,000"
+                  },
+                  "after": {
+                    "paise": 95000000,
+                    "display": "₹9,50,000"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Test-only total income rounding",
+                    "document": {
+                      "title": "Test-only statutory rounding",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income"
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "upto": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "tax": {
+                        "paise": 1250000,
+                        "display": "₹12,500"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "upto": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 2000,
+                        "display": "20%"
+                      },
+                      "income_in_band": {
+                        "paise": 45000000,
+                        "display": "₹4,50,000"
+                      },
+                      "tax": {
+                        "paise": 9000000,
+                        "display": "₹90,000"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 3000,
+                        "display": "30%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 10250000,
+                    "display": "₹1,02,500"
+                  },
+                  "citation": {
+                    "section": "Test-only old-regime slabs, copied from rules/fy2026-27.yaml",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.slabs"
+                  }
+                },
+                "rebate": {
+                  "applied": false,
+                  "total_income_threshold": {
+                    "paise": 50000000,
+                    "display": "₹5,00,000"
+                  },
+                  "maximum": {
+                    "paise": 1250000,
+                    "display": "₹12,500"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Test-only old-regime rebate, copied from rules/fy2026-27.yaml",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.rebate"
+                  }
+                },
+                "tax_after_rebate": {
+                  "paise": 10250000,
+                  "display": "₹1,02,500"
+                },
+                "cess": {
+                  "rate": {
+                    "bp": 400,
+                    "display": "4%"
+                  },
+                  "amount": {
+                    "paise": 410000,
+                    "display": "₹4,100"
+                  },
+                  "citation": {
+                    "section": "Test-only cess",
+                    "document": {
+                      "title": "Test-only income tax",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess"
+                  }
+                },
+                "tax_payable": {
+                  "before": {
+                    "paise": 10660000,
+                    "display": "₹1,06,600"
+                  },
+                  "after": {
+                    "paise": 10660000,
+                    "display": "₹1,06,600"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Test-only tax payable rounding",
+                    "document": {
+                      "title": "Test-only statutory rounding",
+                      "url": "https://example.test/break-even-old-never-wins"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable"
+                  }
+                }
+              },
+              "total": {
+                "annual": {
+                  "paise": 22660000,
+                  "display": "₹2,26,600"
+                },
+                "monthly": {
+                  "paise": 1888333,
+                  "display": "₹18,883.33"
+                }
+              }
+            },
+            "take_home": {
+              "annual": {
+                "paise": 77340000,
+                "display": "₹7,73,400"
+              },
+              "monthly": {
+                "paise": 6445000,
+                "display": "₹64,450"
+              }
+            }
+          }
+        ],
+        "assumes": [
+          "The old regime",
+          "Below 60 years of age",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ],
+        "excludes": [
+          "HRA exemption",
+          "Chapter VI-A deductions",
+          "Employer NPS deduction",
+          "Professional tax",
+          "Perquisite tax on vesting equity",
+          "Floor: excluding HRA exemption and Chapter VI-A deductions can only lower this further, never raise it"
+        ]
+      }
+    ],
+    "break_even": [
+      {
+        "basis": "variable-pay-at-zero",
+        "kind": "old-regime-never-wins",
+        "assumes": [
+          "Below 60 years of age",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ]
+      },
+      {
+        "basis": "variable-pay-at-target",
+        "kind": "old-regime-never-wins",
+        "assumes": [
+          "Below 60 years of age",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ]
+      }
+    ]
+  },
+  "flags": [],
+  "sources": [
+    {
+      "title": "Test-only provident fund rates",
+      "url": "https://example.test/break-even-old-never-wins"
+    }
+  ]
+}

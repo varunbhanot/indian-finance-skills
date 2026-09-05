@@ -6,14 +6,14 @@
       "name": "Basic",
       "as_typed": {
         "amount": {
-          "paise": 250000000,
-          "display": "₹25,00,000"
+          "paise": 30000000,
+          "display": "₹3,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 250000000,
-        "display": "₹25,00,000"
+        "paise": 30000000,
+        "display": "₹3,00,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -33,14 +33,14 @@
       "name": "House rent allowance",
       "as_typed": {
         "amount": {
-          "paise": 130000000,
-          "display": "₹13,00,000"
+          "paise": 15000000,
+          "display": "₹1,50,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 130000000,
-        "display": "₹13,00,000"
+        "paise": 15000000,
+        "display": "₹1,50,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -60,14 +60,14 @@
       "name": "Special allowance",
       "as_typed": {
         "amount": {
-          "paise": 132500000,
-          "display": "₹13,25,000"
+          "paise": 15000000,
+          "display": "₹1,50,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 132500000,
-        "display": "₹13,25,000"
+        "paise": 15000000,
+        "display": "₹1,50,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -87,14 +87,14 @@
       "name": "Employer PF",
       "as_typed": {
         "amount": {
-          "paise": 30000000,
-          "display": "₹3,00,000"
+          "paise": 3600000,
+          "display": "₹36,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 30000000,
-        "display": "₹3,00,000"
+        "paise": 3600000,
+        "display": "₹36,000"
       },
       "certainty": "guaranteed",
       "form": "locked-savings",
@@ -112,99 +112,37 @@
           }
         }
       }
-    },
-    {
-      "name": "Gratuity",
-      "as_typed": {
-        "amount": {
-          "paise": 12025000,
-          "display": "₹1,20,250"
-        },
-        "period": "annual"
-      },
-      "annual": {
-        "paise": 12025000,
-        "display": "₹1,20,250"
-      },
-      "certainty": "conditional-on-tenure",
-      "form": "deferred-cash",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": false,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "gratuity",
-        "rules_key": "groups.components.entries.gratuity",
-        "basis": {
-          "kind": "statute",
-          "document": {
-            "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
-            "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
-          }
-        }
-      }
-    },
-    {
-      "name": "Performance bonus",
-      "as_typed": {
-        "amount": {
-          "paise": 50000000,
-          "display": "₹5,00,000"
-        },
-        "period": "annual"
-      },
-      "annual": {
-        "paise": 50000000,
-        "display": "₹5,00,000"
-      },
-      "certainty": "conditional-on-performance",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": false,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "variable_pay",
-        "rules_key": "groups.components.entries.variable_pay",
-        "basis": {
-          "kind": "judgement",
-          "rationale": "Quoted at a target and paid against an assessment of performance, so neither its occurrence nor its amount is settled by the letter. It is offered each year, and it is cash in the year it is paid."
-        }
-      }
     }
   ],
   "totals": {
     "headline_ctc": {
-      "paise": 604525000,
-      "display": "₹60,45,250",
+      "paise": 63600000,
+      "display": "₹6,36,000",
       "components": [
         "Basic",
         "House rent allowance",
         "Special allowance",
-        "Employer PF",
-        "Gratuity",
-        "Performance bonus"
+        "Employer PF"
       ]
     },
     "fixed_pay": {
-      "paise": 554525000,
-      "display": "₹55,45,250",
+      "paise": 63600000,
+      "display": "₹6,36,000",
       "components": [
         "Basic",
         "House rent allowance",
         "Special allowance",
-        "Employer PF",
-        "Gratuity"
+        "Employer PF"
       ]
     },
     "variable_pay_at_target": {
-      "paise": 50000000,
-      "display": "₹5,00,000",
-      "components": [
-        "Performance bonus"
-      ]
+      "paise": 0,
+      "display": "₹0",
+      "components": []
     },
     "guaranteed_recurring_cash": {
-      "paise": 512500000,
-      "display": "₹51,25,000",
+      "paise": 60000000,
+      "display": "₹6,00,000",
       "components": [
         "Basic",
         "House rent allowance",
@@ -212,11 +150,10 @@
       ]
     },
     "retirals": {
-      "paise": 42025000,
-      "display": "₹4,20,250",
+      "paise": 3600000,
+      "display": "₹36,000",
       "components": [
-        "Employer PF",
-        "Gratuity"
+        "Employer PF"
       ]
     },
     "one_time_components": {
@@ -254,8 +191,8 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -274,15 +211,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -301,15 +238,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -328,15 +265,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -355,24 +292,24 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             }
           }
         ],
         "year_one": {
-          "paise": 512500000,
-          "display": "₹51,25,000"
+          "paise": 60000000,
+          "display": "₹6,00,000"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 512500000,
-            "display": "₹51,25,000"
+            "paise": 60000000,
+            "display": "₹6,00,000"
           },
           "without_one_time": {
-            "paise": 512500000,
-            "display": "₹51,25,000"
+            "paise": 60000000,
+            "display": "₹6,00,000"
           },
           "one_time_components": []
         }
@@ -383,12 +320,12 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             },
             "variable_pay_at_target": {
-              "paise": 50000000,
-              "display": "₹5,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -403,19 +340,19 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 562500000,
-              "display": "₹56,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             },
             "variable_pay_at_target": {
-              "paise": 50000000,
-              "display": "₹5,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -430,19 +367,19 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 562500000,
-              "display": "₹56,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             },
             "variable_pay_at_target": {
-              "paise": 50000000,
-              "display": "₹5,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -457,19 +394,19 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 562500000,
-              "display": "₹56,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 512500000,
-              "display": "₹51,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             },
             "variable_pay_at_target": {
-              "paise": 50000000,
-              "display": "₹5,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -484,24 +421,24 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 562500000,
-              "display": "₹56,25,000"
+              "paise": 60000000,
+              "display": "₹6,00,000"
             }
           }
         ],
         "year_one": {
-          "paise": 562500000,
-          "display": "₹56,25,000"
+          "paise": 60000000,
+          "display": "₹6,00,000"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 562500000,
-            "display": "₹56,25,000"
+            "paise": 60000000,
+            "display": "₹6,00,000"
           },
           "without_one_time": {
-            "paise": 562500000,
-            "display": "₹56,25,000"
+            "paise": 60000000,
+            "display": "₹6,00,000"
           },
           "one_time_components": []
         }
@@ -514,12 +451,12 @@
       "Basic"
     ],
     "annual": {
-      "paise": 250000000,
-      "display": "₹25,00,000"
+      "paise": 30000000,
+      "display": "₹3,00,000"
     },
     "share_of_fixed_pay": {
-      "bp": 4508,
-      "display": "45.08%"
+      "bp": 4716,
+      "display": "47.16%"
     },
     "citation": {
       "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
@@ -662,12 +599,12 @@
     },
     "stated_contribution": {
       "annual": {
-        "paise": 30000000,
-        "display": "₹3,00,000"
+        "paise": 3600000,
+        "display": "₹36,000"
       },
       "monthly": {
-        "paise": 2500000,
-        "display": "₹25,000"
+        "paise": 300000,
+        "display": "₹3,000"
       }
     },
     "bases": [
@@ -675,22 +612,22 @@
         "basis": "full_basic",
         "wage": {
           "annual": {
-            "paise": 250000000,
-            "display": "₹25,00,000"
-          },
-          "monthly": {
-            "paise": 20833333,
-            "display": "₹2,08,333.33"
-          }
-        },
-        "implied_contribution": {
-          "annual": {
             "paise": 30000000,
             "display": "₹3,00,000"
           },
           "monthly": {
             "paise": 2500000,
             "display": "₹25,000"
+          }
+        },
+        "implied_contribution": {
+          "annual": {
+            "paise": 3600000,
+            "display": "₹36,000"
+          },
+          "monthly": {
+            "paise": 300000,
+            "display": "₹3,000"
           }
         },
         "matches": true
@@ -777,12 +714,12 @@
             "basis": "variable-pay-at-zero",
             "recurring_cash": {
               "annual": {
-                "paise": 512500000,
-                "display": "₹51,25,000"
+                "paise": 60000000,
+                "display": "₹6,00,000"
               },
               "monthly": {
-                "paise": 42708333,
-                "display": "₹4,27,083.33"
+                "paise": 5000000,
+                "display": "₹50,000"
               },
               "components": [
                 "Basic",
@@ -795,22 +732,22 @@
                 "basis": "full_basic",
                 "contribution": {
                   "annual": {
+                    "paise": 3600000,
+                    "display": "₹36,000"
+                  },
+                  "monthly": {
+                    "paise": 300000,
+                    "display": "₹3,000"
+                  }
+                },
+                "wage": {
+                  "annual": {
                     "paise": 30000000,
                     "display": "₹3,00,000"
                   },
                   "monthly": {
                     "paise": 2500000,
                     "display": "₹25,000"
-                  }
-                },
-                "wage": {
-                  "annual": {
-                    "paise": 250000000,
-                    "display": "₹25,00,000"
-                  },
-                  "monthly": {
-                    "paise": 20833333,
-                    "display": "₹2,08,333.33"
                   }
                 },
                 "wage_components": [
@@ -845,8 +782,8 @@
                 "period": "annual",
                 "regime": "new",
                 "salary": {
-                  "paise": 512500000,
-                  "display": "₹51,25,000"
+                  "paise": 60000000,
+                  "display": "₹6,00,000"
                 },
                 "standard_deduction": {
                   "amount": {
@@ -866,12 +803,12 @@
                 },
                 "total_income": {
                   "before": {
-                    "paise": 505000000,
-                    "display": "₹50,50,000"
+                    "paise": 52500000,
+                    "display": "₹5,25,000"
                   },
                   "after": {
-                    "paise": 505000000,
-                    "display": "₹50,50,000"
+                    "paise": 52500000,
+                    "display": "₹5,25,000"
                   },
                   "unit_rupees": 10,
                   "citation": {
@@ -923,12 +860,12 @@
                         "display": "5%"
                       },
                       "income_in_band": {
-                        "paise": 40000000,
-                        "display": "₹4,00,000"
+                        "paise": 12500000,
+                        "display": "₹1,25,000"
                       },
                       "tax": {
-                        "paise": 2000000,
-                        "display": "₹20,000"
+                        "paise": 625000,
+                        "display": "₹6,250"
                       }
                     },
                     {
@@ -945,12 +882,12 @@
                         "display": "10%"
                       },
                       "income_in_band": {
-                        "paise": 40000000,
-                        "display": "₹4,00,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 4000000,
-                        "display": "₹40,000"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     },
                     {
@@ -967,12 +904,12 @@
                         "display": "15%"
                       },
                       "income_in_band": {
-                        "paise": 40000000,
-                        "display": "₹4,00,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 6000000,
-                        "display": "₹60,000"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     },
                     {
@@ -989,12 +926,12 @@
                         "display": "20%"
                       },
                       "income_in_band": {
-                        "paise": 40000000,
-                        "display": "₹4,00,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 8000000,
-                        "display": "₹80,000"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     },
                     {
@@ -1011,12 +948,12 @@
                         "display": "25%"
                       },
                       "income_in_band": {
-                        "paise": 40000000,
-                        "display": "₹4,00,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 10000000,
-                        "display": "₹1,00,000"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     },
                     {
@@ -1029,18 +966,18 @@
                         "display": "30%"
                       },
                       "income_in_band": {
-                        "paise": 265000000,
-                        "display": "₹26,50,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 79500000,
-                        "display": "₹7,95,000"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     }
                   ],
                   "total": {
-                    "paise": 109500000,
-                    "display": "₹10,95,000"
+                    "paise": 625000,
+                    "display": "₹6,250"
                   },
                   "citation": {
                     "section": "Income-tax Act, 2025, section 202(1) Table (\"New tax regime for individuals, Hindu undivided family and others\")",
@@ -1054,7 +991,7 @@
                   }
                 },
                 "rebate": {
-                  "applied": false,
+                  "applied": true,
                   "total_income_threshold": {
                     "paise": 120000000,
                     "display": "₹12,00,000"
@@ -1064,8 +1001,8 @@
                     "display": "₹60,000"
                   },
                   "amount": {
-                    "paise": 0,
-                    "display": "₹0"
+                    "paise": 625000,
+                    "display": "₹6,250"
                   },
                   "citation": {
                     "section": "Income-tax Act, 2025, section 156(2) and (3) (\"Rebate of income-tax in case of certain individuals\")",
@@ -1079,76 +1016,8 @@
                   }
                 },
                 "tax_after_rebate": {
-                  "paise": 109500000,
-                  "display": "₹10,95,000"
-                },
-                "surcharge": {
-                  "band": {
-                    "clause": "(i)",
-                    "above": {
-                      "paise": 500000000,
-                      "display": "₹50,00,000"
-                    },
-                    "upto": {
-                      "paise": 1000000000,
-                      "display": "₹1,00,00,000"
-                    },
-                    "rate": {
-                      "bp": 1000,
-                      "display": "10%"
-                    }
-                  },
-                  "before_relief": {
-                    "paise": 10950000,
-                    "display": "₹1,09,500"
-                  },
-                  "marginal_relief": {
-                    "applied": true,
-                    "threshold": {
-                      "paise": 500000000,
-                      "display": "₹50,00,000"
-                    },
-                    "tax_and_surcharge_at_threshold": {
-                      "paise": 108000000,
-                      "display": "₹10,80,000"
-                    },
-                    "income_above_threshold": {
-                      "paise": 5000000,
-                      "display": "₹50,000"
-                    },
-                    "ceiling": {
-                      "paise": 113000000,
-                      "display": "₹11,30,000"
-                    },
-                    "amount": {
-                      "paise": 7450000,
-                      "display": "₹74,500"
-                    },
-                    "citation": {
-                      "section": "Finance Act, 2026 (No. 4 of 2026), section 3(5), and its Table Sl. No. 6 (\"Persons specified against Sl. Nos. 10 and 11 in column C\")",
-                      "document": {
-                        "title": "The Finance Act, 2026 (No. 4 of 2026)",
-                        "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
-                      },
-                      "retrieved": "2026-09-05",
-                      "rules_key": "groups.income_tax.marginal_relief.new_regime",
-                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed the amount determined as per the following formula: Tn = Rn + Sn\", where \"Rn = the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C\" -- the threshold the income has just crossed -- and \"Sn = the total income - amount as specified in column C\". So the ceiling is the tax and surcharge at the threshold plus every rupee earned above it, and the relief is whatever the surcharge has to give up to reach that ceiling. Note what the ceiling covers: income-tax and surcharge, and not the cess charged on them, which the Finance Act imposes separately at section 3(15). A rupee of salary above the threshold therefore still costs the cess on its own rupee of tax."
-                    }
-                  },
-                  "amount": {
-                    "paise": 3500000,
-                    "display": "₹35,000"
-                  },
-                  "citation": {
-                    "section": "Finance Act, 2026 (No. 4 of 2026), section 3(4)(b) Table Sl. No. 10, read with section 3(3) and section 3(4)(a)(ii)",
-                    "document": {
-                      "title": "The Finance Act, 2026 (No. 4 of 2026)",
-                      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
-                    },
-                    "retrieved": "2026-09-05",
-                    "rules_key": "groups.income_tax.new_regime.surcharge",
-                    "note": "These bands are clauses (i) to (iii) of column D. The new regime's table stops at 25%: it carries no 37% band, which is where it differs from the old regime's Paragraph F table. Clauses (iii) to (v) turn on whether the total income includes dividend income or capital gains under sections 196, 197 and 198, and clause (v) caps the surcharge on that part of the income at 15%; a salary-only total income has none of it, so clause (iii) is read here on the whole figure and clauses (iv) and (v) do not arise. A figure computed from these bands is therefore right only for a total income with no dividend income and no such capital gains in it."
-                  }
+                  "paise": 0,
+                  "display": "₹0"
                 },
                 "cess": {
                   "rate": {
@@ -1156,8 +1025,8 @@
                     "display": "4%"
                   },
                   "amount": {
-                    "paise": 4520000,
-                    "display": "₹45,200"
+                    "paise": 0,
+                    "display": "₹0"
                   },
                   "citation": {
                     "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
@@ -1172,12 +1041,12 @@
                 },
                 "tax_payable": {
                   "before": {
-                    "paise": 117520000,
-                    "display": "₹11,75,200"
+                    "paise": 0,
+                    "display": "₹0"
                   },
                   "after": {
-                    "paise": 117520000,
-                    "display": "₹11,75,200"
+                    "paise": 0,
+                    "display": "₹0"
                   },
                   "unit_rupees": 10,
                   "citation": {
@@ -1194,23 +1063,23 @@
               },
               "total": {
                 "annual": {
-                  "paise": 147520000,
-                  "display": "₹14,75,200"
+                  "paise": 3600000,
+                  "display": "₹36,000"
                 },
                 "monthly": {
-                  "paise": 12293333,
-                  "display": "₹1,22,933.33"
+                  "paise": 300000,
+                  "display": "₹3,000"
                 }
               }
             },
             "take_home": {
               "annual": {
-                "paise": 364980000,
-                "display": "₹36,49,800"
+                "paise": 56400000,
+                "display": "₹5,64,000"
               },
               "monthly": {
-                "paise": 30415000,
-                "display": "₹3,04,150"
+                "paise": 4700000,
+                "display": "₹47,000"
               }
             }
           },
@@ -1218,18 +1087,17 @@
             "basis": "variable-pay-at-target",
             "recurring_cash": {
               "annual": {
-                "paise": 562500000,
-                "display": "₹56,25,000"
+                "paise": 60000000,
+                "display": "₹6,00,000"
               },
               "monthly": {
-                "paise": 46875000,
-                "display": "₹4,68,750"
+                "paise": 5000000,
+                "display": "₹50,000"
               },
               "components": [
                 "Basic",
                 "House rent allowance",
-                "Special allowance",
-                "Performance bonus"
+                "Special allowance"
               ]
             },
             "deductions": {
@@ -1237,22 +1105,22 @@
                 "basis": "full_basic",
                 "contribution": {
                   "annual": {
+                    "paise": 3600000,
+                    "display": "₹36,000"
+                  },
+                  "monthly": {
+                    "paise": 300000,
+                    "display": "₹3,000"
+                  }
+                },
+                "wage": {
+                  "annual": {
                     "paise": 30000000,
                     "display": "₹3,00,000"
                   },
                   "monthly": {
                     "paise": 2500000,
                     "display": "₹25,000"
-                  }
-                },
-                "wage": {
-                  "annual": {
-                    "paise": 250000000,
-                    "display": "₹25,00,000"
-                  },
-                  "monthly": {
-                    "paise": 20833333,
-                    "display": "₹2,08,333.33"
                   }
                 },
                 "wage_components": [
@@ -1287,8 +1155,8 @@
                 "period": "annual",
                 "regime": "new",
                 "salary": {
-                  "paise": 562500000,
-                  "display": "₹56,25,000"
+                  "paise": 60000000,
+                  "display": "₹6,00,000"
                 },
                 "standard_deduction": {
                   "amount": {
@@ -1308,12 +1176,12 @@
                 },
                 "total_income": {
                   "before": {
-                    "paise": 555000000,
-                    "display": "₹55,50,000"
+                    "paise": 52500000,
+                    "display": "₹5,25,000"
                   },
                   "after": {
-                    "paise": 555000000,
-                    "display": "₹55,50,000"
+                    "paise": 52500000,
+                    "display": "₹5,25,000"
                   },
                   "unit_rupees": 10,
                   "citation": {
@@ -1365,12 +1233,12 @@
                         "display": "5%"
                       },
                       "income_in_band": {
-                        "paise": 40000000,
-                        "display": "₹4,00,000"
+                        "paise": 12500000,
+                        "display": "₹1,25,000"
                       },
                       "tax": {
-                        "paise": 2000000,
-                        "display": "₹20,000"
+                        "paise": 625000,
+                        "display": "₹6,250"
                       }
                     },
                     {
@@ -1387,12 +1255,12 @@
                         "display": "10%"
                       },
                       "income_in_band": {
-                        "paise": 40000000,
-                        "display": "₹4,00,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 4000000,
-                        "display": "₹40,000"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     },
                     {
@@ -1409,12 +1277,12 @@
                         "display": "15%"
                       },
                       "income_in_band": {
-                        "paise": 40000000,
-                        "display": "₹4,00,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 6000000,
-                        "display": "₹60,000"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     },
                     {
@@ -1431,12 +1299,12 @@
                         "display": "20%"
                       },
                       "income_in_band": {
-                        "paise": 40000000,
-                        "display": "₹4,00,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 8000000,
-                        "display": "₹80,000"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     },
                     {
@@ -1453,12 +1321,12 @@
                         "display": "25%"
                       },
                       "income_in_band": {
-                        "paise": 40000000,
-                        "display": "₹4,00,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 10000000,
-                        "display": "₹1,00,000"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     },
                     {
@@ -1471,18 +1339,18 @@
                         "display": "30%"
                       },
                       "income_in_band": {
-                        "paise": 315000000,
-                        "display": "₹31,50,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 94500000,
-                        "display": "₹9,45,000"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     }
                   ],
                   "total": {
-                    "paise": 124500000,
-                    "display": "₹12,45,000"
+                    "paise": 625000,
+                    "display": "₹6,250"
                   },
                   "citation": {
                     "section": "Income-tax Act, 2025, section 202(1) Table (\"New tax regime for individuals, Hindu undivided family and others\")",
@@ -1496,7 +1364,7 @@
                   }
                 },
                 "rebate": {
-                  "applied": false,
+                  "applied": true,
                   "total_income_threshold": {
                     "paise": 120000000,
                     "display": "₹12,00,000"
@@ -1506,8 +1374,8 @@
                     "display": "₹60,000"
                   },
                   "amount": {
-                    "paise": 0,
-                    "display": "₹0"
+                    "paise": 625000,
+                    "display": "₹6,250"
                   },
                   "citation": {
                     "section": "Income-tax Act, 2025, section 156(2) and (3) (\"Rebate of income-tax in case of certain individuals\")",
@@ -1521,76 +1389,8 @@
                   }
                 },
                 "tax_after_rebate": {
-                  "paise": 124500000,
-                  "display": "₹12,45,000"
-                },
-                "surcharge": {
-                  "band": {
-                    "clause": "(i)",
-                    "above": {
-                      "paise": 500000000,
-                      "display": "₹50,00,000"
-                    },
-                    "upto": {
-                      "paise": 1000000000,
-                      "display": "₹1,00,00,000"
-                    },
-                    "rate": {
-                      "bp": 1000,
-                      "display": "10%"
-                    }
-                  },
-                  "before_relief": {
-                    "paise": 12450000,
-                    "display": "₹1,24,500"
-                  },
-                  "marginal_relief": {
-                    "applied": false,
-                    "threshold": {
-                      "paise": 500000000,
-                      "display": "₹50,00,000"
-                    },
-                    "tax_and_surcharge_at_threshold": {
-                      "paise": 108000000,
-                      "display": "₹10,80,000"
-                    },
-                    "income_above_threshold": {
-                      "paise": 55000000,
-                      "display": "₹5,50,000"
-                    },
-                    "ceiling": {
-                      "paise": 163000000,
-                      "display": "₹16,30,000"
-                    },
-                    "amount": {
-                      "paise": 0,
-                      "display": "₹0"
-                    },
-                    "citation": {
-                      "section": "Finance Act, 2026 (No. 4 of 2026), section 3(5), and its Table Sl. No. 6 (\"Persons specified against Sl. Nos. 10 and 11 in column C\")",
-                      "document": {
-                        "title": "The Finance Act, 2026 (No. 4 of 2026)",
-                        "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
-                      },
-                      "retrieved": "2026-09-05",
-                      "rules_key": "groups.income_tax.marginal_relief.new_regime",
-                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed the amount determined as per the following formula: Tn = Rn + Sn\", where \"Rn = the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C\" -- the threshold the income has just crossed -- and \"Sn = the total income - amount as specified in column C\". So the ceiling is the tax and surcharge at the threshold plus every rupee earned above it, and the relief is whatever the surcharge has to give up to reach that ceiling. Note what the ceiling covers: income-tax and surcharge, and not the cess charged on them, which the Finance Act imposes separately at section 3(15). A rupee of salary above the threshold therefore still costs the cess on its own rupee of tax."
-                    }
-                  },
-                  "amount": {
-                    "paise": 12450000,
-                    "display": "₹1,24,500"
-                  },
-                  "citation": {
-                    "section": "Finance Act, 2026 (No. 4 of 2026), section 3(4)(b) Table Sl. No. 10, read with section 3(3) and section 3(4)(a)(ii)",
-                    "document": {
-                      "title": "The Finance Act, 2026 (No. 4 of 2026)",
-                      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
-                    },
-                    "retrieved": "2026-09-05",
-                    "rules_key": "groups.income_tax.new_regime.surcharge",
-                    "note": "These bands are clauses (i) to (iii) of column D. The new regime's table stops at 25%: it carries no 37% band, which is where it differs from the old regime's Paragraph F table. Clauses (iii) to (v) turn on whether the total income includes dividend income or capital gains under sections 196, 197 and 198, and clause (v) caps the surcharge on that part of the income at 15%; a salary-only total income has none of it, so clause (iii) is read here on the whole figure and clauses (iv) and (v) do not arise. A figure computed from these bands is therefore right only for a total income with no dividend income and no such capital gains in it."
-                  }
+                  "paise": 0,
+                  "display": "₹0"
                 },
                 "cess": {
                   "rate": {
@@ -1598,8 +1398,8 @@
                     "display": "4%"
                   },
                   "amount": {
-                    "paise": 5478000,
-                    "display": "₹54,780"
+                    "paise": 0,
+                    "display": "₹0"
                   },
                   "citation": {
                     "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
@@ -1614,12 +1414,12 @@
                 },
                 "tax_payable": {
                   "before": {
-                    "paise": 142428000,
-                    "display": "₹14,24,280"
+                    "paise": 0,
+                    "display": "₹0"
                   },
                   "after": {
-                    "paise": 142428000,
-                    "display": "₹14,24,280"
+                    "paise": 0,
+                    "display": "₹0"
                   },
                   "unit_rupees": 10,
                   "citation": {
@@ -1636,23 +1436,23 @@
               },
               "total": {
                 "annual": {
-                  "paise": 172428000,
-                  "display": "₹17,24,280"
+                  "paise": 3600000,
+                  "display": "₹36,000"
                 },
                 "monthly": {
-                  "paise": 14369000,
-                  "display": "₹1,43,690"
+                  "paise": 300000,
+                  "display": "₹3,000"
                 }
               }
             },
             "take_home": {
               "annual": {
-                "paise": 390072000,
-                "display": "₹39,00,720"
+                "paise": 56400000,
+                "display": "₹5,64,000"
               },
               "monthly": {
-                "paise": 32506000,
-                "display": "₹3,25,060"
+                "paise": 4700000,
+                "display": "₹47,000"
               }
             }
           }
@@ -1677,12 +1477,12 @@
             "basis": "variable-pay-at-zero",
             "recurring_cash": {
               "annual": {
-                "paise": 512500000,
-                "display": "₹51,25,000"
+                "paise": 60000000,
+                "display": "₹6,00,000"
               },
               "monthly": {
-                "paise": 42708333,
-                "display": "₹4,27,083.33"
+                "paise": 5000000,
+                "display": "₹50,000"
               },
               "components": [
                 "Basic",
@@ -1695,22 +1495,22 @@
                 "basis": "full_basic",
                 "contribution": {
                   "annual": {
+                    "paise": 3600000,
+                    "display": "₹36,000"
+                  },
+                  "monthly": {
+                    "paise": 300000,
+                    "display": "₹3,000"
+                  }
+                },
+                "wage": {
+                  "annual": {
                     "paise": 30000000,
                     "display": "₹3,00,000"
                   },
                   "monthly": {
                     "paise": 2500000,
                     "display": "₹25,000"
-                  }
-                },
-                "wage": {
-                  "annual": {
-                    "paise": 250000000,
-                    "display": "₹25,00,000"
-                  },
-                  "monthly": {
-                    "paise": 20833333,
-                    "display": "₹2,08,333.33"
                   }
                 },
                 "wage_components": [
@@ -1745,8 +1545,8 @@
                 "period": "annual",
                 "regime": "old",
                 "salary": {
-                  "paise": 512500000,
-                  "display": "₹51,25,000"
+                  "paise": 60000000,
+                  "display": "₹6,00,000"
                 },
                 "standard_deduction": {
                   "amount": {
@@ -1766,12 +1566,12 @@
                 },
                 "total_income": {
                   "before": {
-                    "paise": 507500000,
-                    "display": "₹50,75,000"
+                    "paise": 55000000,
+                    "display": "₹5,50,000"
                   },
                   "after": {
-                    "paise": 507500000,
-                    "display": "₹50,75,000"
+                    "paise": 55000000,
+                    "display": "₹5,50,000"
                   },
                   "unit_rupees": 10,
                   "citation": {
@@ -1845,12 +1645,12 @@
                         "display": "20%"
                       },
                       "income_in_band": {
-                        "paise": 50000000,
-                        "display": "₹5,00,000"
+                        "paise": 5000000,
+                        "display": "₹50,000"
                       },
                       "tax": {
-                        "paise": 10000000,
-                        "display": "₹1,00,000"
+                        "paise": 1000000,
+                        "display": "₹10,000"
                       }
                     },
                     {
@@ -1863,18 +1663,18 @@
                         "display": "30%"
                       },
                       "income_in_band": {
-                        "paise": 407500000,
-                        "display": "₹40,75,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 122250000,
-                        "display": "₹12,22,500"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     }
                   ],
                   "total": {
-                    "paise": 133500000,
-                    "display": "₹13,35,000"
+                    "paise": 2250000,
+                    "display": "₹22,500"
                   },
                   "citation": {
                     "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph A, item (I) (\"In the case of every individual other than the individual referred to in items (II) and (III) of this Paragraph...\")",
@@ -1913,76 +1713,8 @@
                   }
                 },
                 "tax_after_rebate": {
-                  "paise": 133500000,
-                  "display": "₹13,35,000"
-                },
-                "surcharge": {
-                  "band": {
-                    "clause": "(i)",
-                    "above": {
-                      "paise": 500000000,
-                      "display": "₹50,00,000"
-                    },
-                    "upto": {
-                      "paise": 1000000000,
-                      "display": "₹1,00,00,000"
-                    },
-                    "rate": {
-                      "bp": 1000,
-                      "display": "10%"
-                    }
-                  },
-                  "before_relief": {
-                    "paise": 13350000,
-                    "display": "₹1,33,500"
-                  },
-                  "marginal_relief": {
-                    "applied": true,
-                    "threshold": {
-                      "paise": 500000000,
-                      "display": "₹50,00,000"
-                    },
-                    "tax_and_surcharge_at_threshold": {
-                      "paise": 131250000,
-                      "display": "₹13,12,500"
-                    },
-                    "income_above_threshold": {
-                      "paise": 7500000,
-                      "display": "₹75,000"
-                    },
-                    "ceiling": {
-                      "paise": 138750000,
-                      "display": "₹13,87,500"
-                    },
-                    "amount": {
-                      "paise": 8100000,
-                      "display": "₹81,000"
-                    },
-                    "citation": {
-                      "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph F, the passage following Table 1, and Table 2, Sl. No. 1 (\"Table 1: Sl. No. 1.B\")",
-                      "document": {
-                        "title": "The Finance Act, 2026 (No. 4 of 2026)",
-                        "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
-                      },
-                      "retrieved": "2026-09-05",
-                      "rules_key": "groups.income_tax.marginal_relief.old_regime",
-                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed the amount determined as per the following formula: Wn = Un + Vn\", where \"Un = the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C of the Table 2 below\" -- the threshold the income has just crossed -- and \"Vn = the total income - amount as specified in column C\". The same rule as the new regime's at section 3(5), under different letters, and the same limit on it: the ceiling covers income-tax and surcharge, not the cess charged on them at section 3(15), so a rupee of salary above the threshold still costs the cess on its own rupee of tax."
-                    }
-                  },
-                  "amount": {
-                    "paise": 5250000,
-                    "display": "₹52,500"
-                  },
-                  "citation": {
-                    "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph F, Table 1, Sl. No. 1",
-                    "document": {
-                      "title": "The Finance Act, 2026 (No. 4 of 2026)",
-                      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
-                    },
-                    "retrieved": "2026-09-05",
-                    "rules_key": "groups.income_tax.old_regime.surcharge",
-                    "note": "Clauses (i) to (iv) of column C. Unlike the new regime's table this one still carries a 37% band above five crore rupees. Clauses (iii) to (vi) turn on whether the total income includes dividend income or capital gains under sections 196, 197 and 198, and clause (vi) caps the surcharge on that part of the income at 15%; a salary-only total income has none of it, so clauses (iii) and (iv) are read here on the whole figure and clauses (v) and (vi) do not arise. A figure computed from these bands is therefore right only for a total income with no dividend income and no such capital gains in it. The Income Tax Department's own calculation engine applies 25% rather than 37% above five crore rupees under the old regime; that is the engine departing from Paragraph F, and this file follows the Paragraph."
-                  }
+                  "paise": 2250000,
+                  "display": "₹22,500"
                 },
                 "cess": {
                   "rate": {
@@ -1990,8 +1722,8 @@
                     "display": "4%"
                   },
                   "amount": {
-                    "paise": 5550000,
-                    "display": "₹55,500"
+                    "paise": 90000,
+                    "display": "₹900"
                   },
                   "citation": {
                     "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
@@ -2006,12 +1738,12 @@
                 },
                 "tax_payable": {
                   "before": {
-                    "paise": 144300000,
-                    "display": "₹14,43,000"
+                    "paise": 2340000,
+                    "display": "₹23,400"
                   },
                   "after": {
-                    "paise": 144300000,
-                    "display": "₹14,43,000"
+                    "paise": 2340000,
+                    "display": "₹23,400"
                   },
                   "unit_rupees": 10,
                   "citation": {
@@ -2028,23 +1760,23 @@
               },
               "total": {
                 "annual": {
-                  "paise": 174300000,
-                  "display": "₹17,43,000"
+                  "paise": 5940000,
+                  "display": "₹59,400"
                 },
                 "monthly": {
-                  "paise": 14525000,
-                  "display": "₹1,45,250"
+                  "paise": 495000,
+                  "display": "₹4,950"
                 }
               }
             },
             "take_home": {
               "annual": {
-                "paise": 338200000,
-                "display": "₹33,82,000"
+                "paise": 54060000,
+                "display": "₹5,40,600"
               },
               "monthly": {
-                "paise": 28183333,
-                "display": "₹2,81,833.33"
+                "paise": 4505000,
+                "display": "₹45,050"
               }
             }
           },
@@ -2052,18 +1784,17 @@
             "basis": "variable-pay-at-target",
             "recurring_cash": {
               "annual": {
-                "paise": 562500000,
-                "display": "₹56,25,000"
+                "paise": 60000000,
+                "display": "₹6,00,000"
               },
               "monthly": {
-                "paise": 46875000,
-                "display": "₹4,68,750"
+                "paise": 5000000,
+                "display": "₹50,000"
               },
               "components": [
                 "Basic",
                 "House rent allowance",
-                "Special allowance",
-                "Performance bonus"
+                "Special allowance"
               ]
             },
             "deductions": {
@@ -2071,22 +1802,22 @@
                 "basis": "full_basic",
                 "contribution": {
                   "annual": {
+                    "paise": 3600000,
+                    "display": "₹36,000"
+                  },
+                  "monthly": {
+                    "paise": 300000,
+                    "display": "₹3,000"
+                  }
+                },
+                "wage": {
+                  "annual": {
                     "paise": 30000000,
                     "display": "₹3,00,000"
                   },
                   "monthly": {
                     "paise": 2500000,
                     "display": "₹25,000"
-                  }
-                },
-                "wage": {
-                  "annual": {
-                    "paise": 250000000,
-                    "display": "₹25,00,000"
-                  },
-                  "monthly": {
-                    "paise": 20833333,
-                    "display": "₹2,08,333.33"
                   }
                 },
                 "wage_components": [
@@ -2121,8 +1852,8 @@
                 "period": "annual",
                 "regime": "old",
                 "salary": {
-                  "paise": 562500000,
-                  "display": "₹56,25,000"
+                  "paise": 60000000,
+                  "display": "₹6,00,000"
                 },
                 "standard_deduction": {
                   "amount": {
@@ -2142,12 +1873,12 @@
                 },
                 "total_income": {
                   "before": {
-                    "paise": 557500000,
-                    "display": "₹55,75,000"
+                    "paise": 55000000,
+                    "display": "₹5,50,000"
                   },
                   "after": {
-                    "paise": 557500000,
-                    "display": "₹55,75,000"
+                    "paise": 55000000,
+                    "display": "₹5,50,000"
                   },
                   "unit_rupees": 10,
                   "citation": {
@@ -2221,12 +1952,12 @@
                         "display": "20%"
                       },
                       "income_in_band": {
-                        "paise": 50000000,
-                        "display": "₹5,00,000"
+                        "paise": 5000000,
+                        "display": "₹50,000"
                       },
                       "tax": {
-                        "paise": 10000000,
-                        "display": "₹1,00,000"
+                        "paise": 1000000,
+                        "display": "₹10,000"
                       }
                     },
                     {
@@ -2239,18 +1970,18 @@
                         "display": "30%"
                       },
                       "income_in_band": {
-                        "paise": 457500000,
-                        "display": "₹45,75,000"
+                        "paise": 0,
+                        "display": "₹0"
                       },
                       "tax": {
-                        "paise": 137250000,
-                        "display": "₹13,72,500"
+                        "paise": 0,
+                        "display": "₹0"
                       }
                     }
                   ],
                   "total": {
-                    "paise": 148500000,
-                    "display": "₹14,85,000"
+                    "paise": 2250000,
+                    "display": "₹22,500"
                   },
                   "citation": {
                     "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph A, item (I) (\"In the case of every individual other than the individual referred to in items (II) and (III) of this Paragraph...\")",
@@ -2289,76 +2020,8 @@
                   }
                 },
                 "tax_after_rebate": {
-                  "paise": 148500000,
-                  "display": "₹14,85,000"
-                },
-                "surcharge": {
-                  "band": {
-                    "clause": "(i)",
-                    "above": {
-                      "paise": 500000000,
-                      "display": "₹50,00,000"
-                    },
-                    "upto": {
-                      "paise": 1000000000,
-                      "display": "₹1,00,00,000"
-                    },
-                    "rate": {
-                      "bp": 1000,
-                      "display": "10%"
-                    }
-                  },
-                  "before_relief": {
-                    "paise": 14850000,
-                    "display": "₹1,48,500"
-                  },
-                  "marginal_relief": {
-                    "applied": false,
-                    "threshold": {
-                      "paise": 500000000,
-                      "display": "₹50,00,000"
-                    },
-                    "tax_and_surcharge_at_threshold": {
-                      "paise": 131250000,
-                      "display": "₹13,12,500"
-                    },
-                    "income_above_threshold": {
-                      "paise": 57500000,
-                      "display": "₹5,75,000"
-                    },
-                    "ceiling": {
-                      "paise": 188750000,
-                      "display": "₹18,87,500"
-                    },
-                    "amount": {
-                      "paise": 0,
-                      "display": "₹0"
-                    },
-                    "citation": {
-                      "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph F, the passage following Table 1, and Table 2, Sl. No. 1 (\"Table 1: Sl. No. 1.B\")",
-                      "document": {
-                        "title": "The Finance Act, 2026 (No. 4 of 2026)",
-                        "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
-                      },
-                      "retrieved": "2026-09-05",
-                      "rules_key": "groups.income_tax.marginal_relief.old_regime",
-                      "note": "\"the total amount payable as income-tax and surcharge thereon shall not exceed the amount determined as per the following formula: Wn = Un + Vn\", where \"Un = the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C of the Table 2 below\" -- the threshold the income has just crossed -- and \"Vn = the total income - amount as specified in column C\". The same rule as the new regime's at section 3(5), under different letters, and the same limit on it: the ceiling covers income-tax and surcharge, not the cess charged on them at section 3(15), so a rupee of salary above the threshold still costs the cess on its own rupee of tax."
-                    }
-                  },
-                  "amount": {
-                    "paise": 14850000,
-                    "display": "₹1,48,500"
-                  },
-                  "citation": {
-                    "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph F, Table 1, Sl. No. 1",
-                    "document": {
-                      "title": "The Finance Act, 2026 (No. 4 of 2026)",
-                      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
-                    },
-                    "retrieved": "2026-09-05",
-                    "rules_key": "groups.income_tax.old_regime.surcharge",
-                    "note": "Clauses (i) to (iv) of column C. Unlike the new regime's table this one still carries a 37% band above five crore rupees. Clauses (iii) to (vi) turn on whether the total income includes dividend income or capital gains under sections 196, 197 and 198, and clause (vi) caps the surcharge on that part of the income at 15%; a salary-only total income has none of it, so clauses (iii) and (iv) are read here on the whole figure and clauses (v) and (vi) do not arise. A figure computed from these bands is therefore right only for a total income with no dividend income and no such capital gains in it. The Income Tax Department's own calculation engine applies 25% rather than 37% above five crore rupees under the old regime; that is the engine departing from Paragraph F, and this file follows the Paragraph."
-                  }
+                  "paise": 2250000,
+                  "display": "₹22,500"
                 },
                 "cess": {
                   "rate": {
@@ -2366,8 +2029,8 @@
                     "display": "4%"
                   },
                   "amount": {
-                    "paise": 6534000,
-                    "display": "₹65,340"
+                    "paise": 90000,
+                    "display": "₹900"
                   },
                   "citation": {
                     "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
@@ -2382,12 +2045,12 @@
                 },
                 "tax_payable": {
                   "before": {
-                    "paise": 169884000,
-                    "display": "₹16,98,840"
+                    "paise": 2340000,
+                    "display": "₹23,400"
                   },
                   "after": {
-                    "paise": 169884000,
-                    "display": "₹16,98,840"
+                    "paise": 2340000,
+                    "display": "₹23,400"
                   },
                   "unit_rupees": 10,
                   "citation": {
@@ -2404,23 +2067,23 @@
               },
               "total": {
                 "annual": {
-                  "paise": 199884000,
-                  "display": "₹19,98,840"
+                  "paise": 5940000,
+                  "display": "₹59,400"
                 },
                 "monthly": {
-                  "paise": 16657000,
-                  "display": "₹1,66,570"
+                  "paise": 495000,
+                  "display": "₹4,950"
                 }
               }
             },
             "take_home": {
               "annual": {
-                "paise": 362616000,
-                "display": "₹36,26,160"
+                "paise": 54060000,
+                "display": "₹5,40,600"
               },
               "monthly": {
-                "paise": 30218000,
-                "display": "₹3,02,180"
+                "paise": 4505000,
+                "display": "₹45,050"
               }
             }
           }
@@ -2446,8 +2109,8 @@
         "basis": "variable-pay-at-zero",
         "kind": "deduction",
         "amount": {
-          "paise": 68331600,
-          "display": "₹6,83,316"
+          "paise": 4999600,
+          "display": "₹49,996"
         },
         "assumes": [
           "Below 60 years of age",
@@ -2459,8 +2122,8 @@
         "basis": "variable-pay-at-target",
         "kind": "deduction",
         "amount": {
-          "paise": 51799600,
-          "display": "₹5,17,996"
+          "paise": 4999600,
+          "display": "₹49,996"
         },
         "assumes": [
           "Below 60 years of age",
@@ -2477,16 +2140,16 @@
       "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
     },
     {
-      "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
-      "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
-    },
-    {
       "title": "The Code on Wages, 2019 (No. 29 of 2019)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
     },
     {
       "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+    },
+    {
+      "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
     },
     {
       "title": "The Income-tax Act, 2025 (No. 30 of 2025)",

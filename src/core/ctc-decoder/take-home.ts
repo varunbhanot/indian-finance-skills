@@ -33,6 +33,13 @@ import {
   type PeriodicMoney,
   type Rate,
 } from "../money.ts";
+import {
+  ASSUMES_BELOW_60,
+  ASSUMES_RESIDENT_INDIVIDUAL,
+  ASSUMES_STEADY_STATE,
+  breakEvenDeductionFor,
+  type BreakEvenDeduction,
+} from "./break-even.ts";
 import type { ClassifiedComponent } from "./classification.ts";
 import { incomeTaxFor, type IncomeTax, type Regime } from "./income-tax.ts";
 import { rulesGroup, type Citation, type RulesNode } from "./rules-reader.ts";
@@ -95,6 +102,13 @@ export interface TakeHomeUnderRegime {
 export interface TakeHome {
   /** Both regimes, as facts of the same input; the order carries no preference (ADR 0007). */
   regimes: TakeHomeUnderRegime[];
+  /**
+   * The break-even deduction on each basis (spec #17): the point at which the
+   * old regime's tax stops exceeding the new regime's. Derived from the same
+   * two regimes above rather than a third computation of its own; see
+   * `break-even.ts`.
+   */
+  break_even: BreakEvenDeduction[];
 }
 
 export function takeHomeFor(
@@ -113,16 +127,21 @@ export function takeHomeFor(
       : periodic(rupeesToPaise(request.professional_tax));
 
   // The recurring cash on each basis is the same whatever regime taxes it, so
-  // it is derived once and every regime's bases are built from this.
-  const grossByBasis = BASES.map(({ basis, counts }) => ({
-    basis,
-    counted: components.filter((component) => counts(component.classification)),
-  }));
+  // it — and the gross it sums to, which break-even needs as well as every
+  // regime's bases — is derived once here.
+  const grossByBasis = BASES.map(({ basis, counts }) => {
+    const counted = components.filter((component) => counts(component.classification));
+    return { basis, counted, gross: sum(counted) };
+  });
 
   // Closes over the rules groups and the two non-tax deductions, which every
   // basis of every regime shares; only the basis and the regime vary.
-  function basisFor(basis: Basis, counted: readonly ClassifiedComponent[], regime: Regime): TakeHomeOnBasis {
-    const gross = sum(counted);
+  function basisFor(
+    basis: Basis,
+    counted: readonly ClassifiedComponent[],
+    gross: number,
+    regime: Regime,
+  ): TakeHomeOnBasis {
     const tax = incomeTaxFor(gross, incomeTax, rounding, regime);
     const total =
       employeePf.contribution.annual.paise +
@@ -146,12 +165,16 @@ export function takeHomeFor(
 
   const regimes = REGIMES.map((regime) => ({
     regime,
-    bases: grossByBasis.map(({ basis, counted }) => basisFor(basis, counted, regime)),
+    bases: grossByBasis.map(({ basis, counted, gross }) => basisFor(basis, counted, gross, regime)),
     assumes: assumesFor(regime),
     excludes: excludesFor(request, regime),
   }));
 
-  return { regimes };
+  const breakEven = grossByBasis.map(({ basis, gross }) =>
+    breakEvenDeductionFor(basis, gross, incomeTax, rounding),
+  );
+
+  return { regimes, break_even: breakEven };
 }
 
 /**
@@ -163,9 +186,9 @@ export function takeHomeFor(
 function assumesFor(regime: Regime): string[] {
   return [
     regime === "new" ? "The new regime" : "The old regime",
-    ...(regime === "old" ? ["Below 60 years of age"] : []),
-    "A resident individual",
-    "Steady state: no one-time component",
+    ...(regime === "old" ? [ASSUMES_BELOW_60] : []),
+    ASSUMES_RESIDENT_INDIVIDUAL,
+    ASSUMES_STEADY_STATE,
   ];
 }
 

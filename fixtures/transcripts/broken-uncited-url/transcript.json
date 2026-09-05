@@ -1,0 +1,44 @@
+{
+  "letter": "guaranteed-recurring-cash",
+  "skill": ".claude/skills/ctc-decoder/SKILL.md",
+  "recorded": "2026-09-05",
+  "broken": "Deliberately invalid: proves the eval fails when a response cites a URL the tool never emitted. Not a real recording; see fixtures/transcripts/README.md.",
+  "events": [
+    {
+      "kind": "user",
+      "text": "Basic 12,00,000. What am I actually getting?"
+    },
+    {
+      "kind": "tool",
+      "step": "4. Run",
+      "input": {
+        "financial_year": "2026-27",
+        "components": [
+          { "name": "Basic", "type": "basic", "amount": 1200000, "period": "annual" }
+        ]
+      },
+      "output": {
+        "financial_year": "2026-27",
+        "totals": {
+          "headline_ctc": { "paise": 120000000, "display": "₹12,00,000", "components": ["Basic"] },
+          "guaranteed_recurring_cash": {
+            "paise": 120000000,
+            "display": "₹12,00,000",
+            "components": ["Basic"]
+          }
+        },
+        "sources": [
+          {
+            "title": "The Code on Wages, 2019 (No. 29 of 2019)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "assistant",
+      "text": "Guaranteed recurring cash is **₹12,00,000**. Read more on wages at https://www.indiacode.nic.in/handle/123456789/not-actually-cited.pdf.",
+      "step": "6. Narrate"
+    }
+  ]
+}

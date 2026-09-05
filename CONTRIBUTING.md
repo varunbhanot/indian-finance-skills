@@ -17,7 +17,7 @@ Code session on the web that install runs for you, from
 npm run ctc-decoder -- '{"financial_year":"2026-27","components":[{"name":"Basic","type":"basic","amount":600000,"period":"annual"}]}'
 npm run lint        # no floating-point arithmetic in src/core
 npm run typecheck
-npm test            # fixtures, rules schema check, output invariants, loader tests
+npm test            # fixtures, rules schema check, output invariants, loader tests, traceability eval
 ```
 
 The decoder prints one JSON document to stdout, or a JSON error
@@ -93,6 +93,44 @@ lists every document it cites by name and an untitled one could not reach the
 reader (ADR 0015). A title names a document, never a provision: `section` is
 where "…, section 516" belongs. One URL, one title — `npm test` fails a file
 that gives the same document two.
+
+## Recording a transcript
+
+`fixtures/transcripts/` holds recorded conversations with a skill — what it
+actually said, around the tool calls it actually made — which the traceability
+eval (ADR 0003, issue #15) replays on every `npm test`, with no model and no
+network. Producing a transcript is the opposite: it needs a model, and is run
+by a contributor, not CI.
+
+1. Write a plain-text file holding the first message a user would send — the
+   pasted annexure and the question — against one of the offers under
+   `fixtures/`.
+2. Record the conversation:
+   ```
+   ANTHROPIC_API_KEY=... ANTHROPIC_MODEL=... \
+     npm run record-transcript -- <letter-file> fixtures/transcripts/<name>/transcript.json
+   ```
+   This holds a real conversation between that model and the `ctc-decoder`
+   skill, letting the model call the real CLI (your repository's own `rules/`
+   and `heuristics.yaml`, nothing stubbed) through a tool that stands in for
+   the shell command `SKILL.md` tells it to run. Reply at each prompt as the
+   user would; blank input or Ctrl-D ends the session and writes
+   `transcript.json` in the shape `fixtures/transcripts/README.md` documents.
+   `ANTHROPIC_MODEL` is not defaulted, so the choice of model doesn't go stale
+   in this file — pick the current one yourself.
+3. Add a `step` to each `assistant` and `tool` event by hand if you want the
+   transcript to name the `SKILL.md` section it came from — optional, and read
+   by nobody but a future reader of the file.
+4. Validate it before committing: `npm run check-transcript --
+   fixtures/transcripts/<name>/transcript.json`. This runs the same
+   traceability eval `npm test` does — every rupee figure and every URL an
+   `assistant` turn states must appear verbatim in a `tool` turn's `input` or
+   `output` somewhere in the transcript, and no `assistant` turn may read as
+   advice (ADR 0007) — so a transcript that would fail in CI fails here first,
+   with the same value named.
+5. Add the fixture name to `test/traceability.test.ts`'s `EXPECTED_FAILURE`
+   only if this is a deliberately broken transcript proving the eval catches
+   something; a real recording needs no entry there and is expected to pass.
 
 ## Adding a new skill
 

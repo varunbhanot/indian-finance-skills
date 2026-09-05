@@ -1,0 +1,39 @@
+{
+  "letter": "guaranteed-recurring-cash",
+  "skill": ".claude/skills/ctc-decoder/SKILL.md",
+  "recorded": "2026-09-05",
+  "broken": "Deliberately invalid: proves the eval fails when a figure is derived rather than copied. Not a real recording; see fixtures/transcripts/README.md.",
+  "events": [
+    {
+      "kind": "user",
+      "text": "Basic 12,00,000. What am I actually getting?"
+    },
+    {
+      "kind": "tool",
+      "step": "4. Run",
+      "input": {
+        "financial_year": "2026-27",
+        "components": [
+          { "name": "Basic", "type": "basic", "amount": 1200000, "period": "annual" }
+        ]
+      },
+      "output": {
+        "financial_year": "2026-27",
+        "totals": {
+          "headline_ctc": { "paise": 120000000, "display": "₹12,00,000", "components": ["Basic"] },
+          "guaranteed_recurring_cash": {
+            "paise": 120000000,
+            "display": "₹12,00,000",
+            "components": ["Basic"]
+          }
+        },
+        "sources": []
+      }
+    },
+    {
+      "kind": "assistant",
+      "text": "Guaranteed recurring cash is **₹12,00,000**. Split evenly across two people that would be **₹6,00,000** each.",
+      "step": "6. Narrate"
+    }
+  ]
+}

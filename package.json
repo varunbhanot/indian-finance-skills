@@ -10,6 +10,8 @@
   },
   "scripts": {
     "ctc-decoder": "node src/cli/ctc-decoder.ts",
+    "record-transcript": "node scripts/record-transcript.ts",
+    "check-transcript": "node scripts/check-transcript.ts",
     "typecheck": "tsc --noEmit",
     "lint": "node scripts/lint-no-floats.ts",
     "test": "node --test 'test/**/*.test.ts'"

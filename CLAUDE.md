@@ -124,12 +124,12 @@ ADR 0007), and the two loaders' own tests against test-only YAML documents (the
 ticket that built the rules loader permits this, since no statutory value may be
 typed from memory to test it).
 
-The traceability eval (ADR 0003) is designed to run **against checked-in
-recorded transcripts**: recording one needs a model and is done on demand, and
-the replay reads only what is committed, so no API key lives in the repository.
-The transcripts are checked in and hand-checked today; the replay that puts them
-in CI is #15 and is not written yet. Do not describe it as enforced until it is.
-They live in `fixtures/transcripts/<name>/transcript.json` — an ordered `events`
+The traceability eval (ADR 0003) runs **against checked-in recorded
+transcripts**: recording one needs a model and is done on demand
+(`npm run record-transcript`), and the replay (`test/traceability.test.ts`,
+issue #15) reads only what is committed, so no API key lives in the
+repository, and no network or model is needed for `npm test` to enforce it in
+CI. They live in `fixtures/transcripts/<name>/transcript.json` — an ordered `events`
 list of `user`, `assistant` and `tool` turns, each `tool` turn carrying the exact
 CLI `input` and `output` — and `fixtures/transcripts/` is the one directory under
 `fixtures/` that is not a fixture, skipped by `test/fixtures.test.ts` and

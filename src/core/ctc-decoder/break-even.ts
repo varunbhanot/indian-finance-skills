@@ -50,17 +50,19 @@ export type BreakEvenDeduction =
   | { basis: Basis; kind: "old-regime-never-wins"; assumes: string[] };
 
 /**
- * Named, not explained, the same discipline `take-home.ts`'s `assumesFor`
- * follows: what has to be true for this figure to be the right one, for the
- * skill to say out loud. Both regimes' slabs and rebate are read here, so both
- * regimes' conditions apply — the old regime's age band alongside the
- * residency both regimes' rebates require.
+ * The three atomic conditions `take-home.ts`'s `assumesFor` also names, kept
+ * here rather than copied into it, so the two lists cannot silently drift
+ * apart on a later change to either. `take-home.ts` imports the ones its own
+ * `assumesFor` needs; this module's own `ASSUMES` below is all three, since
+ * both regimes' slabs and rebate are read here — the old regime's age band
+ * alongside the residency both regimes' rebates require.
  */
-const ASSUMES = [
-  "Below 60 years of age",
-  "A resident individual",
-  "Steady state: no one-time component",
-];
+export const ASSUMES_BELOW_60 = "Below 60 years of age";
+export const ASSUMES_RESIDENT_INDIVIDUAL = "A resident individual";
+export const ASSUMES_STEADY_STATE = "Steady state: no one-time component";
+
+/** Named, not explained: what has to be true for this figure to be the right one, for the skill to say out loud. */
+const ASSUMES = [ASSUMES_BELOW_60, ASSUMES_RESIDENT_INDIVIDUAL, ASSUMES_STEADY_STATE];
 
 export function breakEvenDeductionFor(
   basis: Basis,

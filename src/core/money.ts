@@ -91,6 +91,21 @@ export function shareInBasisPoints(partPaise: number, wholePaise: number): numbe
 }
 
 /**
+ * A figure and the period it belongs to, both stated, never one inferred from
+ * the other: twelve of the monthly can fall a few paise short of the annual, so
+ * a reader who wants the other one is given it rather than left to multiply.
+ */
+export interface PeriodicMoney {
+  annual: Money;
+  monthly: Money;
+}
+
+/** An annual figure carried as both periods. */
+export function periodic(annualPaise: number): PeriodicMoney {
+  return { annual: money(annualPaise), monthly: money(perMonth(annualPaise)) };
+}
+
+/**
  * A month of an annual figure, truncated towards zero. The discarded remainder
  * is under a rupee a year, and twelve monthly figures may therefore fall a few
  * paise short of the annual one they came from; that is why every figure the

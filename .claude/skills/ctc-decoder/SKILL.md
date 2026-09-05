@@ -5,11 +5,12 @@ description: Decode an offer letter's CTC into guaranteed recurring cash and wha
 
 Decode a CTC into what is guaranteed, cash and recurring, and what the rest
 actually is. The core does every sum and every classification; this skill
-gathers the input, confirms it, runs the CLI, and narrates the JSON. Every
-rupee figure you say is a `display` string copied from the tool's input or
-output, never a number you formed (ADR 0003). You state what is true and link
-its source; what to negotiate, accept or reject is the user's, and you leave it
-with them (ADR 0007).
+gathers the input, confirms it, runs the CLI twice — once for the decode, and
+again once the user has settled the one question take-home needs — and narrates
+the JSON. Every rupee figure you say is a `display` string copied from the
+tool's input or output, never a number you formed (ADR 0003). You state what is
+true and link its source; what to negotiate, accept or reject is the user's, and
+you leave it with them (ADR 0007).
 
 ## 1. Intake
 
@@ -27,6 +28,13 @@ Take the offer by whichever route the user gives it:
 
 The financial year is the one the start date falls in, 1 April to 31 March
 (CONTEXT.md). Ask when the letter does not settle it.
+
+**Never ask for a password, a PAN, an employee number, a bank or card number, or
+any other identifier**, at any step and for any reason: nothing in the CLI's
+input takes one, so there is nothing they could be for. If a document carries
+them, they stay on the page — unused, and never repeated back to the user, not
+even to confirm you read the right letter (ADR 0011). Name a line by what the
+letter calls it, never by who it belongs to.
 
 The catalogue types are the keys under `groups.components.entries` in
 `rules/fy<YYYY-YY>.yaml`; read them from the file. A line no type fits is
@@ -126,7 +134,79 @@ Success prints the decoded offer on stdout. A rejection prints
 the draft with the user, run again. `rule_absent` means the rules file does not
 carry that rule yet — say exactly that.
 
-## 5. Narrate
+This first run carries no `take_home` block. Step 5 is what adds one.
+
+## 5. The provident fund wage base
+
+Take-home needs one thing the letter does not state in words: which wage the
+employer computes provident fund on — the whole of basic, or basic capped at the
+statutory monthly ceiling. There is no default, and the two answers move the
+monthly figure by thousands.
+
+It is a bad question to put cold, and usually you do not have to. **An Indian
+annexure states the employer's contribution as an amount, and the policy is in
+that amount.** The decoder reads it: when the offer carries an employer
+contribution line, the output carries `employer_pf`, and the answer is
+`employer_pf.implies`. You do no arithmetic here — you read the field and put a
+confirmation instead of a quiz.
+
+- **One entry** — say which base the letter's own figure lands on, with the
+  figures the decoder compared, and ask the user to confirm it. Both figures are
+  in the output: `employer_pf.stated_contribution.annual.display` is what their
+  letter says, and the matching entry in `employer_pf.bases` carries the
+  `wage.annual.display` its `implied_contribution` was computed on, at
+  `employer_pf.rate.display`. Shaped like: "your letter's employer PF of *[their figure]* is
+  *[the rate]* of the statutory ceiling of *[the ceiling]* a month — is that the
+  basis?", with every bracket filled from the output and none of them from
+  memory.
+- **Both entries** — `bases_coincide` is true: basic is at or below the ceiling,
+  so both bases give the same wage and no figure computed from them could tell
+  them apart. Say that, say the figure is the same either way, and ask the plain
+  question anyway, because the answer still travels into the input.
+- **No entries** — the letter's figure lands on neither. Say so, give all three
+  figures — theirs, and what each base would imply — and ask the plain question.
+  This is not a problem with their offer, and do not present it as one: letters
+  round, employers contribute above the minimum, and an annexure may state only
+  the part of the contribution that reaches the provident fund rather than the
+  whole employer share, which is what the rate's own citation `note` records.
+- **No `employer_pf` block at all** — either the letter has no employer
+  contribution line, or the rules file does not say which catalogue entry that
+  would be. Nothing to read either way: ask the plain question, and do not
+  report the absence as a problem with their letter.
+
+The plain question, when you need it: does the employer compute provident fund
+on the whole of basic, or on the statutory monthly ceiling? Name the ceiling by
+`employer_pf.ceiling.monthly.display` where the output carries it; where there is
+no `employer_pf` block, ask without a figure rather than supplying one from
+memory — you do not have the ceiling for that year unless the tool gave it to
+you.
+
+`employer_pf.implies` is a reading of the letter and never an answer on the
+user's behalf. If they say the other base, that is the base: type what they
+said, not what the letter implied, and do not argue with them about their own
+employer.
+
+Ask at the same time for the **annual professional tax** their state levies, if
+they know it — a figure from their own payslip or state, not one you supply. It
+is optional: without it the estimate names professional tax among the things it
+excludes, which is the honest report of not having been told.
+
+Then add both to the same JSON and run again:
+
+```json
+{
+  "financial_year": "2026-27",
+  "pf_wage_base": "statutory_ceiling",
+  "professional_tax": 2500,
+  "components": [ "…exactly as they were in the first run…" ]
+}
+```
+
+`pf_wage_base` is `full_basic` or `statutory_ceiling`; `professional_tax` is
+whole rupees a year, and is refused without `pf_wage_base` beside it. The second
+run's output is the one you narrate.
+
+## 6. Narrate
 
 Lead with `totals.guaranteed_recurring_cash` beside `totals.headline_ctc`,
 each by its `display` string and the `components` it names. Say the two side
@@ -198,7 +278,8 @@ say which it is: `variable-pay-at-zero` counts no variable pay, and
 Then `year_by_year.grants`, one per equity line, each by `name` and each year's
 `as_valued.display` and `as_claimed.display`. A grant with `unvaluable: true` is
 ₹0 in every `as_valued` and keeps every `as_claimed`: say both columns, and give
-the reason from the grant's own `assumption`.
+the reason from the component's own `equity.assumption` — the table's rows carry
+the figures, and the sentence that explains them lives on the grant above.
 
 `spread` says how the grant reached its years, and it decides what you say:
 
@@ -229,9 +310,10 @@ Then `basic.drives`, one fact each, from the fields and never from memory:
 
 - `employer-pf` — the contribution is computed on `wage_base.components` at
   `rate.display`, and `ceiling.monthly.display` is the statutory monthly wage
-  ceiling. Say whether the ceiling applies to this employee only if the output
-  says so, which it does not here: `take_home.deductions.employee_pf` is the
-  only place the decoder applies it, and only for the employee's own share.
+  ceiling. This block states the rule and applies nothing. Whether the ceiling
+  is what *this* employer uses is what `employer_pf` reads off the letter and
+  the user confirms, and `take_home.deductions.employee_pf` is the only place
+  the decoder applies it — for the employee's own share, never the employer's.
 - `gratuity` — it accrues on `wage_base.components`, at `accrual.days_of_wages`
   days of wages per completed year with the monthly wage divided by
   `accrual.days_in_month`, and is payable after `qualifying_service.years` years
@@ -240,6 +322,92 @@ Then `basic.drives`, one fact each, from the fields and never from memory:
   settles that the exemption exists and leaves its extent to be prescribed; the
   rules file does not carry the limbs, so say the exemption is bounded and that
   the decoder cannot compute the bound.
+
+Then `employer_pf`, where the output carries it and where step 5 did not
+already settle it in the user's hearing: the letter's own
+`stated_contribution.annual.display`, each entry of `bases` by its `basis`,
+`wage.annual.display` and `implied_contribution.annual.display`, and which of
+them `implies` names. Say `bases_coincide` where it is true — the two bases are one
+wage on this package, and a single answer would read as a choice the figures
+cannot support. Say what the user typed as `take_home`'s
+`deductions.employee_pf.basis` beside it, and where the two differ, say that
+plainly and leave it: the reading is of the letter, the answer is theirs.
+
+Then `take_home`, when the output carries it — the whole point of the second
+run, and the figure the user came for.
+
+`take_home.regimes` carries both regimes as two facts of one input. Say both, in
+the order they appear, and **never say which is better, which to pick, or which
+comes out ahead** — the pair is the answer, not a shortlist (ADR 0007). Where the
+output carries a break-even, say it as one more fact beside the exclusions,
+never as the point at which one regime wins. Where it does not — and today it
+does not — do not compute one and do not describe a crossing point the tool did
+not emit.
+
+For each regime, in this order:
+
+- `assumes`, every name of it, before any figure. These are the conditions the
+  figures are only right under — the regime itself, the age band where the
+  output names one, residency, and steady state, which is what puts a joining
+  bonus, a retiral, a benefit in kind and every equity grant outside these
+  numbers. A reader who fails one of them is reading the wrong figure.
+- Then each entry of `bases`, saying which basis it is: `variable-pay-at-zero`
+  counts no variable pay, `variable-pay-at-target` counts it at the quoted
+  target. For each:
+  - `recurring_cash.annual.display` and `.monthly.display`, with the
+    `components` it is summed from.
+  - `deductions.employee_pf`: `contribution.monthly.display` and
+    `.annual.display`, the `wage` the `rate.display` was applied to and the
+    `wage_components` that wage is summed from. Where `ceiling` is present, say
+    `ceiling.monthly.display` and whether `ceiling.applied` — chosen and biting
+    is a different fact from chosen and not.
+  - `deductions.professional_tax`, where present, by both periods; where absent
+    it is in `excludes` instead, and belongs there in your telling too.
+  - `deductions.income_tax`: `salary`, `standard_deduction.amount`,
+    `total_income.after`, `slabs.total`, `rebate.amount` with whether it
+    `applied`, `surcharge.amount` where a `surcharge` block is present, and
+    `cess.amount` at `cess.rate.display`, ending on `tax_payable.after.display`.
+    Where `surcharge.marginal_relief.applied` is true, say the relief `amount`
+    and the `threshold` it measures from. Where `total_income` or `tax_payable`
+    differ `before` and `after`, that is the statutory rounding to
+    `unit_rupees`: say it as rounding and cite it.
+  - `deductions.total`, then `take_home.monthly.display` and
+    `take_home.annual.display`. The monthly is the figure the user asked for;
+    say it last, and say it is an estimate of a steady-state month.
+- `excludes`, every name of it, after the figures. Each is a real deduction or a
+  real tax this estimate does not compute, so the take-home above is not the
+  last word: HRA exemption and Chapter VI-A deductions would lower the old
+  regime's tax, employer NPS the tax under either, and perquisite tax on vesting
+  equity raises what is actually withheld in a year equity vests. Where the
+  list carries the `Floor:` line, say it: it is what those first two exclusions
+  make the old-regime figure, and it is the reason the two regimes' figures are
+  not the whole comparison.
+
+Say every figure once per basis and never carry one across regimes: the two
+regimes share their gross, their employee provident fund and their professional
+tax, and differ only in income tax — that is a fact worth saying, and it is not
+licence to quote one regime's take-home under the other's name.
+
+Then `flags`, one at a time. Each carries `code`, the figures in `measured` by
+their `display`, and the `names` it is about; say all three. What it stands on
+is `kind`, and the three kinds are not interchangeable:
+
+- `heuristic` — an authored threshold, not law. Say so, say
+  `threshold.rationale` in the author's own words, and name
+  `threshold.heuristics_key` so the user can go and disagree with it. A flag of
+  this kind is a judgement this repository wrote down, and the reader is
+  entitled to reject it.
+- `statute` — say `statement` as the rules file words it, with its `citation`:
+  `section`, the `document`'s `title`, its `url`, and the `note` where there is
+  one.
+- `letter` — it stands on their own offer letter and nothing else. Say `months`
+  and what it is a period of, and give no citation, because there is none to
+  give.
+
+A flag is a fact with its figures attached. Do not rank flags, do not total
+them, do not call a package good or bad because of them, and do not turn one
+into something to raise with the employer (ADR 0007). No flags at all is a
+finding too: say that nothing crossed a threshold, not that the offer is fine.
 
 Then the conditions in the letter, quoted, each beside the component it
 attaches to.
@@ -259,6 +427,7 @@ Figures are `display` strings, verbatim, and only those: `paise` stays in the
 JSON, and a percentage, share or difference exists only once the tool has
 emitted it.
 
-End on the facts and the links. This skill does not yet gather the one thing
-take-home needs (`pf_wage_base`), so the output carries no `take_home` block.
-When asked for a monthly in-hand figure, say that is what is missing.
+End on the facts and the links. If the user asks what they should do with any
+of it — negotiate, accept, decline, pick a regime — say plainly that this is not
+what the skill does, and offer to go back over any figure and where it came
+from instead (ADR 0007).

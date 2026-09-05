@@ -681,6 +681,128 @@
       }
     ]
   },
+  "employer_pf": {
+    "components": [
+      "Employer PF"
+    ],
+    "components_citation": {
+      "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, section 6",
+      "document": {
+        "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+        "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+      },
+      "retrieved": "2026-09-05",
+      "rules_key": "groups.epf.employer_components",
+      "note": "Section 6 fixes one employer contribution, \"paid by the employer to the Fund\", and this names the catalogue entry that carries it on an offer letter. It is deliberately narrower than `employer_nps`, which is a contribution under a different Act to a different fund and is therefore not a figure this rate explains. Read `employer_rate`'s note with any figure derived from it: section 6A(2)(a) diverts part of the employer's share to the Employees' Pension Scheme, so a letter that states only the provident fund part of it will match neither wage base here."
+    },
+    "stated_contribution": {
+      "annual": {
+        "paise": 14400000,
+        "display": "₹1,44,000"
+      },
+      "monthly": {
+        "paise": 1200000,
+        "display": "₹12,000"
+      }
+    },
+    "bases": [
+      {
+        "basis": "full_basic",
+        "wage": {
+          "annual": {
+            "paise": 120000000,
+            "display": "₹12,00,000"
+          },
+          "monthly": {
+            "paise": 10000000,
+            "display": "₹1,00,000"
+          }
+        },
+        "implied_contribution": {
+          "annual": {
+            "paise": 14400000,
+            "display": "₹1,44,000"
+          },
+          "monthly": {
+            "paise": 1200000,
+            "display": "₹12,000"
+          }
+        },
+        "matches": true
+      },
+      {
+        "basis": "statutory_ceiling",
+        "wage": {
+          "annual": {
+            "paise": 18000000,
+            "display": "₹1,80,000"
+          },
+          "monthly": {
+            "paise": 1500000,
+            "display": "₹15,000"
+          }
+        },
+        "implied_contribution": {
+          "annual": {
+            "paise": 2160000,
+            "display": "₹21,600"
+          },
+          "monthly": {
+            "paise": 180000,
+            "display": "₹1,800"
+          }
+        },
+        "matches": false
+      }
+    ],
+    "implies": [
+      "full_basic"
+    ],
+    "bases_coincide": false,
+    "wage_components": [
+      "Basic"
+    ],
+    "wage_citation": {
+      "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+      "document": {
+        "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+        "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+      },
+      "retrieved": "2026-09-05",
+      "rules_key": "groups.epf.wage_components",
+      "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+    },
+    "rate": {
+      "bp": 1200,
+      "display": "12%"
+    },
+    "rate_citation": {
+      "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+      "document": {
+        "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+        "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+      },
+      "retrieved": "2026-09-05",
+      "rules_key": "groups.epf.employer_rate",
+      "note": "Read this before quoting the figure, and read `employee_rate`'s note with it: the same caveat applies for the same reason. Section 6 says \"The contribution which shall be paid by the employer to the Fund shall be ten percent. Of the basic wages, dearness allowance and retaining allowance, if any\", and its first proviso substitutes \"12 percent\" for notified establishments \"at both the places where they occur\" -- that notification could not be retrieved. So 0.12 is the rate the Government states is applied, not the rate read off the section: \"The employer is also required to contribute 12% of the wages.\" This is the WHOLE employer share. Section 6A(2)(a) diverts part of it to the Employees' Pension Scheme, but the Act fixes only a ceiling on that part -- \"not exceeding eight and one-third per cent of the basic wages, dearness allowance and retaining allowance\" -- and leaves the figure itself to \"as may be specified in the Pension Scheme\", which could not be retrieved. The split is therefore not carried here, and a figure computed from this rate is the employer's total contribution rather than what reaches the provident fund alone."
+    },
+    "ceiling": {
+      "monthly": {
+        "paise": 1500000,
+        "display": "₹15,000"
+      },
+      "citation": {
+        "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
+        "document": {
+          "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+          "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+        },
+        "retrieved": "2026-09-05",
+        "rules_key": "groups.epf.wage_ceiling",
+        "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it."
+      }
+    }
+  },
   "take_home": {
     "regimes": [
       {

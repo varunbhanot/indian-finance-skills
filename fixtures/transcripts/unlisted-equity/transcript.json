@@ -1,0 +1,3101 @@
+{
+  "letter": "unlisted-unvaluable",
+  "skill": ".claude/skills/ctc-decoder/SKILL.md",
+  "recorded": "2026-09-05",
+  "events": [
+    {
+      "kind": "user",
+      "text": "Startup offer, joining July 2026. The annexure is short:\n\n    Basic                24,00,000\n    ESOP grant           80,00,000\n    Total CTC          1,04,00,000\n\nThe ESOP para says: \"10,000 options at a grant-date fair market value of ₹800\nper share, exercisable at ₹40, vesting 25% per year over four years subject to\na one-year cliff.\" The company is private -- no listing, no secondary window\nthat I know of. Is this a 1.04 crore offer or not?"
+    },
+    {
+      "kind": "assistant",
+      "text": "Here is what I have read off the annexure and the ESOP paragraph. Correct\nanything wrong; nothing runs until you say it is right.\n\n| Line, as your letter names it | Amount | Period | Type | From |\n|---|---|---|---|---|\n| Basic | 24,00,000 | annual | `basic` | \"Basic 24,00,000\" |\n| ESOP grant | 80,00,000 | annual | `stock_option` | \"ESOP grant 80,00,000\" |\n\nThe ESOP grant needs more than an amount, and this is what I took from the\nparagraph:\n\n- **Listed: no.** You said the company is private, with no listing.\n- **Units: 10,000**, grant-date fair market value **800** per share, strike\n  **40** -- all three as the paragraph states them.\n- **Vesting: 25% in each of years 1, 2, 3 and 4**, with a **12-month cliff** --\n  read from \"25% per year over four years subject to a one-year cliff\".\n- The 80,00,000 is what the **letter claims** the grant is worth. It is carried\n  as the claim; what the decoder holds the grant at is a separate figure.\n\nFinancial year 2026-27, from the July 2026 start.\n\nOne condition is in the letter and goes in as typed: the one-year cliff. Is\nthere anything else -- a recovery clause, a good-leaver or bad-leaver term, a\nbuyback restriction? Quote it if so; those go in the reading even where they\nhave no field.\n\nIs this right?",
+      "step": "3. Confirm"
+    },
+    {
+      "kind": "user",
+      "text": "That's right. Nothing else in the letter beyond the cliff."
+    },
+    {
+      "kind": "tool",
+      "step": "4. Run",
+      "input": {
+        "financial_year": "2026-27",
+        "components": [
+          {
+            "name": "Basic",
+            "type": "basic",
+            "amount": 2400000,
+            "period": "annual"
+          },
+          {
+            "name": "ESOP grant",
+            "type": "stock_option",
+            "amount": 8000000,
+            "period": "annual",
+            "equity": {
+              "listed": false,
+              "units": 10000,
+              "grant_date_fair_market_value": 800,
+              "strike": 40,
+              "vesting": {
+                "cliff_months": 12,
+                "years": [
+                  2500,
+                  2500,
+                  2500,
+                  2500
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "output": {
+        "financial_year": "2026-27",
+        "rules_file": "rules/fy2026-27.yaml",
+        "components": [
+          {
+            "name": "Basic",
+            "as_typed": {
+              "amount": {
+                "paise": 240000000,
+                "display": "₹24,00,000"
+              },
+              "period": "annual"
+            },
+            "annual": {
+              "paise": 240000000,
+              "display": "₹24,00,000"
+            },
+            "certainty": "guaranteed",
+            "form": "cash-now",
+            "recurring": true,
+            "counts_toward_guaranteed_recurring_cash": true,
+            "classified_by": {
+              "kind": "catalogue",
+              "entry": "basic",
+              "rules_key": "groups.components.entries.basic",
+              "basis": {
+                "kind": "judgement",
+                "rationale": "The base component of the salary structure, payable monthly under the terms of employment whatever the employee or the employer achieves."
+              }
+            }
+          },
+          {
+            "name": "ESOP grant",
+            "as_typed": {
+              "amount": {
+                "paise": 800000000,
+                "display": "₹80,00,000"
+              },
+              "period": "annual"
+            },
+            "annual": {
+              "paise": 800000000,
+              "display": "₹80,00,000"
+            },
+            "certainty": "conditional-on-tenure",
+            "form": "equity",
+            "recurring": false,
+            "instrument": "option",
+            "counts_toward_guaranteed_recurring_cash": false,
+            "classified_by": {
+              "kind": "catalogue",
+              "entry": "stock_option",
+              "rules_key": "groups.components.entries.stock_option",
+              "basis": {
+                "kind": "judgement",
+                "rationale": "A right to buy at a fixed strike price, exercisable only over the part of the grant that has vested. Whether exercising it is worth anything is a second question the strike settles, and the letter settles neither."
+              }
+            },
+            "equity": {
+              "listed": false,
+              "method": "unvaluable",
+              "valued": {
+                "paise": 0,
+                "display": "₹0"
+              },
+              "claimed": {
+                "paise": 800000000,
+                "display": "₹80,00,000"
+              },
+              "units": 10000,
+              "grant_date_fair_market_value": {
+                "paise": 80000,
+                "display": "₹800"
+              },
+              "strike": {
+                "paise": 4000,
+                "display": "₹40"
+              },
+              "assumption": "Held at nil, and named rather than dropped: shares in an unlisted company have no market price, and what this grant is worth turns on a liquidity event that may never happen. The value the letter claims is carried beside it, unchanged, and so is any price per share it states — which is a company's own valuation of itself and not a price anyone has paid.",
+              "vesting": {
+                "years": [
+                  {
+                    "year": 1,
+                    "share": {
+                      "bp": 2500,
+                      "display": "25%"
+                    }
+                  },
+                  {
+                    "year": 2,
+                    "share": {
+                      "bp": 2500,
+                      "display": "25%"
+                    }
+                  },
+                  {
+                    "year": 3,
+                    "share": {
+                      "bp": 2500,
+                      "display": "25%"
+                    }
+                  },
+                  {
+                    "year": 4,
+                    "share": {
+                      "bp": 2500,
+                      "display": "25%"
+                    }
+                  }
+                ],
+                "cliff_months": 12
+              },
+              "perquisite": {
+                "statement": "Shares acquired by exercising an employee stock option are a specified security transferred at a concessional rate, so the amount by which their fair market value on the date of exercise exceeds the strike price actually paid is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so that excess enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
+                "citation": {
+                  "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(e), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+                  "document": {
+                    "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                    "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.perquisite.equity.option",
+                  "note": "Section 17(4)(e) defines \"option\" as \"a right but not an obligation, granted to an employee to apply for the specified security or sweat equity shares at a predetermined price\", and section 17(4)(h) fixes the amount: \"the value of any specified security or sweat equity shares shall be the fair market value of the specified security or sweat equity shares, on the date on which the option is exercised by the assessee, as reduced by the amount actually paid by, or recovered from, the assessee in respect of such security or shares.\" The charge therefore falls on exercise and not on vesting, and it falls on the spread rather than on the whole value of the shares. Section 73(1), Table Sl. No. 4, deems the cost of acquisition to be the \"Fair market value taken into account for the purposes of the said clause\". What the Act does not settle is the fair market value itself: section 17(4)(a) leaves it to \"the value determined in accordance with the method, as may be prescribed\", and no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the perquisite therefore cannot be computed from this file, and neither the fair market value on a future exercise date nor the date itself is knowable from an offer letter."
+                }
+              }
+            }
+          }
+        ],
+        "totals": {
+          "headline_ctc": {
+            "paise": 1040000000,
+            "display": "₹1,04,00,000",
+            "components": [
+              "Basic",
+              "ESOP grant"
+            ]
+          },
+          "fixed_pay": {
+            "paise": 1040000000,
+            "display": "₹1,04,00,000",
+            "components": [
+              "Basic",
+              "ESOP grant"
+            ]
+          },
+          "variable_pay_at_target": {
+            "paise": 0,
+            "display": "₹0",
+            "components": []
+          },
+          "guaranteed_recurring_cash": {
+            "paise": 240000000,
+            "display": "₹24,00,000",
+            "components": [
+              "Basic"
+            ]
+          },
+          "retirals": {
+            "paise": 0,
+            "display": "₹0",
+            "components": []
+          },
+          "one_time_components": {
+            "paise": 800000000,
+            "display": "₹80,00,000",
+            "components": [
+              "ESOP grant"
+            ]
+          },
+          "benefits_in_kind": {
+            "paise": 0,
+            "display": "₹0",
+            "components": []
+          },
+          "equity_as_claimed": {
+            "paise": 800000000,
+            "display": "₹80,00,000",
+            "components": [
+              "ESOP grant"
+            ]
+          },
+          "equity_as_valued": {
+            "paise": 0,
+            "display": "₹0",
+            "components": [
+              "ESOP grant"
+            ]
+          },
+          "unvaluable_equity": {
+            "paise": 800000000,
+            "display": "₹80,00,000",
+            "components": [
+              "ESOP grant"
+            ]
+          }
+        },
+        "year_by_year": {
+          "years_covered": 4,
+          "bases": [
+            {
+              "basis": "variable-pay-at-zero",
+              "years": [
+                {
+                  "year": 1,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 2,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 3,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 4,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                }
+              ],
+              "year_one": {
+                "paise": 240000000,
+                "display": "₹24,00,000"
+              },
+              "average": {
+                "over_years": 4,
+                "with_one_time": {
+                  "paise": 240000000,
+                  "display": "₹24,00,000"
+                },
+                "without_one_time": {
+                  "paise": 240000000,
+                  "display": "₹24,00,000"
+                },
+                "one_time_components": []
+              }
+            },
+            {
+              "basis": "variable-pay-at-target",
+              "years": [
+                {
+                  "year": 1,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 2,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 3,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 4,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                }
+              ],
+              "year_one": {
+                "paise": 240000000,
+                "display": "₹24,00,000"
+              },
+              "average": {
+                "over_years": 4,
+                "with_one_time": {
+                  "paise": 240000000,
+                  "display": "₹24,00,000"
+                },
+                "without_one_time": {
+                  "paise": 240000000,
+                  "display": "₹24,00,000"
+                },
+                "one_time_components": []
+              }
+            }
+          ],
+          "grants": [
+            {
+              "name": "ESOP grant",
+              "unvaluable": true,
+              "spread": "vesting-schedule",
+              "cliff_months": 12,
+              "years": [
+                {
+                  "year": 1,
+                  "share": {
+                    "bp": 2500,
+                    "display": "25%"
+                  },
+                  "as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  }
+                },
+                {
+                  "year": 2,
+                  "share": {
+                    "bp": 2500,
+                    "display": "25%"
+                  },
+                  "as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  }
+                },
+                {
+                  "year": 3,
+                  "share": {
+                    "bp": 2500,
+                    "display": "25%"
+                  },
+                  "as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  }
+                },
+                {
+                  "year": 4,
+                  "share": {
+                    "bp": 2500,
+                    "display": "25%"
+                  },
+                  "as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "basic": {
+          "components": [
+            "Basic"
+          ],
+          "annual": {
+            "paise": 240000000,
+            "display": "₹24,00,000"
+          },
+          "share_of_fixed_pay": {
+            "bp": 2307,
+            "display": "23.07%"
+          },
+          "citation": {
+            "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
+            "document": {
+              "title": "The Code on Wages, 2019 (No. 29 of 2019)",
+              "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+            },
+            "retrieved": "2026-09-05",
+            "rules_key": "groups.basic_pay.catalogue_entries",
+            "note": "Section 2(y) defines wages and lists what they include: \"(i) basic pay; (ii) dearness allowance; and (iii) retaining allowance, if any\". Basic pay is the first of the three and is its own head, distinct from the other two. Of this file's catalogue entries only `basic` is basic pay; a dearness or retaining allowance entry added to the catalogue is a different head of wages and does not belong here, even though the two share a base with basic pay under the provident fund and gratuity Acts."
+          },
+          "drives": [
+            {
+              "drives": "employer-pf",
+              "wage_base": {
+                "entries": [
+                  "basic"
+                ],
+                "components": [
+                  "Basic"
+                ],
+                "citation": {
+                  "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                  "document": {
+                    "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components",
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                }
+              },
+              "rate": {
+                "bp": 1200,
+                "display": "12%"
+              },
+              "rate_citation": {
+                "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+                "document": {
+                  "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                  "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                },
+                "retrieved": "2026-09-05",
+                "rules_key": "groups.epf.employer_rate",
+                "note": "Read this before quoting the figure, and read `employee_rate`'s note with it: the same caveat applies for the same reason. Section 6 says \"The contribution which shall be paid by the employer to the Fund shall be ten percent. Of the basic wages, dearness allowance and retaining allowance, if any\", and its first proviso substitutes \"12 percent\" for notified establishments \"at both the places where they occur\" -- that notification could not be retrieved. So 0.12 is the rate the Government states is applied, not the rate read off the section: \"The employer is also required to contribute 12% of the wages.\" This is the WHOLE employer share. Section 6A(2)(a) diverts part of it to the Employees' Pension Scheme, but the Act fixes only a ceiling on that part -- \"not exceeding eight and one-third per cent of the basic wages, dearness allowance and retaining allowance\" -- and leaves the figure itself to \"as may be specified in the Pension Scheme\", which could not be retrieved. The split is therefore not carried here, and a figure computed from this rate is the employer's total contribution rather than what reaches the provident fund alone."
+              },
+              "ceiling": {
+                "monthly": {
+                  "paise": 1500000,
+                  "display": "₹15,000"
+                },
+                "citation": {
+                  "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
+                  "document": {
+                    "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_ceiling",
+                  "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it."
+                }
+              }
+            },
+            {
+              "drives": "gratuity",
+              "wage_base": {
+                "entries": [
+                  "basic"
+                ],
+                "components": [
+                  "Basic"
+                ],
+                "citation": {
+                  "section": "The Payment of Gratuity Act, 1972, section 2(s)",
+                  "document": {
+                    "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.gratuity.wage_components",
+                  "note": "'\"wages\" means all emoluments which are earned by an employee while on duty or on leave in accordance with the terms and conditions of his employment and which are paid or are payable to him in cash and includes dearness allowance but does not include any bonus, commission, house rent allowance, overtime wages and any other allowance.' Of this file's catalogue entries only `basic` is inside that base -- house rent allowance is excluded by name, and a special allowance by the closing words -- and a dearness allowance entry added to the catalogue must be added here too."
+                }
+              },
+              "accrual": {
+                "days_of_wages": 15,
+                "days_in_month": 26,
+                "citation": {
+                  "section": "The Payment of Gratuity Act, 1972, section 4(2) and its Explanation",
+                  "document": {
+                    "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.gratuity.accrual",
+                  "note": "\"For every completed year of service or part thereof in excess of six months, the employer shall pay gratuity to an employee at the rate of fifteen days' wages based on the rate of wages last drawn by the employee concerned.\" The Explanation fixes the divisor: \"In the case of a monthly rated employee, the fifteen days' wages shall be calculated by dividing the monthly rate of wages last drawn by him by twenty-six and multiplying the quotient by fifteen.\" Two provisos to the same sub-section put a piece-rated and a seasonal employee outside this formula, and neither is encoded here."
+                }
+              },
+              "qualifying_service": {
+                "years": 5,
+                "citation": {
+                  "section": "The Payment of Gratuity Act, 1972, section 4(1)",
+                  "document": {
+                    "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.gratuity.qualifying_service",
+                  "note": "\"Gratuity shall be payable to an employee on the termination of his employment after he has rendered continuous service for not less than five years\" -- on superannuation, on retirement or resignation, or on death or disablement. The first proviso waives the five years where the termination is due to death or disablement, so the period bounds a resignation and not every ending of the employment."
+                }
+              }
+            },
+            {
+              "drives": "hra-exemption",
+              "citation": {
+                "section": "Income-tax Act, 2025, Schedule III (see section 11), Table Sl. No. 11 (\"Any special allowance from employer\"), read with section 202(2)(a)(i)",
+                "document": {
+                  "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                  "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                },
+                "retrieved": "2026-09-05",
+                "rules_key": "groups.hra.exemption",
+                "note": "Read this before saying anything about HRA. Schedule III excludes from total income \"any special allowance from employer\" where \"such allowance is specifically granted to meet expenditure actually incurred on payment of rent (by whatever name called) in respect of residential accommodation occupied by the assessee\", the accommodation \"is not owned by him\", and he \"has actually incurred expenditure on payment of rent\". HOW MUCH is exempt is not in the Act. Condition (b) of the same entry reads \"such allowance is to such extent as may be prescribed having regard to the area or place in which such accommodation is situated and other relevant considerations\", so the limbs of the exemption -- and the definition of \"salary\" that decides whether basic bounds it -- live in the rules prescribed under the Act, not in the Act. No primary text of those rules could be retrieved: incometaxindia.gov.in refuses requests from this environment. This file therefore states that the exemption exists and is bounded by a prescribed extent, and does not state the bound; a figure for it cannot be computed from this file. Section 202(2)(a)(i) excludes Schedule III Table Sl. No. 11 from the computation of total income by name, so the exemption is the old regime's alone."
+              }
+            }
+          ]
+        },
+        "flags": [
+          {
+            "code": "basic-share",
+            "kind": "heuristic",
+            "measured": {
+              "basic": {
+                "paise": 240000000,
+                "display": "₹24,00,000"
+              },
+              "fixed_pay": {
+                "paise": 1040000000,
+                "display": "₹1,04,00,000"
+              },
+              "share_of_fixed_pay": {
+                "bp": 2307,
+                "display": "23.07%"
+              },
+              "typical_band_floor": {
+                "bp": 4000,
+                "display": "40%"
+              },
+              "typical_band_ceiling": {
+                "bp": 5000,
+                "display": "50%"
+              }
+            },
+            "names": [
+              "Basic"
+            ],
+            "threshold": {
+              "heuristics_key": "thresholds.basic_share_band.floor_rate",
+              "value": {
+                "bp": 4000,
+                "display": "40%"
+              },
+              "rationale": "Indian salary structures commonly set basic between 40% and 50% of fixed pay, and the Code on Wages pushes toward the upper half of that by counting excluded allowances above one-half of remuneration back into wages. Below the floor, everything basic drives — the provident fund contribution, gratuity accrual, the bound on the house rent allowance exemption — is smaller than the headline implies. The band is where the flag stops firing, not a target to aim at."
+            }
+          },
+          {
+            "code": "unvaluable-share",
+            "kind": "heuristic",
+            "measured": {
+              "unvaluable_equity_as_claimed": {
+                "paise": 800000000,
+                "display": "₹80,00,000"
+              },
+              "headline_ctc": {
+                "paise": 1040000000,
+                "display": "₹1,04,00,000"
+              },
+              "share_of_headline_ctc": {
+                "bp": 7692,
+                "display": "76.92%"
+              }
+            },
+            "names": [
+              "ESOP grant"
+            ],
+            "threshold": {
+              "heuristics_key": "thresholds.unvaluable_share.at_or_above_rate",
+              "value": {
+                "bp": 1000,
+                "display": "10%"
+              },
+              "rationale": "A tenth of the claimed package resting on a figure nobody can check is worth naming, because it is the part of the headline that cannot be compared against another offer at all. It is measured on the claimed basis: the question is how much of what the letter counted is unverifiable, not what the decoder held it at, which is nil by construction."
+            }
+          },
+          {
+            "code": "cliff",
+            "kind": "letter",
+            "measured": {
+              "grant_as_claimed": {
+                "paise": 800000000,
+                "display": "₹80,00,000"
+              }
+            },
+            "names": [
+              "ESOP grant"
+            ],
+            "months": 12
+          },
+          {
+            "code": "equity-perquisite",
+            "kind": "statute",
+            "measured": {
+              "equity_as_claimed": {
+                "paise": 800000000,
+                "display": "₹80,00,000"
+              },
+              "equity_as_valued": {
+                "paise": 0,
+                "display": "₹0"
+              }
+            },
+            "names": [
+              "ESOP grant"
+            ],
+            "statement": "Shares acquired by exercising an employee stock option are a specified security transferred at a concessional rate, so the amount by which their fair market value on the date of exercise exceeds the strike price actually paid is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so that excess enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
+            "citation": {
+              "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(e), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+              "document": {
+                "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+              },
+              "retrieved": "2026-09-05",
+              "rules_key": "groups.perquisite.equity.option",
+              "note": "Section 17(4)(e) defines \"option\" as \"a right but not an obligation, granted to an employee to apply for the specified security or sweat equity shares at a predetermined price\", and section 17(4)(h) fixes the amount: \"the value of any specified security or sweat equity shares shall be the fair market value of the specified security or sweat equity shares, on the date on which the option is exercised by the assessee, as reduced by the amount actually paid by, or recovered from, the assessee in respect of such security or shares.\" The charge therefore falls on exercise and not on vesting, and it falls on the spread rather than on the whole value of the shares. Section 73(1), Table Sl. No. 4, deems the cost of acquisition to be the \"Fair market value taken into account for the purposes of the said clause\". What the Act does not settle is the fair market value itself: section 17(4)(a) leaves it to \"the value determined in accordance with the method, as may be prescribed\", and no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the perquisite therefore cannot be computed from this file, and neither the fair market value on a future exercise date nor the date itself is knowable from an offer letter."
+            }
+          }
+        ],
+        "sources": [
+          {
+            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+          },
+          {
+            "title": "The Code on Wages, 2019 (No. 29 of 2019)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+          },
+          {
+            "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+          },
+          {
+            "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+          },
+          {
+            "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "assistant",
+      "text": "Run one is done. One thing is missing before I can give you a monthly figure,\nand your letter cannot answer it: there is no employer provident fund line in\nthis annexure, so there is nothing to read the policy off.\n\nSo the plain question: does your employer compute provident fund on **the whole\nof basic**, or on the **statutory ceiling**? The two give very different monthly\nnumbers, and there is no sensible default between them. Your payslip or the HR\npolicy document will say; the offer letter usually will not.\n\nAnd, optionally, the **annual professional tax** your state levies, if you know\nit. Without it, professional tax is named among the things the estimate leaves\nout.",
+      "step": "5. The provident fund wage base"
+    },
+    {
+      "kind": "user",
+      "text": "Full basic, they told me in the call. No idea on professional tax."
+    },
+    {
+      "kind": "tool",
+      "step": "5. The provident fund wage base",
+      "input": {
+        "financial_year": "2026-27",
+        "components": [
+          {
+            "name": "Basic",
+            "type": "basic",
+            "amount": 2400000,
+            "period": "annual"
+          },
+          {
+            "name": "ESOP grant",
+            "type": "stock_option",
+            "amount": 8000000,
+            "period": "annual",
+            "equity": {
+              "listed": false,
+              "units": 10000,
+              "grant_date_fair_market_value": 800,
+              "strike": 40,
+              "vesting": {
+                "cliff_months": 12,
+                "years": [
+                  2500,
+                  2500,
+                  2500,
+                  2500
+                ]
+              }
+            }
+          }
+        ],
+        "pf_wage_base": "full_basic"
+      },
+      "output": {
+        "financial_year": "2026-27",
+        "rules_file": "rules/fy2026-27.yaml",
+        "components": [
+          {
+            "name": "Basic",
+            "as_typed": {
+              "amount": {
+                "paise": 240000000,
+                "display": "₹24,00,000"
+              },
+              "period": "annual"
+            },
+            "annual": {
+              "paise": 240000000,
+              "display": "₹24,00,000"
+            },
+            "certainty": "guaranteed",
+            "form": "cash-now",
+            "recurring": true,
+            "counts_toward_guaranteed_recurring_cash": true,
+            "classified_by": {
+              "kind": "catalogue",
+              "entry": "basic",
+              "rules_key": "groups.components.entries.basic",
+              "basis": {
+                "kind": "judgement",
+                "rationale": "The base component of the salary structure, payable monthly under the terms of employment whatever the employee or the employer achieves."
+              }
+            }
+          },
+          {
+            "name": "ESOP grant",
+            "as_typed": {
+              "amount": {
+                "paise": 800000000,
+                "display": "₹80,00,000"
+              },
+              "period": "annual"
+            },
+            "annual": {
+              "paise": 800000000,
+              "display": "₹80,00,000"
+            },
+            "certainty": "conditional-on-tenure",
+            "form": "equity",
+            "recurring": false,
+            "instrument": "option",
+            "counts_toward_guaranteed_recurring_cash": false,
+            "classified_by": {
+              "kind": "catalogue",
+              "entry": "stock_option",
+              "rules_key": "groups.components.entries.stock_option",
+              "basis": {
+                "kind": "judgement",
+                "rationale": "A right to buy at a fixed strike price, exercisable only over the part of the grant that has vested. Whether exercising it is worth anything is a second question the strike settles, and the letter settles neither."
+              }
+            },
+            "equity": {
+              "listed": false,
+              "method": "unvaluable",
+              "valued": {
+                "paise": 0,
+                "display": "₹0"
+              },
+              "claimed": {
+                "paise": 800000000,
+                "display": "₹80,00,000"
+              },
+              "units": 10000,
+              "grant_date_fair_market_value": {
+                "paise": 80000,
+                "display": "₹800"
+              },
+              "strike": {
+                "paise": 4000,
+                "display": "₹40"
+              },
+              "assumption": "Held at nil, and named rather than dropped: shares in an unlisted company have no market price, and what this grant is worth turns on a liquidity event that may never happen. The value the letter claims is carried beside it, unchanged, and so is any price per share it states — which is a company's own valuation of itself and not a price anyone has paid.",
+              "vesting": {
+                "years": [
+                  {
+                    "year": 1,
+                    "share": {
+                      "bp": 2500,
+                      "display": "25%"
+                    }
+                  },
+                  {
+                    "year": 2,
+                    "share": {
+                      "bp": 2500,
+                      "display": "25%"
+                    }
+                  },
+                  {
+                    "year": 3,
+                    "share": {
+                      "bp": 2500,
+                      "display": "25%"
+                    }
+                  },
+                  {
+                    "year": 4,
+                    "share": {
+                      "bp": 2500,
+                      "display": "25%"
+                    }
+                  }
+                ],
+                "cliff_months": 12
+              },
+              "perquisite": {
+                "statement": "Shares acquired by exercising an employee stock option are a specified security transferred at a concessional rate, so the amount by which their fair market value on the date of exercise exceeds the strike price actually paid is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so that excess enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
+                "citation": {
+                  "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(e), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+                  "document": {
+                    "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                    "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.perquisite.equity.option",
+                  "note": "Section 17(4)(e) defines \"option\" as \"a right but not an obligation, granted to an employee to apply for the specified security or sweat equity shares at a predetermined price\", and section 17(4)(h) fixes the amount: \"the value of any specified security or sweat equity shares shall be the fair market value of the specified security or sweat equity shares, on the date on which the option is exercised by the assessee, as reduced by the amount actually paid by, or recovered from, the assessee in respect of such security or shares.\" The charge therefore falls on exercise and not on vesting, and it falls on the spread rather than on the whole value of the shares. Section 73(1), Table Sl. No. 4, deems the cost of acquisition to be the \"Fair market value taken into account for the purposes of the said clause\". What the Act does not settle is the fair market value itself: section 17(4)(a) leaves it to \"the value determined in accordance with the method, as may be prescribed\", and no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the perquisite therefore cannot be computed from this file, and neither the fair market value on a future exercise date nor the date itself is knowable from an offer letter."
+                }
+              }
+            }
+          }
+        ],
+        "totals": {
+          "headline_ctc": {
+            "paise": 1040000000,
+            "display": "₹1,04,00,000",
+            "components": [
+              "Basic",
+              "ESOP grant"
+            ]
+          },
+          "fixed_pay": {
+            "paise": 1040000000,
+            "display": "₹1,04,00,000",
+            "components": [
+              "Basic",
+              "ESOP grant"
+            ]
+          },
+          "variable_pay_at_target": {
+            "paise": 0,
+            "display": "₹0",
+            "components": []
+          },
+          "guaranteed_recurring_cash": {
+            "paise": 240000000,
+            "display": "₹24,00,000",
+            "components": [
+              "Basic"
+            ]
+          },
+          "retirals": {
+            "paise": 0,
+            "display": "₹0",
+            "components": []
+          },
+          "one_time_components": {
+            "paise": 800000000,
+            "display": "₹80,00,000",
+            "components": [
+              "ESOP grant"
+            ]
+          },
+          "benefits_in_kind": {
+            "paise": 0,
+            "display": "₹0",
+            "components": []
+          },
+          "equity_as_claimed": {
+            "paise": 800000000,
+            "display": "₹80,00,000",
+            "components": [
+              "ESOP grant"
+            ]
+          },
+          "equity_as_valued": {
+            "paise": 0,
+            "display": "₹0",
+            "components": [
+              "ESOP grant"
+            ]
+          },
+          "unvaluable_equity": {
+            "paise": 800000000,
+            "display": "₹80,00,000",
+            "components": [
+              "ESOP grant"
+            ]
+          }
+        },
+        "year_by_year": {
+          "years_covered": 4,
+          "bases": [
+            {
+              "basis": "variable-pay-at-zero",
+              "years": [
+                {
+                  "year": 1,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 2,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 3,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 4,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                }
+              ],
+              "year_one": {
+                "paise": 240000000,
+                "display": "₹24,00,000"
+              },
+              "average": {
+                "over_years": 4,
+                "with_one_time": {
+                  "paise": 240000000,
+                  "display": "₹24,00,000"
+                },
+                "without_one_time": {
+                  "paise": 240000000,
+                  "display": "₹24,00,000"
+                },
+                "one_time_components": []
+              }
+            },
+            {
+              "basis": "variable-pay-at-target",
+              "years": [
+                {
+                  "year": 1,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 2,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 3,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                },
+                {
+                  "year": 4,
+                  "guaranteed_recurring_cash": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  },
+                  "variable_pay_at_target": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "one_time": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "equity_as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  },
+                  "total": {
+                    "paise": 240000000,
+                    "display": "₹24,00,000"
+                  }
+                }
+              ],
+              "year_one": {
+                "paise": 240000000,
+                "display": "₹24,00,000"
+              },
+              "average": {
+                "over_years": 4,
+                "with_one_time": {
+                  "paise": 240000000,
+                  "display": "₹24,00,000"
+                },
+                "without_one_time": {
+                  "paise": 240000000,
+                  "display": "₹24,00,000"
+                },
+                "one_time_components": []
+              }
+            }
+          ],
+          "grants": [
+            {
+              "name": "ESOP grant",
+              "unvaluable": true,
+              "spread": "vesting-schedule",
+              "cliff_months": 12,
+              "years": [
+                {
+                  "year": 1,
+                  "share": {
+                    "bp": 2500,
+                    "display": "25%"
+                  },
+                  "as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  }
+                },
+                {
+                  "year": 2,
+                  "share": {
+                    "bp": 2500,
+                    "display": "25%"
+                  },
+                  "as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  }
+                },
+                {
+                  "year": 3,
+                  "share": {
+                    "bp": 2500,
+                    "display": "25%"
+                  },
+                  "as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  }
+                },
+                {
+                  "year": 4,
+                  "share": {
+                    "bp": 2500,
+                    "display": "25%"
+                  },
+                  "as_valued": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "as_claimed": {
+                    "paise": 200000000,
+                    "display": "₹20,00,000"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "basic": {
+          "components": [
+            "Basic"
+          ],
+          "annual": {
+            "paise": 240000000,
+            "display": "₹24,00,000"
+          },
+          "share_of_fixed_pay": {
+            "bp": 2307,
+            "display": "23.07%"
+          },
+          "citation": {
+            "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
+            "document": {
+              "title": "The Code on Wages, 2019 (No. 29 of 2019)",
+              "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+            },
+            "retrieved": "2026-09-05",
+            "rules_key": "groups.basic_pay.catalogue_entries",
+            "note": "Section 2(y) defines wages and lists what they include: \"(i) basic pay; (ii) dearness allowance; and (iii) retaining allowance, if any\". Basic pay is the first of the three and is its own head, distinct from the other two. Of this file's catalogue entries only `basic` is basic pay; a dearness or retaining allowance entry added to the catalogue is a different head of wages and does not belong here, even though the two share a base with basic pay under the provident fund and gratuity Acts."
+          },
+          "drives": [
+            {
+              "drives": "employer-pf",
+              "wage_base": {
+                "entries": [
+                  "basic"
+                ],
+                "components": [
+                  "Basic"
+                ],
+                "citation": {
+                  "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                  "document": {
+                    "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components",
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                }
+              },
+              "rate": {
+                "bp": 1200,
+                "display": "12%"
+              },
+              "rate_citation": {
+                "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+                "document": {
+                  "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                  "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                },
+                "retrieved": "2026-09-05",
+                "rules_key": "groups.epf.employer_rate",
+                "note": "Read this before quoting the figure, and read `employee_rate`'s note with it: the same caveat applies for the same reason. Section 6 says \"The contribution which shall be paid by the employer to the Fund shall be ten percent. Of the basic wages, dearness allowance and retaining allowance, if any\", and its first proviso substitutes \"12 percent\" for notified establishments \"at both the places where they occur\" -- that notification could not be retrieved. So 0.12 is the rate the Government states is applied, not the rate read off the section: \"The employer is also required to contribute 12% of the wages.\" This is the WHOLE employer share. Section 6A(2)(a) diverts part of it to the Employees' Pension Scheme, but the Act fixes only a ceiling on that part -- \"not exceeding eight and one-third per cent of the basic wages, dearness allowance and retaining allowance\" -- and leaves the figure itself to \"as may be specified in the Pension Scheme\", which could not be retrieved. The split is therefore not carried here, and a figure computed from this rate is the employer's total contribution rather than what reaches the provident fund alone."
+              },
+              "ceiling": {
+                "monthly": {
+                  "paise": 1500000,
+                  "display": "₹15,000"
+                },
+                "citation": {
+                  "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
+                  "document": {
+                    "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_ceiling",
+                  "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it."
+                }
+              }
+            },
+            {
+              "drives": "gratuity",
+              "wage_base": {
+                "entries": [
+                  "basic"
+                ],
+                "components": [
+                  "Basic"
+                ],
+                "citation": {
+                  "section": "The Payment of Gratuity Act, 1972, section 2(s)",
+                  "document": {
+                    "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.gratuity.wage_components",
+                  "note": "'\"wages\" means all emoluments which are earned by an employee while on duty or on leave in accordance with the terms and conditions of his employment and which are paid or are payable to him in cash and includes dearness allowance but does not include any bonus, commission, house rent allowance, overtime wages and any other allowance.' Of this file's catalogue entries only `basic` is inside that base -- house rent allowance is excluded by name, and a special allowance by the closing words -- and a dearness allowance entry added to the catalogue must be added here too."
+                }
+              },
+              "accrual": {
+                "days_of_wages": 15,
+                "days_in_month": 26,
+                "citation": {
+                  "section": "The Payment of Gratuity Act, 1972, section 4(2) and its Explanation",
+                  "document": {
+                    "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.gratuity.accrual",
+                  "note": "\"For every completed year of service or part thereof in excess of six months, the employer shall pay gratuity to an employee at the rate of fifteen days' wages based on the rate of wages last drawn by the employee concerned.\" The Explanation fixes the divisor: \"In the case of a monthly rated employee, the fifteen days' wages shall be calculated by dividing the monthly rate of wages last drawn by him by twenty-six and multiplying the quotient by fifteen.\" Two provisos to the same sub-section put a piece-rated and a seasonal employee outside this formula, and neither is encoded here."
+                }
+              },
+              "qualifying_service": {
+                "years": 5,
+                "citation": {
+                  "section": "The Payment of Gratuity Act, 1972, section 4(1)",
+                  "document": {
+                    "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.gratuity.qualifying_service",
+                  "note": "\"Gratuity shall be payable to an employee on the termination of his employment after he has rendered continuous service for not less than five years\" -- on superannuation, on retirement or resignation, or on death or disablement. The first proviso waives the five years where the termination is due to death or disablement, so the period bounds a resignation and not every ending of the employment."
+                }
+              }
+            },
+            {
+              "drives": "hra-exemption",
+              "citation": {
+                "section": "Income-tax Act, 2025, Schedule III (see section 11), Table Sl. No. 11 (\"Any special allowance from employer\"), read with section 202(2)(a)(i)",
+                "document": {
+                  "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                  "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                },
+                "retrieved": "2026-09-05",
+                "rules_key": "groups.hra.exemption",
+                "note": "Read this before saying anything about HRA. Schedule III excludes from total income \"any special allowance from employer\" where \"such allowance is specifically granted to meet expenditure actually incurred on payment of rent (by whatever name called) in respect of residential accommodation occupied by the assessee\", the accommodation \"is not owned by him\", and he \"has actually incurred expenditure on payment of rent\". HOW MUCH is exempt is not in the Act. Condition (b) of the same entry reads \"such allowance is to such extent as may be prescribed having regard to the area or place in which such accommodation is situated and other relevant considerations\", so the limbs of the exemption -- and the definition of \"salary\" that decides whether basic bounds it -- live in the rules prescribed under the Act, not in the Act. No primary text of those rules could be retrieved: incometaxindia.gov.in refuses requests from this environment. This file therefore states that the exemption exists and is bounded by a prescribed extent, and does not state the bound; a figure for it cannot be computed from this file. Section 202(2)(a)(i) excludes Schedule III Table Sl. No. 11 from the computation of total income by name, so the exemption is the old regime's alone."
+              }
+            }
+          ]
+        },
+        "take_home": {
+          "regimes": [
+            {
+              "regime": "new",
+              "bases": [
+                {
+                  "basis": "variable-pay-at-zero",
+                  "recurring_cash": {
+                    "annual": {
+                      "paise": 240000000,
+                      "display": "₹24,00,000"
+                    },
+                    "monthly": {
+                      "paise": 20000000,
+                      "display": "₹2,00,000"
+                    },
+                    "components": [
+                      "Basic"
+                    ]
+                  },
+                  "deductions": {
+                    "employee_pf": {
+                      "basis": "full_basic",
+                      "contribution": {
+                        "annual": {
+                          "paise": 28800000,
+                          "display": "₹2,88,000"
+                        },
+                        "monthly": {
+                          "paise": 2400000,
+                          "display": "₹24,000"
+                        }
+                      },
+                      "wage": {
+                        "annual": {
+                          "paise": 240000000,
+                          "display": "₹24,00,000"
+                        },
+                        "monthly": {
+                          "paise": 20000000,
+                          "display": "₹2,00,000"
+                        }
+                      },
+                      "wage_components": [
+                        "Basic"
+                      ],
+                      "rate": {
+                        "bp": 1200,
+                        "display": "12%"
+                      },
+                      "rate_citation": {
+                        "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+                        "document": {
+                          "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                          "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                        },
+                        "retrieved": "2026-09-05",
+                        "rules_key": "groups.epf.employee_rate",
+                        "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
+                      },
+                      "wage_citation": {
+                        "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                        "document": {
+                          "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+                          "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+                        },
+                        "retrieved": "2026-09-05",
+                        "rules_key": "groups.epf.wage_components",
+                        "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                      }
+                    },
+                    "income_tax": {
+                      "period": "annual",
+                      "regime": "new",
+                      "salary": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "standard_deduction": {
+                        "amount": {
+                          "paise": 7500000,
+                          "display": "₹75,000"
+                        },
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(a) (\"Deductions from salaries\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.new_regime.standard_deduction",
+                          "note": "\"75000 or the salary, whichever is less, where income-tax is computed under section 202(1)\" -- so it is capped at the salary it is deducted from. Section 202(2)(a) disallows only Sl. No. 1 of the same table, which is the tax on employment, so the standard deduction survives in the new regime."
+                        }
+                      },
+                      "total_income": {
+                        "before": {
+                          "paise": 232500000,
+                          "display": "₹23,25,000"
+                        },
+                        "after": {
+                          "paise": 232500000,
+                          "display": "₹23,25,000"
+                        },
+                        "unit_rupees": 10,
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.statutory_rounding.total_income",
+                          "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                        }
+                      },
+                      "slabs": {
+                        "charges": [
+                          {
+                            "from": {
+                              "paise": 0,
+                              "display": "₹0"
+                            },
+                            "upto": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "rate": {
+                              "bp": 0,
+                              "display": "0%"
+                            },
+                            "income_in_band": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "tax": {
+                              "paise": 0,
+                              "display": "₹0"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "upto": {
+                              "paise": 80000000,
+                              "display": "₹8,00,000"
+                            },
+                            "rate": {
+                              "bp": 500,
+                              "display": "5%"
+                            },
+                            "income_in_band": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "tax": {
+                              "paise": 2000000,
+                              "display": "₹20,000"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 80000000,
+                              "display": "₹8,00,000"
+                            },
+                            "upto": {
+                              "paise": 120000000,
+                              "display": "₹12,00,000"
+                            },
+                            "rate": {
+                              "bp": 1000,
+                              "display": "10%"
+                            },
+                            "income_in_band": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "tax": {
+                              "paise": 4000000,
+                              "display": "₹40,000"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 120000000,
+                              "display": "₹12,00,000"
+                            },
+                            "upto": {
+                              "paise": 160000000,
+                              "display": "₹16,00,000"
+                            },
+                            "rate": {
+                              "bp": 1500,
+                              "display": "15%"
+                            },
+                            "income_in_band": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "tax": {
+                              "paise": 6000000,
+                              "display": "₹60,000"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 160000000,
+                              "display": "₹16,00,000"
+                            },
+                            "upto": {
+                              "paise": 200000000,
+                              "display": "₹20,00,000"
+                            },
+                            "rate": {
+                              "bp": 2000,
+                              "display": "20%"
+                            },
+                            "income_in_band": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "tax": {
+                              "paise": 8000000,
+                              "display": "₹80,000"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 200000000,
+                              "display": "₹20,00,000"
+                            },
+                            "upto": {
+                              "paise": 240000000,
+                              "display": "₹24,00,000"
+                            },
+                            "rate": {
+                              "bp": 2500,
+                              "display": "25%"
+                            },
+                            "income_in_band": {
+                              "paise": 32500000,
+                              "display": "₹3,25,000"
+                            },
+                            "tax": {
+                              "paise": 8125000,
+                              "display": "₹81,250"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 240000000,
+                              "display": "₹24,00,000"
+                            },
+                            "rate": {
+                              "bp": 3000,
+                              "display": "30%"
+                            },
+                            "income_in_band": {
+                              "paise": 0,
+                              "display": "₹0"
+                            },
+                            "tax": {
+                              "paise": 0,
+                              "display": "₹0"
+                            }
+                          }
+                        ],
+                        "total": {
+                          "paise": 28125000,
+                          "display": "₹2,81,250"
+                        },
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 202(1) Table (\"New tax regime for individuals, Hindu undivided family and others\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.new_regime.slabs",
+                          "note": "Charged for tax year 2026-27 by the Finance Act, 2026, section 3(1), which refers to these rates rather than restating them. Finance Act, 2026, section 56 is its only amendment to section 202 and touches sub-section (2)(a)(iii) alone, leaving this table untouched. The Act states the table as band and rate without spelling out the marginal arithmetic; it is read as a slab table, which is how the Income Tax Department's own calculation engine applies it."
+                        }
+                      },
+                      "rebate": {
+                        "applied": false,
+                        "total_income_threshold": {
+                          "paise": 120000000,
+                          "display": "₹12,00,000"
+                        },
+                        "maximum": {
+                          "paise": 6000000,
+                          "display": "₹60,000"
+                        },
+                        "amount": {
+                          "paise": 0,
+                          "display": "₹0"
+                        },
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 156(2) and (3) (\"Rebate of income-tax in case of certain individuals\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.new_regime.rebate",
+                          "note": "Available to a resident individual only. Section 156(2)(b) also gives marginal relief where total income exceeds twelve lakh rupees, which this decoder does not yet compute, so the figures above the threshold are the pre-relief ones."
+                        }
+                      },
+                      "tax_after_rebate": {
+                        "paise": 28125000,
+                        "display": "₹2,81,250"
+                      },
+                      "cess": {
+                        "rate": {
+                          "bp": 400,
+                          "display": "4%"
+                        },
+                        "amount": {
+                          "paise": 1125000,
+                          "display": "₹11,250"
+                        },
+                        "citation": {
+                          "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                          "document": {
+                            "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                            "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.cess",
+                          "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
+                        }
+                      },
+                      "tax_payable": {
+                        "before": {
+                          "paise": 29250000,
+                          "display": "₹2,92,500"
+                        },
+                        "after": {
+                          "paise": 29250000,
+                          "display": "₹2,92,500"
+                        },
+                        "unit_rupees": 10,
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.statutory_rounding.tax_payable",
+                          "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+                        }
+                      }
+                    },
+                    "total": {
+                      "annual": {
+                        "paise": 58050000,
+                        "display": "₹5,80,500"
+                      },
+                      "monthly": {
+                        "paise": 4837500,
+                        "display": "₹48,375"
+                      }
+                    }
+                  },
+                  "take_home": {
+                    "annual": {
+                      "paise": 181950000,
+                      "display": "₹18,19,500"
+                    },
+                    "monthly": {
+                      "paise": 15162500,
+                      "display": "₹1,51,625"
+                    }
+                  }
+                },
+                {
+                  "basis": "variable-pay-at-target",
+                  "recurring_cash": {
+                    "annual": {
+                      "paise": 240000000,
+                      "display": "₹24,00,000"
+                    },
+                    "monthly": {
+                      "paise": 20000000,
+                      "display": "₹2,00,000"
+                    },
+                    "components": [
+                      "Basic"
+                    ]
+                  },
+                  "deductions": {
+                    "employee_pf": {
+                      "basis": "full_basic",
+                      "contribution": {
+                        "annual": {
+                          "paise": 28800000,
+                          "display": "₹2,88,000"
+                        },
+                        "monthly": {
+                          "paise": 2400000,
+                          "display": "₹24,000"
+                        }
+                      },
+                      "wage": {
+                        "annual": {
+                          "paise": 240000000,
+                          "display": "₹24,00,000"
+                        },
+                        "monthly": {
+                          "paise": 20000000,
+                          "display": "₹2,00,000"
+                        }
+                      },
+                      "wage_components": [
+                        "Basic"
+                      ],
+                      "rate": {
+                        "bp": 1200,
+                        "display": "12%"
+                      },
+                      "rate_citation": {
+                        "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+                        "document": {
+                          "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                          "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                        },
+                        "retrieved": "2026-09-05",
+                        "rules_key": "groups.epf.employee_rate",
+                        "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
+                      },
+                      "wage_citation": {
+                        "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                        "document": {
+                          "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+                          "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+                        },
+                        "retrieved": "2026-09-05",
+                        "rules_key": "groups.epf.wage_components",
+                        "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                      }
+                    },
+                    "income_tax": {
+                      "period": "annual",
+                      "regime": "new",
+                      "salary": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "standard_deduction": {
+                        "amount": {
+                          "paise": 7500000,
+                          "display": "₹75,000"
+                        },
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(a) (\"Deductions from salaries\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.new_regime.standard_deduction",
+                          "note": "\"75000 or the salary, whichever is less, where income-tax is computed under section 202(1)\" -- so it is capped at the salary it is deducted from. Section 202(2)(a) disallows only Sl. No. 1 of the same table, which is the tax on employment, so the standard deduction survives in the new regime."
+                        }
+                      },
+                      "total_income": {
+                        "before": {
+                          "paise": 232500000,
+                          "display": "₹23,25,000"
+                        },
+                        "after": {
+                          "paise": 232500000,
+                          "display": "₹23,25,000"
+                        },
+                        "unit_rupees": 10,
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.statutory_rounding.total_income",
+                          "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                        }
+                      },
+                      "slabs": {
+                        "charges": [
+                          {
+                            "from": {
+                              "paise": 0,
+                              "display": "₹0"
+                            },
+                            "upto": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "rate": {
+                              "bp": 0,
+                              "display": "0%"
+                            },
+                            "income_in_band": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "tax": {
+                              "paise": 0,
+                              "display": "₹0"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "upto": {
+                              "paise": 80000000,
+                              "display": "₹8,00,000"
+                            },
+                            "rate": {
+                              "bp": 500,
+                              "display": "5%"
+                            },
+                            "income_in_band": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "tax": {
+                              "paise": 2000000,
+                              "display": "₹20,000"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 80000000,
+                              "display": "₹8,00,000"
+                            },
+                            "upto": {
+                              "paise": 120000000,
+                              "display": "₹12,00,000"
+                            },
+                            "rate": {
+                              "bp": 1000,
+                              "display": "10%"
+                            },
+                            "income_in_band": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "tax": {
+                              "paise": 4000000,
+                              "display": "₹40,000"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 120000000,
+                              "display": "₹12,00,000"
+                            },
+                            "upto": {
+                              "paise": 160000000,
+                              "display": "₹16,00,000"
+                            },
+                            "rate": {
+                              "bp": 1500,
+                              "display": "15%"
+                            },
+                            "income_in_band": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "tax": {
+                              "paise": 6000000,
+                              "display": "₹60,000"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 160000000,
+                              "display": "₹16,00,000"
+                            },
+                            "upto": {
+                              "paise": 200000000,
+                              "display": "₹20,00,000"
+                            },
+                            "rate": {
+                              "bp": 2000,
+                              "display": "20%"
+                            },
+                            "income_in_band": {
+                              "paise": 40000000,
+                              "display": "₹4,00,000"
+                            },
+                            "tax": {
+                              "paise": 8000000,
+                              "display": "₹80,000"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 200000000,
+                              "display": "₹20,00,000"
+                            },
+                            "upto": {
+                              "paise": 240000000,
+                              "display": "₹24,00,000"
+                            },
+                            "rate": {
+                              "bp": 2500,
+                              "display": "25%"
+                            },
+                            "income_in_band": {
+                              "paise": 32500000,
+                              "display": "₹3,25,000"
+                            },
+                            "tax": {
+                              "paise": 8125000,
+                              "display": "₹81,250"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 240000000,
+                              "display": "₹24,00,000"
+                            },
+                            "rate": {
+                              "bp": 3000,
+                              "display": "30%"
+                            },
+                            "income_in_band": {
+                              "paise": 0,
+                              "display": "₹0"
+                            },
+                            "tax": {
+                              "paise": 0,
+                              "display": "₹0"
+                            }
+                          }
+                        ],
+                        "total": {
+                          "paise": 28125000,
+                          "display": "₹2,81,250"
+                        },
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 202(1) Table (\"New tax regime for individuals, Hindu undivided family and others\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.new_regime.slabs",
+                          "note": "Charged for tax year 2026-27 by the Finance Act, 2026, section 3(1), which refers to these rates rather than restating them. Finance Act, 2026, section 56 is its only amendment to section 202 and touches sub-section (2)(a)(iii) alone, leaving this table untouched. The Act states the table as band and rate without spelling out the marginal arithmetic; it is read as a slab table, which is how the Income Tax Department's own calculation engine applies it."
+                        }
+                      },
+                      "rebate": {
+                        "applied": false,
+                        "total_income_threshold": {
+                          "paise": 120000000,
+                          "display": "₹12,00,000"
+                        },
+                        "maximum": {
+                          "paise": 6000000,
+                          "display": "₹60,000"
+                        },
+                        "amount": {
+                          "paise": 0,
+                          "display": "₹0"
+                        },
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 156(2) and (3) (\"Rebate of income-tax in case of certain individuals\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.new_regime.rebate",
+                          "note": "Available to a resident individual only. Section 156(2)(b) also gives marginal relief where total income exceeds twelve lakh rupees, which this decoder does not yet compute, so the figures above the threshold are the pre-relief ones."
+                        }
+                      },
+                      "tax_after_rebate": {
+                        "paise": 28125000,
+                        "display": "₹2,81,250"
+                      },
+                      "cess": {
+                        "rate": {
+                          "bp": 400,
+                          "display": "4%"
+                        },
+                        "amount": {
+                          "paise": 1125000,
+                          "display": "₹11,250"
+                        },
+                        "citation": {
+                          "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                          "document": {
+                            "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                            "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.cess",
+                          "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
+                        }
+                      },
+                      "tax_payable": {
+                        "before": {
+                          "paise": 29250000,
+                          "display": "₹2,92,500"
+                        },
+                        "after": {
+                          "paise": 29250000,
+                          "display": "₹2,92,500"
+                        },
+                        "unit_rupees": 10,
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.statutory_rounding.tax_payable",
+                          "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+                        }
+                      }
+                    },
+                    "total": {
+                      "annual": {
+                        "paise": 58050000,
+                        "display": "₹5,80,500"
+                      },
+                      "monthly": {
+                        "paise": 4837500,
+                        "display": "₹48,375"
+                      }
+                    }
+                  },
+                  "take_home": {
+                    "annual": {
+                      "paise": 181950000,
+                      "display": "₹18,19,500"
+                    },
+                    "monthly": {
+                      "paise": 15162500,
+                      "display": "₹1,51,625"
+                    }
+                  }
+                }
+              ],
+              "assumes": [
+                "The new regime",
+                "A resident individual",
+                "Steady state: no one-time component"
+              ],
+              "excludes": [
+                "HRA exemption",
+                "Chapter VI-A deductions",
+                "Employer NPS deduction",
+                "Professional tax",
+                "Perquisite tax on vesting equity"
+              ]
+            },
+            {
+              "regime": "old",
+              "bases": [
+                {
+                  "basis": "variable-pay-at-zero",
+                  "recurring_cash": {
+                    "annual": {
+                      "paise": 240000000,
+                      "display": "₹24,00,000"
+                    },
+                    "monthly": {
+                      "paise": 20000000,
+                      "display": "₹2,00,000"
+                    },
+                    "components": [
+                      "Basic"
+                    ]
+                  },
+                  "deductions": {
+                    "employee_pf": {
+                      "basis": "full_basic",
+                      "contribution": {
+                        "annual": {
+                          "paise": 28800000,
+                          "display": "₹2,88,000"
+                        },
+                        "monthly": {
+                          "paise": 2400000,
+                          "display": "₹24,000"
+                        }
+                      },
+                      "wage": {
+                        "annual": {
+                          "paise": 240000000,
+                          "display": "₹24,00,000"
+                        },
+                        "monthly": {
+                          "paise": 20000000,
+                          "display": "₹2,00,000"
+                        }
+                      },
+                      "wage_components": [
+                        "Basic"
+                      ],
+                      "rate": {
+                        "bp": 1200,
+                        "display": "12%"
+                      },
+                      "rate_citation": {
+                        "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+                        "document": {
+                          "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                          "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                        },
+                        "retrieved": "2026-09-05",
+                        "rules_key": "groups.epf.employee_rate",
+                        "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
+                      },
+                      "wage_citation": {
+                        "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                        "document": {
+                          "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+                          "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+                        },
+                        "retrieved": "2026-09-05",
+                        "rules_key": "groups.epf.wage_components",
+                        "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                      }
+                    },
+                    "income_tax": {
+                      "period": "annual",
+                      "regime": "old",
+                      "salary": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "standard_deduction": {
+                        "amount": {
+                          "paise": 5000000,
+                          "display": "₹50,000"
+                        },
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(b) (\"Deductions from salaries\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.old_regime.standard_deduction",
+                          "note": "\"50000 or the salary, whichever is less, in any other case\" -- \"any other case\" being every case other than section 202(1), i.e. the old regime. Capped at the salary it is deducted from, as the new regime's standard deduction is."
+                        }
+                      },
+                      "total_income": {
+                        "before": {
+                          "paise": 235000000,
+                          "display": "₹23,50,000"
+                        },
+                        "after": {
+                          "paise": 235000000,
+                          "display": "₹23,50,000"
+                        },
+                        "unit_rupees": 10,
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.statutory_rounding.total_income",
+                          "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                        }
+                      },
+                      "slabs": {
+                        "charges": [
+                          {
+                            "from": {
+                              "paise": 0,
+                              "display": "₹0"
+                            },
+                            "upto": {
+                              "paise": 25000000,
+                              "display": "₹2,50,000"
+                            },
+                            "rate": {
+                              "bp": 0,
+                              "display": "0%"
+                            },
+                            "income_in_band": {
+                              "paise": 25000000,
+                              "display": "₹2,50,000"
+                            },
+                            "tax": {
+                              "paise": 0,
+                              "display": "₹0"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 25000000,
+                              "display": "₹2,50,000"
+                            },
+                            "upto": {
+                              "paise": 50000000,
+                              "display": "₹5,00,000"
+                            },
+                            "rate": {
+                              "bp": 500,
+                              "display": "5%"
+                            },
+                            "income_in_band": {
+                              "paise": 25000000,
+                              "display": "₹2,50,000"
+                            },
+                            "tax": {
+                              "paise": 1250000,
+                              "display": "₹12,500"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 50000000,
+                              "display": "₹5,00,000"
+                            },
+                            "upto": {
+                              "paise": 100000000,
+                              "display": "₹10,00,000"
+                            },
+                            "rate": {
+                              "bp": 2000,
+                              "display": "20%"
+                            },
+                            "income_in_band": {
+                              "paise": 50000000,
+                              "display": "₹5,00,000"
+                            },
+                            "tax": {
+                              "paise": 10000000,
+                              "display": "₹1,00,000"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 100000000,
+                              "display": "₹10,00,000"
+                            },
+                            "rate": {
+                              "bp": 3000,
+                              "display": "30%"
+                            },
+                            "income_in_band": {
+                              "paise": 135000000,
+                              "display": "₹13,50,000"
+                            },
+                            "tax": {
+                              "paise": 40500000,
+                              "display": "₹4,05,000"
+                            }
+                          }
+                        ],
+                        "total": {
+                          "paise": 51750000,
+                          "display": "₹5,17,500"
+                        },
+                        "citation": {
+                          "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph A, item (I) (\"In the case of every individual other than the individual referred to in items (II) and (III) of this Paragraph...\")",
+                          "document": {
+                            "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                            "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.old_regime.slabs",
+                          "note": "Item (I) of three age-banded tables in Part I-B: this is the table for individuals below 60 (resident or non-resident) and for every non-resident individual whatever their age, since items (II) (resident, 60 to under 80) and item (III) (resident, 80 or more) are each limited to residents. Those two tables carry higher exemptions and are not encoded here. \"12500 plus 20% of the amount by which the total income exceeds 500000\" and \"112500 plus 30% of the amount by which the total income exceeds 1000000\" are the cumulative tax at the start of bands 3 and 4 stated as constants, which is the same arithmetic a slab table gives when walked band by band -- 5% of the 250000-500000 band is exactly 12500, and adding 20% of the 500000-1000000 band gives exactly 112500 -- so it is read as a slab table here too."
+                        }
+                      },
+                      "rebate": {
+                        "applied": false,
+                        "total_income_threshold": {
+                          "paise": 50000000,
+                          "display": "₹5,00,000"
+                        },
+                        "maximum": {
+                          "paise": 1250000,
+                          "display": "₹12,500"
+                        },
+                        "amount": {
+                          "paise": 0,
+                          "display": "₹0"
+                        },
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 156(1) (\"Rebate of income-tax in case of certain individuals\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.old_regime.rebate",
+                          "note": "Available to a resident individual only, same as the new regime's rebate at section 156(2)-(3), but this is the plain subsection: it carries no reference to section 202(1) at all, unlike (2) and (3), which each tie themselves explicitly to total income \"chargeable to tax under section 202(1)\". Unlike the new regime's rebate, section 156(1) gives no marginal relief for total income just above the threshold: crossing five lakh rupees by even one rupee loses the whole rebate on the face of this text."
+                        }
+                      },
+                      "tax_after_rebate": {
+                        "paise": 51750000,
+                        "display": "₹5,17,500"
+                      },
+                      "cess": {
+                        "rate": {
+                          "bp": 400,
+                          "display": "4%"
+                        },
+                        "amount": {
+                          "paise": 2070000,
+                          "display": "₹20,700"
+                        },
+                        "citation": {
+                          "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                          "document": {
+                            "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                            "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.cess",
+                          "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
+                        }
+                      },
+                      "tax_payable": {
+                        "before": {
+                          "paise": 53820000,
+                          "display": "₹5,38,200"
+                        },
+                        "after": {
+                          "paise": 53820000,
+                          "display": "₹5,38,200"
+                        },
+                        "unit_rupees": 10,
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.statutory_rounding.tax_payable",
+                          "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+                        }
+                      }
+                    },
+                    "total": {
+                      "annual": {
+                        "paise": 82620000,
+                        "display": "₹8,26,200"
+                      },
+                      "monthly": {
+                        "paise": 6885000,
+                        "display": "₹68,850"
+                      }
+                    }
+                  },
+                  "take_home": {
+                    "annual": {
+                      "paise": 157380000,
+                      "display": "₹15,73,800"
+                    },
+                    "monthly": {
+                      "paise": 13115000,
+                      "display": "₹1,31,150"
+                    }
+                  }
+                },
+                {
+                  "basis": "variable-pay-at-target",
+                  "recurring_cash": {
+                    "annual": {
+                      "paise": 240000000,
+                      "display": "₹24,00,000"
+                    },
+                    "monthly": {
+                      "paise": 20000000,
+                      "display": "₹2,00,000"
+                    },
+                    "components": [
+                      "Basic"
+                    ]
+                  },
+                  "deductions": {
+                    "employee_pf": {
+                      "basis": "full_basic",
+                      "contribution": {
+                        "annual": {
+                          "paise": 28800000,
+                          "display": "₹2,88,000"
+                        },
+                        "monthly": {
+                          "paise": 2400000,
+                          "display": "₹24,000"
+                        }
+                      },
+                      "wage": {
+                        "annual": {
+                          "paise": 240000000,
+                          "display": "₹24,00,000"
+                        },
+                        "monthly": {
+                          "paise": 20000000,
+                          "display": "₹2,00,000"
+                        }
+                      },
+                      "wage_components": [
+                        "Basic"
+                      ],
+                      "rate": {
+                        "bp": 1200,
+                        "display": "12%"
+                      },
+                      "rate_citation": {
+                        "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+                        "document": {
+                          "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                          "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                        },
+                        "retrieved": "2026-09-05",
+                        "rules_key": "groups.epf.employee_rate",
+                        "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
+                      },
+                      "wage_citation": {
+                        "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                        "document": {
+                          "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+                          "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+                        },
+                        "retrieved": "2026-09-05",
+                        "rules_key": "groups.epf.wage_components",
+                        "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                      }
+                    },
+                    "income_tax": {
+                      "period": "annual",
+                      "regime": "old",
+                      "salary": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "standard_deduction": {
+                        "amount": {
+                          "paise": 5000000,
+                          "display": "₹50,000"
+                        },
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(b) (\"Deductions from salaries\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.old_regime.standard_deduction",
+                          "note": "\"50000 or the salary, whichever is less, in any other case\" -- \"any other case\" being every case other than section 202(1), i.e. the old regime. Capped at the salary it is deducted from, as the new regime's standard deduction is."
+                        }
+                      },
+                      "total_income": {
+                        "before": {
+                          "paise": 235000000,
+                          "display": "₹23,50,000"
+                        },
+                        "after": {
+                          "paise": 235000000,
+                          "display": "₹23,50,000"
+                        },
+                        "unit_rupees": 10,
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.statutory_rounding.total_income",
+                          "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                        }
+                      },
+                      "slabs": {
+                        "charges": [
+                          {
+                            "from": {
+                              "paise": 0,
+                              "display": "₹0"
+                            },
+                            "upto": {
+                              "paise": 25000000,
+                              "display": "₹2,50,000"
+                            },
+                            "rate": {
+                              "bp": 0,
+                              "display": "0%"
+                            },
+                            "income_in_band": {
+                              "paise": 25000000,
+                              "display": "₹2,50,000"
+                            },
+                            "tax": {
+                              "paise": 0,
+                              "display": "₹0"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 25000000,
+                              "display": "₹2,50,000"
+                            },
+                            "upto": {
+                              "paise": 50000000,
+                              "display": "₹5,00,000"
+                            },
+                            "rate": {
+                              "bp": 500,
+                              "display": "5%"
+                            },
+                            "income_in_band": {
+                              "paise": 25000000,
+                              "display": "₹2,50,000"
+                            },
+                            "tax": {
+                              "paise": 1250000,
+                              "display": "₹12,500"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 50000000,
+                              "display": "₹5,00,000"
+                            },
+                            "upto": {
+                              "paise": 100000000,
+                              "display": "₹10,00,000"
+                            },
+                            "rate": {
+                              "bp": 2000,
+                              "display": "20%"
+                            },
+                            "income_in_band": {
+                              "paise": 50000000,
+                              "display": "₹5,00,000"
+                            },
+                            "tax": {
+                              "paise": 10000000,
+                              "display": "₹1,00,000"
+                            }
+                          },
+                          {
+                            "from": {
+                              "paise": 100000000,
+                              "display": "₹10,00,000"
+                            },
+                            "rate": {
+                              "bp": 3000,
+                              "display": "30%"
+                            },
+                            "income_in_band": {
+                              "paise": 135000000,
+                              "display": "₹13,50,000"
+                            },
+                            "tax": {
+                              "paise": 40500000,
+                              "display": "₹4,05,000"
+                            }
+                          }
+                        ],
+                        "total": {
+                          "paise": 51750000,
+                          "display": "₹5,17,500"
+                        },
+                        "citation": {
+                          "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph A, item (I) (\"In the case of every individual other than the individual referred to in items (II) and (III) of this Paragraph...\")",
+                          "document": {
+                            "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                            "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.old_regime.slabs",
+                          "note": "Item (I) of three age-banded tables in Part I-B: this is the table for individuals below 60 (resident or non-resident) and for every non-resident individual whatever their age, since items (II) (resident, 60 to under 80) and item (III) (resident, 80 or more) are each limited to residents. Those two tables carry higher exemptions and are not encoded here. \"12500 plus 20% of the amount by which the total income exceeds 500000\" and \"112500 plus 30% of the amount by which the total income exceeds 1000000\" are the cumulative tax at the start of bands 3 and 4 stated as constants, which is the same arithmetic a slab table gives when walked band by band -- 5% of the 250000-500000 band is exactly 12500, and adding 20% of the 500000-1000000 band gives exactly 112500 -- so it is read as a slab table here too."
+                        }
+                      },
+                      "rebate": {
+                        "applied": false,
+                        "total_income_threshold": {
+                          "paise": 50000000,
+                          "display": "₹5,00,000"
+                        },
+                        "maximum": {
+                          "paise": 1250000,
+                          "display": "₹12,500"
+                        },
+                        "amount": {
+                          "paise": 0,
+                          "display": "₹0"
+                        },
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 156(1) (\"Rebate of income-tax in case of certain individuals\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.old_regime.rebate",
+                          "note": "Available to a resident individual only, same as the new regime's rebate at section 156(2)-(3), but this is the plain subsection: it carries no reference to section 202(1) at all, unlike (2) and (3), which each tie themselves explicitly to total income \"chargeable to tax under section 202(1)\". Unlike the new regime's rebate, section 156(1) gives no marginal relief for total income just above the threshold: crossing five lakh rupees by even one rupee loses the whole rebate on the face of this text."
+                        }
+                      },
+                      "tax_after_rebate": {
+                        "paise": 51750000,
+                        "display": "₹5,17,500"
+                      },
+                      "cess": {
+                        "rate": {
+                          "bp": 400,
+                          "display": "4%"
+                        },
+                        "amount": {
+                          "paise": 2070000,
+                          "display": "₹20,700"
+                        },
+                        "citation": {
+                          "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                          "document": {
+                            "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                            "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.income_tax.cess",
+                          "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
+                        }
+                      },
+                      "tax_payable": {
+                        "before": {
+                          "paise": 53820000,
+                          "display": "₹5,38,200"
+                        },
+                        "after": {
+                          "paise": 53820000,
+                          "display": "₹5,38,200"
+                        },
+                        "unit_rupees": 10,
+                        "citation": {
+                          "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                          "document": {
+                            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                          },
+                          "retrieved": "2026-09-05",
+                          "rules_key": "groups.statutory_rounding.tax_payable",
+                          "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+                        }
+                      }
+                    },
+                    "total": {
+                      "annual": {
+                        "paise": 82620000,
+                        "display": "₹8,26,200"
+                      },
+                      "monthly": {
+                        "paise": 6885000,
+                        "display": "₹68,850"
+                      }
+                    }
+                  },
+                  "take_home": {
+                    "annual": {
+                      "paise": 157380000,
+                      "display": "₹15,73,800"
+                    },
+                    "monthly": {
+                      "paise": 13115000,
+                      "display": "₹1,31,150"
+                    }
+                  }
+                }
+              ],
+              "assumes": [
+                "The old regime",
+                "Below 60 years of age",
+                "A resident individual",
+                "Steady state: no one-time component"
+              ],
+              "excludes": [
+                "HRA exemption",
+                "Chapter VI-A deductions",
+                "Employer NPS deduction",
+                "Professional tax",
+                "Perquisite tax on vesting equity",
+                "Floor: excluding HRA exemption and Chapter VI-A deductions can only lower this further, never raise it"
+              ]
+            }
+          ]
+        },
+        "flags": [
+          {
+            "code": "basic-share",
+            "kind": "heuristic",
+            "measured": {
+              "basic": {
+                "paise": 240000000,
+                "display": "₹24,00,000"
+              },
+              "fixed_pay": {
+                "paise": 1040000000,
+                "display": "₹1,04,00,000"
+              },
+              "share_of_fixed_pay": {
+                "bp": 2307,
+                "display": "23.07%"
+              },
+              "typical_band_floor": {
+                "bp": 4000,
+                "display": "40%"
+              },
+              "typical_band_ceiling": {
+                "bp": 5000,
+                "display": "50%"
+              }
+            },
+            "names": [
+              "Basic"
+            ],
+            "threshold": {
+              "heuristics_key": "thresholds.basic_share_band.floor_rate",
+              "value": {
+                "bp": 4000,
+                "display": "40%"
+              },
+              "rationale": "Indian salary structures commonly set basic between 40% and 50% of fixed pay, and the Code on Wages pushes toward the upper half of that by counting excluded allowances above one-half of remuneration back into wages. Below the floor, everything basic drives — the provident fund contribution, gratuity accrual, the bound on the house rent allowance exemption — is smaller than the headline implies. The band is where the flag stops firing, not a target to aim at."
+            }
+          },
+          {
+            "code": "unvaluable-share",
+            "kind": "heuristic",
+            "measured": {
+              "unvaluable_equity_as_claimed": {
+                "paise": 800000000,
+                "display": "₹80,00,000"
+              },
+              "headline_ctc": {
+                "paise": 1040000000,
+                "display": "₹1,04,00,000"
+              },
+              "share_of_headline_ctc": {
+                "bp": 7692,
+                "display": "76.92%"
+              }
+            },
+            "names": [
+              "ESOP grant"
+            ],
+            "threshold": {
+              "heuristics_key": "thresholds.unvaluable_share.at_or_above_rate",
+              "value": {
+                "bp": 1000,
+                "display": "10%"
+              },
+              "rationale": "A tenth of the claimed package resting on a figure nobody can check is worth naming, because it is the part of the headline that cannot be compared against another offer at all. It is measured on the claimed basis: the question is how much of what the letter counted is unverifiable, not what the decoder held it at, which is nil by construction."
+            }
+          },
+          {
+            "code": "cliff",
+            "kind": "letter",
+            "measured": {
+              "grant_as_claimed": {
+                "paise": 800000000,
+                "display": "₹80,00,000"
+              }
+            },
+            "names": [
+              "ESOP grant"
+            ],
+            "months": 12
+          },
+          {
+            "code": "equity-perquisite",
+            "kind": "statute",
+            "measured": {
+              "equity_as_claimed": {
+                "paise": 800000000,
+                "display": "₹80,00,000"
+              },
+              "equity_as_valued": {
+                "paise": 0,
+                "display": "₹0"
+              }
+            },
+            "names": [
+              "ESOP grant"
+            ],
+            "statement": "Shares acquired by exercising an employee stock option are a specified security transferred at a concessional rate, so the amount by which their fair market value on the date of exercise exceeds the strike price actually paid is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so that excess enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
+            "citation": {
+              "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(e), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+              "document": {
+                "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+              },
+              "retrieved": "2026-09-05",
+              "rules_key": "groups.perquisite.equity.option",
+              "note": "Section 17(4)(e) defines \"option\" as \"a right but not an obligation, granted to an employee to apply for the specified security or sweat equity shares at a predetermined price\", and section 17(4)(h) fixes the amount: \"the value of any specified security or sweat equity shares shall be the fair market value of the specified security or sweat equity shares, on the date on which the option is exercised by the assessee, as reduced by the amount actually paid by, or recovered from, the assessee in respect of such security or shares.\" The charge therefore falls on exercise and not on vesting, and it falls on the spread rather than on the whole value of the shares. Section 73(1), Table Sl. No. 4, deems the cost of acquisition to be the \"Fair market value taken into account for the purposes of the said clause\". What the Act does not settle is the fair market value itself: section 17(4)(a) leaves it to \"the value determined in accordance with the method, as may be prescribed\", and no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the perquisite therefore cannot be computed from this file, and neither the fair market value on a future exercise date nor the date itself is knowable from an offer letter."
+            }
+          }
+        ],
+        "sources": [
+          {
+            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+          },
+          {
+            "title": "The Code on Wages, 2019 (No. 29 of 2019)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+          },
+          {
+            "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+          },
+          {
+            "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+          },
+          {
+            "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+          },
+          {
+            "title": "The Finance Act, 2026 (No. 4 of 2026)",
+            "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "assistant",
+      "text": "Here is the decode. The short answer to your question is in the first two\nfigures, and the rest of it is why.\n\n## What is guaranteed, recurring and cash\n\n- **Guaranteed recurring cash: ₹24,00,000** -- the Basic line, and nothing else.\n- **Headline CTC: ₹1,04,00,000** -- Basic and the ESOP grant.\n\nThe one line between them is the ESOP grant at **₹80,00,000**, and its reason is\ncarried on the line itself: it is `conditional-on-tenure`, its form is `equity`,\nand it is not recurring. Every one of those three would keep it out on its own.\n\nGrouped as the decoder totals them: variable pay at target **₹0**, retirals\n**₹0**, benefits in kind **₹0**, one-time components **₹80,00,000** -- the ESOP\ngrant. Fixed pay is **₹1,04,00,000**, both lines.\n\n## The equity\n\n- **Claimed: ₹80,00,000.** **Valued: ₹0.** Those are the two figures to put side\n  by side; the distance between them is yours to read.\n- **Unvaluable equity: ₹80,00,000**, the ESOP grant -- and note the basis: that\n  is on the **claimed** basis, not the valued one. It is how much of what the\n  letter counted rests on a figure nobody can check.\n\nThe grant itself, from its own block:\n\n- Valued **₹0** against a claimed **₹80,00,000**; method `unvaluable`.\n- The assumption behind that nil, in the decoder's own words: \"Held at nil, and named rather than dropped: shares in an unlisted company have no market price, and what this grant is worth turns on a liquidity event that may never happen. The value the letter claims is carried beside it, unchanged, and so is any price per share it states — which is a company's own valuation of itself and not a price anyone has paid.\"\n- Vesting: **25%** in year 1, **25%** in year 2, **25%** in year 3, **25%** in\n  year 4, with a **12-month cliff**. That is the schedule your letter states,\n  and it is not the same thing as a quarter of the value arriving each year --\n  the value is the part that is nil.\n- Units **10,000**, grant-date fair market value **₹800** per share, strike\n  **₹40**. All three are carried through because your letter states them; none\n  of them is multiplied out into a value here.\n- Tax, when it comes: \"Shares acquired by exercising an employee stock option are a specified security transferred at a concessional rate, so the amount by which their fair market value on the date of exercise exceeds the strike price actually paid is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so that excess enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.\"\n\n  The Act's own caveat on that, which changes when the charge lands: the charge\n  \"falls on exercise and not on vesting, and it falls on the spread rather than\n  on the whole value of the shares\", and the fair market value it is measured\n  against is left to \"the value determined in accordance with the method, as may\n  be prescribed\" -- rules whose primary text could not be retrieved. No\n  perquisite figure exists in this output, and none can be computed from an\n  offer letter.\n\n## Year by year\n\nFour years. Both bases are identical here, because there is no variable pay in\nthe letter at all:\n\n- Year one **₹24,00,000**; the four-year average with one-time components in it\n  **₹24,00,000**, and without them **₹24,00,000**. No one-time cash arrives in\n  this letter -- the ESOP grant is one-time in the totals, but a grant spreads\n  over its schedule rather than landing and stopping, so the table puts it in\n  the equity columns instead.\n- Every year, 1 through 4: total **₹24,00,000** = guaranteed recurring cash\n  **₹24,00,000** + variable **₹0** + one-time **₹0** + equity as valued **₹0**.\n- Beside that, equity as claimed is **₹20,00,000** in every one of the four\n  years. Both columns are in the table, on the same two bases the totals use.\n\nThe grant's own row: spread `vesting-schedule`, and it is flagged `unvaluable`,\nso as valued it is **₹0** in each of years 1 to 4 while as claimed it is\n**₹20,00,000** in each -- at a **25%** share per year. The reason for the ₹0\ncolumn is the assumption quoted above, and it is the same reason in all four\nyears.\n\nThe **12-month cliff** is the months before which nothing vests at all: leave\ninside them and you take none of the first vest, whatever the year-one row\nshows. Note what the rows already show alongside that -- the cliff moved no\nvalue between the years, and the schedule is the one your letter states.\n\nThese totals are not the headline CTC: retirals and benefits in kind sit outside\nthis table, and your letter has neither.\n\n## Basic, and what it drives\n\nBasic is **₹24,00,000**, which is **23.07%** of fixed pay of **₹1,04,00,000**.\nThe numerator is the Basic line alone; the denominator is Basic and the ESOP\ngrant, because fixed pay counts both.\n\n- **Employer provident fund** -- computed on the Basic line at **12%**, statutory\n  monthly wage ceiling **₹15,000**. The 12% is the Ministry of Labour and\n  Employment's statement of the rate applied rather than the rate read off\n  section 6, which says ten per cent; the notification substituting 12% could\n  not be retrieved.\n- **Gratuity** -- accrues on the Basic line, 15 days of wages per completed year,\n  the monthly wage divided by 26, payable after 5 years of continuous service.\n  No gratuity figure is computed here.\n- **House rent allowance exemption** -- the Act settles that the exemption exists\n  and leaves its extent to be prescribed. The rules file does not carry those\n  limbs, so the exemption is bounded and this cannot compute the bound. Your\n  letter has no HRA line in any case.\n\n## Take-home\n\nYou told me the employer computes provident fund on the whole of basic, so that\nis what these use. Two regimes, as two facts about the same letter; which\napplies to you is not something this decides, and there is no crossing point in\nthis output to give you.\n\n### Under the new regime\n\nTrue only if: the new regime, a resident individual, and steady state -- no\none-time component.\n\nBoth bases are the same figure here, there being no variable pay: recurring cash\n**₹24,00,000** a year, **₹2,00,000** a month, from the Basic line.\n\n- Employee provident fund **₹2,88,000** a year, **₹24,000** a month -- 12% on\n  the full basic wage of ₹24,00,000.\n- Income tax: salary ₹24,00,000, less the standard deduction of ₹75,000, total\n  income ₹23,25,000; slabs ₹2,81,250; no rebate; cess at 4% ₹11,250; **tax\n  payable ₹2,92,500**.\n- Total deductions **₹5,80,500** a year, **₹48,375** a month.\n- **Take-home ₹18,19,500 a year -- ₹1,51,625 a month.**\n\n### Under the old regime\n\nTrue only if: the old regime, below 60 years of age, a resident individual, and\nthe same steady state.\n\nSame recurring cash, same employee provident fund of ₹2,88,000 a year -- it does\nnot depend on regime.\n\n- Income tax: salary ₹24,00,000, less the standard deduction of ₹50,000, total\n  income ₹23,50,000; slabs ₹5,17,500; no rebate; cess ₹20,700; **tax payable\n  ₹5,38,200**.\n- Total deductions **₹8,26,200** a year, **₹68,850** a month.\n- **Take-home ₹15,73,800 a year -- ₹1,31,150 a month.**\n\n### What these figures leave out\n\nUnder both regimes: HRA exemption, Chapter VI-A deductions, employer NPS\ndeduction, professional tax (you did not have the figure), and **perquisite tax\non vesting equity** -- which matters here, because you have equity: in a year you\nexercise, the spread is taxed as salary and none of these figures carry it.\n\nUnder the old regime there is one more line: excluding HRA exemption and\nChapter VI-A deductions **can only lower the old-regime figure further, never\nraise it**. So that figure is a floor.\n\n## Flags\n\nFour, and they stand on three different things.\n\n**basic-share** -- an authored threshold in this repository, not law. Basic is\n**₹24,00,000**, **23.07%** of fixed pay of **₹1,04,00,000**, against a typical\nband of **40%** to **50%**. The threshold is\n`thresholds.basic_share_band.floor_rate` and the author's reason for it is:\n\"Indian salary structures commonly set basic between 40% and 50% of fixed pay, and the Code on Wages pushes toward the upper half of that by counting excluded allowances above one-half of remuneration back into wages. Below the floor, everything basic drives — the provident fund contribution, gratuity accrual, the bound on the house rent allowance exemption — is smaller than the headline implies. The band is where the flag stops firing, not a target to aim at.\" You are entitled to disagree with that threshold; it is\njudgement, and the key is there so you can go and argue with it.\n\n**unvaluable-share** -- also an authored threshold. Unvaluable equity as claimed\nis **₹80,00,000** against a headline CTC of **₹1,04,00,000**, a share of\n**76.92%**, against a threshold of **10%** at\n`thresholds.unvaluable_share.at_or_above_rate`. The author's reason:\n\"A tenth of the claimed package resting on a figure nobody can check is worth naming, because it is the part of the headline that cannot be compared against another offer at all. It is measured on the claimed basis: the question is how much of what the letter counted is unverifiable, not what the decoder held it at, which is nil by construction.\"\n\n**cliff** -- this one stands on your own letter and nothing else, so there is no\ncitation to give. **12 months** before which nothing vests, on a grant claimed\nat **₹80,00,000**.\n\n**equity-perquisite** -- this one is statute. On a grant claimed at ₹80,00,000\nand valued at ₹0, the rules file quotes the Income-tax Act, 2025, section\n17(1)(d), read with sections 16(e), 15(1), 17(4)(e), 17(4)(f), 17(4)(h) and\n73(1) Table Sl. No. 4 -- the statement is the one quoted in full under the\nequity above, and its caveat with it.\n\nThat is four facts with their figures attached. It is not a score, and none of\nthem is something to take to the employer on my say-so.\n\n## The condition in your letter\n\n\"25% per year over four years subject to a one-year cliff\", attached to the ESOP\ngrant. It is typed into the reading as the schedule and the 12-month cliff\nabove.\n\n## Sources\n\n- The Income-tax Act, 2025 (No. 30 of 2025) -- https://egazette.gov.in/WriteReadData/2025/265620.pdf\n- The Code on Wages, 2019 (No. 29 of 2019) -- https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf\n- The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952) -- https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf\n- Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083) -- https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf\n- The Payment of Gratuity Act, 1972 (No. 39 of 1972) -- https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf\n- The Finance Act, 2026 (No. 4 of 2026) -- https://egazette.gov.in/WriteReadData/2026/271439.pdf",
+      "step": "6. Narrate"
+    }
+  ]
+}

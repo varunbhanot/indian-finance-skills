@@ -29,11 +29,11 @@
  * No figure of provident fund, gratuity or house rent allowance is computed
  * here. The share is the only arithmetic in this file.
  */
-import { money, rate, rupeesToPaise, shareInBasisPoints, type Money, type Rate } from "../money.ts";
+import { money, rate, shareInBasisPoints, type Money, type Rate } from "../money.ts";
 import type { RulesFile } from "../rules/files.ts";
 import type { ClassifiedComponent } from "./classification.ts";
 import { hasRulesGroup, rulesGroup, type Citation } from "./rules-reader.ts";
-import { wageBaseFor, type WageBase } from "./wage-base.ts";
+import { pfWageCeilingFor, wageBaseFor, type WageBase } from "./wage-base.ts";
 
 /**
  * One thing basic drives, discriminated by `drives` because the three rest on
@@ -119,16 +119,13 @@ export function basicFor(
 function employerPf(components: readonly ClassifiedComponent[], rules: RulesFile): EmployerPfDriven {
   const epf = rulesGroup(rules, "epf");
   const rateNode = epf.child("employer_rate");
-  const ceilingNode = epf.child("wage_ceiling");
+  const ceiling = pfWageCeilingFor(epf);
   return {
     drives: "employer-pf",
     wage_base: wageBaseFor(components, epf.child("wage_components")).base,
     rate: rate(rateNode.rateBasisPoints("rate")),
     rate_citation: rateNode.citation(),
-    ceiling: {
-      monthly: money(rupeesToPaise(ceilingNode.integer("monthly_rupees"))),
-      citation: ceilingNode.citation(),
-    },
+    ceiling: { monthly: ceiling.monthly, citation: ceiling.citation },
   };
 }
 

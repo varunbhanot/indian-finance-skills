@@ -1,3 +1,8 @@
+# TEST DATA, NOT STATUTORY FACT (ADR 0009). This is `rules/fy2026-27.yaml`
+# with `groups.epf.employer_components` removed and nothing else changed: a
+# rules file that predates the employer-contribution reading, to show that the
+# same decoder reads it without the reading and without a rejection. Do not
+# copy any value out of this file; take it from `rules/`.
 # Statutory rules for financial year 2026-27 (assessed in AY 2027-28).
 #
 # Shape (ADR 0001, ADR 0008):
@@ -573,25 +578,6 @@ groups:
         notification that set it could not be retrieved either. This is the
         Government's statement of the figure, not the instrument that fixed it.
       monthly_rupees: 15000
-    # Which of the catalogue's entries IS the employer's own contribution, so a
-    # figure typed off an offer letter can be read against the rate above. The
-    # decoder never names a component type in code (ADR 0004), so the entry is
-    # named here, beside the rate it is a contribution at.
-    employer_components:
-      section: Employees' Provident Funds and Miscellaneous Provisions Act, 1952, section 6
-      source: https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf
-      retrieved: 2026-09-05
-      note: >-
-        Section 6 fixes one employer contribution, "paid by the employer to the
-        Fund", and this names the catalogue entry that carries it on an offer
-        letter. It is deliberately narrower than `employer_nps`, which is a
-        contribution under a different Act to a different fund and is therefore
-        not a figure this rate explains. Read `employer_rate`'s note with any
-        figure derived from it: section 6A(2)(a) diverts part of the employer's
-        share to the Employees' Pension Scheme, so a letter that states only the
-        provident fund part of it will match neither wage base here.
-      entries:
-        - employer_pf
     wage_components:
       section: Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6
       source: https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf

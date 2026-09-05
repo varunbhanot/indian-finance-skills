@@ -14,6 +14,12 @@
  * heuristics file whose thresholds differ — which is how "changing a threshold
  * changes what is flagged, with no code change" is shown rather than asserted
  * (ADR 0009, ADR 0006).
+ *
+ * `fixtures/transcripts/` is not a fixture and is skipped here. It holds
+ * recorded skill transcripts — what the model said around these same tool calls
+ * — which the traceability eval replays (ADR 0003, issue #15). They assert
+ * something about the *narration* rather than about the decoder, so they are not
+ * this suite's to run; `fixtures/transcripts/README.md` says what they hold.
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -47,8 +53,11 @@ interface PinnedDocuments {
   heuristics?: string;
 }
 
+/** The one directory under `fixtures/` that is not a fixture; see the note above. */
+const TRANSCRIPTS_DIRECTORY = "transcripts";
+
 const fixtureNames = readdirSync(fixturesRoot, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
+  .filter((entry) => entry.isDirectory() && entry.name !== TRANSCRIPTS_DIRECTORY)
   .map((entry) => entry.name)
   .sort();
 

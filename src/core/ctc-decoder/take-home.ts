@@ -24,31 +24,29 @@
  * are reported side by side as two facts of one input, in an array so neither
  * position reads as a preference (ADR 0007, spec #11).
  */
-import { annualise, applyRate, money, perMonth, rate, rupeesToPaise, type Money, type Rate } from "../money.ts";
+import {
+  applyRate,
+  periodic,
+  rate,
+  rupeesToPaise,
+  type Money,
+  type PeriodicMoney,
+  type Rate,
+} from "../money.ts";
 import type { ClassifiedComponent } from "./classification.ts";
 import { incomeTaxFor, type IncomeTax, type Regime } from "./income-tax.ts";
 import { rulesGroup, type Citation, type RulesNode } from "./rules-reader.ts";
 import type { RulesFile } from "../rules/files.ts";
 import { BASES, type Basis } from "./totals.ts";
-import { wageBaseFor } from "./wage-base.ts";
+import { pfWageCeilingFor, wageBaseFor, wageUnder, type PfWageBase } from "./wage-base.ts";
 
 const REGIMES: readonly Regime[] = ["new", "old"];
-
-/** How the employer computes the employee's provident fund contribution. */
-export const PF_WAGE_BASES = ["full_basic", "statutory_ceiling"] as const;
-export type PfWageBase = (typeof PF_WAGE_BASES)[number];
 
 /** What the caller typed that only the take-home figures need. */
 export interface TakeHomeRequest {
   pf_wage_base: PfWageBase;
   /** Annual professional tax in whole rupees, when the user knows their state's figure. */
   professional_tax?: number;
-}
-
-/** A figure and the period it belongs to, both stated, never one inferred from the other. */
-export interface PeriodicMoney {
-  annual: Money;
-  monthly: Money;
 }
 
 export interface EmployeePf {
@@ -183,11 +181,11 @@ function employeePfFor(
 ): EmployeePf {
   const wage = wageBaseFor(components, epf.child("wage_components"));
 
-  const ceilingNode = epf.child("wage_ceiling");
-  const ceilingMonthly = rupeesToPaise(ceilingNode.integer("monthly_rupees"));
-  const ceilingAnnual = annualise(ceilingMonthly, "monthly");
-  const capped = basis === "statutory_ceiling" && wage.annual_paise > ceilingAnnual;
-  const wagePaise = capped ? ceilingAnnual : wage.annual_paise;
+  const ceiling = pfWageCeilingFor(epf);
+  const wagePaise = wageUnder(basis, wage.annual_paise, ceiling);
+  // The ceiling was chosen and actually bit, which is a different fact from
+  // chosen and not: a basic already under it is capped by nothing.
+  const capped = wagePaise !== wage.annual_paise;
 
   const rateNode = epf.child("employee_rate");
   const basisPoints = rateNode.rateBasisPoints("rate");
@@ -201,13 +199,7 @@ function employeePfFor(
     rate_citation: rateNode.citation(),
     wage_citation: wage.base.citation,
     ...(basis === "statutory_ceiling"
-      ? {
-          ceiling: {
-            monthly: money(ceilingMonthly),
-            applied: capped,
-            citation: ceilingNode.citation(),
-          },
-        }
+      ? { ceiling: { monthly: ceiling.monthly, applied: capped, citation: ceiling.citation } }
       : {}),
   };
 }
@@ -237,8 +229,4 @@ function excludesFor(request: TakeHomeRequest, regime: Regime): string[] {
 
 function sum(components: readonly ClassifiedComponent[]): number {
   return components.reduce((running, component) => running + component.annual_paise, 0);
-}
-
-function periodic(annualPaise: number): PeriodicMoney {
-  return { annual: money(annualPaise), monthly: money(perMonth(annualPaise)) };
 }

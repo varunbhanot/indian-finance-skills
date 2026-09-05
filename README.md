@@ -4,11 +4,12 @@ Skills for Indian personal finance.
 
 ## Structure
 
-Each skill lives in its own top-level directory and follows the standard
-Claude Skill layout:
+Each skill lives under `.claude/skills/<skill-name>/` — the directory Claude
+Code auto-loads project skills from; a top-level directory would not load — and
+follows the standard Claude Skill layout:
 
 ```
-skill-name/
+.claude/skills/skill-name/
   SKILL.md      # required — name, description, and instructions
   scripts/      # optional — helper scripts the skill can invoke
   references/   # optional — reference material loaded on demand
@@ -23,7 +24,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add a new skill.
 Claude Code auto-loads that directory, so they're available in every
 session in this repo, including on the web. See `.claude/skills/README.md`
 for provenance and how to update them. These are separate from the
-top-level, Indian-finance skills this repo exists to build.
+Indian-finance skills this repo exists to build, which live alongside them.
 
 `.claude/settings.json` also declares `mattpocock-skills` as a plugin
 (`extraKnownMarketplaces` + `enabledPlugins`). On the web that declaration

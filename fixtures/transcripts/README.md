@@ -70,3 +70,11 @@ what to do. The transcripts are checked against the same advisory word list
   back to the plain question, and it raises all three kinds of flag — heuristic,
   letter and statute — so the narration has to tell law from judgement from
   "this is only what your letter says".
+
+A directory named **`broken-*`** is not a recording at all: `broken-derived-figure`
+and `broken-uncited-url` are hand-written to fail the invariant above on purpose
+— one `assistant` turn states a figure it computed rather than copied, the other
+cites a URL no `tool` turn ever emitted — so the eval's own test suite can prove
+it fails when it should (issue #15's acceptance criteria). Each carries a top-level
+`"broken"` key saying so, which nothing in the schema above requires and nothing
+in the eval reads.

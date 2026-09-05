@@ -17,6 +17,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { ADVISORY } from "./lib/advisory-language.ts";
 
 const fixturesRoot = join(resolve(import.meta.dirname, ".."), "fixtures");
 
@@ -50,30 +51,6 @@ for (const { name, output } of outputs) {
     }
   });
 }
-
-/**
- * The turns of phrase that carry a recommendation. Deliberately about wording
- * rather than intent, because that is what a test can hold: a sentence telling
- * the reader what to do has to reach for one of these, and none of them can
- * appear in a statement of what a rule says. `considerations` is a word two of
- * the rules file's statutory quotes use, so the boundary on `consider` matters.
- */
-const ADVISORY = [
-  /\byou should\b/i,
-  /\brecommend/i,
-  /\bsuggest/i,
-  /\badvis(e|es|ed|able|ory|ice)\b/i,
-  /\bconsider\b/i,
-  /\bnegotiat/i,
-  /\bask for\b/i,
-  /\bpush for\b/i,
-  /\bbetter off\b/i,
-  /\bopt for\b/i,
-  /\bought to\b/i,
-  /\bmake sure\b/i,
-  /\bideally\b/i,
-  /\btoo (low|high|little|much)\b/i,
-];
 
 /** Every `{ title, url }` in a value, deduplicated by URL, in the order first met. */
 function documentsIn(value: unknown): { title: string; url: string }[] {

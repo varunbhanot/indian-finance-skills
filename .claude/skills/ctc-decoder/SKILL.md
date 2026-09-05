@@ -338,11 +338,7 @@ run, and the figure the user came for.
 
 `take_home.regimes` carries both regimes as two facts of one input. Say both, in
 the order they appear, and **never say which is better, which to pick, or which
-comes out ahead** — the pair is the answer, not a shortlist (ADR 0007). Where the
-output carries a break-even, say it as one more fact beside the exclusions,
-never as the point at which one regime wins. Where it does not — and today it
-does not — do not compute one and do not describe a crossing point the tool did
-not emit.
+comes out ahead** — the pair is the answer, not a shortlist (ADR 0007).
 
 For each regime, in this order:
 
@@ -387,6 +383,30 @@ Say every figure once per basis and never carry one across regimes: the two
 regimes share their gross, their employee provident fund and their professional
 tax, and differ only in income tax — that is a fact worth saying, and it is not
 licence to quote one regime's take-home under the other's name.
+
+`take_home.break_even`, one entry per basis, is spec #17's single figure: the
+Chapter VI-A and HRA deduction at which the old regime's tax on this offer
+stops exceeding the new regime's. Say it as one more fact of the input, in the
+same voice as the regimes above and never as a recommendation or a verdict —
+"if your Chapter VI-A and HRA deductions add up to more than this, the old
+regime's computed tax is the lower of the two on this offer" is the shape, not
+"the old regime is better above this" or "you should claim more deductions."
+Its `kind` names which of three facts this is, and each is said differently:
+
+- `deduction` — say `amount.display`, beside the basis it is on. This is the
+  crossing point, not a threshold the user must reach: it says what the two
+  regimes' tax do, not what the user should do about it.
+- `old-regime-wins-at-zero` — say that the old regime's tax is already at or
+  below the new regime's without any Chapter VI-A or HRA deduction at all, so
+  there is no positive figure to give. Do not invent one.
+- `old-regime-never-wins` — say that no deduction total makes the two
+  regimes' tax equal on this offer: the old regime's tax drops from above the
+  new regime's straight to below it without ever landing on it exactly (its
+  rebate is a cliff, not a taper). Do not round to the nearest figure and
+  report that instead.
+
+Every `break_even` entry carries `assumes`, the same as each regime's own —
+say it once, before the figure, the same way.
 
 Then `flags`, one at a time. Each carries `code`, the figures in `measured` by
 their `display`, and the `names` it is about; say all three. What it stands on

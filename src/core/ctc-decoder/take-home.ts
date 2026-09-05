@@ -33,6 +33,7 @@ import {
   type PeriodicMoney,
   type Rate,
 } from "../money.ts";
+import { breakEvenDeductionFor, type BreakEvenDeduction } from "./break-even.ts";
 import type { ClassifiedComponent } from "./classification.ts";
 import { incomeTaxFor, type IncomeTax, type Regime } from "./income-tax.ts";
 import { rulesGroup, type Citation, type RulesNode } from "./rules-reader.ts";
@@ -95,6 +96,13 @@ export interface TakeHomeUnderRegime {
 export interface TakeHome {
   /** Both regimes, as facts of the same input; the order carries no preference (ADR 0007). */
   regimes: TakeHomeUnderRegime[];
+  /**
+   * The break-even deduction on each basis (spec #17): the point at which the
+   * old regime's tax stops exceeding the new regime's. Derived from the same
+   * two regimes above rather than a third computation of its own; see
+   * `break-even.ts`.
+   */
+  break_even: BreakEvenDeduction[];
 }
 
 export function takeHomeFor(
@@ -151,7 +159,11 @@ export function takeHomeFor(
     excludes: excludesFor(request, regime),
   }));
 
-  return { regimes };
+  const breakEven = grossByBasis.map(({ basis, counted }) =>
+    breakEvenDeductionFor(basis, sum(counted), incomeTax, rounding),
+  );
+
+  return { regimes, break_even: breakEven };
 }
 
 /**

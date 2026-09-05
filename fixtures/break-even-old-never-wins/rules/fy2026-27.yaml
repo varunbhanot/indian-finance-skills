@@ -1,0 +1,150 @@
+# Test-only rules document, not statutory fact (ADR 0009). Its old regime is
+# rules/fy2026-27.yaml's own — the real slabs and rebate, and the real rebate
+# cliff they carry: at total income 500000 the whole rebate applies and the tax
+# is nil, and one rupee above it the rebate is lost outright rather than eased
+# off, a jump the note beside `income_tax.old_regime.rebate` in the real file
+# names too. This fixture's own new regime is invented, at a low enough tax to
+# land inside that jump: the point of fixtures/break-even-old-never-wins is a
+# new-regime tax the old regime's tax passes over without ever landing on, so
+# it needs a new-regime figure inside a gap the real new regime's own numbers
+# never put one in (`break-even-mid-income` and `break-even-rebate-boundary`
+# use the real file for that reason). None of this file's URLs is a source for
+# anything; every value still carries `source` and `retrieved`, and every group
+# a `title`, because the loader requires them (ADR 0001), and this is a test
+# domain rather than a statute.
+financial_year: "2026-27"
+groups:
+  components:
+    title: Test-only component catalogue
+    source: https://example.test/break-even-old-never-wins
+    retrieved: 2026-09-05
+    entries:
+      basic:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+        rationale: The whole of this fixture's offer, so its guaranteed recurring cash is exactly the salary the break-even is computed from.
+
+  epf:
+    title: Test-only provident fund rates
+    source: https://example.test/break-even-old-never-wins
+    retrieved: 2026-09-05
+    employee_rate:
+      section: Test-only employee rate
+      source: https://example.test/break-even-old-never-wins
+      retrieved: 2026-09-05
+      rate: 0.12
+    wage_ceiling:
+      section: Test-only wage ceiling
+      source: https://example.test/break-even-old-never-wins
+      retrieved: 2026-09-05
+      monthly_rupees: 15000
+    wage_components:
+      section: Test-only wage base
+      source: https://example.test/break-even-old-never-wins
+      retrieved: 2026-09-05
+      entries:
+        - basic
+
+  income_tax:
+    title: Test-only income tax
+    source: https://example.test/break-even-old-never-wins
+    retrieved: 2026-09-05
+    new_regime:
+      slabs:
+        section: Test-only new-regime slabs
+        source: https://example.test/break-even-old-never-wins
+        retrieved: 2026-09-05
+        # Invented so this fixture's salary computes a new-regime tax inside
+        # the old regime's rebate-cliff gap (see the group's own note above),
+        # never as a statement of what the new regime actually charges.
+        bands:
+          - upto: 900000
+            rate: 0.00
+          - rate: 0.05
+      standard_deduction:
+        section: Test-only new-regime standard deduction
+        source: https://example.test/break-even-old-never-wins
+        retrieved: 2026-09-05
+        amount: 0
+      rebate:
+        section: Test-only new-regime rebate
+        source: https://example.test/break-even-old-never-wins
+        retrieved: 2026-09-05
+        # Set below any total income this fixture computes, so it never fires
+        # and the invented slabs above are the whole of the new-regime figure.
+        total_income_threshold: 0
+        maximum: 0
+      surcharge:
+        section: Test-only new-regime surcharge
+        source: https://example.test/break-even-old-never-wins
+        retrieved: 2026-09-05
+        bands:
+          - clause: (i)
+            above: 5000000
+            rate: 0.10
+    # The real old regime (rules/fy2026-27.yaml, Finance Act, 2026, First
+    # Schedule, Part I-B, Paragraph A item (I), and its rebate at Income-tax
+    # Act, 2025, section 156(1)): copied rather than re-derived, since the
+    # rebate cliff this fixture exercises is that regime's own.
+    old_regime:
+      slabs:
+        section: Test-only old-regime slabs, copied from rules/fy2026-27.yaml
+        source: https://example.test/break-even-old-never-wins
+        retrieved: 2026-09-05
+        bands:
+          - upto: 250000
+            rate: 0.00
+          - upto: 500000
+            rate: 0.05
+          - upto: 1000000
+            rate: 0.20
+          - rate: 0.30
+      standard_deduction:
+        section: Test-only old-regime standard deduction, copied from rules/fy2026-27.yaml
+        source: https://example.test/break-even-old-never-wins
+        retrieved: 2026-09-05
+        amount: 50000
+      rebate:
+        section: Test-only old-regime rebate, copied from rules/fy2026-27.yaml
+        source: https://example.test/break-even-old-never-wins
+        retrieved: 2026-09-05
+        total_income_threshold: 500000
+        maximum: 12500
+      surcharge:
+        section: Test-only old-regime surcharge
+        source: https://example.test/break-even-old-never-wins
+        retrieved: 2026-09-05
+        bands:
+          - clause: (i)
+            above: 5000000
+            rate: 0.10
+    marginal_relief:
+      new_regime:
+        section: Test-only new-regime marginal relief
+        source: https://example.test/break-even-old-never-wins
+        retrieved: 2026-09-05
+      old_regime:
+        section: Test-only old-regime marginal relief
+        source: https://example.test/break-even-old-never-wins
+        retrieved: 2026-09-05
+    cess:
+      section: Test-only cess
+      source: https://example.test/break-even-old-never-wins
+      retrieved: 2026-09-05
+      rate: 0.04
+
+  statutory_rounding:
+    title: Test-only statutory rounding
+    source: https://example.test/break-even-old-never-wins
+    retrieved: 2026-09-05
+    total_income:
+      section: Test-only total income rounding
+      source: https://example.test/break-even-old-never-wins
+      retrieved: 2026-09-05
+      unit_rupees: 10
+    tax_payable:
+      section: Test-only tax payable rounding
+      source: https://example.test/break-even-old-never-wins
+      retrieved: 2026-09-05
+      unit_rupees: 10

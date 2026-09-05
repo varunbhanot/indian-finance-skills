@@ -1,0 +1,7 @@
+{
+  "financial_year": "2026-27",
+  "pf_wage_base": "full_basic",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 1000000, "period": "annual" }
+  ]
+}

@@ -25,9 +25,7 @@
  * position reads as a preference (ADR 0007, spec #11).
  */
 import {
-  annualise,
   applyRate,
-  money,
   periodic,
   rate,
   rupeesToPaise,
@@ -40,7 +38,7 @@ import { incomeTaxFor, type IncomeTax, type Regime } from "./income-tax.ts";
 import { rulesGroup, type Citation, type RulesNode } from "./rules-reader.ts";
 import type { RulesFile } from "../rules/files.ts";
 import { BASES, type Basis } from "./totals.ts";
-import { wageBaseFor, type PfWageBase } from "./wage-base.ts";
+import { pfWageCeilingFor, wageBaseFor, wageUnder, type PfWageBase } from "./wage-base.ts";
 
 const REGIMES: readonly Regime[] = ["new", "old"];
 
@@ -183,11 +181,11 @@ function employeePfFor(
 ): EmployeePf {
   const wage = wageBaseFor(components, epf.child("wage_components"));
 
-  const ceilingNode = epf.child("wage_ceiling");
-  const ceilingMonthly = rupeesToPaise(ceilingNode.integer("monthly_rupees"));
-  const ceilingAnnual = annualise(ceilingMonthly, "monthly");
-  const capped = basis === "statutory_ceiling" && wage.annual_paise > ceilingAnnual;
-  const wagePaise = capped ? ceilingAnnual : wage.annual_paise;
+  const ceiling = pfWageCeilingFor(epf);
+  const wagePaise = wageUnder(basis, wage.annual_paise, ceiling);
+  // The ceiling was chosen and actually bit, which is a different fact from
+  // chosen and not: a basic already under it is capped by nothing.
+  const capped = wagePaise !== wage.annual_paise;
 
   const rateNode = epf.child("employee_rate");
   const basisPoints = rateNode.rateBasisPoints("rate");
@@ -201,13 +199,7 @@ function employeePfFor(
     rate_citation: rateNode.citation(),
     wage_citation: wage.base.citation,
     ...(basis === "statutory_ceiling"
-      ? {
-          ceiling: {
-            monthly: money(ceilingMonthly),
-            applied: capped,
-            citation: ceilingNode.citation(),
-          },
-        }
+      ? { ceiling: { monthly: ceiling.monthly, applied: capped, citation: ceiling.citation } }
       : {}),
   };
 }

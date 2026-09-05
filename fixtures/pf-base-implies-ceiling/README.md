@@ -21,11 +21,17 @@ which is the whole point of it — the skill can confirm what the letter implies
 instead of quizzing the user on their employer's policy. The core never chooses
 the base on the user's behalf.
 
-## External cross-check
+## How the expected values were derived
 
-Not cross-checked against any calculator, and there is nothing here to check
-against one: the arithmetic is the 12% employer rate on ₹1,80,000, and both of
-those figures come from the Ministry of Labour and Employment's statement to the
-Lok Sabha rather than from the instruments that fix them. See
-`pf-statutory-ceiling`'s README and `docs/research/fy2026-27-new-regime-take-home.md`
-§9. The `note` on each rules key travels into `expected.json` beside the figure.
+**The `employer_pf` block is hand-derived**, and the table above is the working:
+₹1,80,000 is ₹15,000 × 12, and 12% of it is ₹21,600; 12% of ₹18,00,000 is
+₹2,16,000. Both figures were computed by hand before the decoder was run, and
+the run was checked against them. Every other figure in `expected.json` is the
+same package the other take-home fixtures assert and is derived as they are.
+
+There is no external calculator to check the provident fund half against, and
+nothing here that one would settle: the 12% rate and the ₹15,000 ceiling come
+from the Ministry of Labour and Employment's statement to the Lok Sabha rather
+than from the instruments that fix them. See `pf-statutory-ceiling`'s README and
+`docs/research/fy2026-27-new-regime-take-home.md` §9. The `note` on each rules
+key travels into `expected.json` beside the figure.

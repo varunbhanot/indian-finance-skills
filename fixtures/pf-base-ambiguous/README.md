@@ -25,6 +25,10 @@ sits exactly on the boundary because that is the case `bases_coincide` could get
 wrong: written as "strictly below the ceiling" it would report two bases that
 give one wage as though they gave two.
 
-## External cross-check
+## How the expected values were derived
 
-None, and none available; see `pf-base-implies-ceiling`'s README.
+**Hand-derived**: ₹15,000 × 12 is ₹1,80,000, which is the basic here, so both
+bases give that wage and 12% of it — ₹21,600 — either way. Computed before the
+decoder was run.
+
+There is no external cross-check, and none available; see `pf-base-implies-ceiling`'s README.

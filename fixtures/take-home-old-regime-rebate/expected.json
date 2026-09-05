@@ -627,7 +627,7 @@
       "rules_key": "groups.epf.employer_components",
       "note": "Section 6 fixes one employer contribution, \"paid by the employer to the Fund\", and this names the catalogue entry that carries it on an offer letter. It is deliberately narrower than `employer_nps`, which is a contribution under a different Act to a different fund and is therefore not a figure this rate explains. Read `employer_rate`'s note with any figure derived from it: section 6A(2)(a) diverts part of the employer's share to the Employees' Pension Scheme, so a letter that states only the provident fund part of it will match neither wage base here."
     },
-    "contribution": {
+    "stated_contribution": {
       "annual": {
         "paise": 3600000,
         "display": "₹36,000"
@@ -650,7 +650,7 @@
             "display": "₹25,000"
           }
         },
-        "contribution": {
+        "implied_contribution": {
           "annual": {
             "paise": 3600000,
             "display": "₹36,000"
@@ -674,7 +674,7 @@
             "display": "₹15,000"
           }
         },
-        "contribution": {
+        "implied_contribution": {
           "annual": {
             "paise": 2160000,
             "display": "₹21,600"

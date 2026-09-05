@@ -18,6 +18,9 @@ an annexure stating only the provident fund half of a contribution section
 `pf_wage_base` is untyped here, as in the other three: the user still says what
 is true, and this fixture is the case where the letter cannot help them.
 
-## External cross-check
+## How the expected values were derived
 
-None, and none available; see `pf-base-implies-ceiling`'s README.
+**Hand-derived**: the two bases imply ₹2,16,000 and ₹21,600 as above, and the
+letter's ₹1,20,000 is neither. Computed before the decoder was run.
+
+There is no external cross-check, and none available; see `pf-base-implies-ceiling`'s README.

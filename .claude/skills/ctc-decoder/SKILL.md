@@ -152,10 +152,10 @@ confirmation instead of a quiz.
 
 - **One entry** — say which base the letter's own figure lands on, with the
   figures the decoder compared, and ask the user to confirm it. Both figures are
-  in the output: `employer_pf.contribution.annual.display` is what their letter
-  says, and the matching entry in `employer_pf.bases` carries the
-  `wage.annual.display` the rate was applied to and the `rate.display` it was
-  applied at. Shaped like: "your letter's employer PF of *[their figure]* is
+  in the output: `employer_pf.stated_contribution.annual.display` is what their
+  letter says, and the matching entry in `employer_pf.bases` carries the
+  `wage.annual.display` its `implied_contribution` was computed on, at
+  `employer_pf.rate.display`. Shaped like: "your letter's employer PF of *[their figure]* is
   *[the rate]* of the statutory ceiling of *[the ceiling]* a month — is that the
   basis?", with every bracket filled from the output and none of them from
   memory.
@@ -169,8 +169,10 @@ confirmation instead of a quiz.
   round, employers contribute above the minimum, and an annexure may state only
   the part of the contribution that reaches the provident fund rather than the
   whole employer share, which is what the rate's own citation `note` records.
-- **No `employer_pf` block at all** — the letter has no employer contribution
-  line, so there is nothing to read. Ask the plain question.
+- **No `employer_pf` block at all** — either the letter has no employer
+  contribution line, or the rules file does not say which catalogue entry that
+  would be. Nothing to read either way: ask the plain question, and do not
+  report the absence as a problem with their letter.
 
 The plain question, when you need it: does the employer compute provident fund
 on the whole of basic, or on the statutory monthly ceiling? Name the ceiling by
@@ -323,9 +325,9 @@ Then `basic.drives`, one fact each, from the fields and never from memory:
 
 Then `employer_pf`, where the output carries it and where step 5 did not
 already settle it in the user's hearing: the letter's own
-`contribution.annual.display`, each entry of `bases` by its `basis`,
-`wage.annual.display` and `contribution.annual.display`, and which of them
-`implies` names. Say `bases_coincide` where it is true — the two bases are one
+`stated_contribution.annual.display`, each entry of `bases` by its `basis`,
+`wage.annual.display` and `implied_contribution.annual.display`, and which of
+them `implies` names. Say `bases_coincide` where it is true — the two bases are one
 wage on this package, and a single answer would read as a choice the figures
 cannot support. Say what the user typed as `take_home`'s
 `deductions.employee_pf.basis` beside it, and where the two differ, say that
@@ -336,9 +338,11 @@ run, and the figure the user came for.
 
 `take_home.regimes` carries both regimes as two facts of one input. Say both, in
 the order they appear, and **never say which is better, which to pick, or which
-comes out ahead** — the pair is the answer, not a shortlist (ADR 0007). There is
-no break-even figure anywhere in the output; do not compute one, and do not
-describe a crossing point the tool did not emit.
+comes out ahead** — the pair is the answer, not a shortlist (ADR 0007). Where the
+output carries a break-even, say it as one more fact beside the exclusions,
+never as the point at which one regime wins. Where it does not — and today it
+does not — do not compute one and do not describe a crossing point the tool did
+not emit.
 
 For each regime, in this order:
 

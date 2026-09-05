@@ -13,6 +13,7 @@
  * user classified inline carries no catalogue entry, so it is outside every
  * base whatever they called it. That rule lives here and nowhere else.
  */
+import { annualise, money, rupeesToPaise, type Money } from "../money.ts";
 import type { ClassifiedComponent } from "./classification.ts";
 import type { Citation, RulesNode } from "./rules-reader.ts";
 
@@ -27,6 +28,42 @@ import type { Citation, RulesNode } from "./rules-reader.ts";
  */
 export const PF_WAGE_BASES = ["full_basic", "statutory_ceiling"] as const;
 export type PfWageBase = (typeof PF_WAGE_BASES)[number];
+
+/** The statutory monthly wage ceiling, and the annual figure a base is capped at. */
+export interface PfWageCeiling {
+  monthly: Money;
+  /** The monthly figure over twelve months, which is what an annual wage is measured against. */
+  annual_paise: number;
+  citation: Citation;
+}
+
+/**
+ * The ceiling, read once. Three readings need it — the basic reading states it,
+ * take-home applies it to the employee's share, and the employer-contribution
+ * reading measures against it — and reading it in three places is how they
+ * would drift apart.
+ */
+export function pfWageCeilingFor(epf: RulesNode): PfWageCeiling {
+  const node = epf.child("wage_ceiling");
+  const monthly = rupeesToPaise(node.integer("monthly_rupees"));
+  return {
+    monthly: money(monthly),
+    annual_paise: annualise(monthly, "monthly"),
+    citation: node.citation(),
+  };
+}
+
+/**
+ * The wage a base gives: the whole of it, or as much of it as the ceiling
+ * allows. The ceiling caps the base rather than replacing it, so a base already
+ * at or below the ceiling gives the same wage under both — which is why the two
+ * bases can be indistinguishable rather than merely close, and why the
+ * comparison is `>` and not `>=`.
+ */
+export function wageUnder(basis: PfWageBase, annualPaise: number, ceiling: PfWageCeiling): number {
+  const capped = basis === "statutory_ceiling" && annualPaise > ceiling.annual_paise;
+  return capped ? ceiling.annual_paise : annualPaise;
+}
 
 /** A base as the output carries it: what the rules count in, and which lines of this offer fell inside. */
 export interface WageBase {

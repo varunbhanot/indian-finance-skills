@@ -25,11 +25,17 @@
  * knows what the employer's contribution is computed on, and the reading holds
  * either way.
  */
-import { annualise, applyRate, money, periodic, rate, rupeesToPaise, type Money, type PeriodicMoney, type Rate } from "../money.ts";
+import { applyRate, periodic, rate, type Money, type PeriodicMoney, type Rate } from "../money.ts";
 import type { ClassifiedComponent } from "./classification.ts";
 import type { RulesFile } from "../rules/files.ts";
 import { hasRulesGroup, rulesGroup, type Citation } from "./rules-reader.ts";
-import { wageBaseFor, PF_WAGE_BASES, type PfWageBase } from "./wage-base.ts";
+import {
+  pfWageCeilingFor,
+  wageBaseFor,
+  wageUnder,
+  PF_WAGE_BASES,
+  type PfWageBase,
+} from "./wage-base.ts";
 
 /** One wage base measured against the offer, and whether the letter's figure lands on it. */
 export interface EmployerPfOnBasis {
@@ -37,7 +43,7 @@ export interface EmployerPfOnBasis {
   /** The wage the rate would be applied to under this base. */
   wage: PeriodicMoney;
   /** The contribution that base implies: the employer rate on that wage. */
-  contribution: PeriodicMoney;
+  implied_contribution: PeriodicMoney;
   /** Whether the offer's own employer contribution equals it, to the paise. */
   matches: boolean;
 }
@@ -47,8 +53,8 @@ export interface EmployerPfReading {
   components: string[];
   /** Which catalogue entries the rules file counts as the employer's contribution. */
   components_citation: Citation;
-  /** What those lines add up to: the figure being read. */
-  contribution: PeriodicMoney;
+  /** What those lines add up to: the figure the letter states, and the one being read. */
+  stated_contribution: PeriodicMoney;
   /** Both bases measured, so the comparison is shown rather than asserted. */
   bases: EmployerPfOnBasis[];
   /**
@@ -70,9 +76,20 @@ export interface EmployerPfReading {
 }
 
 /**
- * The reading, or nothing at all when there is nothing to read: a rules file
- * with no `epf` group, or an offer whose letter states no employer
- * contribution. Absent is not a nil figure — no line, no reading.
+ * The reading, or nothing at all when there is nothing to read. Three ways
+ * there is nothing:
+ *
+ * - the rules file carries no `epf` group;
+ * - it carries one but does not say which catalogue entry the employer's
+ *   contribution is, which is how a file that predates this reading opts out of
+ *   it — the same way `groups.basic_pay` opts into the basic reading
+ *   (`basic.ts`);
+ * - it says, and this offer has no such line.
+ *
+ * Absent is not a nil figure, and none of the three is a rejection. Once the
+ * file has opted in and the offer has a line, though, the reading must be
+ * whole: a missing rate or ceiling below that point is `rule_absent` naming the
+ * key, not a fact quietly dropped.
  */
 export function employerPfReadingFor(
   components: readonly ClassifiedComponent[],
@@ -81,43 +98,33 @@ export function employerPfReadingFor(
   if (!hasRulesGroup(rules, "epf")) return undefined;
   const epf = rulesGroup(rules, "epf");
 
-  const contributions = wageBaseFor(components, epf.child("employer_components"));
+  const employerComponents = epf.optionalChild("employer_components");
+  if (employerComponents === undefined) return undefined;
+  const contributions = wageBaseFor(components, employerComponents);
   if (contributions.included.length === 0) return undefined;
 
   const wage = wageBaseFor(components, epf.child("wage_components"));
-  const ceilingNode = epf.child("wage_ceiling");
-  const ceilingMonthly = rupeesToPaise(ceilingNode.integer("monthly_rupees"));
-  const ceilingAnnual = annualise(ceilingMonthly, "monthly");
+  const ceiling = pfWageCeilingFor(epf);
   const rateNode = epf.child("employer_rate");
   const basisPoints = rateNode.rateBasisPoints("rate");
 
   const bases = PF_WAGE_BASES.map((basis) =>
-    onBasis(basis, wagePaiseFor(basis, wage.annual_paise, ceilingAnnual), basisPoints, contributions.annual_paise),
+    onBasis(basis, wageUnder(basis, wage.annual_paise, ceiling), basisPoints, contributions.annual_paise),
   );
 
   return {
     components: contributions.base.components,
     components_citation: contributions.base.citation,
-    contribution: periodic(contributions.annual_paise),
+    stated_contribution: periodic(contributions.annual_paise),
     bases,
     implies: bases.filter((one) => one.matches).map((one) => one.basis),
-    bases_coincide: wage.annual_paise <= ceilingAnnual,
+    bases_coincide: wage.annual_paise <= ceiling.annual_paise,
     wage_components: wage.base.components,
     wage_citation: wage.base.citation,
     rate: rate(basisPoints),
     rate_citation: rateNode.citation(),
-    ceiling: { monthly: money(ceilingMonthly), citation: ceilingNode.citation() },
+    ceiling: { monthly: ceiling.monthly, citation: ceiling.citation },
   };
-}
-
-/**
- * The ceiling caps the base rather than replacing it, which is why a base
- * already below the ceiling gives the same wage under both — and why the two
- * bases can be indistinguishable rather than merely close.
- */
-function wagePaiseFor(basis: PfWageBase, wagePaise: number, ceilingAnnual: number): number {
-  if (basis === "full_basic") return wagePaise;
-  return wagePaise > ceilingAnnual ? ceilingAnnual : wagePaise;
 }
 
 /**
@@ -137,7 +144,7 @@ function onBasis(
   return {
     basis,
     wage: periodic(wagePaise),
-    contribution: periodic(implied),
+    implied_contribution: periodic(implied),
     matches: implied === contributionPaise,
   };
 }

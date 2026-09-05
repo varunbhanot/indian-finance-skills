@@ -121,6 +121,24 @@ next session. Sessions are isolated; an uncommitted decision will be re-decided
 differently by whoever comes next. If you settle something, write it down
 before you move on.
 
+## Every session starts from `main`
+
+One ticket per context window, `/clear` between them, and the first act of a
+window is to put the working branch back on the tip of `origin/main`:
+
+```
+git fetch origin main && git checkout -B <working branch> origin/main
+```
+
+The working branch is reused across tickets, so a window that skips this starts
+on the last ticket's merged commits and builds something CI never sees. The
+session-start hook reports where the window began, so the drift is visible
+rather than assumed.
+
+Restarting is safe only when the tree is clean and the branch carries no
+unmerged commits. If it carries either, that work is finished, committed or
+rebased onto the new base first — never discarded to get a clean start.
+
 ## Tickets
 
 Every ticket names the `rules/` key(s) it reads and the fixture(s) it must make

@@ -1,0 +1,30 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "rules/fy2026-27.yaml",
+  "components": [
+    {
+      "name": "Basic",
+      "as_typed": {
+        "amount": { "paise": 60000000, "display": "₹6,00,000" },
+        "period": "annual"
+      },
+      "annual": { "paise": 60000000, "display": "₹6,00,000" }
+    },
+    {
+      "name": "HRA",
+      "as_typed": {
+        "amount": { "paise": 2000000, "display": "₹20,000" },
+        "period": "monthly"
+      },
+      "annual": { "paise": 24000000, "display": "₹2,40,000" }
+    },
+    {
+      "name": "Special allowance",
+      "as_typed": {
+        "amount": { "paise": 123456700, "display": "₹12,34,567" },
+        "period": "annual"
+      },
+      "annual": { "paise": 123456700, "display": "₹12,34,567" }
+    }
+  ]
+}

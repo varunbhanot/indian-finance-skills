@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "above_cap",
+    "message": "amount must not exceed ₹1,00,00,00,000 a year; ₹8,33,33,334 monthly is ₹1,00,00,00,008 a year",
+    "path": "components[0].amount",
+    "details": { "cap_rupees": 1000000000 }
+  }
+}

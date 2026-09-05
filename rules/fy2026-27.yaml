@@ -1,0 +1,16 @@
+# Statutory rules for financial year 2026-27 (assessed in AY 2027-28).
+#
+# Shape (ADR 0001, ADR 0008):
+#   financial_year: the FY this file covers; must match the filename.
+#   groups:         a map of named groups. Every value lives inside a group,
+#                   and every group carries `source` (primary-source URL) and
+#                   `retrieved` (YYYY-MM-DD), plus optional `effective_from`
+#                   and `effective_to` dates.
+#
+# Rates are written as decimal fractions (`rate: 0.05`, never `500`) under a
+# key named `rate` or ending in `_rate`; the loader converts them to integer
+# basis points and refuses more precision than basis points can hold (ADR 0002).
+#
+# No groups yet: each is added by the ticket that sources it.
+financial_year: 2026-27
+groups: {}

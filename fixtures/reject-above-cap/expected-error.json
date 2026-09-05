@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "above_cap",
+    "message": "amount must not exceed ₹1,00,00,00,000, got ₹1,00,00,00,001",
+    "path": "components[0].amount",
+    "details": { "cap_rupees": 1000000000 }
+  }
+}

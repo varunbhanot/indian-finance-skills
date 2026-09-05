@@ -204,6 +204,72 @@ groups:
           are the pre-relief ones.
         total_income_threshold: 1200000
         maximum: 60000
+    # Old regime, for tax year 2026-27 (spec #11). Unlike the new regime, this
+    # rate table does NOT live in the Income-tax Act, 2025 itself -- it lives in
+    # Part I-B of the Finance Act, 2026's First Schedule, an original enactment
+    # for this tax year rather than an amendment of anything, and so must be
+    # re-sourced every year exactly as the cess below is.
+    #
+    # Part I-B carries three separate tables banded by age: item (I) (below 60,
+    # resident or non-resident, and every non-resident individual regardless of
+    # age since items (II)-(III) are each limited to residents), item (II)
+    # (resident, 60 to under 80) and item (III) (resident, 80 or more). This
+    # file encodes item (I) only; the below-60 assumption this rests on is named
+    # in the take-home output (spec #11), and the other two bands are left out
+    # rather than guessed at.
+    old_regime:
+      slabs:
+        section: Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph A, item (I) ("In the case of every individual other than the individual referred to in items (II) and (III) of this Paragraph...")
+        source: https://egazette.gov.in/WriteReadData/2026/271439.pdf
+        retrieved: 2026-09-05
+        note: >-
+          Item (I) of three age-banded tables in Part I-B: this is the table for
+          individuals below 60 (resident or non-resident) and for every
+          non-resident individual whatever their age, since items (II) (resident,
+          60 to under 80) and item (III) (resident, 80 or more) are each limited
+          to residents. Those two tables carry higher exemptions and are not
+          encoded here. "12500 plus 20% of the amount by which the total income
+          exceeds 500000" and "112500 plus 30% of the amount by which the total
+          income exceeds 1000000" are the cumulative tax at the start of bands 3
+          and 4 stated as constants, which is the same arithmetic a slab table
+          gives when walked band by band -- 5% of the 250000-500000 band is
+          exactly 12500, and adding 20% of the 500000-1000000 band gives exactly
+          112500 -- so it is read as a slab table here too.
+        bands:
+          - upto: 250000
+            rate: 0.00
+          - upto: 500000
+            rate: 0.05
+          - upto: 1000000
+            rate: 0.20
+          # Sl. No. (4), "where the total income exceeds 1000000": the final
+          # band has no upper bound.
+          - rate: 0.30
+      standard_deduction:
+        section: Income-tax Act, 2025, section 19(1) Table Sl. No. 2(b) ("Deductions from salaries")
+        source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+        retrieved: 2026-09-05
+        note: >-
+          "50000 or the salary, whichever is less, in any other case" -- "any
+          other case" being every case other than section 202(1), i.e. the old
+          regime. Capped at the salary it is deducted from, as the new regime's
+          standard deduction is.
+        amount: 50000
+      rebate:
+        section: Income-tax Act, 2025, section 156(1) ("Rebate of income-tax in case of certain individuals")
+        source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+        retrieved: 2026-09-05
+        note: >-
+          Available to a resident individual only, same as the new regime's
+          rebate at section 156(2)-(3), but this is the plain subsection: it
+          carries no reference to section 202(1) at all, unlike (2) and (3),
+          which each tie themselves explicitly to total income "chargeable to
+          tax under section 202(1)". Unlike the new regime's rebate, section
+          156(1) gives no marginal relief for total income just above the
+          threshold: crossing five lakh rupees by even one rupee loses the whole
+          rebate on the face of this text.
+        total_income_threshold: 500000
+        maximum: 12500
     cess:
       section: Finance Act, 2026 (No. 4 of 2026), section 3(15) ("Health and Education Cess on income-tax")
       source: https://egazette.gov.in/WriteReadData/2026/271439.pdf

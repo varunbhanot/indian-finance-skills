@@ -104,716 +104,1303 @@
     }
   },
   "take_home": {
-    "regime": "new",
-    "bases": [
+    "regimes": [
       {
-        "basis": "variable-pay-at-zero",
-        "recurring_cash": {
-          "annual": {
-            "paise": 200000700,
-            "display": "₹20,00,007"
-          },
-          "monthly": {
-            "paise": 16666725,
-            "display": "₹1,66,667.25"
-          },
-          "components": [
-            "Basic",
-            "Special allowance"
-          ]
-        },
-        "deductions": {
-          "employee_pf": {
-            "basis": "full_basic",
-            "contribution": {
+        "regime": "new",
+        "bases": [
+          {
+            "basis": "variable-pay-at-zero",
+            "recurring_cash": {
               "annual": {
-                "paise": 12000036,
-                "display": "₹1,20,000.36"
+                "paise": 200000700,
+                "display": "₹20,00,007"
               },
               "monthly": {
-                "paise": 1000003,
-                "display": "₹10,000.03"
-              }
-            },
-            "wage": {
-              "annual": {
-                "paise": 100000300,
-                "display": "₹10,00,003"
+                "paise": 16666725,
+                "display": "₹1,66,667.25"
               },
-              "monthly": {
-                "paise": 8333358,
-                "display": "₹83,333.58"
-              }
+              "components": [
+                "Basic",
+                "Special allowance"
+              ]
             },
-            "wage_components": [
-              "Basic"
-            ],
-            "rate": {
-              "bp": 1200,
-              "display": "12%"
-            },
-            "rate_citation": {
-              "section": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023",
-              "source": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf",
-              "retrieved": "2026-09-05",
-              "rules_key": "groups.epf.employee_rate",
-              "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
-            },
-            "wage_citation": {
-              "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
-              "source": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf",
-              "retrieved": "2026-09-05",
-              "rules_key": "groups.epf.wage_components",
-              "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
-            }
-          },
-          "income_tax": {
-            "period": "annual",
-            "regime": "new",
-            "salary": {
-              "paise": 200000700,
-              "display": "₹20,00,007"
-            },
-            "standard_deduction": {
-              "amount": {
-                "paise": 7500000,
-                "display": "₹75,000"
-              },
-              "citation": {
-                "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(a) (\"Deductions from salaries\")",
-                "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.income_tax.new_regime.standard_deduction",
-                "note": "\"75000 or the salary, whichever is less, where income-tax is computed under section 202(1)\" -- so it is capped at the salary it is deducted from. Section 202(2)(a) disallows only Sl. No. 1 of the same table, which is the tax on employment, so the standard deduction survives in the new regime."
-              }
-            },
-            "total_income": {
-              "before": {
-                "paise": 192500700,
-                "display": "₹19,25,007"
-              },
-              "after": {
-                "paise": 192501000,
-                "display": "₹19,25,010"
-              },
-              "unit_rupees": 10,
-              "citation": {
-                "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
-                "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.statutory_rounding.total_income",
-                "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
-              }
-            },
-            "slabs": {
-              "charges": [
-                {
-                  "from": {
-                    "paise": 0,
-                    "display": "₹0"
+            "deductions": {
+              "employee_pf": {
+                "basis": "full_basic",
+                "contribution": {
+                  "annual": {
+                    "paise": 12000036,
+                    "display": "₹1,20,000.36"
                   },
-                  "upto": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
-                  },
-                  "rate": {
-                    "bp": 0,
-                    "display": "0%"
-                  },
-                  "income_in_band": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
-                  },
-                  "tax": {
-                    "paise": 0,
-                    "display": "₹0"
+                  "monthly": {
+                    "paise": 1000003,
+                    "display": "₹10,000.03"
                   }
                 },
-                {
-                  "from": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
+                "wage": {
+                  "annual": {
+                    "paise": 100000300,
+                    "display": "₹10,00,003"
                   },
-                  "upto": {
-                    "paise": 80000000,
-                    "display": "₹8,00,000"
-                  },
-                  "rate": {
-                    "bp": 500,
-                    "display": "5%"
-                  },
-                  "income_in_band": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
-                  },
-                  "tax": {
-                    "paise": 2000000,
-                    "display": "₹20,000"
+                  "monthly": {
+                    "paise": 8333358,
+                    "display": "₹83,333.58"
                   }
                 },
-                {
-                  "from": {
-                    "paise": 80000000,
-                    "display": "₹8,00,000"
+                "wage_components": [
+                  "Basic"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023",
+                  "source": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf",
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate",
+                  "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
+                },
+                "wage_citation": {
+                  "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                  "source": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf",
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components",
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "new",
+                "salary": {
+                  "paise": 200000700,
+                  "display": "₹20,00,007"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 7500000,
+                    "display": "₹75,000"
                   },
-                  "upto": {
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(a) (\"Deductions from salaries\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.standard_deduction",
+                    "note": "\"75000 or the salary, whichever is less, where income-tax is computed under section 202(1)\" -- so it is capped at the salary it is deducted from. Section 202(2)(a) disallows only Sl. No. 1 of the same table, which is the tax on employment, so the standard deduction survives in the new regime."
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 192500700,
+                    "display": "₹19,25,007"
+                  },
+                  "after": {
+                    "paise": 192501000,
+                    "display": "₹19,25,010"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income",
+                    "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "upto": {
+                        "paise": 80000000,
+                        "display": "₹8,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "tax": {
+                        "paise": 2000000,
+                        "display": "₹20,000"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 80000000,
+                        "display": "₹8,00,000"
+                      },
+                      "upto": {
+                        "paise": 120000000,
+                        "display": "₹12,00,000"
+                      },
+                      "rate": {
+                        "bp": 1000,
+                        "display": "10%"
+                      },
+                      "income_in_band": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "tax": {
+                        "paise": 4000000,
+                        "display": "₹40,000"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 120000000,
+                        "display": "₹12,00,000"
+                      },
+                      "upto": {
+                        "paise": 160000000,
+                        "display": "₹16,00,000"
+                      },
+                      "rate": {
+                        "bp": 1500,
+                        "display": "15%"
+                      },
+                      "income_in_band": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "tax": {
+                        "paise": 6000000,
+                        "display": "₹60,000"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 160000000,
+                        "display": "₹16,00,000"
+                      },
+                      "upto": {
+                        "paise": 200000000,
+                        "display": "₹20,00,000"
+                      },
+                      "rate": {
+                        "bp": 2000,
+                        "display": "20%"
+                      },
+                      "income_in_band": {
+                        "paise": 32501000,
+                        "display": "₹3,25,010"
+                      },
+                      "tax": {
+                        "paise": 6500200,
+                        "display": "₹65,002"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 200000000,
+                        "display": "₹20,00,000"
+                      },
+                      "upto": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "rate": {
+                        "bp": 2500,
+                        "display": "25%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "rate": {
+                        "bp": 3000,
+                        "display": "30%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 18500200,
+                    "display": "₹1,85,002"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 202(1) Table (\"New tax regime for individuals, Hindu undivided family and others\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.slabs",
+                    "note": "Charged for tax year 2026-27 by the Finance Act, 2026, section 3(1), which refers to these rates rather than restating them. Finance Act, 2026, section 56 is its only amendment to section 202 and touches sub-section (2)(a)(iii) alone, leaving this table untouched. The Act states the table as band and rate without spelling out the marginal arithmetic; it is read as a slab table, which is how the Income Tax Department's own calculation engine applies it."
+                  }
+                },
+                "rebate": {
+                  "applied": false,
+                  "total_income_threshold": {
                     "paise": 120000000,
                     "display": "₹12,00,000"
                   },
-                  "rate": {
-                    "bp": 1000,
-                    "display": "10%"
-                  },
-                  "income_in_band": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
-                  },
-                  "tax": {
-                    "paise": 4000000,
-                    "display": "₹40,000"
-                  }
-                },
-                {
-                  "from": {
-                    "paise": 120000000,
-                    "display": "₹12,00,000"
-                  },
-                  "upto": {
-                    "paise": 160000000,
-                    "display": "₹16,00,000"
-                  },
-                  "rate": {
-                    "bp": 1500,
-                    "display": "15%"
-                  },
-                  "income_in_band": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
-                  },
-                  "tax": {
+                  "maximum": {
                     "paise": 6000000,
                     "display": "₹60,000"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 156(2) and (3) (\"Rebate of income-tax in case of certain individuals\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.rebate",
+                    "note": "Available to a resident individual only. Section 156(2)(b) also gives marginal relief where total income exceeds twelve lakh rupees, which this decoder does not yet compute, so the figures above the threshold are the pre-relief ones."
                   }
                 },
-                {
-                  "from": {
-                    "paise": 160000000,
-                    "display": "₹16,00,000"
-                  },
-                  "upto": {
-                    "paise": 200000000,
-                    "display": "₹20,00,000"
-                  },
+                "tax_after_rebate": {
+                  "paise": 18500200,
+                  "display": "₹1,85,002"
+                },
+                "cess": {
                   "rate": {
-                    "bp": 2000,
-                    "display": "20%"
+                    "bp": 400,
+                    "display": "4%"
                   },
-                  "income_in_band": {
-                    "paise": 32501000,
-                    "display": "₹3,25,010"
+                  "amount": {
+                    "paise": 740008,
+                    "display": "₹7,400.08"
                   },
-                  "tax": {
-                    "paise": 6500200,
-                    "display": "₹65,002"
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess",
+                    "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
                   }
                 },
-                {
-                  "from": {
-                    "paise": 200000000,
-                    "display": "₹20,00,000"
+                "tax_payable": {
+                  "before": {
+                    "paise": 19240208,
+                    "display": "₹1,92,402.08"
                   },
-                  "upto": {
-                    "paise": 240000000,
-                    "display": "₹24,00,000"
+                  "after": {
+                    "paise": 19240000,
+                    "display": "₹1,92,400"
                   },
-                  "rate": {
-                    "bp": 2500,
-                    "display": "25%"
-                  },
-                  "income_in_band": {
-                    "paise": 0,
-                    "display": "₹0"
-                  },
-                  "tax": {
-                    "paise": 0,
-                    "display": "₹0"
-                  }
-                },
-                {
-                  "from": {
-                    "paise": 240000000,
-                    "display": "₹24,00,000"
-                  },
-                  "rate": {
-                    "bp": 3000,
-                    "display": "30%"
-                  },
-                  "income_in_band": {
-                    "paise": 0,
-                    "display": "₹0"
-                  },
-                  "tax": {
-                    "paise": 0,
-                    "display": "₹0"
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable",
+                    "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
                   }
                 }
-              ],
+              },
               "total": {
-                "paise": 18500200,
-                "display": "₹1,85,002"
-              },
-              "citation": {
-                "section": "Income-tax Act, 2025, section 202(1) Table (\"New tax regime for individuals, Hindu undivided family and others\")",
-                "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.income_tax.new_regime.slabs",
-                "note": "Charged for tax year 2026-27 by the Finance Act, 2026, section 3(1), which refers to these rates rather than restating them. Finance Act, 2026, section 56 is its only amendment to section 202 and touches sub-section (2)(a)(iii) alone, leaving this table untouched. The Act states the table as band and rate without spelling out the marginal arithmetic; it is read as a slab table, which is how the Income Tax Department's own calculation engine applies it."
+                "annual": {
+                  "paise": 31240036,
+                  "display": "₹3,12,400.36"
+                },
+                "monthly": {
+                  "paise": 2603336,
+                  "display": "₹26,033.36"
+                }
               }
             },
-            "rebate": {
-              "applied": false,
-              "total_income_threshold": {
-                "paise": 120000000,
-                "display": "₹12,00,000"
+            "take_home": {
+              "annual": {
+                "paise": 168760664,
+                "display": "₹16,87,606.64"
               },
-              "maximum": {
-                "paise": 6000000,
-                "display": "₹60,000"
-              },
-              "amount": {
-                "paise": 0,
-                "display": "₹0"
-              },
-              "citation": {
-                "section": "Income-tax Act, 2025, section 156(2) and (3) (\"Rebate of income-tax in case of certain individuals\")",
-                "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.income_tax.new_regime.rebate",
-                "note": "Available to a resident individual only. Section 156(2)(b) also gives marginal relief where total income exceeds twelve lakh rupees, which this decoder does not yet compute, so the figures above the threshold are the pre-relief ones."
-              }
-            },
-            "tax_after_rebate": {
-              "paise": 18500200,
-              "display": "₹1,85,002"
-            },
-            "cess": {
-              "rate": {
-                "bp": 400,
-                "display": "4%"
-              },
-              "amount": {
-                "paise": 740008,
-                "display": "₹7,400.08"
-              },
-              "citation": {
-                "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
-                "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.income_tax.cess",
-                "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
-              }
-            },
-            "tax_payable": {
-              "before": {
-                "paise": 19240208,
-                "display": "₹1,92,402.08"
-              },
-              "after": {
-                "paise": 19240000,
-                "display": "₹1,92,400"
-              },
-              "unit_rupees": 10,
-              "citation": {
-                "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
-                "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.statutory_rounding.tax_payable",
-                "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+              "monthly": {
+                "paise": 14063388,
+                "display": "₹1,40,633.88"
               }
             }
           },
-          "total": {
-            "annual": {
-              "paise": 31240036,
-              "display": "₹3,12,400.36"
+          {
+            "basis": "variable-pay-at-target",
+            "recurring_cash": {
+              "annual": {
+                "paise": 200000700,
+                "display": "₹20,00,007"
+              },
+              "monthly": {
+                "paise": 16666725,
+                "display": "₹1,66,667.25"
+              },
+              "components": [
+                "Basic",
+                "Special allowance"
+              ]
             },
-            "monthly": {
-              "paise": 2603336,
-              "display": "₹26,033.36"
+            "deductions": {
+              "employee_pf": {
+                "basis": "full_basic",
+                "contribution": {
+                  "annual": {
+                    "paise": 12000036,
+                    "display": "₹1,20,000.36"
+                  },
+                  "monthly": {
+                    "paise": 1000003,
+                    "display": "₹10,000.03"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 100000300,
+                    "display": "₹10,00,003"
+                  },
+                  "monthly": {
+                    "paise": 8333358,
+                    "display": "₹83,333.58"
+                  }
+                },
+                "wage_components": [
+                  "Basic"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023",
+                  "source": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf",
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate",
+                  "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
+                },
+                "wage_citation": {
+                  "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                  "source": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf",
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components",
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "new",
+                "salary": {
+                  "paise": 200000700,
+                  "display": "₹20,00,007"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 7500000,
+                    "display": "₹75,000"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(a) (\"Deductions from salaries\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.standard_deduction",
+                    "note": "\"75000 or the salary, whichever is less, where income-tax is computed under section 202(1)\" -- so it is capped at the salary it is deducted from. Section 202(2)(a) disallows only Sl. No. 1 of the same table, which is the tax on employment, so the standard deduction survives in the new regime."
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 192500700,
+                    "display": "₹19,25,007"
+                  },
+                  "after": {
+                    "paise": 192501000,
+                    "display": "₹19,25,010"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income",
+                    "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "upto": {
+                        "paise": 80000000,
+                        "display": "₹8,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "tax": {
+                        "paise": 2000000,
+                        "display": "₹20,000"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 80000000,
+                        "display": "₹8,00,000"
+                      },
+                      "upto": {
+                        "paise": 120000000,
+                        "display": "₹12,00,000"
+                      },
+                      "rate": {
+                        "bp": 1000,
+                        "display": "10%"
+                      },
+                      "income_in_band": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "tax": {
+                        "paise": 4000000,
+                        "display": "₹40,000"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 120000000,
+                        "display": "₹12,00,000"
+                      },
+                      "upto": {
+                        "paise": 160000000,
+                        "display": "₹16,00,000"
+                      },
+                      "rate": {
+                        "bp": 1500,
+                        "display": "15%"
+                      },
+                      "income_in_band": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "tax": {
+                        "paise": 6000000,
+                        "display": "₹60,000"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 160000000,
+                        "display": "₹16,00,000"
+                      },
+                      "upto": {
+                        "paise": 200000000,
+                        "display": "₹20,00,000"
+                      },
+                      "rate": {
+                        "bp": 2000,
+                        "display": "20%"
+                      },
+                      "income_in_band": {
+                        "paise": 32501000,
+                        "display": "₹3,25,010"
+                      },
+                      "tax": {
+                        "paise": 6500200,
+                        "display": "₹65,002"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 200000000,
+                        "display": "₹20,00,000"
+                      },
+                      "upto": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "rate": {
+                        "bp": 2500,
+                        "display": "25%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "rate": {
+                        "bp": 3000,
+                        "display": "30%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 18500200,
+                    "display": "₹1,85,002"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 202(1) Table (\"New tax regime for individuals, Hindu undivided family and others\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.slabs",
+                    "note": "Charged for tax year 2026-27 by the Finance Act, 2026, section 3(1), which refers to these rates rather than restating them. Finance Act, 2026, section 56 is its only amendment to section 202 and touches sub-section (2)(a)(iii) alone, leaving this table untouched. The Act states the table as band and rate without spelling out the marginal arithmetic; it is read as a slab table, which is how the Income Tax Department's own calculation engine applies it."
+                  }
+                },
+                "rebate": {
+                  "applied": false,
+                  "total_income_threshold": {
+                    "paise": 120000000,
+                    "display": "₹12,00,000"
+                  },
+                  "maximum": {
+                    "paise": 6000000,
+                    "display": "₹60,000"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 156(2) and (3) (\"Rebate of income-tax in case of certain individuals\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.rebate",
+                    "note": "Available to a resident individual only. Section 156(2)(b) also gives marginal relief where total income exceeds twelve lakh rupees, which this decoder does not yet compute, so the figures above the threshold are the pre-relief ones."
+                  }
+                },
+                "tax_after_rebate": {
+                  "paise": 18500200,
+                  "display": "₹1,85,002"
+                },
+                "cess": {
+                  "rate": {
+                    "bp": 400,
+                    "display": "4%"
+                  },
+                  "amount": {
+                    "paise": 740008,
+                    "display": "₹7,400.08"
+                  },
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess",
+                    "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
+                  }
+                },
+                "tax_payable": {
+                  "before": {
+                    "paise": 19240208,
+                    "display": "₹1,92,402.08"
+                  },
+                  "after": {
+                    "paise": 19240000,
+                    "display": "₹1,92,400"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable",
+                    "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+                  }
+                }
+              },
+              "total": {
+                "annual": {
+                  "paise": 31240036,
+                  "display": "₹3,12,400.36"
+                },
+                "monthly": {
+                  "paise": 2603336,
+                  "display": "₹26,033.36"
+                }
+              }
+            },
+            "take_home": {
+              "annual": {
+                "paise": 168760664,
+                "display": "₹16,87,606.64"
+              },
+              "monthly": {
+                "paise": 14063388,
+                "display": "₹1,40,633.88"
+              }
             }
           }
-        },
-        "take_home": {
-          "annual": {
-            "paise": 168760664,
-            "display": "₹16,87,606.64"
-          },
-          "monthly": {
-            "paise": 14063388,
-            "display": "₹1,40,633.88"
-          }
-        }
+        ],
+        "assumes": [
+          "The new regime",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ],
+        "excludes": [
+          "HRA exemption",
+          "Chapter VI-A deductions",
+          "Employer NPS deduction",
+          "Professional tax",
+          "Perquisite tax on vesting equity"
+        ]
       },
       {
-        "basis": "variable-pay-at-target",
-        "recurring_cash": {
-          "annual": {
-            "paise": 200000700,
-            "display": "₹20,00,007"
-          },
-          "monthly": {
-            "paise": 16666725,
-            "display": "₹1,66,667.25"
-          },
-          "components": [
-            "Basic",
-            "Special allowance"
-          ]
-        },
-        "deductions": {
-          "employee_pf": {
-            "basis": "full_basic",
-            "contribution": {
+        "regime": "old",
+        "bases": [
+          {
+            "basis": "variable-pay-at-zero",
+            "recurring_cash": {
               "annual": {
-                "paise": 12000036,
-                "display": "₹1,20,000.36"
+                "paise": 200000700,
+                "display": "₹20,00,007"
               },
               "monthly": {
-                "paise": 1000003,
-                "display": "₹10,000.03"
-              }
-            },
-            "wage": {
-              "annual": {
-                "paise": 100000300,
-                "display": "₹10,00,003"
+                "paise": 16666725,
+                "display": "₹1,66,667.25"
               },
-              "monthly": {
-                "paise": 8333358,
-                "display": "₹83,333.58"
-              }
+              "components": [
+                "Basic",
+                "Special allowance"
+              ]
             },
-            "wage_components": [
-              "Basic"
-            ],
-            "rate": {
-              "bp": 1200,
-              "display": "12%"
-            },
-            "rate_citation": {
-              "section": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023",
-              "source": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf",
-              "retrieved": "2026-09-05",
-              "rules_key": "groups.epf.employee_rate",
-              "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
-            },
-            "wage_citation": {
-              "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
-              "source": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf",
-              "retrieved": "2026-09-05",
-              "rules_key": "groups.epf.wage_components",
-              "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
-            }
-          },
-          "income_tax": {
-            "period": "annual",
-            "regime": "new",
-            "salary": {
-              "paise": 200000700,
-              "display": "₹20,00,007"
-            },
-            "standard_deduction": {
-              "amount": {
-                "paise": 7500000,
-                "display": "₹75,000"
+            "deductions": {
+              "employee_pf": {
+                "basis": "full_basic",
+                "contribution": {
+                  "annual": {
+                    "paise": 12000036,
+                    "display": "₹1,20,000.36"
+                  },
+                  "monthly": {
+                    "paise": 1000003,
+                    "display": "₹10,000.03"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 100000300,
+                    "display": "₹10,00,003"
+                  },
+                  "monthly": {
+                    "paise": 8333358,
+                    "display": "₹83,333.58"
+                  }
+                },
+                "wage_components": [
+                  "Basic"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023",
+                  "source": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf",
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate",
+                  "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
+                },
+                "wage_citation": {
+                  "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                  "source": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf",
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components",
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                }
               },
-              "citation": {
-                "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(a) (\"Deductions from salaries\")",
-                "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.income_tax.new_regime.standard_deduction",
-                "note": "\"75000 or the salary, whichever is less, where income-tax is computed under section 202(1)\" -- so it is capped at the salary it is deducted from. Section 202(2)(a) disallows only Sl. No. 1 of the same table, which is the tax on employment, so the standard deduction survives in the new regime."
-              }
-            },
-            "total_income": {
-              "before": {
-                "paise": 192500700,
-                "display": "₹19,25,007"
-              },
-              "after": {
-                "paise": 192501000,
-                "display": "₹19,25,010"
-              },
-              "unit_rupees": 10,
-              "citation": {
-                "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
-                "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.statutory_rounding.total_income",
-                "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
-              }
-            },
-            "slabs": {
-              "charges": [
-                {
-                  "from": {
+              "income_tax": {
+                "period": "annual",
+                "regime": "old",
+                "salary": {
+                  "paise": 200000700,
+                  "display": "₹20,00,007"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 5000000,
+                    "display": "₹50,000"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(b) (\"Deductions from salaries\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.standard_deduction",
+                    "note": "\"50000 or the salary, whichever is less, in any other case\" -- \"any other case\" being every case other than section 202(1), i.e. the old regime. Capped at the salary it is deducted from, as the new regime's standard deduction is."
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 195000700,
+                    "display": "₹19,50,007"
+                  },
+                  "after": {
+                    "paise": 195001000,
+                    "display": "₹19,50,010"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income",
+                    "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "upto": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "tax": {
+                        "paise": 1250000,
+                        "display": "₹12,500"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "upto": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 2000,
+                        "display": "20%"
+                      },
+                      "income_in_band": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "tax": {
+                        "paise": 10000000,
+                        "display": "₹1,00,000"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 3000,
+                        "display": "30%"
+                      },
+                      "income_in_band": {
+                        "paise": 95001000,
+                        "display": "₹9,50,010"
+                      },
+                      "tax": {
+                        "paise": 28500300,
+                        "display": "₹2,85,003"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 39750300,
+                    "display": "₹3,97,503"
+                  },
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph A, item (I) (\"In the case of every individual other than the individual referred to in items (II) and (III) of this Paragraph...\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.slabs",
+                    "note": "Item (I) of three age-banded tables in Part I-B: this is the table for individuals below 60 (resident or non-resident) and for every non-resident individual whatever their age, since items (II) (resident, 60 to under 80) and item (III) (resident, 80 or more) are each limited to residents. Those two tables carry higher exemptions and are not encoded here. \"12500 plus 20% of the amount by which the total income exceeds 500000\" and \"112500 plus 30% of the amount by which the total income exceeds 1000000\" are the cumulative tax at the start of bands 3 and 4 stated as constants, which is the same arithmetic a slab table gives when walked band by band -- 5% of the 250000-500000 band is exactly 12500, and adding 20% of the 500000-1000000 band gives exactly 112500 -- so it is read as a slab table here too."
+                  }
+                },
+                "rebate": {
+                  "applied": false,
+                  "total_income_threshold": {
+                    "paise": 50000000,
+                    "display": "₹5,00,000"
+                  },
+                  "maximum": {
+                    "paise": 1250000,
+                    "display": "₹12,500"
+                  },
+                  "amount": {
                     "paise": 0,
                     "display": "₹0"
                   },
-                  "upto": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
-                  },
-                  "rate": {
-                    "bp": 0,
-                    "display": "0%"
-                  },
-                  "income_in_band": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
-                  },
-                  "tax": {
-                    "paise": 0,
-                    "display": "₹0"
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 156(1) (\"Rebate of income-tax in case of certain individuals\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.rebate",
+                    "note": "Available to a resident individual only, same as the new regime's rebate at section 156(2)-(3), but this is the plain subsection: it carries no reference to section 202(1) at all, unlike (2) and (3), which each tie themselves explicitly to total income \"chargeable to tax under section 202(1)\". Unlike the new regime's rebate, section 156(1) gives no marginal relief for total income just above the threshold: crossing five lakh rupees by even one rupee loses the whole rebate on the face of this text."
                   }
                 },
-                {
-                  "from": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
-                  },
-                  "upto": {
-                    "paise": 80000000,
-                    "display": "₹8,00,000"
-                  },
+                "tax_after_rebate": {
+                  "paise": 39750300,
+                  "display": "₹3,97,503"
+                },
+                "cess": {
                   "rate": {
-                    "bp": 500,
-                    "display": "5%"
+                    "bp": 400,
+                    "display": "4%"
                   },
-                  "income_in_band": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
+                  "amount": {
+                    "paise": 1590012,
+                    "display": "₹15,900.12"
                   },
-                  "tax": {
-                    "paise": 2000000,
-                    "display": "₹20,000"
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess",
+                    "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
                   }
                 },
-                {
-                  "from": {
-                    "paise": 80000000,
-                    "display": "₹8,00,000"
+                "tax_payable": {
+                  "before": {
+                    "paise": 41340312,
+                    "display": "₹4,13,403.12"
                   },
-                  "upto": {
-                    "paise": 120000000,
-                    "display": "₹12,00,000"
+                  "after": {
+                    "paise": 41340000,
+                    "display": "₹4,13,400"
                   },
-                  "rate": {
-                    "bp": 1000,
-                    "display": "10%"
-                  },
-                  "income_in_band": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
-                  },
-                  "tax": {
-                    "paise": 4000000,
-                    "display": "₹40,000"
-                  }
-                },
-                {
-                  "from": {
-                    "paise": 120000000,
-                    "display": "₹12,00,000"
-                  },
-                  "upto": {
-                    "paise": 160000000,
-                    "display": "₹16,00,000"
-                  },
-                  "rate": {
-                    "bp": 1500,
-                    "display": "15%"
-                  },
-                  "income_in_band": {
-                    "paise": 40000000,
-                    "display": "₹4,00,000"
-                  },
-                  "tax": {
-                    "paise": 6000000,
-                    "display": "₹60,000"
-                  }
-                },
-                {
-                  "from": {
-                    "paise": 160000000,
-                    "display": "₹16,00,000"
-                  },
-                  "upto": {
-                    "paise": 200000000,
-                    "display": "₹20,00,000"
-                  },
-                  "rate": {
-                    "bp": 2000,
-                    "display": "20%"
-                  },
-                  "income_in_band": {
-                    "paise": 32501000,
-                    "display": "₹3,25,010"
-                  },
-                  "tax": {
-                    "paise": 6500200,
-                    "display": "₹65,002"
-                  }
-                },
-                {
-                  "from": {
-                    "paise": 200000000,
-                    "display": "₹20,00,000"
-                  },
-                  "upto": {
-                    "paise": 240000000,
-                    "display": "₹24,00,000"
-                  },
-                  "rate": {
-                    "bp": 2500,
-                    "display": "25%"
-                  },
-                  "income_in_band": {
-                    "paise": 0,
-                    "display": "₹0"
-                  },
-                  "tax": {
-                    "paise": 0,
-                    "display": "₹0"
-                  }
-                },
-                {
-                  "from": {
-                    "paise": 240000000,
-                    "display": "₹24,00,000"
-                  },
-                  "rate": {
-                    "bp": 3000,
-                    "display": "30%"
-                  },
-                  "income_in_band": {
-                    "paise": 0,
-                    "display": "₹0"
-                  },
-                  "tax": {
-                    "paise": 0,
-                    "display": "₹0"
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable",
+                    "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
                   }
                 }
-              ],
+              },
               "total": {
-                "paise": 18500200,
-                "display": "₹1,85,002"
-              },
-              "citation": {
-                "section": "Income-tax Act, 2025, section 202(1) Table (\"New tax regime for individuals, Hindu undivided family and others\")",
-                "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.income_tax.new_regime.slabs",
-                "note": "Charged for tax year 2026-27 by the Finance Act, 2026, section 3(1), which refers to these rates rather than restating them. Finance Act, 2026, section 56 is its only amendment to section 202 and touches sub-section (2)(a)(iii) alone, leaving this table untouched. The Act states the table as band and rate without spelling out the marginal arithmetic; it is read as a slab table, which is how the Income Tax Department's own calculation engine applies it."
+                "annual": {
+                  "paise": 53340036,
+                  "display": "₹5,33,400.36"
+                },
+                "monthly": {
+                  "paise": 4445003,
+                  "display": "₹44,450.03"
+                }
               }
             },
-            "rebate": {
-              "applied": false,
-              "total_income_threshold": {
-                "paise": 120000000,
-                "display": "₹12,00,000"
+            "take_home": {
+              "annual": {
+                "paise": 146660664,
+                "display": "₹14,66,606.64"
               },
-              "maximum": {
-                "paise": 6000000,
-                "display": "₹60,000"
-              },
-              "amount": {
-                "paise": 0,
-                "display": "₹0"
-              },
-              "citation": {
-                "section": "Income-tax Act, 2025, section 156(2) and (3) (\"Rebate of income-tax in case of certain individuals\")",
-                "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.income_tax.new_regime.rebate",
-                "note": "Available to a resident individual only. Section 156(2)(b) also gives marginal relief where total income exceeds twelve lakh rupees, which this decoder does not yet compute, so the figures above the threshold are the pre-relief ones."
-              }
-            },
-            "tax_after_rebate": {
-              "paise": 18500200,
-              "display": "₹1,85,002"
-            },
-            "cess": {
-              "rate": {
-                "bp": 400,
-                "display": "4%"
-              },
-              "amount": {
-                "paise": 740008,
-                "display": "₹7,400.08"
-              },
-              "citation": {
-                "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
-                "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.income_tax.cess",
-                "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
-              }
-            },
-            "tax_payable": {
-              "before": {
-                "paise": 19240208,
-                "display": "₹1,92,402.08"
-              },
-              "after": {
-                "paise": 19240000,
-                "display": "₹1,92,400"
-              },
-              "unit_rupees": 10,
-              "citation": {
-                "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
-                "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
-                "retrieved": "2026-09-05",
-                "rules_key": "groups.statutory_rounding.tax_payable",
-                "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+              "monthly": {
+                "paise": 12221722,
+                "display": "₹1,22,217.22"
               }
             }
           },
-          "total": {
-            "annual": {
-              "paise": 31240036,
-              "display": "₹3,12,400.36"
+          {
+            "basis": "variable-pay-at-target",
+            "recurring_cash": {
+              "annual": {
+                "paise": 200000700,
+                "display": "₹20,00,007"
+              },
+              "monthly": {
+                "paise": 16666725,
+                "display": "₹1,66,667.25"
+              },
+              "components": [
+                "Basic",
+                "Special allowance"
+              ]
             },
-            "monthly": {
-              "paise": 2603336,
-              "display": "₹26,033.36"
+            "deductions": {
+              "employee_pf": {
+                "basis": "full_basic",
+                "contribution": {
+                  "annual": {
+                    "paise": 12000036,
+                    "display": "₹1,20,000.36"
+                  },
+                  "monthly": {
+                    "paise": 1000003,
+                    "display": "₹10,000.03"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 100000300,
+                    "display": "₹10,00,003"
+                  },
+                  "monthly": {
+                    "paise": 8333358,
+                    "display": "₹83,333.58"
+                  }
+                },
+                "wage_components": [
+                  "Basic"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023",
+                  "source": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf",
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate",
+                  "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
+                },
+                "wage_citation": {
+                  "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                  "source": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf",
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components",
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "old",
+                "salary": {
+                  "paise": 200000700,
+                  "display": "₹20,00,007"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 5000000,
+                    "display": "₹50,000"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(b) (\"Deductions from salaries\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.standard_deduction",
+                    "note": "\"50000 or the salary, whichever is less, in any other case\" -- \"any other case\" being every case other than section 202(1), i.e. the old regime. Capped at the salary it is deducted from, as the new regime's standard deduction is."
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 195000700,
+                    "display": "₹19,50,007"
+                  },
+                  "after": {
+                    "paise": 195001000,
+                    "display": "₹19,50,010"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income",
+                    "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "upto": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "tax": {
+                        "paise": 1250000,
+                        "display": "₹12,500"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "upto": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 2000,
+                        "display": "20%"
+                      },
+                      "income_in_band": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "tax": {
+                        "paise": 10000000,
+                        "display": "₹1,00,000"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 3000,
+                        "display": "30%"
+                      },
+                      "income_in_band": {
+                        "paise": 95001000,
+                        "display": "₹9,50,010"
+                      },
+                      "tax": {
+                        "paise": 28500300,
+                        "display": "₹2,85,003"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 39750300,
+                    "display": "₹3,97,503"
+                  },
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph A, item (I) (\"In the case of every individual other than the individual referred to in items (II) and (III) of this Paragraph...\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.slabs",
+                    "note": "Item (I) of three age-banded tables in Part I-B: this is the table for individuals below 60 (resident or non-resident) and for every non-resident individual whatever their age, since items (II) (resident, 60 to under 80) and item (III) (resident, 80 or more) are each limited to residents. Those two tables carry higher exemptions and are not encoded here. \"12500 plus 20% of the amount by which the total income exceeds 500000\" and \"112500 plus 30% of the amount by which the total income exceeds 1000000\" are the cumulative tax at the start of bands 3 and 4 stated as constants, which is the same arithmetic a slab table gives when walked band by band -- 5% of the 250000-500000 band is exactly 12500, and adding 20% of the 500000-1000000 band gives exactly 112500 -- so it is read as a slab table here too."
+                  }
+                },
+                "rebate": {
+                  "applied": false,
+                  "total_income_threshold": {
+                    "paise": 50000000,
+                    "display": "₹5,00,000"
+                  },
+                  "maximum": {
+                    "paise": 1250000,
+                    "display": "₹12,500"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 156(1) (\"Rebate of income-tax in case of certain individuals\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.rebate",
+                    "note": "Available to a resident individual only, same as the new regime's rebate at section 156(2)-(3), but this is the plain subsection: it carries no reference to section 202(1) at all, unlike (2) and (3), which each tie themselves explicitly to total income \"chargeable to tax under section 202(1)\". Unlike the new regime's rebate, section 156(1) gives no marginal relief for total income just above the threshold: crossing five lakh rupees by even one rupee loses the whole rebate on the face of this text."
+                  }
+                },
+                "tax_after_rebate": {
+                  "paise": 39750300,
+                  "display": "₹3,97,503"
+                },
+                "cess": {
+                  "rate": {
+                    "bp": 400,
+                    "display": "4%"
+                  },
+                  "amount": {
+                    "paise": 1590012,
+                    "display": "₹15,900.12"
+                  },
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2026/271439.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess",
+                    "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
+                  }
+                },
+                "tax_payable": {
+                  "before": {
+                    "paise": 41340312,
+                    "display": "₹4,13,403.12"
+                  },
+                  "after": {
+                    "paise": 41340000,
+                    "display": "₹4,13,400"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "source": "https://egazette.gov.in/WriteReadData/2025/265620.pdf",
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable",
+                    "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+                  }
+                }
+              },
+              "total": {
+                "annual": {
+                  "paise": 53340036,
+                  "display": "₹5,33,400.36"
+                },
+                "monthly": {
+                  "paise": 4445003,
+                  "display": "₹44,450.03"
+                }
+              }
+            },
+            "take_home": {
+              "annual": {
+                "paise": 146660664,
+                "display": "₹14,66,606.64"
+              },
+              "monthly": {
+                "paise": 12221722,
+                "display": "₹1,22,217.22"
+              }
             }
           }
-        },
-        "take_home": {
-          "annual": {
-            "paise": 168760664,
-            "display": "₹16,87,606.64"
-          },
-          "monthly": {
-            "paise": 14063388,
-            "display": "₹1,40,633.88"
-          }
-        }
+        ],
+        "assumes": [
+          "The old regime",
+          "Below 60 years of age",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ],
+        "excludes": [
+          "HRA exemption",
+          "Chapter VI-A deductions",
+          "Employer NPS deduction",
+          "Professional tax",
+          "Perquisite tax on vesting equity",
+          "Floor: excluding HRA exemption and Chapter VI-A deductions can only lower this further, never raise it"
+        ]
       }
-    ],
-    "assumes": [
-      "The new regime",
-      "A resident individual",
-      "Steady state: no one-time component"
-    ],
-    "excludes": [
-      "HRA exemption",
-      "Chapter VI-A deductions",
-      "Employer NPS deduction",
-      "Professional tax",
-      "Perquisite tax on vesting equity"
     ]
   }
 }

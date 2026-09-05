@@ -4,6 +4,12 @@ A mid-range package above the rebate threshold, reported on both bases.
 Employee provident fund on the full basic; no professional tax typed, so it
 appears in `excludes` rather than in the breakdown.
 
+Named for the new regime, which is what it was built to exercise (issue #9);
+spec #11 now reports the old regime alongside it on the same input, same as
+every other take-home fixture. `take-home-old-regime` is the identical
+package under its own name, with the old regime's own cross-check recorded
+there instead of repeated here.
+
 The package is built so that **recurring cash on the zero basis is exactly
 ₹24,00,000** — the salary the Income Tax Department's own engine was run on —
 so this fixture asserts the Department's figures directly rather than by

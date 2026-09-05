@@ -17,10 +17,17 @@ truncation of the monthly figure, not a rounding of the annual one, and it is
 why every figure states its own period instead of inviting the reader to
 multiply one out of the other.
 
+Spec #11 adds the old regime alongside the new, same as every other take-home
+fixture. Professional tax reduces take-home identically under both regimes
+here, since computing the old regime's own deduction for it is out of scope
+for #11 (its rules keys name only the old regime's slabs, standard deduction
+and rebate).
+
 ## External cross-check
 
-- The **income tax** figures are the same as `take-home-new-regime`'s and are
-  covered by the cross-check recorded there.
+- The **income tax** figures are the same as `take-home-new-regime`'s (new
+  regime) and `take-home-old-regime`'s (old regime) and are covered by the
+  cross-checks recorded there.
 - The **professional tax** figure is **not cross-checkable and is not asserted
   to be anyone's correct liability**: it is a typed input echoed back at the
   period it was typed for. No external source is claimed for it.

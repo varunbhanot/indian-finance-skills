@@ -1,0 +1,11 @@
+{
+  "financial_year": "2026-27",
+  "pf_wage_base": "full_basic",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 300000, "period": "annual" },
+    { "name": "House rent allowance", "type": "hra", "amount": 150000, "period": "annual" },
+    { "name": "Special allowance", "type": "special_allowance", "amount": 90000, "period": "annual" },
+    { "name": "Employer PF", "type": "employer_pf", "amount": 36000, "period": "annual" },
+    { "name": "Performance bonus", "type": "variable_pay", "amount": 100000, "period": "annual" }
+  ]
+}

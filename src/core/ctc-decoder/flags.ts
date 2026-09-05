@@ -38,6 +38,9 @@ import { BASIS_POINTS_PER_UNIT } from "../money.ts";
 import type { HeuristicsFile } from "../heuristics/file.ts";
 import type { Heuristic } from "../heuristics/loader.ts";
 import type { DecodedComponent } from "./decode.ts";
+import type { EmployerPfReading } from "./employer-pf.ts";
+import type { TakeHome } from "./take-home.ts";
+import type { PfWageBase } from "./wage-base.ts";
 import { DecoderError } from "./errors.ts";
 import type { Citation } from "./rules-reader.ts";
 import type { OfferTotals } from "./totals.ts";
@@ -68,6 +71,11 @@ export interface Flag {
   citation?: Citation;
   /** Letter flags only: a period the letter states. */
   months?: number;
+  /**
+   * Wage-base flags only: the base the caller typed, against the base or bases
+   * the letter's own employer contribution is consistent with.
+   */
+  wage_bases?: { typed: PfWageBase; implied: PfWageBase[] };
 }
 
 /** What the flags read, assembled: every part is already in the output. */
@@ -76,6 +84,8 @@ export interface FlagInput {
   totals: OfferTotals;
   year_by_year: YearByYear;
   basic?: Basic;
+  employer_pf?: EmployerPfReading;
+  take_home?: TakeHome;
 }
 
 export function flagsFor(offer: FlagInput, heuristics: HeuristicsFile): Flag[] {
@@ -86,6 +96,7 @@ export function flagsFor(offer: FlagInput, heuristics: HeuristicsFile): Flag[] {
     ...oneTimeShare(offer, heuristics),
     ...unvaluableShare(offer, heuristics),
     ...nonCashShare(offer, heuristics),
+    ...pfWageBaseDisagreement(offer),
     ...clawbacks(offer),
     ...cliffs(offer),
     ...perquisites(offer),
@@ -267,6 +278,68 @@ function nonCashShare(offer: FlagInput, heuristics: HeuristicsFile): Flag[] {
 }
 
 /* ------------------------------------------------------------------- letter */
+
+/**
+ * The wage base the caller typed, against the one the letter's own employer
+ * contribution is computed on (issue #43).
+ *
+ * `employer_pf` already reads the policy back out of the letter's figure, and
+ * `take_home` already applies the policy the caller typed. Until now the two
+ * could disagree in silence: a letter contributing 12% of the whole of basic,
+ * decoded with `statutory_ceiling` typed, took the ceiling into every employee
+ * deduction and reported a take-home built on it, while the reading directly
+ * above said the letter implies `full_basic`. Both halves were on the page and
+ * neither pointed at the other.
+ *
+ * So this points. It states the disagreement and changes nothing else: the
+ * typed base still drives the deductions, because the user is the one holding
+ * the letter and a reading of one line of it does not overrule them. Which of
+ * the two is right is not something the core can know — an employer may
+ * contribute on one base and deduct on another, and a letter that rounds
+ * matches neither — so the flag names both and stops there (ADR 0007).
+ *
+ * `kind` is `letter` because both halves are: the amount is off the annexure,
+ * and so is the policy the user typed from reading it. No statute is in
+ * question and no authored threshold is either — the comparison is exact
+ * (`employer-pf.ts`), so there is nothing here for `heuristics.yaml` to hold.
+ *
+ * Silent where there is nothing to say: no typed base, no employer
+ * contribution, or a figure consistent with neither base (`implies` empty,
+ * which `employer_pf` already reports). Where the base sits at or below the
+ * ceiling the two bases give the same wage, so every figure matches both and
+ * the typed one is always among them — `bases_coincide` cannot disagree.
+ */
+function pfWageBaseDisagreement(offer: FlagInput): Flag[] {
+  const employerPf = offer.employer_pf;
+  const typed = typedPfWageBase(offer.take_home);
+  if (employerPf === undefined || typed === undefined) return [];
+  if (employerPf.implies.length === 0 || employerPf.implies.includes(typed)) return [];
+
+  const onTyped = employerPf.bases.find((one) => one.basis === typed);
+  if (onTyped === undefined) return [];
+  return [
+    {
+      code: "pf-wage-base-disagreement",
+      kind: "letter",
+      measured: {
+        stated_contribution: employerPf.stated_contribution.annual,
+        contribution_implied_by_typed_base: onTyped.implied_contribution.annual,
+      },
+      names: employerPf.components,
+      wage_bases: { typed, implied: employerPf.implies },
+    },
+  ];
+}
+
+/**
+ * The base the caller typed, read back off the output rather than taken from
+ * the input, so this stays a reading of the finished document like every other
+ * flag. One basis is enough: `take-home.ts` applies the one typed base to every
+ * regime and every basis, so they all carry it.
+ */
+function typedPfWageBase(takeHome: TakeHome | undefined): PfWageBase | undefined {
+  return takeHome?.regimes[0]?.bases[0]?.deductions.employee_pf.basis;
+}
 
 function clawbacks(offer: FlagInput): Flag[] {
   return offer.components.flatMap((component) =>

@@ -10,7 +10,7 @@ threshold traced to its primary source. No skill ever tells you what to do.
 
 | Skill | What it does | Status |
 |---|---|---|
-| [CTC decoder](.claude/skills/ctc-decoder/README.md) | Decodes an offer letter's CTC into guaranteed recurring cash, classifying every component and tracing every total to the lines it was built from. | First cut; take-home, equity valuation and the year-by-year view in progress under spec #4. |
+| [CTC decoder](.claude/skills/ctc-decoder/README.md) | Decodes an offer letter's CTC into guaranteed recurring cash, values equity, lays the package out year by year, and estimates take-home under both tax regimes. | Shipped for FY 2026-27. Spec #4's stories are all built; the [known gaps](.claude/skills/ctc-decoder/README.md#what-it-does-not-do-yet) are specific and listed. |
 
 More skills will be added here as they are built.
 

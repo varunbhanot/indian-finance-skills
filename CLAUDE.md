@@ -37,6 +37,10 @@ emits display strings; never reformat a number yourself.
   document.
 - **Analysis and citation, never a recommendation to act** (ADR 0007). State what
   is true, link the primary source, and stop. Do not tell the user what to do.
+  Every document a rules file cites is titled once, and a value citing a
+  different paper from its group's titles that paper itself; the output carries
+  `{ title, url }` beside each figure and a consolidated `sources` list built by
+  walking the finished output (ADR 0015).
 - **Never value the unvaluable.** Illiquid equity is ₹0 and is always named
   (ADR 0005). Never model share-price growth.
 - **Never encode claims about a named employer.** Vesting schedules are typed
@@ -98,9 +102,12 @@ discovers them. A fixture may also hold a `rules/` directory, which the runner
 pins through `CTC_DECODER_RULES_DIR` so it can exercise a rules file this
 repository does not ship — an absent group, or a catalogue entry added without
 code (ADR 0009). That variable is a test affordance and is not part of the JSON
-contract. Three checks sit beside the seam: the rules schema check
-(every `rules/*.yaml` loads), the no-float lint, and the rules loader's own
-tests against test-only YAML documents (the ticket that built the loader
+contract. Four checks sit beside the seam: the rules schema check
+(every `rules/*.yaml` loads, and titles each document it cites exactly once),
+the no-float lint, the output invariants over every fixture's `expected.json`
+(`sources` is the complete deduplicated union of the documents cited above it,
+and nothing in the output reads as advice — ADR 0007), and the rules loader's
+own tests against test-only YAML documents (the ticket that built the loader
 permits this, since no statutory value may be typed from memory to test it).
 
 The traceability eval (ADR 0003) runs **in CI against checked-in recorded

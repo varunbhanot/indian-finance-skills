@@ -17,9 +17,12 @@ import {
   type ClassificationBasis,
   type ComponentCatalogue,
 } from "./catalogue.ts";
+import { basicFor, type Basic } from "./basic.ts";
 import type { Certainty, Classification, Form, Instrument } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
 import { validateOfferInput, type OfferComponentInput } from "./input.ts";
+import type { Source } from "./rules-reader.ts";
+import { sourcesIn } from "./sources.ts";
 import { takeHomeFor, type TakeHome } from "./take-home.ts";
 import { countsTowardGuaranteedRecurringCash, totalsFor, type OfferTotals } from "./totals.ts";
 
@@ -51,8 +54,15 @@ export interface DecodedOffer {
   rules_file: string;
   components: DecodedComponent[];
   totals: OfferTotals;
+  /**
+   * Basic's share of fixed pay and what it drives. Present only when the rules
+   * file says which components are basic pay; see `basic.ts`.
+   */
+  basic?: Basic;
   /** Present only when the caller typed `pf_wage_base`; see `input.ts`. */
   take_home?: TakeHome;
+  /** Every document cited anywhere above, deduplicated; see `sources.ts`. */
+  sources: Source[];
 }
 
 export function decode(raw: unknown): DecodedOffer {
@@ -75,18 +85,25 @@ export function decode(raw: unknown): DecodedOffer {
       : {}),
   }));
 
-  return {
+  // The classification travels whole from the reader to the totals; it is never
+  // taken apart and put back together, which is how a field added to it reaches
+  // the totals without anyone remembering to copy it across.
+  const totals = totalsFor(totallable);
+  const basic = basicFor(totallable, totals.fixed_pay.paise, rules);
+
+  const decodedOffer = {
     financial_year: input.financial_year,
     rules_file: rules.path,
     components: decoded.map((one) => one.component),
-    // The classification travels whole from the reader to the totals; it is
-    // never taken apart and put back together, which is how a field added to it
-    // reaches the totals without anyone remembering to copy it across.
-    totals: totalsFor(totallable),
+    totals,
+    ...(basic === undefined ? {} : { basic }),
     ...(input.take_home === undefined
       ? {}
       : { take_home: takeHomeFor(totallable, input.take_home, rules) }),
   };
+  // Last, and over the whole of it: the sources are a reading of the output, so
+  // they are collected once it exists rather than gathered along the way.
+  return { ...decodedOffer, sources: sourcesIn(decodedOffer) };
 }
 
 function decodeComponent(

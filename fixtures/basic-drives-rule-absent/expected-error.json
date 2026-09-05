@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "rule_absent",
+    "message": "fixtures/basic-drives-rule-absent/rules/fy2026-27.yaml carries no groups.epf: the rule is absent, so the figure it would settle cannot be computed",
+    "details": {
+      "rules_file": "fixtures/basic-drives-rule-absent/rules/fy2026-27.yaml",
+      "rules_key": "groups.epf"
+    }
+  }
+}

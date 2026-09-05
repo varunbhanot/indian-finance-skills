@@ -1,7 +1,7 @@
 /**
  * The component catalogue as the rules file carries it (ADR 0004): a map of
  * component type to its classification, and to the basis that justifies it —
- * a statute's URL, or an authored rationale (ADR 0010).
+ * a titled statute, or an authored rationale (ADR 0010).
  *
  * The catalogue is data, so everything in this file is reading and checking,
  * never a default. A rules file with no `components` group yields `undefined`,
@@ -11,13 +11,13 @@
  * Reads with `rules-reader.ts`'s own primitives (`isRulesMap`, `rulesFileInvalid`)
  * rather than a second copy of them: the two files refuse a bad rules value in
  * one voice. It does not read through `RulesNode` itself, because a catalogue
- * entry's basis is either a statute's `source` or the author's own `rationale`,
- * a shape `RulesNode.citation()` does not carry.
+ * entry's basis is either a statute — its `title` and `source` — or the author's
+ * own `rationale`, a shape `RulesNode.citation()` does not carry.
  */
 import type { RulesFile } from "../rules/files.ts";
 import type { RulesValue } from "../rules/loader.ts";
 import { readClassification, type Classification } from "./classification.ts";
-import { isRulesMap, rulesFileInvalid } from "./rules-reader.ts";
+import { isRulesMap, rulesFileInvalid, type Source } from "./rules-reader.ts";
 
 const CATALOGUE_GROUP = "components";
 export const CATALOGUE_GROUP_KEY = `groups.${CATALOGUE_GROUP}`;
@@ -25,7 +25,7 @@ export const CATALOGUE_ENTRIES_KEY = `${CATALOGUE_GROUP_KEY}.entries`;
 
 /** Why an entry classifies as it does: law, or the author's judgement (ADR 0006, ADR 0010). */
 export type ClassificationBasis =
-  | { kind: "statute"; source: string }
+  | { kind: "statute"; document: Source }
   | { kind: "judgement"; rationale: string };
 
 export interface CatalogueEntry {
@@ -93,7 +93,18 @@ function readBasis(
     if (typeof source !== "string" || !source.startsWith("https://")) {
       throw rulesFileInvalid(rules, `${rulesKey}.source`, "an entry's source must be an https URL");
     }
-    return { kind: "statute", source };
+    // The statute an entry cites is a different paper from the group's, so the
+    // entry names it: an untitled one could not reach the output's consolidated
+    // source list (ADR 0015).
+    const title = entry["title"];
+    if (typeof title !== "string" || title.trim() === "") {
+      throw rulesFileInvalid(
+        rules,
+        `${rulesKey}.title`,
+        "an entry citing a statute must title it, so the output can name every source it cites",
+      );
+    }
+    return { kind: "statute", document: { title, url: source } };
   }
   if (typeof rationale === "string" && rationale.trim() !== "") {
     return { kind: "judgement", rationale };

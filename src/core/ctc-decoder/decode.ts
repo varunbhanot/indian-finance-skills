@@ -14,6 +14,7 @@ import {
   CATALOGUE_ENTRIES_KEY,
   CATALOGUE_GROUP_KEY,
   readComponentCatalogue,
+  type ClassificationBasis,
   type ComponentCatalogue,
 } from "./catalogue.ts";
 import type { Certainty, Classification, Form, Instrument } from "./classification.ts";
@@ -21,9 +22,13 @@ import { DecoderError } from "./errors.ts";
 import { validateOfferInput, type OfferComponentInput } from "./input.ts";
 import { countsTowardGuaranteedRecurringCash, totalsFor, type OfferTotals } from "./totals.ts";
 
-/** Which rule classified a component: a catalogue entry, or the user's own answer. */
+/**
+ * Which rule classified a component: a catalogue entry, with the basis that
+ * entry stands on (a statute, or the author's judgement), or the user's own
+ * answer, which stands on nothing but their reading of the letter.
+ */
 export type ClassifiedBy =
-  | { kind: "catalogue"; entry: string; rules_key: string; source: string }
+  | { kind: "catalogue"; entry: string; rules_key: string; basis: ClassificationBasis }
   | { kind: "inline" };
 
 export interface DecodedComponent {
@@ -52,23 +57,22 @@ export function decode(raw: unknown): DecodedOffer {
   const rules = rulesFor(input.financial_year);
   const catalogue = readComponentCatalogue(rules);
 
-  const components = input.components.map((component, index) =>
+  const decoded = input.components.map((component, index) =>
     decodeComponent(component, `components[${index}]`, rules, catalogue),
   );
 
   return {
     financial_year: input.financial_year,
     rules_file: rules.path,
-    components,
+    components: decoded.map((one) => one.component),
+    // The classification travels whole from the reader to the totals; it is
+    // never taken apart and put back together, which is how a field added to it
+    // reaches the totals without anyone remembering to copy it across.
     totals: totalsFor(
-      components.map((component) => ({
-        name: component.name,
-        annual_paise: component.annual.paise,
-        classification: {
-          certainty: component.certainty,
-          form: component.form,
-          recurring: component.recurring,
-        },
+      decoded.map((one) => ({
+        name: one.component.name,
+        annual_paise: one.component.annual.paise,
+        classification: one.classification,
       })),
     ),
   };
@@ -79,7 +83,7 @@ function decodeComponent(
   path: string,
   rules: RulesFile,
   catalogue: ComponentCatalogue | undefined,
-): DecodedComponent {
+): { component: DecodedComponent; classification: Classification } {
   const { classification, classifiedBy } = classify(component, path, rules, catalogue);
   const clawbackMonths = component.clawback_months;
   if (clawbackMonths !== undefined && classification.recurring) {
@@ -93,16 +97,19 @@ function decodeComponent(
 
   const typedPaise = rupeesToPaise(component.amount);
   return {
-    name: component.name,
-    as_typed: { amount: money(typedPaise), period: component.period },
-    annual: money(annualise(typedPaise, component.period)),
-    certainty: classification.certainty,
-    form: classification.form,
-    recurring: classification.recurring,
-    ...(classification.instrument === undefined ? {} : { instrument: classification.instrument }),
-    ...(clawbackMonths === undefined ? {} : { clawback_months: clawbackMonths }),
-    counts_toward_guaranteed_recurring_cash: countsTowardGuaranteedRecurringCash(classification),
-    classified_by: classifiedBy,
+    component: {
+      name: component.name,
+      as_typed: { amount: money(typedPaise), period: component.period },
+      annual: money(annualise(typedPaise, component.period)),
+      certainty: classification.certainty,
+      form: classification.form,
+      recurring: classification.recurring,
+      ...(classification.instrument === undefined ? {} : { instrument: classification.instrument }),
+      ...(clawbackMonths === undefined ? {} : { clawback_months: clawbackMonths }),
+      counts_toward_guaranteed_recurring_cash: countsTowardGuaranteedRecurringCash(classification),
+      classified_by: classifiedBy,
+    },
+    classification,
   };
 }
 
@@ -129,7 +136,7 @@ function classify(
     });
   }
 
-  const entry = catalogue.entries.get(type);
+  const entry = catalogue.get(type);
   if (entry === undefined) {
     throw new DecoderError({
       code: "unknown_component_type",
@@ -145,7 +152,7 @@ function classify(
       kind: "catalogue",
       entry: entry.type,
       rules_key: entry.rules_key,
-      source: entry.source,
+      basis: entry.basis,
     },
   };
 }

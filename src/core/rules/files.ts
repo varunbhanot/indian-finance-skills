@@ -14,8 +14,13 @@ import { join, resolve } from "node:path";
 import { loadRulesDocument, RulesFileError, type RulesDocument } from "./loader.ts";
 
 export const REPOSITORY_ROOT = resolve(import.meta.dirname, "..", "..", "..");
-const RULES_DIRECTORY = process.env["CTC_DECODER_RULES_DIR"] ?? "rules";
+export const DEFAULT_RULES_DIRECTORY = "rules";
 const RULES_FILE_PATTERN = /^fy(\d{4}-\d{2})\.yaml$/;
+
+/** The directory rules files are read from, resolved per call so a test can change it. */
+function rulesDirectory(): string {
+  return process.env["CTC_DECODER_RULES_DIR"] ?? DEFAULT_RULES_DIRECTORY;
+}
 
 export interface RulesFileEntry {
   /** Repository-relative, e.g. `rules/fy2026-27.yaml`. */
@@ -29,12 +34,16 @@ export interface RulesFile extends RulesFileEntry {
 }
 
 export function rulesFilePathFor(financialYear: string): string {
-  return `${RULES_DIRECTORY}/fy${financialYear}.yaml`;
+  return `${rulesDirectory()}/fy${financialYear}.yaml`;
 }
 
-/** Every `rules/*.yaml`, sorted; a file not named `fy<YYYY-YY>.yaml` is an error. */
-export function listRulesFiles(): RulesFileEntry[] {
-  return readdirSync(join(REPOSITORY_ROOT, RULES_DIRECTORY))
+/**
+ * Every `fy<YYYY-YY>.yaml` in a rules directory, sorted; another name is an
+ * error. Pass `directory` to read one other than the decoder's, which is what
+ * the schema check does so it always sees this repository's own rules.
+ */
+export function listRulesFiles(directory: string = rulesDirectory()): RulesFileEntry[] {
+  return readdirSync(join(REPOSITORY_ROOT, directory))
     .filter((name) => name.endsWith(".yaml"))
     .sort()
     .map((name) => {
@@ -42,11 +51,11 @@ export function listRulesFiles(): RulesFileEntry[] {
       if (financialYear === undefined) {
         throw new RulesFileError(
           "invalid_financial_year",
-          `${RULES_DIRECTORY}/${name}`,
+          `${directory}/${name}`,
           "rules files must be named fy<YYYY-YY>.yaml",
         );
       }
-      return { path: `${RULES_DIRECTORY}/${name}`, financial_year: financialYear };
+      return { path: `${directory}/${name}`, financial_year: financialYear };
     });
 }
 

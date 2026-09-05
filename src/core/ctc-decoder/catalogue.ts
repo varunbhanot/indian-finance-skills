@@ -1,6 +1,7 @@
 /**
  * The component catalogue as the rules file carries it (ADR 0004): a map of
- * component type to its classification, with the source that justifies it.
+ * component type to its classification, and to the basis that justifies it —
+ * a statute's URL, or an authored rationale (ADR 0010).
  *
  * The catalogue is data, so everything in this file is reading and checking,
  * never a default. A rules file with no `components` group yields `undefined`,
@@ -9,31 +10,28 @@
  */
 import type { RulesFile } from "../rules/files.ts";
 import type { RulesValue } from "../rules/loader.ts";
-import {
-  isCertainty,
-  isForm,
-  isInstrument,
-  type Classification,
-} from "./classification.ts";
+import { readClassification, type Classification } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
 
-export const CATALOGUE_GROUP = "components";
+const CATALOGUE_GROUP = "components";
 export const CATALOGUE_GROUP_KEY = `groups.${CATALOGUE_GROUP}`;
 export const CATALOGUE_ENTRIES_KEY = `${CATALOGUE_GROUP_KEY}.entries`;
+
+/** Why an entry classifies as it does: law, or the author's judgement (ADR 0006, ADR 0010). */
+export type ClassificationBasis =
+  | { kind: "statute"; source: string }
+  | { kind: "judgement"; rationale: string };
 
 export interface CatalogueEntry {
   /** The catalogue key, e.g. `employer_pf`. */
   type: string;
   classification: Classification;
-  /** The entry's own source when it has one, else the group's. */
-  source: string;
+  basis: ClassificationBasis;
   /** Where in the rules file this entry sits, for the output to quote. */
   rules_key: string;
 }
 
-export interface ComponentCatalogue {
-  entries: ReadonlyMap<string, CatalogueEntry>;
-}
+export type ComponentCatalogue = ReadonlyMap<string, CatalogueEntry>;
 
 /** The catalogue in a rules file, or undefined when the file carries no such group. */
 export function readComponentCatalogue(rules: RulesFile): ComponentCatalogue | undefined {
@@ -53,64 +51,52 @@ export function readComponentCatalogue(rules: RulesFile): ComponentCatalogue | u
     }
     entries.set(type, {
       type,
-      classification: readClassification(rules, rawEntry, rulesKey),
-      source: readEntrySource(rules, rawEntry, rulesKey, group.source),
+      classification: readClassification(
+        (field) => rawEntry[field],
+        (field, message) => malformed(rules, `${rulesKey}.${field}`, message),
+      ),
+      basis: readBasis(rules, rawEntry, rulesKey),
       rules_key: rulesKey,
     });
   }
-  return { entries };
+  return entries;
 }
 
-function readClassification(
+/**
+ * An entry's classification either follows from a statute, which it cites, or it
+ * is the author's judgement, which it states. The group's own source says where
+ * the catalogue's vocabulary comes from and cannot stand in for either, so an
+ * entry carrying neither is refused rather than quietly inheriting it.
+ */
+function readBasis(
   rules: RulesFile,
   entry: { [key: string]: RulesValue },
   rulesKey: string,
-): Classification {
-  const certainty = entry["certainty"];
-  if (!isCertainty(certainty)) {
-    throw malformed(
-      rules,
-      `${rulesKey}.certainty`,
-      `certainty must be one of the axis values (ADR 0004), got ${JSON.stringify(certainty)}`,
-    );
-  }
-  const form = entry["form"];
-  if (!isForm(form)) {
-    throw malformed(
-      rules,
-      `${rulesKey}.form`,
-      `form must be one of the axis values (ADR 0004), got ${JSON.stringify(form)}`,
-    );
-  }
-  const recurring = entry["recurring"];
-  if (typeof recurring !== "boolean") {
-    throw malformed(rules, `${rulesKey}.recurring`, "recurring must be true or false");
-  }
-
-  const instrument = entry["instrument"];
-  if (instrument === undefined) return { certainty, form, recurring };
-  if (!isInstrument(instrument)) {
-    throw malformed(
-      rules,
-      `${rulesKey}.instrument`,
-      `instrument must be rsu, option or espp, got ${JSON.stringify(instrument)}`,
-    );
-  }
-  return { certainty, form, recurring, instrument };
-}
-
-function readEntrySource(
-  rules: RulesFile,
-  entry: { [key: string]: RulesValue },
-  rulesKey: string,
-  groupSource: string,
-): string {
+): ClassificationBasis {
   const source = entry["source"];
-  if (source === undefined) return groupSource;
-  if (typeof source !== "string" || !source.startsWith("https://")) {
-    throw malformed(rules, `${rulesKey}.source`, "an entry's source must be an https URL");
+  const rationale = entry["rationale"];
+
+  if (source !== undefined && rationale !== undefined) {
+    throw malformed(
+      rules,
+      rulesKey,
+      "an entry cites a statute as its source or states a rationale, not both",
+    );
   }
-  return source;
+  if (source !== undefined) {
+    if (typeof source !== "string" || !source.startsWith("https://")) {
+      throw malformed(rules, `${rulesKey}.source`, "an entry's source must be an https URL");
+    }
+    return { kind: "statute", source };
+  }
+  if (typeof rationale === "string" && rationale.trim() !== "") {
+    return { kind: "judgement", rationale };
+  }
+  throw malformed(
+    rules,
+    rulesKey,
+    "an entry must carry a source, when a statute settles its classification, or a rationale, when the author does",
+  );
 }
 
 function isRulesMap(value: RulesValue | undefined): value is { [key: string]: RulesValue } {

@@ -23,13 +23,12 @@ const fixturesRoot = join(repositoryRoot, "fixtures");
 const npm = process.platform === "win32" ? "npm.cmd" : "npm";
 
 function runDecoder(inputJson: string, rulesDirectory?: string) {
+  // Always set the variable, never inherit it: a fixture without its own rules
+  // directory must read the repository's, whatever the surrounding shell says.
   const result = spawnSync(npm, ["run", "--silent", "ctc-decoder", "--", inputJson], {
     cwd: repositoryRoot,
     encoding: "utf8",
-    env:
-      rulesDirectory === undefined
-        ? process.env
-        : { ...process.env, CTC_DECODER_RULES_DIR: rulesDirectory },
+    env: { ...process.env, CTC_DECODER_RULES_DIR: rulesDirectory ?? "rules" },
   });
   if (result.error !== undefined) throw result.error;
   return { status: result.status, stdout: result.stdout, stderr: result.stderr };

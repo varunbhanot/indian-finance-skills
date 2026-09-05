@@ -7,6 +7,11 @@
  * an insurance premium is guaranteed but never cash. Every total in
  * `totals.ts` is a predicate over these three fields, so a component type added
  * to the rules file lands in the right totals with no code change.
+ *
+ * A classification arrives at the core from two places — the rules file's
+ * catalogue and the user's own inline answer — and `readClassification` is the
+ * only thing that reads one, so the two boundaries cannot drift apart or
+ * disagree about what the axis values are.
  */
 
 /** How sure the employee is of receiving the component at all. */
@@ -40,14 +45,54 @@ export interface Classification {
   instrument?: Instrument;
 }
 
-export function isCertainty(value: unknown): value is Certainty {
+/**
+ * Reads the three fields (and `instrument` when the form is equity) from
+ * wherever they were written. `read` fetches a field by name; `reject` builds
+ * the rejection each caller reports — a rules-file error for the catalogue, an
+ * input error for the user's own answer.
+ */
+export function readClassification(
+  read: (field: string) => unknown,
+  reject: (field: string, message: string) => Error,
+): Classification {
+  const certainty = read("certainty");
+  if (!isCertainty(certainty)) {
+    throw reject(
+      "certainty",
+      `certainty must be one of ${CERTAINTIES.join(", ")}, got ${JSON.stringify(certainty)}`,
+    );
+  }
+  const form = read("form");
+  if (!isForm(form)) {
+    throw reject("form", `form must be one of ${FORMS.join(", ")}, got ${JSON.stringify(form)}`);
+  }
+  const recurring = read("recurring");
+  if (typeof recurring !== "boolean") {
+    throw reject(
+      "recurring",
+      "recurring must be true or false: the two axes alone do not separate a one-time component from a monthly one",
+    );
+  }
+
+  const instrument = read("instrument");
+  if (instrument === undefined) return { certainty, form, recurring };
+  if (!isInstrument(instrument)) {
+    throw reject(
+      "instrument",
+      `instrument must be one of ${INSTRUMENTS.join(", ")}, got ${JSON.stringify(instrument)}`,
+    );
+  }
+  return { certainty, form, recurring, instrument };
+}
+
+function isCertainty(value: unknown): value is Certainty {
   return CERTAINTIES.includes(value as Certainty);
 }
 
-export function isForm(value: unknown): value is Form {
+function isForm(value: unknown): value is Form {
   return FORMS.includes(value as Form);
 }
 
-export function isInstrument(value: unknown): value is Instrument {
+function isInstrument(value: unknown): value is Instrument {
   return INSTRUMENTS.includes(value as Instrument);
 }

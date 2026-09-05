@@ -4,8 +4,17 @@
   "components": [
     {
       "name": "Basic",
-      "as_typed": { "amount": { "paise": 60000000, "display": "₹6,00,000" }, "period": "annual" },
-      "annual": { "paise": 60000000, "display": "₹6,00,000" },
+      "as_typed": {
+        "amount": {
+          "paise": 60000000,
+          "display": "₹6,00,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 60000000,
+        "display": "₹6,00,000"
+      },
       "certainty": "guaranteed",
       "form": "cash-now",
       "recurring": true,
@@ -14,13 +23,25 @@
         "kind": "catalogue",
         "entry": "basic",
         "rules_key": "groups.components.entries.basic",
-        "source": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+        "basis": {
+          "kind": "judgement",
+          "rationale": "The base component of the salary structure, payable monthly under the terms of employment whatever the employee or the employer achieves."
+        }
       }
     },
     {
       "name": "HRA",
-      "as_typed": { "amount": { "paise": 2000000, "display": "₹20,000" }, "period": "monthly" },
-      "annual": { "paise": 24000000, "display": "₹2,40,000" },
+      "as_typed": {
+        "amount": {
+          "paise": 2000000,
+          "display": "₹20,000"
+        },
+        "period": "monthly"
+      },
+      "annual": {
+        "paise": 24000000,
+        "display": "₹2,40,000"
+      },
       "certainty": "guaranteed",
       "form": "cash-now",
       "recurring": true,
@@ -29,13 +50,25 @@
         "kind": "catalogue",
         "entry": "hra",
         "rules_key": "groups.components.entries.hra",
-        "source": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+        "basis": {
+          "kind": "judgement",
+          "rationale": "Paid with monthly salary as part of the fixed structure. Its exemption from tax is conditional on rent paid; the payment itself is not."
+        }
       }
     },
     {
       "name": "Special allowance",
-      "as_typed": { "amount": { "paise": 123456700, "display": "₹12,34,567" }, "period": "annual" },
-      "annual": { "paise": 123456700, "display": "₹12,34,567" },
+      "as_typed": {
+        "amount": {
+          "paise": 123456700,
+          "display": "₹12,34,567"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 123456700,
+        "display": "₹12,34,567"
+      },
       "certainty": "guaranteed",
       "form": "cash-now",
       "recurring": true,
@@ -44,7 +77,10 @@
         "kind": "catalogue",
         "entry": "special_allowance",
         "rules_key": "groups.components.entries.special_allowance",
-        "source": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+        "basis": {
+          "kind": "judgement",
+          "rationale": "The residual monthly allowance that balances a structure to its agreed fixed pay, and is paid unconditionally like the rest of it."
+        }
       }
     }
   ],
@@ -52,21 +88,49 @@
     "headline_ctc": {
       "paise": 207456700,
       "display": "₹20,74,567",
-      "components": ["Basic", "HRA", "Special allowance"]
+      "components": [
+        "Basic",
+        "HRA",
+        "Special allowance"
+      ]
     },
     "fixed_pay": {
       "paise": 207456700,
       "display": "₹20,74,567",
-      "components": ["Basic", "HRA", "Special allowance"]
+      "components": [
+        "Basic",
+        "HRA",
+        "Special allowance"
+      ]
     },
-    "variable_pay_at_target": { "paise": 0, "display": "₹0", "components": [] },
+    "variable_pay_at_target": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
     "guaranteed_recurring_cash": {
       "paise": 207456700,
       "display": "₹20,74,567",
-      "components": ["Basic", "HRA", "Special allowance"]
+      "components": [
+        "Basic",
+        "HRA",
+        "Special allowance"
+      ]
     },
-    "retirals": { "paise": 0, "display": "₹0", "components": [] },
-    "one_time_components": { "paise": 0, "display": "₹0", "components": [] },
-    "benefits_in_kind": { "paise": 0, "display": "₹0", "components": [] }
+    "retirals": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "one_time_components": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "benefits_in_kind": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    }
   }
 }

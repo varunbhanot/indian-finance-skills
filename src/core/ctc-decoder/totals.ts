@@ -46,7 +46,14 @@ export function countsTowardGuaranteedRecurringCash(classification: Classificati
   );
 }
 
-/** Employer contributions counted in CTC that reach the employee later or not as cash. */
+/**
+ * Retirals are derived as "counted in CTC, but not cash now" — the deferred and
+ * locked-savings forms. That is broader than the three employer contributions
+ * CONTEXT.md names: a user-defined deferred component joins them. Broader is
+ * the honest reading, since what the user needs to know is which part of CTC
+ * they cannot spend, and narrowing it would mean naming component types in
+ * code, which is what ADR 0004 exists to avoid.
+ */
 const RETIRAL_FORMS: ReadonlySet<Form> = new Set<Form>(["locked-savings", "deferred-cash"]);
 
 export function totalsFor(components: readonly TotallableComponent[]): OfferTotals {

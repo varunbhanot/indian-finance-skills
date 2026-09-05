@@ -11,3 +11,4 @@ groups:
         certainty: probably
         form: cash-now
         recurring: true
+        rationale: The base component of the salary structure.

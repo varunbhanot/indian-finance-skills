@@ -5,13 +5,15 @@
  *
  * Each component either names a `type` the rules file's catalogue knows, or
  * classifies itself inline. Inline means all three of `certainty`, `form` and
- * `recurring`: the two axes alone cannot separate a joining bonus from basic
- * pay, which share both of them and differ only in recurring, so a defaulted
- * flag would be the decoder quietly guessing (ADR 0004).
+ * `recurring` (and `instrument` for equity): the two axes alone cannot separate
+ * a joining bonus from basic pay, which share both of them and differ only in
+ * recurring, so a defaulted flag would be the decoder quietly guessing.
+ * `classification.ts` reads them, so the catalogue and the user's own answer
+ * are held to one vocabulary (ADR 0004).
  */
 import { isFinancialYear } from "../financial-year.ts";
 import { annualise, formatIndianRupees, rupeesToPaise, RUPEE_INPUT_CAP, type Period } from "../money.ts";
-import { isCertainty, isForm, type Classification } from "./classification.ts";
+import { readClassification, type Classification } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
 
 /** How the user asked for this component to be classified. */
@@ -43,8 +45,10 @@ const COMPONENT_KEYS = [
   "certainty",
   "form",
   "recurring",
+  "instrument",
   "clawback_months",
 ];
+const INLINE_KEYS = ["certainty", "form", "recurring", "instrument"];
 
 export function validateOfferInput(raw: unknown): OfferInput {
   const root = expectObject(raw, "", ["financial_year", "components"]);
@@ -106,52 +110,35 @@ function validateClassification(
   path: string,
 ): ComponentClassificationInput {
   const type = component["type"];
-  const inlineKeys = ["certainty", "form", "recurring"].filter(
-    (key) => component[key] !== undefined,
-  );
+  const inlineGiven = INLINE_KEYS.filter((key) => component[key] !== undefined);
 
   if (type !== undefined) {
     if (typeof type !== "string" || type.trim() === "") {
       throw invalid(`${path}.type`, "type must be a non-empty string naming a catalogue entry");
     }
-    if (inlineKeys.length > 0) {
+    if (inlineGiven.length > 0) {
       throw invalid(
-        `${path}.${inlineKeys[0]}`,
+        `${path}.${inlineGiven[0]}`,
         `a component names a catalogue type or classifies itself inline, not both; ${JSON.stringify(type)} already names a type`,
       );
     }
     return { kind: "catalogue", type };
   }
 
-  if (inlineKeys.length === 0) {
+  if (inlineGiven.length === 0) {
     throw invalid(
       `${path}.type`,
       "a component must name a catalogue type, or give certainty, form and recurring inline",
     );
   }
 
-  const certainty = component["certainty"];
-  if (!isCertainty(certainty)) {
-    throw invalid(
-      `${path}.certainty`,
-      `certainty must be guaranteed, conditional-on-performance, conditional-on-tenure or conditional-on-liquidity, got ${JSON.stringify(certainty)}`,
-    );
-  }
-  const form = component["form"];
-  if (!isForm(form)) {
-    throw invalid(
-      `${path}.form`,
-      `form must be cash-now, deferred-cash, locked-savings, equity or benefit-in-kind, got ${JSON.stringify(form)}`,
-    );
-  }
-  const recurring = component["recurring"];
-  if (typeof recurring !== "boolean") {
-    throw invalid(
-      `${path}.recurring`,
-      "recurring must be true or false: the axes alone do not separate a one-time component from a monthly one",
-    );
-  }
-  return { kind: "inline", classification: { certainty, form, recurring } };
+  return {
+    kind: "inline",
+    classification: readClassification(
+      (field) => component[field],
+      (field, message) => invalid(`${path}.${field}`, message),
+    ),
+  };
 }
 
 function validateClawbackMonths(raw: unknown, path: string): number | undefined {

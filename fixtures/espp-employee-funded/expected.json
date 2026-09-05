@@ -605,6 +605,36 @@
       }
     ]
   },
+  "flags": [
+    {
+      "code": "equity-perquisite",
+      "kind": "statute",
+      "measured": {
+        "equity_as_claimed": {
+          "paise": 50000000,
+          "display": "₹5,00,000"
+        },
+        "equity_as_valued": {
+          "paise": 0,
+          "display": "₹0"
+        }
+      },
+      "names": [
+        "Share purchase plan"
+      ],
+      "statement": "Shares bought under an employee share purchase plan are a specified security allotted at a concessional rate, so the discount -- fair market value less the price the employee actually paid -- is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so the discount enters total income for the tax year and bears the same rates as the rest of the salary. The purchase price itself is the employee's own money and is not income; the gain on a later sale is a separate charge under the head \"Capital gains\".",
+      "citation": {
+        "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+        "document": {
+          "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+          "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+        },
+        "retrieved": "2026-09-05",
+        "rules_key": "groups.perquisite.equity.espp",
+        "note": "Section 17(1)(d) reaches a security allotted or transferred \"at concessional rate\" as well as one given free of cost, and section 17(4)(h) measures the value as fair market value \"as reduced by the amount actually paid by, or recovered from, the assessee in respect of such security or shares\" -- so under a purchase plan it is the discount alone that is the perquisite, and the price the employee paid is not. Section 73(1), Table Sl. No. 4, deems the cost of acquisition to be the \"Fair market value taken into account for the purposes of the said clause\", so the amount already charged as a perquisite is not charged again on sale. What the Act does not settle is the fair market value: section 17(4)(a) leaves it to \"the value determined in accordance with the method, as may be prescribed\", and no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the discount therefore cannot be computed from this file, which is a separate reason from the one that holds a purchase plan at nil in the decoder: the employee funds the purchase out of pay the package already counts."
+      }
+    }
+  ],
   "sources": [
     {
       "title": "The Income-tax Act, 2025 (No. 30 of 2025)",

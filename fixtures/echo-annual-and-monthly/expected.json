@@ -549,6 +549,45 @@
       }
     ]
   },
+  "flags": [
+    {
+      "code": "basic-share",
+      "kind": "heuristic",
+      "measured": {
+        "basic": {
+          "paise": 60000000,
+          "display": "₹6,00,000"
+        },
+        "fixed_pay": {
+          "paise": 207456700,
+          "display": "₹20,74,567"
+        },
+        "share_of_fixed_pay": {
+          "bp": 2892,
+          "display": "28.92%"
+        },
+        "typical_band_floor": {
+          "bp": 4000,
+          "display": "40%"
+        },
+        "typical_band_ceiling": {
+          "bp": 5000,
+          "display": "50%"
+        }
+      },
+      "names": [
+        "Basic"
+      ],
+      "threshold": {
+        "heuristics_key": "thresholds.basic_share_band.floor_rate",
+        "value": {
+          "bp": 4000,
+          "display": "40%"
+        },
+        "rationale": "Indian salary structures commonly set basic between 40% and 50% of fixed pay, and the Code on Wages pushes toward the upper half of that by counting excluded allowances above one-half of remuneration back into wages. Below the floor, everything basic drives — the provident fund contribution, gratuity accrual, the bound on the house rent allowance exemption — is smaller than the headline implies. The band is where the flag stops firing, not a target to aim at."
+      }
+    }
+  ],
   "sources": [
     {
       "title": "The Code on Wages, 2019 (No. 29 of 2019)",

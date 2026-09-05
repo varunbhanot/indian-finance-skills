@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "negative_amount",
+    "message": "amount must not be negative, got -50000",
+    "path": "components[1].amount"
+  }
+}

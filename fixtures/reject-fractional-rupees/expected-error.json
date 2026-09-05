@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "fractional_rupees",
+    "message": "amount must be whole rupees, got 20000.5",
+    "path": "components[1].amount"
+  }
+}

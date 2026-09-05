@@ -39,7 +39,11 @@ emits display strings; never reformat a number yourself.
 
 Integer paise, rates as integer basis points after load. No floating-point
 arithmetic in the core, percentages included. Rounding only at §288A and §288B
-(ADR 0002).
+(ADR 0002). `npm run lint` walks the AST of `src/core` and fails on any float
+literal, `/`, `**`, `Math`, `parseFloat`, `Number(...)` or unary `+`. Division
+is allowed only on BigInt operands: `Number(BigInt(a) * BigInt(bp) / 10000n)`
+is the sanctioned integer division, and `parseInt(digits, 10)` the sanctioned
+parse.
 
 ## Rules versus heuristics
 
@@ -53,6 +57,16 @@ npm, TypeScript, a YAML parser, and Node's built-in test runner. No decimal
 library (ADR 0002). GitHub Actions runs lint, typecheck and the fixture suite on
 every push and pull request, with no secrets.
 
+Node 22.18+ runs the `.ts` sources directly, so there is no build step:
+`npm run ctc-decoder -- '<json>'`, `npm run lint`, `npm run typecheck`,
+`npm test`. Relative imports carry the `.ts` extension and only erasable
+TypeScript syntax is used (no enums, no parameter properties); `tsc` enforces
+both.
+
+Layout: `src/core/` is the deterministic core (linted for floats), `src/cli/`
+the entrypoints, `rules/` the YAML, `fixtures/` the behavioural tests, `test/`
+the runners and invariant checks.
+
 Skills live in `.claude/skills/<name>/SKILL.md` — that is the only directory
 Claude Code auto-loads project skills from. A top-level skill directory does
 nothing.
@@ -60,7 +74,11 @@ nothing.
 ## Evals
 
 Fixtures test the CLI seam only: JSON in, JSON out, through the same entrypoint
-the skill uses. Nothing is tested below it.
+the skill uses. Nothing is tested below it. One directory per fixture under
+`fixtures/`, holding `input.json` and either `expected.json` (exact stdout, exit
+0) or `expected-error.json` (exact stderr, exit non-zero); `test/fixtures.test.ts`
+discovers them. The two invariant checks beside the seam are the rules schema
+check (every `rules/*.yaml` loads) and the no-float lint.
 
 The traceability eval (ADR 0003) runs **in CI against checked-in recorded
 transcripts**. Recording a transcript needs a model and is run on demand; CI

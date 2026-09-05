@@ -38,6 +38,38 @@ contrast this fixture exists to show is squarely the old regime's.
 
 ## External cross-check
 
-See below (recorded once this fixture's figures were checked against the
-Income Tax Department's own calculation engine, configured for the old
-regime).
+Checked against the **Income Tax Department's own calculation engine**
+(`https://static.incometax.gov.in/iec/foservices/assets/js/tax-calc/itdcalc.js`),
+retrieved and executed unmodified on **2026-09-05**, called directly for the
+old regime with its own ₹50,000 standard deduction — see
+`docs/research/fy2026-27-new-regime-take-home.md` §8.5, including the
+diagnosis of a bug in the engine's ordinary `calcType: "basic"` path (it
+reuses the new regime's own netted total income for its `TaxOld` output
+rather than the old regime's own deduction) worked around by calling the
+engine's old-regime functions directly.
+
+| gross salary ₹5,40,000 (zero basis) | Department's engine | this fixture |
+|---|---|---|
+| total income | ₹4,90,000 | ₹4,90,000 |
+| tax at the slabs | ₹12,000 | ₹12,000 |
+| rebate | ₹12,000 | ₹12,000 |
+| **tax payable** | **₹0** | **₹0** |
+
+| gross salary ₹6,40,000 (target basis) | Department's engine | this fixture |
+|---|---|---|
+| total income | ₹5,90,000 | ₹5,90,000 |
+| tax at the slabs | ₹30,500 | ₹30,500 |
+| rebate | ₹0 | ₹0 |
+| cess at 4% | ₹1,220 | ₹1,220 |
+| **tax payable** | **₹31,720** | **₹31,720** |
+
+The engine's rebate function was also read directly and carries
+`taxbleIncome <= 500000 && taxRegime=='old' && … → rebate = min(12500, tax)`,
+with no marginal-relief clause — matching section 156(1), and confirming the
+threshold this fixture straddles.
+
+**Not cross-checked:** the new regime side of this package (its own rebate
+threshold is nowhere near either basis here, so it is not the point of this
+fixture) and the provident fund figures (see `pf-statutory-ceiling`'s
+README). Both are checked by hand against the statute and by independent
+recomputation.

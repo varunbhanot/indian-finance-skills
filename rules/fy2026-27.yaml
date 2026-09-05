@@ -136,6 +136,39 @@ groups:
         rationale: >-
           Loaded each month onto an instrument that can only be spent on meals,
           so the employee receives a benefit rather than cash.
+      # The three equity instruments (ADR 0005). `instrument` is what tells the
+      # decoder which valuation applies; none of these entries says what a grant
+      # is worth, and none says how any employer vests one -- the schedule is
+      # typed from the letter.
+      rsu:
+        certainty: conditional-on-tenure
+        form: equity
+        instrument: rsu
+        recurring: false
+        rationale: >-
+          A promise of shares delivered as the grant vests, so an employee who
+          leaves before a vesting date receives nothing for that year. One award
+          spread over the years its schedule names, rather than a sum offered
+          again each year.
+      stock_option:
+        certainty: conditional-on-tenure
+        form: equity
+        instrument: option
+        recurring: false
+        rationale: >-
+          A right to buy at a fixed strike price, exercisable only over the part
+          of the grant that has vested. Whether exercising it is worth anything
+          is a second question the strike settles, and the letter settles
+          neither.
+      espp:
+        certainty: guaranteed
+        form: equity
+        instrument: espp
+        recurring: true
+        rationale: >-
+          A standing right to buy shares at a discount, offered each cycle and
+          conditional on nothing but participation. The employee funds the
+          purchase out of pay already counted elsewhere in the package.
 
   # Income tax under the new regime, for tax year 2026-27.
   #
@@ -673,3 +706,139 @@ groups:
         Section 202(2)(a)(i) excludes Schedule III Table Sl. No. 11 from the
         computation of total income by name, so the exemption is the old
         regime's alone.
+
+  # What the Income-tax Act says about equity a company hands its employees
+  # (spec #8). Nothing here is computed from: the group carries the statement
+  # that the value is a perquisite, and the provisions that make it one, so a
+  # grant the decoder has valued -- at grant-date fair market value, or at nil --
+  # can be reported with its tax treatment beside it.
+  #
+  # One clause covers all three instruments, and they differ only in what the
+  # employee pays: nothing for a restricted stock unit, the strike for an option,
+  # the discounted price under a purchase plan. Section 17(1)(d) counts "the
+  # value of any specified security or sweat equity shares allotted or
+  # transferred, directly or indirectly, by the current employer, or former
+  # employer, free of cost or at concessional rate to the assessee", and section
+  # 17(4)(h) measures that value as fair market value less what the employee
+  # actually paid.
+  #
+  # Two limits bind every entry below, and each entry's note repeats them because
+  # a reader quoting one figure will not have read the others. The Act's
+  # measuring date is the date an option is exercised, which a restricted stock
+  # unit has none of; and "fair market value" is "the value determined in
+  # accordance with the method, as may be prescribed" (section 17(4)(a)), whose
+  # prescribed rules could not be retrieved. No figure of the perquisite is
+  # computable from this file, and none is computed anywhere in this repository.
+  perquisite:
+    title: The Income-tax Act, 2025 (No. 30 of 2025)
+    source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+    retrieved: 2026-09-05
+    effective_from: 2026-04-01
+    equity:
+      rsu:
+        statement: >-
+          Shares delivered under a restricted stock unit grant are a specified
+          security allotted to the employee free of cost, so their value is a
+          perquisite under section 17(1)(d). Section 16(e) makes a perquisite
+          part of "salary" and section 15(1) charges salary to income-tax under
+          the head "Salaries", so the value enters total income for the tax year
+          and bears the same rates as the rest of the salary. The gain on a later
+          sale is a separate charge under the head "Capital gains", computed from
+          a cost of acquisition that is the same fair market value.
+        section: Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4
+        source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+        retrieved: 2026-09-05
+        note: >-
+          Section 17(1)(d) counts "the value of any specified security or sweat
+          equity shares allotted or transferred, directly or indirectly, by the
+          current employer, or former employer, free of cost or at concessional
+          rate to the assessee". Section 17(4)(f) defines "specified security" by
+          reference to section 2(h) of the Securities Contracts (Regulation) Act,
+          1956, and adds that "where employees' stock option has been granted
+          under any plan or scheme therefor, includes the securities offered
+          under such plan or scheme". Section 16 reads '"salary" includes ...
+          (e) perquisites', and section 15(1)(a) charges "any salary due from an
+          employer to an assessee in the tax year, whether paid or not". Section
+          73(1), Table Sl. No. 4, deems the cost of acquisition of a specified
+          security referred to in section 17(1)(d) to be the "Fair market value
+          taken into account for the purposes of the said clause", which is what
+          keeps the perquisite and the later capital gain from being charged on
+          the same amount twice. Two things the Act does not settle. Section
+          17(4)(h) fixes the value "on the date on which the option is exercised
+          by the assessee, as reduced by the amount actually paid by, or
+          recovered from, the assessee" -- a restricted stock unit carries no
+          option to exercise, so the Act's own words do not name the date for a
+          unit that simply vests and is allotted. And section 17(4)(a) leaves
+          "fair market value" to "the value determined in accordance with the
+          method, as may be prescribed"; no primary text of those prescribed
+          rules could be retrieved, because incometaxindia.gov.in refuses
+          requests from this environment. A figure for the perquisite therefore
+          cannot be computed from this file.
+      option:
+        statement: >-
+          Shares acquired by exercising an employee stock option are a specified
+          security transferred at a concessional rate, so the amount by which
+          their fair market value on the date of exercise exceeds the strike
+          price actually paid is a perquisite under section 17(1)(d), measured by
+          section 17(4)(h). Section 16(e) makes a perquisite part of "salary" and
+          section 15(1) charges salary to income-tax under the head "Salaries",
+          so that excess enters total income for the tax year and bears the same
+          rates as the rest of the salary. The gain on a later sale is a separate
+          charge under the head "Capital gains", computed from a cost of
+          acquisition that is the same fair market value.
+        section: Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(e), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4
+        source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+        retrieved: 2026-09-05
+        note: >-
+          Section 17(4)(e) defines "option" as "a right but not an obligation,
+          granted to an employee to apply for the specified security or sweat
+          equity shares at a predetermined price", and section 17(4)(h) fixes the
+          amount: "the value of any specified security or sweat equity shares
+          shall be the fair market value of the specified security or sweat
+          equity shares, on the date on which the option is exercised by the
+          assessee, as reduced by the amount actually paid by, or recovered from,
+          the assessee in respect of such security or shares." The charge
+          therefore falls on exercise and not on vesting, and it falls on the
+          spread rather than on the whole value of the shares. Section 73(1),
+          Table Sl. No. 4, deems the cost of acquisition to be the "Fair market
+          value taken into account for the purposes of the said clause". What the
+          Act does not settle is the fair market value itself: section 17(4)(a)
+          leaves it to "the value determined in accordance with the method, as
+          may be prescribed", and no primary text of those prescribed rules could
+          be retrieved, because incometaxindia.gov.in refuses requests from this
+          environment. A figure for the perquisite therefore cannot be computed
+          from this file, and neither the fair market value on a future exercise
+          date nor the date itself is knowable from an offer letter.
+      espp:
+        statement: >-
+          Shares bought under an employee share purchase plan are a specified
+          security allotted at a concessional rate, so the discount -- fair
+          market value less the price the employee actually paid -- is a
+          perquisite under section 17(1)(d), measured by section 17(4)(h).
+          Section 16(e) makes a perquisite part of "salary" and section 15(1)
+          charges salary to income-tax under the head "Salaries", so the discount
+          enters total income for the tax year and bears the same rates as the
+          rest of the salary. The purchase price itself is the employee's own
+          money and is not income; the gain on a later sale is a separate charge
+          under the head "Capital gains".
+        section: Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4
+        source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+        retrieved: 2026-09-05
+        note: >-
+          Section 17(1)(d) reaches a security allotted or transferred "at
+          concessional rate" as well as one given free of cost, and section
+          17(4)(h) measures the value as fair market value "as reduced by the
+          amount actually paid by, or recovered from, the assessee in respect of
+          such security or shares" -- so under a purchase plan it is the discount
+          alone that is the perquisite, and the price the employee paid is not.
+          Section 73(1), Table Sl. No. 4, deems the cost of acquisition to be the
+          "Fair market value taken into account for the purposes of the said
+          clause", so the amount already charged as a perquisite is not charged
+          again on sale. What the Act does not settle is the fair market value:
+          section 17(4)(a) leaves it to "the value determined in accordance with
+          the method, as may be prescribed", and no primary text of those
+          prescribed rules could be retrieved, because incometaxindia.gov.in
+          refuses requests from this environment. A figure for the discount
+          therefore cannot be computed from this file, which is a separate reason
+          from the one that holds a purchase plan at nil in the decoder: the
+          employee funds the purchase out of pay the package already counts.

@@ -9,7 +9,13 @@
  * gratuity is a retiral that no total of cash includes.
  */
 import { money, type Money } from "../money.ts";
-import type { Certainty, Classification, ClassifiedComponent, Form } from "./classification.ts";
+import type {
+  Certainty,
+  Classification,
+  ClassifiedComponent,
+  EquityReading,
+  Form,
+} from "./classification.ts";
 
 export interface Total extends Money {
   /** The names, as typed, of the components summed into this figure. */
@@ -24,6 +30,12 @@ export interface OfferTotals {
   retirals: Total;
   one_time_components: Total;
   benefits_in_kind: Total;
+  /** What the letter claims the equity grants are worth, whatever they were valued at. */
+  equity_as_claimed: Total;
+  /** What the decoder holds those same grants at (ADR 0005). */
+  equity_as_valued: Total;
+  /** The claimed value of the grants the decoder refuses to value; never dropped, never counted as cash. */
+  unvaluable_equity: Total;
 }
 
 /** Cash-now and recurring, with certainty narrowed to whichever set the caller names. */
@@ -93,6 +105,16 @@ export function totalsFor(components: readonly ClassifiedComponent[]): OfferTota
       components,
       (classification) => classification.form === "benefit-in-kind",
     ),
+    // The three equity readings, and the gap between the first two is the point
+    // of them: what the letter counted, and what survives a refusal to forecast
+    // a share price. None of them is a cash total, and none can become one —
+    // equity is not the cash-now form, so every cash figure above excludes it
+    // whatever it was valued at.
+    equity_as_claimed: total(components, (classification) => classification.form === "equity"),
+    equity_as_valued: totalOfGrants(components, (equity) => equity.valued_paise),
+    unvaluable_equity: totalOfGrants(components, (equity, component) =>
+      equity.unvaluable ? component.annual_paise : undefined,
+    ),
   };
 }
 
@@ -103,4 +125,25 @@ function total(
   const included = components.filter((component) => includes(component.classification));
   const paise = included.reduce((sum, component) => sum + component.annual_paise, 0);
   return { ...money(paise), components: included.map((component) => component.name) };
+}
+
+/**
+ * A total over the equity grants alone, summing whatever figure the reading
+ * names rather than the amount typed — because what a grant is held at is not
+ * what the letter counted it as. A grant the reading passes over is left out of
+ * the names as well as the sum, so `components` still lists exactly what was
+ * added up.
+ */
+function totalOfGrants(
+  components: readonly ClassifiedComponent[],
+  paiseOf: (equity: EquityReading, component: ClassifiedComponent) => number | undefined,
+): Total {
+  const included: { name: string; paise: number }[] = [];
+  for (const component of components) {
+    if (component.equity === undefined) continue;
+    const paise = paiseOf(component.equity, component);
+    if (paise !== undefined) included.push({ name: component.name, paise });
+  }
+  const paise = included.reduce((sum, one) => sum + one.paise, 0);
+  return { ...money(paise), components: included.map((one) => one.name) };
 }

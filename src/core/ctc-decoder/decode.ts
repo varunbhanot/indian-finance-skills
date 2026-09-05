@@ -18,6 +18,12 @@ import {
   type ComponentCatalogue,
 } from "./catalogue.ts";
 import { basicFor, type Basic } from "./basic.ts";
+import {
+  readingOf,
+  rejectValuationsAboveCap,
+  valueGrant,
+  type EquityGrant,
+} from "./equity.ts";
 import type {
   Certainty,
   Classification,
@@ -53,6 +59,8 @@ export interface DecodedComponent {
   clawback_months?: number;
   counts_toward_guaranteed_recurring_cash: boolean;
   classified_by: ClassifiedBy;
+  /** Present exactly when the form is equity: what the grant is held at, and how (ADR 0005). */
+  equity?: EquityGrant;
 }
 
 export interface DecodedOffer {
@@ -79,6 +87,9 @@ export function decode(raw: unknown): DecodedOffer {
   const decoded = input.components.map((component, index) =>
     decodeComponent(component, `components[${index}]`, rules, catalogue),
   );
+  rejectValuationsAboveCap(
+    decoded.flatMap((one) => (one.component.equity === undefined ? [] : [one.component.equity])),
+  );
 
   // The one shape every reading of the offer takes (`ClassifiedComponent`):
   // built once, and passed whole rather than taken apart and reassembled per
@@ -90,6 +101,7 @@ export function decode(raw: unknown): DecodedOffer {
     ...(one.component.classified_by.kind === "catalogue"
       ? { catalogue_entry: one.component.classified_by.entry }
       : {}),
+    ...(one.component.equity === undefined ? {} : { equity: readingOf(one.component.equity) }),
   }));
 
   const totals = totalsFor(classified);
@@ -128,11 +140,13 @@ function decodeComponent(
   }
 
   const typedPaise = rupeesToPaise(component.amount);
+  const annualPaise = annualise(typedPaise, component.period);
+  const equity = equityFor(component, classification, annualPaise, path, rules);
   return {
     component: {
       name: component.name,
       as_typed: { amount: money(typedPaise), period: component.period },
-      annual: money(annualise(typedPaise, component.period)),
+      annual: money(annualPaise),
       certainty: classification.certainty,
       form: classification.form,
       recurring: classification.recurring,
@@ -140,9 +154,47 @@ function decodeComponent(
       ...(clawbackMonths === undefined ? {} : { clawback_months: clawbackMonths }),
       counts_toward_guaranteed_recurring_cash: countsTowardGuaranteedRecurringCash(classification),
       classified_by: classifiedBy,
+      ...(equity === undefined ? {} : { equity }),
     },
     classification,
   };
+}
+
+/**
+ * The `equity` block belongs to the equity form and to no other, and the
+ * classification is what settles which one this is — which is why the check
+ * lives here rather than at the input boundary, where a component naming a
+ * catalogue type has not yet been classified. Absent where it is needed and
+ * present where it is not are both rejections, for the same reason: either way
+ * the output would carry a grant the caller did not describe, or a description
+ * the decoder never read.
+ */
+function equityFor(
+  component: OfferComponentInput,
+  classification: Classification,
+  annualPaise: number,
+  path: string,
+  rules: RulesFile,
+): EquityGrant | undefined {
+  const instrument = classification.instrument;
+  if (instrument === undefined) {
+    if (component.equity === undefined) return undefined;
+    throw new DecoderError({
+      code: "invalid_input",
+      message: `${path}.equity: an equity block describes a grant of shares, but ${JSON.stringify(component.name)} is classified as ${classification.form}`,
+      path: `${path}.equity`,
+      details: { name: component.name, form: classification.form },
+    });
+  }
+  if (component.equity === undefined) {
+    throw new DecoderError({
+      code: "invalid_input",
+      message: `${path}.equity: ${JSON.stringify(component.name)} is classified as equity, so it needs an equity block giving at least whether the company is listed and how the grant vests`,
+      path: `${path}.equity`,
+      details: { name: component.name, instrument },
+    });
+  }
+  return valueGrant(component.equity, instrument, annualPaise, `${path}.equity`, rules);
 }
 
 function classify(

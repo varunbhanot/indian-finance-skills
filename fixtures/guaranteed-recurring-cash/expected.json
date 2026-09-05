@@ -290,6 +290,21 @@
       "components": [
         "Group medical premium"
       ]
+    },
+    "equity_as_claimed": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "equity_as_valued": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "unvaluable_equity": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
     }
   },
   "basic": {

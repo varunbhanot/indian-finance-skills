@@ -10,9 +10,22 @@
  * recurring, so a defaulted flag would be the decoder quietly guessing.
  * `classification.ts` reads them, so the catalogue and the user's own answer
  * are held to one vocabulary (ADR 0004).
+ *
+ * An equity grant carries one more block, `equity`, holding what the letter says
+ * about the shares: whether the company is listed, the units and prices where it
+ * states them, and the vesting schedule, which is required and must account for
+ * the whole grant (ADR 0005). Every figure in it is typed from the letter; no
+ * growth rate is accepted anywhere, in this file or below it.
  */
 import { isFinancialYear } from "../financial-year.ts";
-import { annualise, formatIndianRupees, rupeesToPaise, RUPEE_INPUT_CAP, type Period } from "../money.ts";
+import {
+  annualise,
+  BASIS_POINTS_PER_UNIT,
+  formatIndianRupees,
+  rupeesToPaise,
+  RUPEE_INPUT_CAP,
+  type Period,
+} from "../money.ts";
 import { readClassification, type Classification } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
 import { PF_WAGE_BASES, type PfWageBase, type TakeHomeRequest } from "./take-home.ts";
@@ -22,6 +35,38 @@ export type ComponentClassificationInput =
   | { kind: "catalogue"; type: string }
   | { kind: "inline"; classification: Classification };
 
+/**
+ * A vesting schedule as the letter states it: what share of the grant arrives in
+ * each year, in basis points, and the months before which nothing arrives at
+ * all. Typed from the letter and never looked up — this repository must not
+ * carry a claim about how a named employer vests (ADR 0005).
+ */
+export interface VestingInput {
+  /** One entry per year, in order, each a share of the whole grant in basis points. */
+  years: number[];
+  cliff_months?: number;
+}
+
+/**
+ * The part of an equity grant that is not classification: what the letter says
+ * about the shares themselves. Each field is checked here for its own shape
+ * only. Which combinations make sense is a question about the instrument, which
+ * the catalogue answers rather than the caller, so `equity.ts` settles it once
+ * the component has been classified.
+ */
+export interface EquityGrantInput {
+  /** Whether the shares have a market price at all; the whole valuation turns on it. */
+  listed: boolean;
+  units?: number;
+  /** Grant-date fair market value per unit, in whole rupees. */
+  grant_date_fair_market_value?: number;
+  /** Exercise price per unit, in whole rupees. */
+  strike?: number;
+  /** The discount a share purchase plan offers, in basis points, as the letter states it. */
+  discount_basis_points?: number;
+  vesting: VestingInput;
+}
+
 export interface OfferComponentInput {
   name: string;
   amount: number;
@@ -29,6 +74,8 @@ export interface OfferComponentInput {
   classify: ComponentClassificationInput;
   /** Months for which a one-time component may be clawed back, when the letter states one. */
   clawback_months?: number;
+  /** Present only for an equity grant; `decode.ts` holds it to the classification. */
+  equity?: EquityGrantInput;
 }
 
 export interface OfferInput {
@@ -55,7 +102,10 @@ const COMPONENT_KEYS = [
   "recurring",
   "instrument",
   "clawback_months",
+  "equity",
 ];
+const EQUITY_KEYS = ["listed", "units", "grant_date_fair_market_value", "strike", "discount_basis_points", "vesting"];
+const VESTING_KEYS = ["years", "cliff_months"];
 const INLINE_KEYS = ["certainty", "form", "recurring", "instrument"];
 
 export function validateOfferInput(raw: unknown): OfferInput {
@@ -177,6 +227,7 @@ function validateComponent(raw: unknown, path: string): OfferComponentInput {
   const amount = validateWholeRupees(component["amount"], period as Period, `${path}.amount`, "amount");
   const classify = validateClassification(component, path);
   const clawbackMonths = validateClawbackMonths(component["clawback_months"], `${path}.clawback_months`);
+  const equity = validateEquityGrant(component["equity"], `${path}.equity`);
 
   return {
     name,
@@ -184,7 +235,133 @@ function validateComponent(raw: unknown, path: string): OfferComponentInput {
     period: period as Period,
     classify,
     ...(clawbackMonths === undefined ? {} : { clawback_months: clawbackMonths }),
+    ...(equity === undefined ? {} : { equity }),
   };
+}
+
+/**
+ * The shape of an equity grant's own fields. Every figure per unit is capped
+ * like any other typed amount, and `units` with it, so that the product
+ * `equity.ts` takes of the two can be bounded without either operand having
+ * already left the safe range (ADR 0002).
+ */
+function validateEquityGrant(raw: unknown, path: string): EquityGrantInput | undefined {
+  if (raw === undefined) return undefined;
+  const grant = expectObject(raw, path, EQUITY_KEYS);
+
+  const listed = grant["listed"];
+  if (typeof listed !== "boolean") {
+    throw invalid(
+      `${path}.listed`,
+      "listed must be true or false: whether the shares have a market price is what decides whether the grant can be valued at all",
+    );
+  }
+
+  const units = validateCount(grant["units"], `${path}.units`, "units");
+  const fairMarketValue = validatePerUnitRupees(grant, "grant_date_fair_market_value", path);
+  const strike = validatePerUnitRupees(grant, "strike", path);
+  const discount = validateDiscountBasisPoints(
+    grant["discount_basis_points"],
+    `${path}.discount_basis_points`,
+  );
+
+  return {
+    listed,
+    ...(units === undefined ? {} : { units }),
+    ...(fairMarketValue === undefined ? {} : { grant_date_fair_market_value: fairMarketValue }),
+    ...(strike === undefined ? {} : { strike }),
+    ...(discount === undefined ? {} : { discount_basis_points: discount }),
+    vesting: validateVesting(grant["vesting"], `${path}.vesting`),
+  };
+}
+
+/** A price per unit: whole rupees, held to the same cap as any other typed figure. */
+function validatePerUnitRupees(
+  grant: { [key: string]: unknown },
+  field: string,
+  path: string,
+): number | undefined {
+  const raw = grant[field];
+  return raw === undefined
+    ? undefined
+    : validateWholeRupees(raw, "annual", `${path}.${field}`, field);
+}
+
+/**
+ * The schedule, echoed as typed and refused unless it accounts for the whole
+ * grant. A schedule summing to anything but 10000 basis points describes a
+ * grant the letter has not fully described, and averaging the difference away
+ * is exactly the reading ADR 0005 exists to refuse.
+ */
+function validateVesting(raw: unknown, path: string): VestingInput {
+  if (raw === undefined) {
+    throw invalid(
+      path,
+      "an equity grant must carry the vesting schedule the letter states: a grant reduced to one annual figure is the number the decoder exists to take apart",
+    );
+  }
+  const vesting = expectObject(raw, path, VESTING_KEYS);
+
+  const rawYears = vesting["years"];
+  if (!Array.isArray(rawYears) || rawYears.length === 0) {
+    throw invalid(`${path}.years`, "years must be a non-empty array of basis points, one entry per year");
+  }
+  const years = rawYears.map((share, index) => {
+    const yearPath = `${path}.years[${index}]`;
+    if (typeof share !== "number" || !Number.isInteger(share) || share < 0 || share > BASIS_POINTS_PER_UNIT) {
+      throw invalid(
+        yearPath,
+        `a year's share must be a whole number of basis points between 0 and ${BASIS_POINTS_PER_UNIT}, got ${JSON.stringify(share)}`,
+      );
+    }
+    return share;
+  });
+
+  const total = years.reduce((running, share) => running + share, 0);
+  if (total !== BASIS_POINTS_PER_UNIT) {
+    throw new DecoderError({
+      code: "vesting_schedule_not_whole",
+      message: `${path}.years: a vesting schedule must account for the whole grant, which is ${BASIS_POINTS_PER_UNIT} basis points; these ${years.length} years total ${total}`,
+      path: `${path}.years`,
+      details: { basis_points: total, expected_basis_points: BASIS_POINTS_PER_UNIT, years: years.length },
+    });
+  }
+
+  const cliffMonths = vesting["cliff_months"];
+  if (cliffMonths === undefined) return { years };
+  if (typeof cliffMonths !== "number" || !Number.isInteger(cliffMonths) || cliffMonths <= 0) {
+    throw invalid(`${path}.cliff_months`, "cliff_months must be a whole number of months greater than zero");
+  }
+  return { years, cliff_months: cliffMonths };
+}
+
+/** A count of units: whole, at least one, and bounded like a rupee figure so products of the two stay safe. */
+function validateCount(raw: unknown, path: string, label: string): number | undefined {
+  if (raw === undefined) return undefined;
+  if (typeof raw !== "number" || !Number.isInteger(raw) || raw <= 0) {
+    throw invalid(path, `${label} must be a whole number greater than zero`);
+  }
+  if (raw > RUPEE_INPUT_CAP) {
+    throw aboveCap(path, `${label} must not exceed ${RUPEE_INPUT_CAP}, got ${raw}`);
+  }
+  return raw;
+}
+
+/** A discount as the letter states it, in basis points: below the whole price, and above nothing. */
+function validateDiscountBasisPoints(raw: unknown, path: string): number | undefined {
+  if (raw === undefined) return undefined;
+  if (
+    typeof raw !== "number" ||
+    !Number.isInteger(raw) ||
+    raw <= 0 ||
+    raw >= BASIS_POINTS_PER_UNIT
+  ) {
+    throw invalid(
+      path,
+      `discount_basis_points must be a whole number of basis points between 1 and ${BASIS_POINTS_PER_UNIT - 1}, got ${JSON.stringify(raw)}`,
+    );
+  }
+  return raw;
 }
 
 /** Either a catalogue type or the axes inline, never both and never neither. */

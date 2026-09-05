@@ -33,7 +33,7 @@ export const FORMS = [
 ] as const;
 export type Form = (typeof FORMS)[number];
 
-/** Only meaningful when the form is equity. */
+/** Which equity instrument, when the form is equity, and meaningless otherwise. */
 export const INSTRUMENTS = ["rsu", "option", "espp"] as const;
 export type Instrument = (typeof INSTRUMENTS)[number];
 
@@ -42,7 +42,21 @@ export interface Classification {
   form: Form;
   /** True when the component arrives every year, false for a one-time item. */
   recurring: boolean;
+  /** Present exactly when the form is equity; `readClassification` holds both halves of that. */
   instrument?: Instrument;
+}
+
+/**
+ * What an equity valuation contributes to every other reading of the offer.
+ * The valuation itself, and the reasons behind it, are `equity.ts`'s; these are
+ * the two facts the totals need, declared here so the readings do not have to
+ * know how a grant was valued in order to leave it out of a cash figure.
+ */
+export interface EquityReading {
+  /** What the grant is held at. Nil whenever the decoder refuses to value it (ADR 0005). */
+  valued_paise: number;
+  /** True for a grant held at nil because it cannot be valued, rather than because it is worth nil. */
+  unvaluable: boolean;
 }
 
 /**
@@ -58,6 +72,8 @@ export interface ClassifiedComponent {
   classification: Classification;
   /** The catalogue entry that classified it, absent when the user classified it inline. */
   catalogue_entry?: string;
+  /** Present exactly when the form is equity; see `EquityReading`. */
+  equity?: EquityReading;
 }
 
 /**
@@ -89,12 +105,24 @@ export function readClassification(
     );
   }
 
+  // The instrument is required by the equity form and refused by every other,
+  // rather than merely allowed: it is what picks the valuation (ADR 0005), so a
+  // grant without one could not be valued, and a salary line with one would be
+  // carrying an answer to a question nobody asked of it.
   const instrument = read("instrument");
-  if (instrument === undefined) return { certainty, form, recurring };
+  if (form !== "equity") {
+    if (instrument !== undefined) {
+      throw reject(
+        "instrument",
+        `instrument names which equity instrument a grant is, so it belongs only to the equity form, not to ${form}`,
+      );
+    }
+    return { certainty, form, recurring };
+  }
   if (!isInstrument(instrument)) {
     throw reject(
       "instrument",
-      `instrument must be one of ${INSTRUMENTS.join(", ")}, got ${JSON.stringify(instrument)}`,
+      `the equity form must name an instrument: one of ${INSTRUMENTS.join(", ")}, got ${JSON.stringify(instrument)}`,
     );
   }
   return { certainty, form, recurring, instrument };

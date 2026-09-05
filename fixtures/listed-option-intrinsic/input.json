@@ -1,0 +1,19 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 2400000, "period": "annual" },
+    {
+      "name": "Stock options",
+      "type": "stock_option",
+      "amount": 3000000,
+      "period": "annual",
+      "equity": {
+        "listed": true,
+        "units": 2000,
+        "grant_date_fair_market_value": 1500,
+        "strike": 1500,
+        "vesting": { "cliff_months": 12, "years": [2500, 2500, 2500, 2500] }
+      }
+    }
+  ]
+}

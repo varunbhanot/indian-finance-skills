@@ -1,7 +1,29 @@
 {
   "financial_year": "2026-27",
   "components": [
-    { "name": "Company car lease", "type": "car_lease", "amount": 240000, "period": "annual" },
-    { "name": "RSU grant as the letter values it", "type": "rsu_grant", "amount": 800000, "period": "annual" }
+    {
+      "name": "Company car lease",
+      "type": "car_lease",
+      "amount": 240000,
+      "period": "annual"
+    },
+    {
+      "name": "RSU grant as the letter values it",
+      "type": "rsu_grant",
+      "amount": 800000,
+      "period": "annual",
+      "equity": {
+        "listed": true,
+        "vesting": {
+          "cliff_months": 12,
+          "years": [
+            2500,
+            2500,
+            2500,
+            2500
+          ]
+        }
+      }
+    }
   ]
 }

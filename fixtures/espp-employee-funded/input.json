@@ -1,0 +1,17 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 2400000, "period": "annual" },
+    {
+      "name": "Share purchase plan",
+      "type": "espp",
+      "amount": 500000,
+      "period": "annual",
+      "equity": {
+        "listed": true,
+        "discount_basis_points": 1500,
+        "vesting": { "years": [10000] }
+      }
+    }
+  ]
+}

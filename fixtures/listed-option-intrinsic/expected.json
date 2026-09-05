@@ -3,17 +3,17 @@
   "rules_file": "rules/fy2026-27.yaml",
   "components": [
     {
-      "name": "Basic salary",
+      "name": "Basic",
       "as_typed": {
         "amount": {
-          "paise": 5000000,
-          "display": "₹50,000"
+          "paise": 240000000,
+          "display": "₹24,00,000"
         },
-        "period": "monthly"
+        "period": "annual"
       },
       "annual": {
-        "paise": 60000000,
-        "display": "₹6,00,000"
+        "paise": 240000000,
+        "display": "₹24,00,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -30,253 +30,142 @@
       }
     },
     {
-      "name": "House rent allowance",
+      "name": "Stock options",
       "as_typed": {
         "amount": {
-          "paise": 2500000,
-          "display": "₹25,000"
-        },
-        "period": "monthly"
-      },
-      "annual": {
-        "paise": 30000000,
-        "display": "₹3,00,000"
-      },
-      "certainty": "guaranteed",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": true,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "hra",
-        "rules_key": "groups.components.entries.hra",
-        "basis": {
-          "kind": "judgement",
-          "rationale": "Paid with monthly salary as part of the fixed structure. Its exemption from tax is conditional on rent paid; the payment itself is not."
-        }
-      }
-    },
-    {
-      "name": "Special allowance",
-      "as_typed": {
-        "amount": {
-          "paise": 9500000,
-          "display": "₹95,000"
-        },
-        "period": "monthly"
-      },
-      "annual": {
-        "paise": 114000000,
-        "display": "₹11,40,000"
-      },
-      "certainty": "guaranteed",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": true,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "special_allowance",
-        "rules_key": "groups.components.entries.special_allowance",
-        "basis": {
-          "kind": "judgement",
-          "rationale": "The residual monthly allowance that balances a structure to its agreed fixed pay, and is paid unconditionally like the rest of it."
-        }
-      }
-    },
-    {
-      "name": "Leave travel allowance",
-      "as_typed": {
-        "amount": {
-          "paise": 6000000,
-          "display": "₹60,000"
+          "paise": 300000000,
+          "display": "₹30,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 6000000,
-        "display": "₹60,000"
-      },
-      "certainty": "guaranteed",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": true,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "lta",
-        "rules_key": "groups.components.entries.lta",
-        "basis": {
-          "kind": "judgement",
-          "rationale": "Budgeted in the annual fixed structure and paid to the employee whether or not it is claimed against travel, being taxable when unclaimed. The travel and the bills condition the exemption, not the payment."
-        }
-      }
-    },
-    {
-      "name": "Employer PF",
-      "as_typed": {
-        "amount": {
-          "paise": 2160000,
-          "display": "₹21,600"
-        },
-        "period": "annual"
-      },
-      "annual": {
-        "paise": 2160000,
-        "display": "₹21,600"
-      },
-      "certainty": "guaranteed",
-      "form": "locked-savings",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": false,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "employer_pf",
-        "rules_key": "groups.components.entries.employer_pf",
-        "basis": {
-          "kind": "statute",
-          "document": {
-            "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
-            "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
-          }
-        }
-      }
-    },
-    {
-      "name": "Gratuity provision",
-      "as_typed": {
-        "amount": {
-          "paise": 2886000,
-          "display": "₹28,860"
-        },
-        "period": "annual"
-      },
-      "annual": {
-        "paise": 2886000,
-        "display": "₹28,860"
+        "paise": 300000000,
+        "display": "₹30,00,000"
       },
       "certainty": "conditional-on-tenure",
-      "form": "deferred-cash",
-      "recurring": true,
+      "form": "equity",
+      "recurring": false,
+      "instrument": "option",
       "counts_toward_guaranteed_recurring_cash": false,
       "classified_by": {
         "kind": "catalogue",
-        "entry": "gratuity",
-        "rules_key": "groups.components.entries.gratuity",
-        "basis": {
-          "kind": "statute",
-          "document": {
-            "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
-            "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
-          }
-        }
-      }
-    },
-    {
-      "name": "Site allowance",
-      "as_typed": {
-        "amount": {
-          "paise": 12000000,
-          "display": "₹1,20,000"
-        },
-        "period": "annual"
-      },
-      "annual": {
-        "paise": 12000000,
-        "display": "₹1,20,000"
-      },
-      "certainty": "guaranteed",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": true,
-      "classified_by": {
-        "kind": "inline"
-      }
-    },
-    {
-      "name": "Performance bonus",
-      "as_typed": {
-        "amount": {
-          "paise": 40000000,
-          "display": "₹4,00,000"
-        },
-        "period": "annual"
-      },
-      "annual": {
-        "paise": 40000000,
-        "display": "₹4,00,000"
-      },
-      "certainty": "conditional-on-performance",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": false,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "variable_pay",
-        "rules_key": "groups.components.entries.variable_pay",
+        "entry": "stock_option",
+        "rules_key": "groups.components.entries.stock_option",
         "basis": {
           "kind": "judgement",
-          "rationale": "Quoted at a target and paid against an assessment of performance, so neither its occurrence nor its amount is settled by the letter. It is offered each year, and it is cash in the year it is paid."
+          "rationale": "A right to buy at a fixed strike price, exercisable only over the part of the grant that has vested. Whether exercising it is worth anything is a second question the strike settles, and the letter settles neither."
+        }
+      },
+      "equity": {
+        "listed": true,
+        "method": "intrinsic-value",
+        "valued": {
+          "paise": 0,
+          "display": "₹0"
+        },
+        "claimed": {
+          "paise": 300000000,
+          "display": "₹30,00,000"
+        },
+        "units": 2000,
+        "grant_date_fair_market_value": {
+          "paise": 150000,
+          "display": "₹1,500"
+        },
+        "strike": {
+          "paise": 150000,
+          "display": "₹1,500"
+        },
+        "assumption": "Intrinsic value at grant, held flat: the units multiplied by the amount the fair market value per unit exceeds the strike, and nil where it does not exceed it. No growth in the share price is modelled, so an option struck at or above the grant-date price is held at nil here.",
+        "vesting": {
+          "years": [
+            {
+              "year": 1,
+              "share": {
+                "bp": 2500,
+                "display": "25%"
+              }
+            },
+            {
+              "year": 2,
+              "share": {
+                "bp": 2500,
+                "display": "25%"
+              }
+            },
+            {
+              "year": 3,
+              "share": {
+                "bp": 2500,
+                "display": "25%"
+              }
+            },
+            {
+              "year": 4,
+              "share": {
+                "bp": 2500,
+                "display": "25%"
+              }
+            }
+          ],
+          "cliff_months": 12
+        },
+        "perquisite": {
+          "statement": "Shares acquired by exercising an employee stock option are a specified security transferred at a concessional rate, so the amount by which their fair market value on the date of exercise exceeds the strike price actually paid is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so that excess enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
+          "citation": {
+            "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(e), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+            "document": {
+              "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+              "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+            },
+            "retrieved": "2026-09-05",
+            "rules_key": "groups.perquisite.equity.option",
+            "note": "Section 17(4)(e) defines \"option\" as \"a right but not an obligation, granted to an employee to apply for the specified security or sweat equity shares at a predetermined price\", and section 17(4)(h) fixes the amount: \"the value of any specified security or sweat equity shares shall be the fair market value of the specified security or sweat equity shares, on the date on which the option is exercised by the assessee, as reduced by the amount actually paid by, or recovered from, the assessee in respect of such security or shares.\" The charge therefore falls on exercise and not on vesting, and it falls on the spread rather than on the whole value of the shares. Section 73(1), Table Sl. No. 4, deems the cost of acquisition to be the \"Fair market value taken into account for the purposes of the said clause\". What the Act does not settle is the fair market value itself: section 17(4)(a) leaves it to \"the value determined in accordance with the method, as may be prescribed\", and no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the perquisite therefore cannot be computed from this file, and neither the fair market value on a future exercise date nor the date itself is knowable from an offer letter."
+          }
         }
       }
     }
   ],
   "totals": {
     "headline_ctc": {
-      "paise": 267046000,
-      "display": "₹26,70,460",
+      "paise": 540000000,
+      "display": "₹54,00,000",
       "components": [
-        "Basic salary",
-        "House rent allowance",
-        "Special allowance",
-        "Leave travel allowance",
-        "Employer PF",
-        "Gratuity provision",
-        "Site allowance",
-        "Performance bonus"
+        "Basic",
+        "Stock options"
       ]
     },
     "fixed_pay": {
-      "paise": 227046000,
-      "display": "₹22,70,460",
+      "paise": 540000000,
+      "display": "₹54,00,000",
       "components": [
-        "Basic salary",
-        "House rent allowance",
-        "Special allowance",
-        "Leave travel allowance",
-        "Employer PF",
-        "Gratuity provision",
-        "Site allowance"
+        "Basic",
+        "Stock options"
       ]
     },
     "variable_pay_at_target": {
-      "paise": 40000000,
-      "display": "₹4,00,000",
-      "components": [
-        "Performance bonus"
-      ]
-    },
-    "guaranteed_recurring_cash": {
-      "paise": 222000000,
-      "display": "₹22,20,000",
-      "components": [
-        "Basic salary",
-        "House rent allowance",
-        "Special allowance",
-        "Leave travel allowance",
-        "Site allowance"
-      ]
-    },
-    "retirals": {
-      "paise": 5046000,
-      "display": "₹50,460",
-      "components": [
-        "Employer PF",
-        "Gratuity provision"
-      ]
-    },
-    "one_time_components": {
       "paise": 0,
       "display": "₹0",
       "components": []
+    },
+    "guaranteed_recurring_cash": {
+      "paise": 240000000,
+      "display": "₹24,00,000",
+      "components": [
+        "Basic"
+      ]
+    },
+    "retirals": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "one_time_components": {
+      "paise": 300000000,
+      "display": "₹30,00,000",
+      "components": [
+        "Stock options"
+      ]
     },
     "benefits_in_kind": {
       "paise": 0,
@@ -284,14 +173,18 @@
       "components": []
     },
     "equity_as_claimed": {
-      "paise": 0,
-      "display": "₹0",
-      "components": []
+      "paise": 300000000,
+      "display": "₹30,00,000",
+      "components": [
+        "Stock options"
+      ]
     },
     "equity_as_valued": {
       "paise": 0,
       "display": "₹0",
-      "components": []
+      "components": [
+        "Stock options"
+      ]
     },
     "unvaluable_equity": {
       "paise": 0,
@@ -301,15 +194,15 @@
   },
   "basic": {
     "components": [
-      "Basic salary"
+      "Basic"
     ],
     "annual": {
-      "paise": 60000000,
-      "display": "₹6,00,000"
+      "paise": 240000000,
+      "display": "₹24,00,000"
     },
     "share_of_fixed_pay": {
-      "bp": 2642,
-      "display": "26.42%"
+      "bp": 4444,
+      "display": "44.44%"
     },
     "citation": {
       "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
@@ -329,7 +222,7 @@
             "basic"
           ],
           "components": [
-            "Basic salary"
+            "Basic"
           ],
           "citation": {
             "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
@@ -380,7 +273,7 @@
             "basic"
           ],
           "components": [
-            "Basic salary"
+            "Basic"
           ],
           "citation": {
             "section": "The Payment of Gratuity Act, 1972, section 2(s)",
@@ -438,24 +331,24 @@
   },
   "sources": [
     {
-      "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
-      "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
-    },
-    {
-      "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
-      "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
     },
     {
       "title": "The Code on Wages, 2019 (No. 29 of 2019)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
     },
     {
+      "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+    },
+    {
       "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
     },
     {
-      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
-      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+      "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
     }
   ]
 }

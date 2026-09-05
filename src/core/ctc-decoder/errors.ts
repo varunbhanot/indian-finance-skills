@@ -6,6 +6,9 @@ export type DecoderErrorCode =
   | "above_cap"
   | "invalid_financial_year"
   | "unknown_financial_year"
+  | "unknown_component_type"
+  | "clawback_on_recurring_component"
+  | "rule_absent"
   | "rules_file_invalid";
 
 export interface ErrorReport<Code extends string = DecoderErrorCode> {

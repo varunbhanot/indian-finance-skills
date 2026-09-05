@@ -1,0 +1,14 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "Special allowance", "type": "special_allowance", "amount": 300000, "period": "annual" },
+    {
+      "name": "Site allowance",
+      "amount": 300000,
+      "period": "annual",
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true
+    }
+  ]
+}

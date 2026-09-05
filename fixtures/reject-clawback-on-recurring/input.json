@@ -1,0 +1,6 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "House rent allowance", "type": "hra", "amount": 600000, "period": "annual", "clawback_months": 12 }
+  ]
+}

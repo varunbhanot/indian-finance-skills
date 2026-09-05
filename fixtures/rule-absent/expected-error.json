@@ -1,0 +1,11 @@
+{
+  "error": {
+    "code": "rule_absent",
+    "message": "fixtures/rule-absent/rules/fy2026-27.yaml carries no component catalogue: the rule at groups.components is absent",
+    "path": "components[0].type",
+    "details": {
+      "rules_file": "fixtures/rule-absent/rules/fy2026-27.yaml",
+      "rules_key": "groups.components"
+    }
+  }
+}

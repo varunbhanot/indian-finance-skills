@@ -6,9 +6,11 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { listRulesFiles, loadRulesFile } from "../src/core/rules/files.ts";
+import { DEFAULT_RULES_DIRECTORY, listRulesFiles, loadRulesFile } from "../src/core/rules/files.ts";
 
-const files = listRulesFiles();
+// Named explicitly: this checks the repository's own rules, never a directory a
+// fixture or an ambient CTC_DECODER_RULES_DIR points at (ADR 0009).
+const files = listRulesFiles(DEFAULT_RULES_DIRECTORY);
 
 test("there is at least one rules file", () => {
   assert.ok(files.length > 0, "rules/ holds no fy<YYYY-YY>.yaml");

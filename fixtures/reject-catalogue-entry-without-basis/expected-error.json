@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "rules_file_invalid",
+    "message": "fixtures/reject-catalogue-entry-without-basis/rules/fy2026-27.yaml:groups.components.entries.basic an entry must carry a source, when a statute settles its classification, or a rationale, when the author does",
+    "details": {
+      "rules_file": "fixtures/reject-catalogue-entry-without-basis/rules/fy2026-27.yaml",
+      "rules_key": "groups.components.entries.basic"
+    }
+  }
+}

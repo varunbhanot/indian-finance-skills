@@ -1,7 +1,7 @@
 {
   "financial_year": "2026-27",
   "components": [
-    { "name": "Basic", "amount": 600000, "period": "annual" },
-    { "name": "HRA", "amount": 20000.5, "period": "monthly" }
+    { "name": "Basic", "type": "basic", "amount": 600000, "period": "annual" },
+    { "name": "HRA", "type": "hra", "amount": 20000.5, "period": "monthly" }
   ]
 }

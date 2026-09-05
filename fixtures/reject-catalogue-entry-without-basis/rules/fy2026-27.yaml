@@ -1,0 +1,14 @@
+# Test-only rules document, not statutory fact. Its one catalogue entry states
+# neither a statute nor a rationale, so nothing in the file says why it is
+# classified as it is. The group's own source cannot stand in for that
+# (ADR 0010), so the decoder refuses the file rather than inherit it.
+financial_year: 2026-27
+groups:
+  components:
+    source: https://example.test/component-catalogue
+    retrieved: 2026-09-05
+    entries:
+      basic:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true

@@ -11,6 +11,128 @@
 # key named `rate` or ending in `_rate`; the loader converts them to integer
 # basis points and refuses more precision than basis points can hold (ADR 0002).
 #
-# No groups yet: each is added by the ticket that sources it.
+# Groups are added by the ticket that sources them.
 financial_year: 2026-27
-groups: {}
+groups:
+  # The catalogue of offer-letter component types (ADR 0004). Each entry
+  # classifies a component on the two axes -- `certainty` (guaranteed /
+  # conditional-on-performance / conditional-on-tenure / conditional-on-liquidity)
+  # and `form` (cash-now / deferred-cash / locked-savings / equity /
+  # benefit-in-kind) -- plus a `recurring` flag, and `instrument` for an equity
+  # type. Guaranteed recurring cash is derived from the first three (guaranteed
+  # and cash-now and recurring), never listed here.
+  #
+  # Adding a component type is a change to this group alone; the decoder
+  # classifies whatever entries it finds.
+  #
+  # The group's source is what names these components as parts of a pay packet:
+  # section 2(y) of the Code on Wages defines wages and lists what an employer
+  # pays beside them -- house rent allowance, a travelling concession, bonus,
+  # commission, gratuity, and the employer's contribution to a provident or
+  # pension fund. It does not settle where any of them sits on the two axes, so
+  # every entry states its own basis and none inherits this one (ADR 0010):
+  # `source` when a statute settles the classification, `rationale` when the
+  # author does.
+  components:
+    title: The Code on Wages, 2019 (No. 29 of 2019), section 2(y)
+    source: https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf
+    retrieved: 2026-09-05
+    entries:
+      basic:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+        rationale: >-
+          The base component of the salary structure, payable monthly under the
+          terms of employment whatever the employee or the employer achieves.
+      hra:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+        rationale: >-
+          Paid with monthly salary as part of the fixed structure. Its exemption
+          from tax is conditional on rent paid; the payment itself is not.
+      special_allowance:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+        rationale: >-
+          The residual monthly allowance that balances a structure to its agreed
+          fixed pay, and is paid unconditionally like the rest of it.
+      lta:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+        rationale: >-
+          Budgeted in the annual fixed structure and paid to the employee whether
+          or not it is claimed against travel, being taxable when unclaimed. The
+          travel and the bills condition the exemption, not the payment.
+      # Sections 5 and 6: the employer's contribution is paid into a fund framed
+      # under the Act, not to the employee, so it is savings the employee cannot
+      # reach now.
+      employer_pf:
+        certainty: guaranteed
+        form: locked-savings
+        recurring: true
+        title: The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)
+        source: https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf
+      # Section 4(1): gratuity is payable only on termination of employment, and
+      # only after not less than five years of continuous service -- conditional
+      # on tenure, and deferred until the employment ends.
+      gratuity:
+        certainty: conditional-on-tenure
+        form: deferred-cash
+        recurring: true
+        title: The Payment of Gratuity Act, 1972 (No. 39 of 1972), section 4(1)
+        source: https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf
+      # Section 2(i): the National Pension System accumulates contributions in an
+      # individual pension account, so an employer contribution to it is savings
+      # rather than cash the employee receives.
+      employer_nps:
+        certainty: guaranteed
+        form: locked-savings
+        recurring: true
+        title: The Pension Fund Regulatory and Development Authority Act, 2013 (No. 23 of 2013), section 2(i)
+        source: https://www.pfrda.org.in/documents/33652/103065/PFRDA+Act+-+2013.pdf
+      variable_pay:
+        certainty: conditional-on-performance
+        form: cash-now
+        recurring: true
+        rationale: >-
+          Quoted at a target and paid against an assessment of performance, so
+          neither its occurrence nor its amount is settled by the letter. It is
+          offered each year, and it is cash in the year it is paid.
+      joining_bonus:
+        certainty: guaranteed
+        form: cash-now
+        recurring: false
+        rationale: >-
+          Promised unconditionally for joining, paid in cash, and paid once.
+      relocation:
+        certainty: guaranteed
+        form: cash-now
+        recurring: false
+        rationale: >-
+          Paid or reimbursed once for the move itself, and not repeated in later
+          years.
+      retention_bonus:
+        certainty: conditional-on-tenure
+        form: cash-now
+        recurring: false
+        rationale: >-
+          Paid once, and only if the employee is still in service on the date the
+          letter names.
+      insurance_premium:
+        certainty: guaranteed
+        form: benefit-in-kind
+        recurring: true
+        rationale: >-
+          A premium the employer pays to an insurer every year. The employee
+          receives cover, and never the money.
+      meal_card:
+        certainty: guaranteed
+        form: benefit-in-kind
+        recurring: true
+        rationale: >-
+          Loaded each month onto an instrument that can only be spent on meals,
+          so the employee receives a benefit rather than cash.

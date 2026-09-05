@@ -1,0 +1,289 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "rules/fy2026-27.yaml",
+  "components": [
+    {
+      "name": "Basic",
+      "as_typed": {
+        "amount": {
+          "paise": 120000000,
+          "display": "₹12,00,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 120000000,
+        "display": "₹12,00,000"
+      },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "basic",
+        "rules_key": "groups.components.entries.basic",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "The base component of the salary structure, payable monthly under the terms of employment whatever the employee or the employer achieves."
+        }
+      }
+    },
+    {
+      "name": "House rent allowance",
+      "as_typed": {
+        "amount": {
+          "paise": 60000000,
+          "display": "₹6,00,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 60000000,
+        "display": "₹6,00,000"
+      },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "hra",
+        "rules_key": "groups.components.entries.hra",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "Paid with monthly salary as part of the fixed structure. Its exemption from tax is conditional on rent paid; the payment itself is not."
+        }
+      }
+    },
+    {
+      "name": "Special allowance",
+      "as_typed": {
+        "amount": {
+          "paise": 45000000,
+          "display": "₹4,50,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 45000000,
+        "display": "₹4,50,000"
+      },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "special_allowance",
+        "rules_key": "groups.components.entries.special_allowance",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "The residual monthly allowance that balances a structure to its agreed fixed pay, and is paid unconditionally like the rest of it."
+        }
+      }
+    },
+    {
+      "name": "Employer PF",
+      "as_typed": {
+        "amount": {
+          "paise": 14400000,
+          "display": "₹1,44,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 14400000,
+        "display": "₹1,44,000"
+      },
+      "certainty": "guaranteed",
+      "form": "locked-savings",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "employer_pf",
+        "rules_key": "groups.components.entries.employer_pf",
+        "basis": {
+          "kind": "statute",
+          "source": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+        }
+      }
+    },
+    {
+      "name": "Gratuity",
+      "as_typed": {
+        "amount": {
+          "paise": 5772000,
+          "display": "₹57,720"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 5772000,
+        "display": "₹57,720"
+      },
+      "certainty": "conditional-on-tenure",
+      "form": "deferred-cash",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "gratuity",
+        "rules_key": "groups.components.entries.gratuity",
+        "basis": {
+          "kind": "statute",
+          "source": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+        }
+      }
+    },
+    {
+      "name": "Performance bonus",
+      "as_typed": {
+        "amount": {
+          "paise": 30000000,
+          "display": "₹3,00,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 30000000,
+        "display": "₹3,00,000"
+      },
+      "certainty": "conditional-on-performance",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "variable_pay",
+        "rules_key": "groups.components.entries.variable_pay",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "Quoted at a target and paid against an assessment of performance, so neither its occurrence nor its amount is settled by the letter. It is offered each year, and it is cash in the year it is paid."
+        }
+      }
+    },
+    {
+      "name": "Joining bonus",
+      "as_typed": {
+        "amount": {
+          "paise": 20000000,
+          "display": "₹2,00,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 20000000,
+        "display": "₹2,00,000"
+      },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": false,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "joining_bonus",
+        "rules_key": "groups.components.entries.joining_bonus",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "Promised unconditionally for joining, paid in cash, and paid once."
+        }
+      }
+    },
+    {
+      "name": "Group medical premium",
+      "as_typed": {
+        "amount": {
+          "paise": 2400000,
+          "display": "₹24,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 2400000,
+        "display": "₹24,000"
+      },
+      "certainty": "guaranteed",
+      "form": "benefit-in-kind",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "insurance_premium",
+        "rules_key": "groups.components.entries.insurance_premium",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "A premium the employer pays to an insurer every year. The employee receives cover, and never the money."
+        }
+      }
+    }
+  ],
+  "totals": {
+    "headline_ctc": {
+      "paise": 297572000,
+      "display": "₹29,75,720",
+      "components": [
+        "Basic",
+        "House rent allowance",
+        "Special allowance",
+        "Employer PF",
+        "Gratuity",
+        "Performance bonus",
+        "Joining bonus",
+        "Group medical premium"
+      ]
+    },
+    "fixed_pay": {
+      "paise": 267572000,
+      "display": "₹26,75,720",
+      "components": [
+        "Basic",
+        "House rent allowance",
+        "Special allowance",
+        "Employer PF",
+        "Gratuity",
+        "Joining bonus",
+        "Group medical premium"
+      ]
+    },
+    "variable_pay_at_target": {
+      "paise": 30000000,
+      "display": "₹3,00,000",
+      "components": [
+        "Performance bonus"
+      ]
+    },
+    "guaranteed_recurring_cash": {
+      "paise": 225000000,
+      "display": "₹22,50,000",
+      "components": [
+        "Basic",
+        "House rent allowance",
+        "Special allowance"
+      ]
+    },
+    "retirals": {
+      "paise": 20172000,
+      "display": "₹2,01,720",
+      "components": [
+        "Employer PF",
+        "Gratuity"
+      ]
+    },
+    "one_time_components": {
+      "paise": 20000000,
+      "display": "₹2,00,000",
+      "components": [
+        "Joining bonus"
+      ]
+    },
+    "benefits_in_kind": {
+      "paise": 2400000,
+      "display": "₹24,000",
+      "components": [
+        "Group medical premium"
+      ]
+    }
+  }
+}

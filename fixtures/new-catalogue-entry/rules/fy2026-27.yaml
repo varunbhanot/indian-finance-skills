@@ -1,0 +1,21 @@
+# Test-only rules document, not statutory fact. It carries two catalogue entries
+# that rules/fy2026-27.yaml does not have: a benefit in kind, and an equity grant
+# with an instrument. The decoder classifies both from this file alone, which is
+# what "adding a catalogue entry is a rules-file change only" (ADR 0004) means.
+financial_year: 2026-27
+groups:
+  components:
+    source: https://example.test/component-catalogue
+    retrieved: 2026-09-05
+    entries:
+      car_lease:
+        certainty: guaranteed
+        form: benefit-in-kind
+        recurring: true
+        rationale: A car the employer leases and the employee uses; never cash to the employee.
+      rsu_grant:
+        certainty: conditional-on-tenure
+        form: equity
+        recurring: false
+        instrument: rsu
+        rationale: A single grant of restricted stock units, vesting only while employed.

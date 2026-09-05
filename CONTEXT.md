@@ -57,7 +57,10 @@ target is not the payout.
 so its share of the package changes outcomes well beyond its own value.
 
 **Retirals** — employer contributions counted in CTC but not received as cash
-now: employer PF, gratuity provision, employer NPS.
+now: employer PF, gratuity provision, employer NPS. The decoder derives the
+retirals total from the classification rather than that list — everything
+counted in CTC that is not cash now — so a deferred or locked-away component
+outside the three joins it.
 
 **Take-home** — cash reaching the bank account each month, after employee PF,
 professional tax and TDS. **In-hand** is the colloquial synonym; take-home is

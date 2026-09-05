@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "unknown_component_type",
+    "message": "components[1].type: rules/fy2026-27.yaml has no component catalogue entry for \"car_lease\"; give certainty, form and recurring inline instead",
+    "path": "components[1].type",
+    "details": {
+      "type": "car_lease",
+      "rules_file": "rules/fy2026-27.yaml",
+      "rules_key": "groups.components.entries"
+    }
+  }
+}

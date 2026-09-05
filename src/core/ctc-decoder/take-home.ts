@@ -5,15 +5,17 @@
  * "Steady state" is what makes this derivable rather than listed. Every figure
  * is built from recurring cash-now components — the ones the employee sees
  * again next year — so a one-time joining bonus, a retiral, a benefit in kind
- * and an equity grant are all outside it, and each is named in `excludes`
- * rather than quietly dropped.
+ * and an equity grant are all outside it. That is one of the conditions
+ * `assumes` states, alongside the other two things that have to be true for
+ * these figures to be the right ones: that the new regime applies, and that
+ * the taxpayer is a resident individual (the rules file's rebate needs one).
  *
- * `excludes` carries names and nothing else. What each exclusion means, and
- * what it costs the reader, is the skill's to say: the core classifies, the
- * skill narrates (CLAUDE.md's two-layer rule). The caveats that are statutory
- * — that the rebate needs a resident individual, that the rules file's rebate
- * has a marginal relief this does not compute — travel instead as the `note` on
- * the citation beside the figure they qualify, sourced rather than recalled.
+ * `excludes` is a different list: facts about a steady-state year that this
+ * estimate does not compute even though they could apply to one (spec #9).
+ * Both lists carry names and nothing else. What each one means, and what it
+ * costs the reader, is the skill's to say (CLAUDE.md's two-layer rule); a
+ * caveat that is itself statutory, rather than a fact about this computation,
+ * travels as the `note` on the citation beside the figure it qualifies instead.
  */
 import { annualise, applyRate, money, perMonth, rate, rupeesToPaise, type Money, type Rate } from "../money.ts";
 import type { Classification } from "./classification.ts";
@@ -85,6 +87,8 @@ export interface TakeHomeOnBasis {
 export interface TakeHome {
   regime: "new";
   bases: TakeHomeOnBasis[];
+  /** What has to be true for these figures to be the right ones, by name. */
+  assumes: string[];
   /** What this estimate does not attempt, by name, for the skill to narrate. */
   excludes: string[];
 }
@@ -131,8 +135,20 @@ export function takeHomeFor(
     };
   });
 
-  return { regime: "new", bases, excludes: excludesFor(request) };
+  return { regime: "new", bases, assumes: [...ASSUMES], excludes: excludesFor(request) };
 }
+
+/**
+ * Named, not explained: spec #9 asks only that the estimate's conditions be
+ * stated, and every reason behind them is already sourced elsewhere — the
+ * rebate's residency requirement in its own citation's `note`, the rest in this
+ * module's own doc comment above.
+ */
+const ASSUMES: readonly string[] = [
+  "The new regime",
+  "A resident individual",
+  "Steady state: no one-time component",
+];
 
 /**
  * The employee's own provident fund contribution: the rules' employee rate on
@@ -161,7 +177,7 @@ function employeePfFor(
   const wage = capped ? ceilingAnnual : fullWage;
 
   const rateNode = epf.child("employee_rate");
-  const basisPoints = rateNode.rate("rate");
+  const basisPoints = rateNode.rateBasisPoints("rate");
 
   return {
     basis,
@@ -184,8 +200,9 @@ function employeePfFor(
 }
 
 /**
- * The professional tax entry appears only when the user did not type one, since
- * a typed figure is in the breakdown instead.
+ * Spec #9's five named exclusions. The professional tax entry appears only
+ * when the user did not type one, since a typed figure is in the breakdown
+ * instead.
  */
 function excludesFor(request: TakeHomeRequest): string[] {
   return [
@@ -194,10 +211,6 @@ function excludesFor(request: TakeHomeRequest): string[] {
     "Employer NPS deduction",
     ...(request.professional_tax === undefined ? ["Professional tax"] : []),
     "Perquisite tax on vesting equity",
-    "Surcharge",
-    "Marginal relief on the rebate",
-    "One-time components",
-    "Benefits in kind and retirals",
   ];
 }
 

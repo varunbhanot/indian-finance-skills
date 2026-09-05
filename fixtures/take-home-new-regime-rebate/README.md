@@ -13,9 +13,9 @@ mixes monthly and annual components, which the input contract allows.
 
 The target basis is deliberately well clear of the threshold. Between
 ₹12,00,000 and about ₹12,70,590 of total income the rules file's rebate carries
-a marginal relief the decoder does not yet compute (issue #12; named in
-`excludes`), so a fixture landing in that band would assert a figure the
-decoder already knows to be too high.
+a marginal relief the decoder does not yet compute (issue #12), so a fixture
+landing in that band would assert a figure the decoder already knows to be too
+high.
 
 ## External cross-check
 

@@ -19,6 +19,11 @@ import type { RulesFile } from "../rules/files.ts";
 import type { RulesValue } from "../rules/loader.ts";
 import { DecoderError } from "./errors.ts";
 
+/** A type guard the catalogue reader shares, so "is this a nested map" is asked one way. */
+export function isRulesMap(value: RulesValue | undefined): value is { [key: string]: RulesValue } {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 /** Where a figure came from, carried into the output beside the figure itself. */
 export interface Citation {
   /** The provision in force for this financial year, as the rules file states it. */
@@ -80,7 +85,7 @@ export class RulesNode {
 
   asInteger(): number {
     if (typeof this.value !== "number" || !Number.isInteger(this.value)) {
-      throw invalid(this.file, this.key, "expected a whole number");
+      throw rulesFileInvalid(this.file, this.key, "expected a whole number");
     }
     return this.value;
   }
@@ -89,11 +94,14 @@ export class RulesNode {
    * Integer basis points. The loader converted the decimal fraction in the file
    * (ADR 0008), so this only checks the key was written as a rate at all: a
    * plain integer here would mean someone wrote `12` where `0.12` was meant.
+   * Named apart from `money.ts`'s `rate()` (which turns basis points into the
+   * `{ bp, display }` the output carries): this one reads the raw integer, that
+   * one produces the display pair, and the two are usually called back to back.
    */
-  rate(name: string): number {
+  rateBasisPoints(name: string): number {
     const node = this.child(name);
     if (!isRateKey(name)) {
-      throw invalid(
+      throw rulesFileInvalid(
         this.file,
         node.key,
         "a rate must be written under a key named rate or ending in _rate, so the loader reads it as basis points",
@@ -108,7 +116,7 @@ export class RulesNode {
 
   asText(): string {
     if (typeof this.value !== "string" || this.value.trim() === "") {
-      throw invalid(this.file, this.key, "expected a non-empty string");
+      throw rulesFileInvalid(this.file, this.key, "expected a non-empty string");
     }
     return this.value;
   }
@@ -117,7 +125,7 @@ export class RulesNode {
   items(name: string): RulesNode[] {
     const node = this.child(name);
     if (!Array.isArray(node.value)) {
-      throw invalid(this.file, node.key, "expected a list");
+      throw rulesFileInvalid(this.file, node.key, "expected a list");
     }
     return node.value.map((item, index) => new RulesNode(this.file, `${node.key}[${index}]`, item));
   }
@@ -131,7 +139,7 @@ export class RulesNode {
   citation(): Citation {
     const source = this.text("source");
     if (!source.startsWith("https://")) {
-      throw invalid(this.file, `${this.key}.source`, "source must be an https URL");
+      throw rulesFileInvalid(this.file, `${this.key}.source`, "source must be an https URL");
     }
     const note = this.optionalChild("note");
     return {
@@ -144,8 +152,8 @@ export class RulesNode {
   }
 
   private map(): { [key: string]: RulesValue } {
-    if (typeof this.value !== "object" || this.value === null || Array.isArray(this.value)) {
-      throw invalid(this.file, this.key, "expected a map of named values");
+    if (!isRulesMap(this.value)) {
+      throw rulesFileInvalid(this.file, this.key, "expected a map of named values");
     }
     return this.value;
   }
@@ -163,7 +171,8 @@ function absent(file: RulesFile, rulesKey: string): DecoderError {
   });
 }
 
-function invalid(file: RulesFile, rulesKey: string, message: string): DecoderError {
+/** A malformed rules value, wherever in the file it sits. Shared with `catalogue.ts`, so the two readers refuse a bad value in one voice. */
+export function rulesFileInvalid(file: RulesFile, rulesKey: string, message: string): DecoderError {
   return new DecoderError({
     code: "rules_file_invalid",
     message: `${file.path}:${rulesKey} ${message}`,

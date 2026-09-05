@@ -91,7 +91,7 @@ export function incomeTaxFor(
   const taxAfterRebate = taxBeforeRebate - rebateAmount;
 
   const cessNode = incomeTax.child("cess");
-  const cessRate = cessNode.rate("rate");
+  const cessRate = cessNode.rateBasisPoints("rate");
   const cess = applyRate(taxAfterRebate, cessRate);
 
   return {
@@ -137,7 +137,7 @@ function chargesFor(totalIncome: number, slabs: RulesNode): SlabCharge[] {
     const upto = uptoRupees === undefined ? undefined : rupeesToPaise(uptoRupees.asInteger());
     const ceiling = upto === undefined ? totalIncome : atMost(upto, totalIncome);
     const inBand = ceiling > from ? ceiling - from : 0;
-    const basisPoints = band.rate("rate");
+    const basisPoints = band.rateBasisPoints("rate");
     charges.push({
       from: money(from),
       ...(upto === undefined ? {} : { upto: money(upto) }),

@@ -110,12 +110,15 @@ function rejectTotalAboveCap(components: readonly OfferComponentInput[]): void {
     0,
   );
   if (total <= CAP_PAISE) return;
-  throw new DecoderError({
-    code: "above_cap",
-    message: `the components add up to ${formatIndianRupees(total)} a year, above the ${formatIndianRupees(CAP_PAISE)} the decoder accepts`,
-    path: "components",
-    details: { cap_rupees: RUPEE_INPUT_CAP },
-  });
+  throw aboveCap(
+    "components",
+    `the components add up to ${formatIndianRupees(total)} a year, above the ${formatIndianRupees(CAP_PAISE)} the decoder accepts`,
+  );
+}
+
+/** The one shape of an `above_cap` rejection, whatever figure exceeded it. */
+function aboveCap(path: string, message: string): DecoderError {
+  return new DecoderError({ code: "above_cap", message, path, details: { cap_rupees: RUPEE_INPUT_CAP } });
 }
 
 /**
@@ -256,15 +259,12 @@ function validateWholeRupees(raw: unknown, period: Period, path: string, label: 
   if (annualPaise > CAP_PAISE) {
     const typed = formatIndianRupees(rupeesToPaise(raw));
     const annual = formatIndianRupees(annualPaise);
-    throw new DecoderError({
-      code: "above_cap",
-      message:
-        period === "monthly"
-          ? `${label} must not exceed ${formatIndianRupees(CAP_PAISE)} a year; ${typed} monthly is ${annual} a year`
-          : `${label} must not exceed ${formatIndianRupees(CAP_PAISE)}, got ${typed}`,
+    throw aboveCap(
       path,
-      details: { cap_rupees: RUPEE_INPUT_CAP },
-    });
+      period === "monthly"
+        ? `${label} must not exceed ${formatIndianRupees(CAP_PAISE)} a year; ${typed} monthly is ${annual} a year`
+        : `${label} must not exceed ${formatIndianRupees(CAP_PAISE)}, got ${typed}`,
+    );
   }
   return raw;
 }

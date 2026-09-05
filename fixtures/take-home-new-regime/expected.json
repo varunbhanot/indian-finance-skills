@@ -958,16 +958,17 @@
         }
       }
     ],
+    "assumes": [
+      "The new regime",
+      "A resident individual",
+      "Steady state: no one-time component"
+    ],
     "excludes": [
       "HRA exemption",
       "Chapter VI-A deductions",
       "Employer NPS deduction",
       "Professional tax",
-      "Perquisite tax on vesting equity",
-      "Surcharge",
-      "Marginal relief on the rebate",
-      "One-time components",
-      "Benefits in kind and retirals"
+      "Perquisite tax on vesting equity"
     ]
   }
 }

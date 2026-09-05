@@ -25,11 +25,12 @@
  * position reads as a preference (ADR 0007, spec #11).
  */
 import { annualise, applyRate, money, perMonth, rate, rupeesToPaise, type Money, type Rate } from "../money.ts";
-import type { Classification } from "./classification.ts";
+import type { ClassifiedComponent } from "./classification.ts";
 import { incomeTaxFor, type IncomeTax, type Regime } from "./income-tax.ts";
 import { rulesGroup, type Citation, type RulesNode } from "./rules-reader.ts";
 import type { RulesFile } from "../rules/files.ts";
 import { countsTowardGuaranteedRecurringCash, countsTowardRecurringCashAtTarget } from "./totals.ts";
+import { wageBaseFor } from "./wage-base.ts";
 
 const REGIMES: readonly Regime[] = ["new", "old"];
 
@@ -42,15 +43,6 @@ export interface TakeHomeRequest {
   pf_wage_base: PfWageBase;
   /** Annual professional tax in whole rupees, when the user knows their state's figure. */
   professional_tax?: number;
-}
-
-/** A decoded component reduced to what take-home needs. */
-export interface TakeHomeComponent {
-  name: string;
-  annual_paise: number;
-  classification: Classification;
-  /** The catalogue entry that classified it, absent when the user classified it inline. */
-  catalogue_entry?: string;
 }
 
 /** A figure and the period it belongs to, both stated, never one inferred from the other. */
@@ -108,7 +100,7 @@ export interface TakeHome {
 }
 
 export function takeHomeFor(
-  components: readonly TakeHomeComponent[],
+  components: readonly ClassifiedComponent[],
   request: TakeHomeRequest,
   rules: RulesFile,
 ): TakeHome {
@@ -134,7 +126,7 @@ export function takeHomeFor(
 
   // Closes over the rules groups and the two non-tax deductions, which every
   // basis of every regime shares; only the basis and the regime vary.
-  function basisFor(basis: TakeHomeOnBasis["basis"], counted: readonly TakeHomeComponent[], regime: Regime): TakeHomeOnBasis {
+  function basisFor(basis: TakeHomeOnBasis["basis"], counted: readonly ClassifiedComponent[], regime: Regime): TakeHomeOnBasis {
     const gross = sum(counted);
     const tax = incomeTaxFor(gross, incomeTax, rounding, regime);
     const total =
@@ -184,41 +176,33 @@ function assumesFor(regime: Regime): string[] {
 
 /**
  * The employee's own provident fund contribution: the rules' employee rate on
- * the wage the rules name as its base, either in full or capped at the
- * statutory ceiling, per the caller's typed choice. The rules file says which
- * catalogue entries make up that wage, so no component type is named here
- * (ADR 0004).
+ * the wage the rules name as its base (`wage-base.ts`), either in full or
+ * capped at the statutory ceiling, per the caller's typed choice.
  */
 function employeePfFor(
-  components: readonly TakeHomeComponent[],
+  components: readonly ClassifiedComponent[],
   basis: PfWageBase,
   epf: RulesNode,
 ): EmployeePf {
-  const wageNode = epf.child("wage_components");
-  const wageEntries = new Set(wageNode.strings("entries"));
-  const included = components.filter(
-    (component) =>
-      component.catalogue_entry !== undefined && wageEntries.has(component.catalogue_entry),
-  );
-  const fullWage = sum(included);
+  const wage = wageBaseFor(components, epf.child("wage_components"));
 
   const ceilingNode = epf.child("wage_ceiling");
   const ceilingMonthly = rupeesToPaise(ceilingNode.integer("monthly_rupees"));
   const ceilingAnnual = annualise(ceilingMonthly, "monthly");
-  const capped = basis === "statutory_ceiling" && fullWage > ceilingAnnual;
-  const wage = capped ? ceilingAnnual : fullWage;
+  const capped = basis === "statutory_ceiling" && wage.annual_paise > ceilingAnnual;
+  const wagePaise = capped ? ceilingAnnual : wage.annual_paise;
 
   const rateNode = epf.child("employee_rate");
   const basisPoints = rateNode.rateBasisPoints("rate");
 
   return {
     basis,
-    contribution: periodic(applyRate(wage, basisPoints)),
-    wage: periodic(wage),
-    wage_components: included.map((component) => component.name),
+    contribution: periodic(applyRate(wagePaise, basisPoints)),
+    wage: periodic(wagePaise),
+    wage_components: wage.base.components,
     rate: rate(basisPoints),
     rate_citation: rateNode.citation(),
-    wage_citation: wageNode.citation(),
+    wage_citation: wage.base.citation,
     ...(basis === "statutory_ceiling"
       ? {
           ceiling: {
@@ -254,7 +238,7 @@ function excludesFor(request: TakeHomeRequest, regime: Regime): string[] {
   ];
 }
 
-function sum(components: readonly TakeHomeComponent[]): number {
+function sum(components: readonly ClassifiedComponent[]): number {
   return components.reduce((running, component) => running + component.annual_paise, 0);
 }
 

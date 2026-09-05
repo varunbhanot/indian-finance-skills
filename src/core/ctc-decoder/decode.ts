@@ -18,7 +18,13 @@ import {
   type ComponentCatalogue,
 } from "./catalogue.ts";
 import { basicFor, type Basic } from "./basic.ts";
-import type { Certainty, Classification, Form, Instrument } from "./classification.ts";
+import type {
+  Certainty,
+  Classification,
+  ClassifiedComponent,
+  Form,
+  Instrument,
+} from "./classification.ts";
 import { DecoderError } from "./errors.ts";
 import { validateOfferInput, type OfferComponentInput } from "./input.ts";
 import type { Source } from "./rules-reader.ts";
@@ -74,9 +80,10 @@ export function decode(raw: unknown): DecodedOffer {
     decodeComponent(component, `components[${index}]`, rules, catalogue),
   );
 
-  // One shape travels from the classification to every reading of the offer:
-  // what it is worth, what it is, and which catalogue entry said so.
-  const totallable = decoded.map((one) => ({
+  // The one shape every reading of the offer takes (`ClassifiedComponent`):
+  // built once, and passed whole rather than taken apart and reassembled per
+  // reading, which is how a field added to it reaches every reading at once.
+  const classified: ClassifiedComponent[] = decoded.map((one) => ({
     name: one.component.name,
     annual_paise: one.component.annual.paise,
     classification: one.classification,
@@ -85,11 +92,8 @@ export function decode(raw: unknown): DecodedOffer {
       : {}),
   }));
 
-  // The classification travels whole from the reader to the totals; it is never
-  // taken apart and put back together, which is how a field added to it reaches
-  // the totals without anyone remembering to copy it across.
-  const totals = totalsFor(totallable);
-  const basic = basicFor(totallable, totals.fixed_pay.paise, rules);
+  const totals = totalsFor(classified);
+  const basic = basicFor(classified, totals.fixed_pay.paise, rules);
 
   const decodedOffer = {
     financial_year: input.financial_year,
@@ -99,7 +103,7 @@ export function decode(raw: unknown): DecodedOffer {
     ...(basic === undefined ? {} : { basic }),
     ...(input.take_home === undefined
       ? {}
-      : { take_home: takeHomeFor(totallable, input.take_home, rules) }),
+      : { take_home: takeHomeFor(classified, input.take_home, rules) }),
   };
   // Last, and over the whole of it: the sources are a reading of the output, so
   // they are collected once it exists rather than gathered along the way.

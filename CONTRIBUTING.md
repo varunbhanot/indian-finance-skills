@@ -9,7 +9,9 @@
 
 ## Running the core
 
-Node 22.18 or later, then `npm install`. There is no build step.
+Node 22.18 or later, then `npm install`. There is no build step. In a Claude
+Code session on the web that install runs for you, from
+`.claude/hooks/session-start.sh`.
 
 ```
 npm run ctc-decoder -- '{"financial_year":"2026-27","components":[{"name":"Basic","type":"basic","amount":600000,"period":"annual"}]}'

@@ -170,6 +170,46 @@ A grant whose `method` is `unvaluable` or `employee-funded` is held at nil and
 must still be named, with its claimed value beside it and the reason from its
 `assumption` (ADR 0005). Never let a nil valuation become silence.
 
+Then `year_by_year`, which is the same package written out over
+`years_covered` years instead of averaged into one. Take one basis at a time and
+say which it is: `variable-pay-at-zero` counts no variable pay, and
+`variable-pay-at-target` counts it at the quoted target.
+
+- Say `year_one.display` and `average.with_one_time.display` next to each other
+  and stop. That pair is the whole reading, and like every other pair the
+  distance between them is not a figure the tool emitted.
+- Then the rows, each by its `year` and `total.display`, and the columns it is
+  made of — `guaranteed_recurring_cash`, `variable_pay_at_target`, `one_time`,
+  `equity_as_valued` — each by its own `display`.
+- `total` is the total of those four columns and is **not** the headline CTC.
+  Say so. Retirals, benefits in kind and a grant with no schedule are outside
+  this table on purpose; they are in `totals`, and they arrive on the same terms
+  in every year, which is why the table that shows what separates the years
+  leaves them out.
+- `equity_as_claimed` sits beside `equity_as_valued` in every row, on the two
+  bases `totals` already uses. Say both.
+- Then the averages. `average.with_one_time` is a fact about the table and is
+  never a recurring figure: it holds the components in
+  `average.one_time_components`, which arrive once. Name them when you say it,
+  and say `average.without_one_time.display` beside it as the same average with
+  those components out. A one-time item is never averaged into a recurring
+  figure without being named (CONTEXT.md).
+
+Then `year_by_year.grants`, one per equity line, each by `name` and each year's
+`share.display`, `as_valued.display` and `as_claimed.display`. A grant with
+`unvaluable: true` is ₹0 in every `as_valued` and keeps every `as_claimed`: say
+both columns, and give the reason from the grant's own `assumption`.
+
+`cliff_months`, where a grant carries it, is the months before which nothing
+vests at all. Say that: an employee leaving inside those months takes none of
+the first vest, whatever the row for year one says. Then say the thing the rows
+already show — the cliff moved no value between the years, and the schedule is
+the one the letter states. The core carries the months; the sentence is yours.
+
+A grant with an empty `years` list has no schedule to spread — a share purchase
+plan is the case — so say it is named here and vests nothing, rather than
+letting it drop out of the table in silence.
+
 Then `basic`, when the output carries it: `share_of_fixed_pay.display` beside
 `totals.fixed_pay.display` and `basic.annual.display`. Name the lines on both
 sides of it — `basic.components` above the line, `totals.fixed_pay.components`
@@ -212,6 +252,5 @@ JSON, and a percentage, share or difference exists only once the tool has
 emitted it.
 
 End on the facts and the links. This skill does not yet gather the one thing
-take-home needs (`pf_wage_base`), so the output carries no `take_home` block;
-the year-by-year view of a package is not in the output at all. When asked for
-either, say which of the two it is.
+take-home needs (`pf_wage_base`), so the output carries no `take_home` block.
+When asked for a monthly in-hand figure, say that is what is missing.

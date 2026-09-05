@@ -13,6 +13,7 @@
  * only thing that reads one, so the two boundaries cannot drift apart or
  * disagree about what the axis values are.
  */
+import type { Rate } from "../money.ts";
 
 /** How sure the employee is of receiving the component at all. */
 export const CERTAINTIES = [
@@ -47,16 +48,41 @@ export interface Classification {
 }
 
 /**
+ * One year of a vesting schedule, as the letter states it: the year's number and
+ * its share of the grant. Declared here rather than beside the valuation because
+ * both sides need one shape for it — the valuation echoes the schedule back, and
+ * the year-by-year reading spreads the grant over it — and a second declaration
+ * is how the two would come to disagree about what a year is.
+ */
+export interface VestingYear {
+  year: number;
+  share: Rate;
+}
+
+export interface Vesting {
+  years: VestingYear[];
+  /** Months before which nothing vests, present only where the letter states one. */
+  cliff_months?: number;
+}
+
+/**
  * What an equity valuation contributes to every other reading of the offer.
  * The valuation itself, and the reasons behind it, are `equity.ts`'s; these are
- * the two facts the totals need, declared here so the readings do not have to
- * know how a grant was valued in order to leave it out of a cash figure.
+ * the facts the other readings need, declared here so they do not have to know
+ * how a grant was valued in order to leave it out of a cash figure or spread it
+ * over its years.
  */
 export interface EquityReading {
   /** What the grant is held at. Nil whenever the decoder refuses to value it (ADR 0005). */
   valued_paise: number;
   /** True for a grant held at nil because it cannot be valued, rather than because it is worth nil. */
   unvaluable: boolean;
+  /**
+   * The schedule as typed, absent only for an instrument with nothing to vest.
+   * Carried rather than divided into here: what a year of it is worth is the
+   * year-by-year reading's to say, and this is the schedule it says it from.
+   */
+  vesting?: Vesting;
 }
 
 /**

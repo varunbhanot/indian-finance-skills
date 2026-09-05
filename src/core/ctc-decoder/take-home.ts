@@ -29,7 +29,7 @@ import type { ClassifiedComponent } from "./classification.ts";
 import { incomeTaxFor, type IncomeTax, type Regime } from "./income-tax.ts";
 import { rulesGroup, type Citation, type RulesNode } from "./rules-reader.ts";
 import type { RulesFile } from "../rules/files.ts";
-import { countsTowardGuaranteedRecurringCash, countsTowardRecurringCashAtTarget } from "./totals.ts";
+import { BASES, type Basis } from "./totals.ts";
 import { wageBaseFor } from "./wage-base.ts";
 
 const REGIMES: readonly Regime[] = ["new", "old"];
@@ -68,7 +68,7 @@ export interface EmployeePf {
 }
 
 export interface TakeHomeOnBasis {
-  basis: "variable-pay-at-zero" | "variable-pay-at-target";
+  basis: Basis;
   /**
    * The recurring cash the tax is computed on. On the zero basis this is
    * exactly CONTEXT.md's *guaranteed recurring cash*, and equals the total of
@@ -116,17 +116,14 @@ export function takeHomeFor(
 
   // The recurring cash on each basis is the same whatever regime taxes it, so
   // it is derived once and every regime's bases are built from this.
-  const grossByBasis = [
-    { basis: "variable-pay-at-zero" as const, included: countsTowardGuaranteedRecurringCash },
-    { basis: "variable-pay-at-target" as const, included: countsTowardRecurringCashAtTarget },
-  ].map(({ basis, included }) => ({
+  const grossByBasis = BASES.map(({ basis, counts }) => ({
     basis,
-    counted: components.filter((component) => included(component.classification)),
+    counted: components.filter((component) => counts(component.classification)),
   }));
 
   // Closes over the rules groups and the two non-tax deductions, which every
   // basis of every regime shares; only the basis and the regime vary.
-  function basisFor(basis: TakeHomeOnBasis["basis"], counted: readonly ClassifiedComponent[], regime: Regime): TakeHomeOnBasis {
+  function basisFor(basis: Basis, counted: readonly ClassifiedComponent[], regime: Regime): TakeHomeOnBasis {
     const gross = sum(counted);
     const tax = incomeTaxFor(gross, incomeTax, rounding, regime);
     const total =

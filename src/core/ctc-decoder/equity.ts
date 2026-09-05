@@ -20,14 +20,15 @@
  * is not here at all; it is read from `groups.perquisite.equity`, keyed by
  * instrument, and carried through untouched.
  *
- * Nothing here values a *vesting year*. The schedule is echoed as typed, and
- * dividing a grant across it would reproduce the misleading annual number the
+ * Nothing here values a *vesting year*. The schedule is echoed as typed; what a
+ * year of it is worth is `year-by-year.ts`'s, which spreads the grant across the
+ * years the letter names rather than reproducing the flat annual number the
  * decoder exists to take apart.
  */
 import { divideWithRemainder } from "../arithmetic.ts";
 import { money, rate, rupeesToPaise, RUPEE_INPUT_CAP, type Money, type Rate } from "../money.ts";
 import type { RulesFile } from "../rules/files.ts";
-import type { EquityReading, Instrument } from "./classification.ts";
+import type { EquityReading, Instrument, Vesting } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
 import type { EquityGrantInput, VestingInput } from "./input.ts";
 import { rulesGroup, type Citation } from "./rules-reader.ts";
@@ -39,18 +40,6 @@ export type ValuationMethod =
   | "intrinsic-value"
   | "unvaluable"
   | "employee-funded";
-
-/** One year of the schedule, as the letter states it: the year's number and its share of the grant. */
-export interface VestingYear {
-  year: number;
-  share: Rate;
-}
-
-export interface Vesting {
-  years: VestingYear[];
-  /** Months before which nothing vests, present only where the letter states one. */
-  cliff_months?: number;
-}
 
 /** That the value is taxed as salary, in the rules file's words and on its authority. */
 export interface Perquisite {
@@ -128,9 +117,13 @@ export function valueGrant(
   };
 }
 
-/** What the totals need from a valuation; the rest of it is for the reader. */
+/** What the other readings need from a valuation; the rest of it is for the reader. */
 export function readingOf(grant: EquityGrant): EquityReading {
-  return { valued_paise: grant.valued.paise, unvaluable: grant.method === "unvaluable" };
+  return {
+    valued_paise: grant.valued.paise,
+    unvaluable: grant.method === "unvaluable",
+    ...(grant.vesting === undefined ? {} : { vesting: grant.vesting }),
+  };
 }
 
 /**

@@ -94,6 +94,12 @@ retirals total from the classification rather than that list — everything
 counted in CTC that is not cash now — so a deferred or locked-away component
 outside the three joins it.
 
+**Year one against the average** — the package written out over each year it
+covers, set beside the multi-year figure the letter averages it into. Year one
+is the first row of that table; the average is over the same rows. A back-loaded
+grant or a joining bonus opens a gap between the two, and the gap is the reading
+— it is never itself a figure the decoder emits.
+
 **Take-home** — cash reaching the bank account each month, after employee PF,
 professional tax and TDS. **In-hand** is the colloquial synonym; take-home is
 the canonical term, and both are always stated with an explicit period, since

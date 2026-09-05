@@ -37,6 +37,7 @@ import type { Source } from "./rules-reader.ts";
 import { sourcesIn } from "./sources.ts";
 import { takeHomeFor, type TakeHome } from "./take-home.ts";
 import { countsTowardGuaranteedRecurringCash, totalsFor, type OfferTotals } from "./totals.ts";
+import { yearByYearFor, type YearByYear } from "./year-by-year.ts";
 
 /**
  * Which rule classified a component: a catalogue entry, with the basis that
@@ -68,6 +69,12 @@ export interface DecodedOffer {
   rules_file: string;
   components: DecodedComponent[];
   totals: OfferTotals;
+  /**
+   * The package written out year by year on both bases, against the average the
+   * letter quotes; see `year-by-year.ts`. Derived from the same classifications
+   * as the totals, so it needs nothing the caller did not already type.
+   */
+  year_by_year: YearByYear;
   /**
    * Basic's share of fixed pay and what it drives. Present only when the rules
    * file says which components are basic pay; see `basic.ts`.
@@ -112,6 +119,7 @@ export function decode(raw: unknown): DecodedOffer {
     rules_file: rules.path,
     components: decoded.map((one) => one.component),
     totals,
+    year_by_year: yearByYearFor(classified),
     ...(basic === undefined ? {} : { basic }),
     ...(input.take_home === undefined
       ? {}

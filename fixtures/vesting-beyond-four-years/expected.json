@@ -6,14 +6,14 @@
       "name": "Basic",
       "as_typed": {
         "amount": {
-          "paise": 60000000,
-          "display": "₹6,00,000"
+          "paise": 120000000,
+          "display": "₹12,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 60000000,
-        "display": "₹6,00,000"
+        "paise": 120000000,
+        "display": "₹12,00,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -30,77 +30,120 @@
       }
     },
     {
-      "name": "HRA",
+      "name": "RSU grant",
       "as_typed": {
         "amount": {
-          "paise": 2000000,
-          "display": "₹20,000"
-        },
-        "period": "monthly"
-      },
-      "annual": {
-        "paise": 24000000,
-        "display": "₹2,40,000"
-      },
-      "certainty": "guaranteed",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": true,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "hra",
-        "rules_key": "groups.components.entries.hra",
-        "basis": {
-          "kind": "judgement",
-          "rationale": "Paid with monthly salary as part of the fixed structure. Its exemption from tax is conditional on rent paid; the payment itself is not."
-        }
-      }
-    },
-    {
-      "name": "Special allowance",
-      "as_typed": {
-        "amount": {
-          "paise": 123456700,
-          "display": "₹12,34,567"
+          "paise": 500000000,
+          "display": "₹50,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 123456700,
-        "display": "₹12,34,567"
+        "paise": 500000000,
+        "display": "₹50,00,000"
       },
-      "certainty": "guaranteed",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": true,
+      "certainty": "conditional-on-tenure",
+      "form": "equity",
+      "recurring": false,
+      "instrument": "rsu",
+      "counts_toward_guaranteed_recurring_cash": false,
       "classified_by": {
         "kind": "catalogue",
-        "entry": "special_allowance",
-        "rules_key": "groups.components.entries.special_allowance",
+        "entry": "rsu",
+        "rules_key": "groups.components.entries.rsu",
         "basis": {
           "kind": "judgement",
-          "rationale": "The residual monthly allowance that balances a structure to its agreed fixed pay, and is paid unconditionally like the rest of it."
+          "rationale": "A promise of shares delivered as the grant vests, so an employee who leaves before a vesting date receives nothing for that year. One award spread over the years its schedule names, rather than a sum offered again each year."
+        }
+      },
+      "equity": {
+        "listed": true,
+        "method": "grant-date-fair-market-value",
+        "valued": {
+          "paise": 500000000,
+          "display": "₹50,00,000"
+        },
+        "claimed": {
+          "paise": 500000000,
+          "display": "₹50,00,000"
+        },
+        "units": 1000,
+        "grant_date_fair_market_value": {
+          "paise": 500000,
+          "display": "₹5,000"
+        },
+        "assumption": "Grant-date fair market value held flat: the units multiplied by the fair market value per unit typed from the letter. No growth in the share price is modelled, so this is what the shares are worth on the grant date and not what they may be worth on any vesting date.",
+        "vesting": {
+          "years": [
+            {
+              "year": 1,
+              "share": {
+                "bp": 1000,
+                "display": "10%"
+              }
+            },
+            {
+              "year": 2,
+              "share": {
+                "bp": 1000,
+                "display": "10%"
+              }
+            },
+            {
+              "year": 3,
+              "share": {
+                "bp": 2000,
+                "display": "20%"
+              }
+            },
+            {
+              "year": 4,
+              "share": {
+                "bp": 3000,
+                "display": "30%"
+              }
+            },
+            {
+              "year": 5,
+              "share": {
+                "bp": 3000,
+                "display": "30%"
+              }
+            }
+          ],
+          "cliff_months": 12
+        },
+        "perquisite": {
+          "statement": "Shares delivered under a restricted stock unit grant are a specified security allotted to the employee free of cost, so their value is a perquisite under section 17(1)(d). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so the value enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
+          "citation": {
+            "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+            "document": {
+              "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+              "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+            },
+            "retrieved": "2026-09-05",
+            "rules_key": "groups.perquisite.equity.rsu",
+            "note": "Section 17(1)(d) counts \"the value of any specified security or sweat equity shares allotted or transferred, directly or indirectly, by the current employer, or former employer, free of cost or at concessional rate to the assessee\". Section 17(4)(f) defines \"specified security\" by reference to section 2(h) of the Securities Contracts (Regulation) Act, 1956, and adds that \"where employees' stock option has been granted under any plan or scheme therefor, includes the securities offered under such plan or scheme\". Section 16 reads '\"salary\" includes ... (e) perquisites', and section 15(1)(a) charges \"any salary due from an employer to an assessee in the tax year, whether paid or not\". Section 73(1), Table Sl. No. 4, deems the cost of acquisition of a specified security referred to in section 17(1)(d) to be the \"Fair market value taken into account for the purposes of the said clause\", which is what keeps the perquisite and the later capital gain from being charged on the same amount twice. Two things the Act does not settle. Section 17(4)(h) fixes the value \"on the date on which the option is exercised by the assessee, as reduced by the amount actually paid by, or recovered from, the assessee\" -- a restricted stock unit carries no option to exercise, so the Act's own words do not name the date for a unit that simply vests and is allotted. And section 17(4)(a) leaves \"fair market value\" to \"the value determined in accordance with the method, as may be prescribed\"; no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the perquisite therefore cannot be computed from this file."
+          }
         }
       }
     }
   ],
   "totals": {
     "headline_ctc": {
-      "paise": 207456700,
-      "display": "₹20,74,567",
+      "paise": 620000000,
+      "display": "₹62,00,000",
       "components": [
         "Basic",
-        "HRA",
-        "Special allowance"
+        "RSU grant"
       ]
     },
     "fixed_pay": {
-      "paise": 207456700,
-      "display": "₹20,74,567",
+      "paise": 620000000,
+      "display": "₹62,00,000",
       "components": [
         "Basic",
-        "HRA",
-        "Special allowance"
+        "RSU grant"
       ]
     },
     "variable_pay_at_target": {
@@ -109,12 +152,10 @@
       "components": []
     },
     "guaranteed_recurring_cash": {
-      "paise": 207456700,
-      "display": "₹20,74,567",
+      "paise": 120000000,
+      "display": "₹12,00,000",
       "components": [
-        "Basic",
-        "HRA",
-        "Special allowance"
+        "Basic"
       ]
     },
     "retirals": {
@@ -123,9 +164,11 @@
       "components": []
     },
     "one_time_components": {
-      "paise": 0,
-      "display": "₹0",
-      "components": []
+      "paise": 500000000,
+      "display": "₹50,00,000",
+      "components": [
+        "RSU grant"
+      ]
     },
     "benefits_in_kind": {
       "paise": 0,
@@ -133,14 +176,18 @@
       "components": []
     },
     "equity_as_claimed": {
-      "paise": 0,
-      "display": "₹0",
-      "components": []
+      "paise": 500000000,
+      "display": "₹50,00,000",
+      "components": [
+        "RSU grant"
+      ]
     },
     "equity_as_valued": {
-      "paise": 0,
-      "display": "₹0",
-      "components": []
+      "paise": 500000000,
+      "display": "₹50,00,000",
+      "components": [
+        "RSU grant"
+      ]
     },
     "unvaluable_equity": {
       "paise": 0,
@@ -149,7 +196,7 @@
     }
   },
   "year_by_year": {
-    "years_covered": 4,
+    "years_covered": 5,
     "bases": [
       {
         "basis": "variable-pay-at-zero",
@@ -157,8 +204,8 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -169,23 +216,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 170000000,
+              "display": "₹17,00,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -196,23 +243,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 170000000,
+              "display": "₹17,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -223,23 +270,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 100000000,
+              "display": "₹10,00,000"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 100000000,
+              "display": "₹10,00,000"
             },
             "total": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 220000000,
+              "display": "₹22,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -250,32 +297,59 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             },
             "equity_as_claimed": {
+              "paise": 150000000,
+              "display": "₹15,00,000"
+            },
+            "total": {
+              "paise": 270000000,
+              "display": "₹27,00,000"
+            }
+          },
+          {
+            "year": 5,
+            "guaranteed_recurring_cash": {
+              "paise": 120000000,
+              "display": "₹12,00,000"
+            },
+            "variable_pay_at_target": {
               "paise": 0,
               "display": "₹0"
             },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 150000000,
+              "display": "₹15,00,000"
+            },
+            "equity_as_claimed": {
+              "paise": 150000000,
+              "display": "₹15,00,000"
+            },
             "total": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 270000000,
+              "display": "₹27,00,000"
             }
           }
         ],
         "year_one": {
-          "paise": 207456700,
-          "display": "₹20,74,567"
+          "paise": 170000000,
+          "display": "₹17,00,000"
         },
         "average": {
-          "over_years": 4,
+          "over_years": 5,
           "with_one_time": {
-            "paise": 207456700,
-            "display": "₹20,74,567"
+            "paise": 220000000,
+            "display": "₹22,00,000"
           },
           "without_one_time": {
-            "paise": 207456700,
-            "display": "₹20,74,567"
+            "paise": 220000000,
+            "display": "₹22,00,000"
           },
           "one_time_components": []
         }
@@ -286,8 +360,8 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -298,23 +372,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 170000000,
+              "display": "₹17,00,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -325,23 +399,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 50000000,
+              "display": "₹5,00,000"
             },
             "total": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 170000000,
+              "display": "₹17,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -352,23 +426,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 100000000,
+              "display": "₹10,00,000"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 100000000,
+              "display": "₹10,00,000"
             },
             "total": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 220000000,
+              "display": "₹22,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -379,50 +453,160 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             },
             "equity_as_claimed": {
+              "paise": 150000000,
+              "display": "₹15,00,000"
+            },
+            "total": {
+              "paise": 270000000,
+              "display": "₹27,00,000"
+            }
+          },
+          {
+            "year": 5,
+            "guaranteed_recurring_cash": {
+              "paise": 120000000,
+              "display": "₹12,00,000"
+            },
+            "variable_pay_at_target": {
               "paise": 0,
               "display": "₹0"
             },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 150000000,
+              "display": "₹15,00,000"
+            },
+            "equity_as_claimed": {
+              "paise": 150000000,
+              "display": "₹15,00,000"
+            },
             "total": {
-              "paise": 207456700,
-              "display": "₹20,74,567"
+              "paise": 270000000,
+              "display": "₹27,00,000"
             }
           }
         ],
         "year_one": {
-          "paise": 207456700,
-          "display": "₹20,74,567"
+          "paise": 170000000,
+          "display": "₹17,00,000"
         },
         "average": {
-          "over_years": 4,
+          "over_years": 5,
           "with_one_time": {
-            "paise": 207456700,
-            "display": "₹20,74,567"
+            "paise": 220000000,
+            "display": "₹22,00,000"
           },
           "without_one_time": {
-            "paise": 207456700,
-            "display": "₹20,74,567"
+            "paise": 220000000,
+            "display": "₹22,00,000"
           },
           "one_time_components": []
         }
       }
     ],
-    "grants": []
+    "grants": [
+      {
+        "name": "RSU grant",
+        "unvaluable": false,
+        "cliff_months": 12,
+        "years": [
+          {
+            "year": 1,
+            "share": {
+              "bp": 1000,
+              "display": "10%"
+            },
+            "as_valued": {
+              "paise": 50000000,
+              "display": "₹5,00,000"
+            },
+            "as_claimed": {
+              "paise": 50000000,
+              "display": "₹5,00,000"
+            }
+          },
+          {
+            "year": 2,
+            "share": {
+              "bp": 1000,
+              "display": "10%"
+            },
+            "as_valued": {
+              "paise": 50000000,
+              "display": "₹5,00,000"
+            },
+            "as_claimed": {
+              "paise": 50000000,
+              "display": "₹5,00,000"
+            }
+          },
+          {
+            "year": 3,
+            "share": {
+              "bp": 2000,
+              "display": "20%"
+            },
+            "as_valued": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            },
+            "as_claimed": {
+              "paise": 100000000,
+              "display": "₹10,00,000"
+            }
+          },
+          {
+            "year": 4,
+            "share": {
+              "bp": 3000,
+              "display": "30%"
+            },
+            "as_valued": {
+              "paise": 150000000,
+              "display": "₹15,00,000"
+            },
+            "as_claimed": {
+              "paise": 150000000,
+              "display": "₹15,00,000"
+            }
+          },
+          {
+            "year": 5,
+            "share": {
+              "bp": 3000,
+              "display": "30%"
+            },
+            "as_valued": {
+              "paise": 150000000,
+              "display": "₹15,00,000"
+            },
+            "as_claimed": {
+              "paise": 150000000,
+              "display": "₹15,00,000"
+            }
+          }
+        ]
+      }
+    ]
   },
   "basic": {
     "components": [
       "Basic"
     ],
     "annual": {
-      "paise": 60000000,
-      "display": "₹6,00,000"
+      "paise": 120000000,
+      "display": "₹12,00,000"
     },
     "share_of_fixed_pay": {
-      "bp": 2892,
-      "display": "28.92%"
+      "bp": 1935,
+      "display": "19.35%"
     },
     "citation": {
       "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
@@ -551,6 +735,10 @@
   },
   "sources": [
     {
+      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+    },
+    {
       "title": "The Code on Wages, 2019 (No. 29 of 2019)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
     },
@@ -565,10 +753,6 @@
     {
       "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
-    },
-    {
-      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
-      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
     }
   ]
 }

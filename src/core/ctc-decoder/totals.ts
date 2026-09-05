@@ -9,7 +9,7 @@
  * gratuity is a retiral that no total of cash includes.
  */
 import { money, type Money } from "../money.ts";
-import type { Classification, Form } from "./classification.ts";
+import type { Certainty, Classification, Form } from "./classification.ts";
 
 /** A component reduced to what a total needs: what it is worth, and what it is. */
 export interface TotallableComponent {
@@ -33,17 +33,41 @@ export interface OfferTotals {
   benefits_in_kind: Total;
 }
 
+/** Cash-now and recurring, with certainty narrowed to whichever set the caller names. */
+function isRecurringCashOfCertainty(
+  classification: Classification,
+  certainties: ReadonlySet<Certainty>,
+): boolean {
+  return (
+    certainties.has(classification.certainty) &&
+    classification.form === "cash-now" &&
+    classification.recurring
+  );
+}
+
+const GUARANTEED: ReadonlySet<Certainty> = new Set(["guaranteed"]);
+const GUARANTEED_OR_AT_TARGET: ReadonlySet<Certainty> = new Set([
+  "guaranteed",
+  "conditional-on-performance",
+]);
+
 /**
  * Guaranteed recurring cash, derived and never listed: the components that are
  * simultaneously certain, cash, and annual. Gratuity fails the first two,
  * employer PF the second, a joining bonus the third — none of them by name.
  */
 export function countsTowardGuaranteedRecurringCash(classification: Classification): boolean {
-  return (
-    classification.certainty === "guaranteed" &&
-    classification.form === "cash-now" &&
-    classification.recurring
-  );
+  return isRecurringCashOfCertainty(classification, GUARANTEED);
+}
+
+/**
+ * The same reading with variable pay at its quoted target: still cash, still
+ * annual, but no longer only what is certain. The two predicates differ in one
+ * axis, which is the whole difference between the two bases take-home is
+ * reported on.
+ */
+export function countsTowardRecurringCashAtTarget(classification: Classification): boolean {
+  return isRecurringCashOfCertainty(classification, GUARANTEED_OR_AT_TARGET);
 }
 
 /**

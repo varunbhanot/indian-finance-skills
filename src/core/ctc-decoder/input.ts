@@ -15,6 +15,7 @@ import { isFinancialYear } from "../financial-year.ts";
 import { annualise, formatIndianRupees, rupeesToPaise, RUPEE_INPUT_CAP, type Period } from "../money.ts";
 import { readClassification, type Classification } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
+import { PF_WAGE_BASES, type PfWageBase, type TakeHomeRequest } from "./take-home.ts";
 
 /** How the user asked for this component to be classified. */
 export type ComponentClassificationInput =
@@ -33,6 +34,13 @@ export interface OfferComponentInput {
 export interface OfferInput {
   financial_year: string;
   components: OfferComponentInput[];
+  /**
+   * Present when the caller typed the one thing take-home cannot be derived
+   * without: which wage the employer computes provident fund on. There is no
+   * default, because both answers are ordinary and guessing between them would
+   * move the monthly figure by thousands.
+   */
+  take_home?: TakeHomeRequest;
 }
 
 const PERIODS: ReadonlySet<string> = new Set(["annual", "monthly"]);
@@ -51,7 +59,12 @@ const COMPONENT_KEYS = [
 const INLINE_KEYS = ["certainty", "form", "recurring", "instrument"];
 
 export function validateOfferInput(raw: unknown): OfferInput {
-  const root = expectObject(raw, "", ["financial_year", "components"]);
+  const root = expectObject(raw, "", [
+    "financial_year",
+    "components",
+    "pf_wage_base",
+    "professional_tax",
+  ]);
 
   const financialYear = root["financial_year"];
   if (typeof financialYear !== "string") {
@@ -70,11 +83,81 @@ export function validateOfferInput(raw: unknown): OfferInput {
     throw invalid("components", "components must be a non-empty array");
   }
 
+  const takeHome = validateTakeHomeRequest(root);
+  const validated = components.map((component, index) =>
+    validateComponent(component, `components[${index}]`),
+  );
+  rejectTotalAboveCap(validated);
+
   return {
     financial_year: financialYear,
-    components: components.map((component, index) =>
-      validateComponent(component, `components[${index}]`),
-    ),
+    components: validated,
+    ...(takeHome === undefined ? {} : { take_home: takeHome }),
+  };
+}
+
+/**
+ * The cap binds the total as well as each figure, because rates are applied to
+ * sums — a slab charge and the provident fund wage are both totals of several
+ * components — and it is the product of paise and basis points that has to stay
+ * a safe integer (ADR 0002, ADR 0012). Capping only the parts would let enough
+ * of them add up to break that, and the core would fail as a crash rather than
+ * as a rejection naming the problem.
+ */
+function rejectTotalAboveCap(components: readonly OfferComponentInput[]): void {
+  const total = components.reduce(
+    (running, component) => running + annualise(rupeesToPaise(component.amount), component.period),
+    0,
+  );
+  if (total <= CAP_PAISE) return;
+  throw aboveCap(
+    "components",
+    `the components add up to ${formatIndianRupees(total)} a year, above the ${formatIndianRupees(CAP_PAISE)} the decoder accepts`,
+  );
+}
+
+/** The one shape of an `above_cap` rejection, whatever figure exceeded it. */
+function aboveCap(path: string, message: string): DecoderError {
+  return new DecoderError({ code: "above_cap", message, path, details: { cap_rupees: RUPEE_INPUT_CAP } });
+}
+
+/**
+ * Take-home is computed when, and only when, `pf_wage_base` is typed. A
+ * professional tax figure on its own would be a number the caller supplied and
+ * the decoder never used, so it is refused rather than ignored.
+ */
+function validateTakeHomeRequest(root: { [key: string]: unknown }): TakeHomeRequest | undefined {
+  const wageBase = root["pf_wage_base"];
+  const professionalTax = root["professional_tax"];
+
+  if (wageBase === undefined) {
+    if (professionalTax !== undefined) {
+      throw invalid(
+        "professional_tax",
+        "professional_tax is only used in the take-home figures, which need pf_wage_base as well",
+      );
+    }
+    return undefined;
+  }
+  if (typeof wageBase !== "string" || !PF_WAGE_BASES.includes(wageBase as PfWageBase)) {
+    throw invalid(
+      "pf_wage_base",
+      `pf_wage_base must be one of ${PF_WAGE_BASES.join(", ")}, got ${JSON.stringify(wageBase)}`,
+    );
+  }
+
+  return {
+    pf_wage_base: wageBase as PfWageBase,
+    ...(professionalTax === undefined
+      ? {}
+      : {
+          professional_tax: validateWholeRupees(
+            professionalTax,
+            "annual",
+            "professional_tax",
+            "professional_tax",
+          ),
+        }),
   };
 }
 
@@ -91,7 +174,7 @@ function validateComponent(raw: unknown, path: string): OfferComponentInput {
     throw invalid(`${path}.period`, 'period must be "annual" or "monthly"');
   }
 
-  const amount = validateAmount(component["amount"], period as Period, `${path}.amount`);
+  const amount = validateWholeRupees(component["amount"], period as Period, `${path}.amount`, "amount");
   const classify = validateClassification(component, path);
   const clawbackMonths = validateClawbackMonths(component["clawback_months"], `${path}.clawback_months`);
 
@@ -154,21 +237,21 @@ function validateClawbackMonths(raw: unknown, path: string): number | undefined 
  * annualised, so every later product of paise and basis points stays a safe
  * integer (spec #4).
  */
-function validateAmount(raw: unknown, period: Period, path: string): number {
+function validateWholeRupees(raw: unknown, period: Period, path: string, label: string): number {
   if (typeof raw !== "number" || !Number.isFinite(raw)) {
-    throw invalid(path, "amount must be a number of whole rupees");
+    throw invalid(path, `${label} must be a number of whole rupees`);
   }
   if (!Number.isInteger(raw)) {
     throw new DecoderError({
       code: "fractional_rupees",
-      message: `amount must be whole rupees, got ${raw}`,
+      message: `${label} must be whole rupees, got ${raw}`,
       path,
     });
   }
   if (raw < 0) {
     throw new DecoderError({
       code: "negative_amount",
-      message: `amount must not be negative, got ${raw}`,
+      message: `${label} must not be negative, got ${raw}`,
       path,
     });
   }
@@ -176,15 +259,12 @@ function validateAmount(raw: unknown, period: Period, path: string): number {
   if (annualPaise > CAP_PAISE) {
     const typed = formatIndianRupees(rupeesToPaise(raw));
     const annual = formatIndianRupees(annualPaise);
-    throw new DecoderError({
-      code: "above_cap",
-      message:
-        period === "monthly"
-          ? `amount must not exceed ${formatIndianRupees(CAP_PAISE)} a year; ${typed} monthly is ${annual} a year`
-          : `amount must not exceed ${formatIndianRupees(CAP_PAISE)}, got ${typed}`,
+    throw aboveCap(
       path,
-      details: { cap_rupees: RUPEE_INPUT_CAP },
-    });
+      period === "monthly"
+        ? `${label} must not exceed ${formatIndianRupees(CAP_PAISE)} a year; ${typed} monthly is ${annual} a year`
+        : `${label} must not exceed ${formatIndianRupees(CAP_PAISE)}, got ${typed}`,
+    );
   }
   return raw;
 }

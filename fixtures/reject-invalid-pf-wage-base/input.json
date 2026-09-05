@@ -1,0 +1,7 @@
+{
+  "financial_year": "2026-27",
+  "pf_wage_base": "ceiling",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 1200000, "period": "annual" }
+  ]
+}

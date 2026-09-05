@@ -1,0 +1,7 @@
+{
+  "financial_year": "2026-27",
+  "professional_tax": 2500,
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 1200000, "period": "annual" }
+  ]
+}

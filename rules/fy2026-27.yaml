@@ -136,3 +136,183 @@ groups:
         rationale: >-
           Loaded each month onto an instrument that can only be spent on meals,
           so the employee receives a benefit rather than cash.
+
+  # Income tax under the new regime, for tax year 2026-27.
+  #
+  # The Income-tax Act, 2025 (No. 30 of 2025) came into force on 1 April 2026
+  # and repealed the Income-tax Act, 1961 (section 536(1)), so the section
+  # numbers CONTEXT.md's glossary grew up with -- 115BAC, 87A, 16(ia), 288A,
+  # 288B -- name a repealed Act and appear nowhere in this file.
+  #
+  # Two Acts are in play and the split is not the obvious one. The *rate table*
+  # for the new regime lives in the Income-tax Act itself (section 202(1)); the
+  # Finance Act, 2026 only charges tax "at the rates specified" and carries the
+  # OLD regime's table in Part I-B of its First Schedule. The cess, by contrast,
+  # is imposed by the Finance Act and must be re-sourced every year.
+  income_tax:
+    title: The Income-tax Act, 2025 (No. 30 of 2025), as charged for tax year 2026-27 by the Finance Act, 2026 (No. 4 of 2026)
+    source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+    retrieved: 2026-09-05
+    effective_from: 2026-04-01
+    new_regime:
+      slabs:
+        section: Income-tax Act, 2025, section 202(1) Table ("New tax regime for individuals, Hindu undivided family and others")
+        source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+        retrieved: 2026-09-05
+        note: >-
+          Charged for tax year 2026-27 by the Finance Act, 2026, section 3(1),
+          which refers to these rates rather than restating them. Finance Act,
+          2026, section 56 is its only amendment to section 202 and touches
+          sub-section (2)(a)(iii) alone, leaving this table untouched. The Act
+          states the table as band and rate without spelling out the marginal
+          arithmetic; it is read as a slab table, which is how the Income Tax
+          Department's own calculation engine applies it.
+        bands:
+          - upto: 400000
+            rate: 0.00
+          - upto: 800000
+            rate: 0.05
+          - upto: 1200000
+            rate: 0.10
+          - upto: 1600000
+            rate: 0.15
+          - upto: 2000000
+            rate: 0.20
+          - upto: 2400000
+            rate: 0.25
+          # Sl. No. 7, "Above 24,00,000": the final band has no upper bound.
+          - rate: 0.30
+      standard_deduction:
+        section: Income-tax Act, 2025, section 19(1) Table Sl. No. 2(a) ("Deductions from salaries")
+        source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+        retrieved: 2026-09-05
+        note: >-
+          "75000 or the salary, whichever is less, where income-tax is computed
+          under section 202(1)" -- so it is capped at the salary it is deducted
+          from. Section 202(2)(a) disallows only Sl. No. 1 of the same table,
+          which is the tax on employment, so the standard deduction survives in
+          the new regime.
+        amount: 75000
+      rebate:
+        section: Income-tax Act, 2025, section 156(2) and (3) ("Rebate of income-tax in case of certain individuals")
+        source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+        retrieved: 2026-09-05
+        note: >-
+          Available to a resident individual only. Section 156(2)(b) also gives
+          marginal relief where total income exceeds twelve lakh rupees, which
+          this decoder does not yet compute, so the figures above the threshold
+          are the pre-relief ones.
+        total_income_threshold: 1200000
+        maximum: 60000
+    cess:
+      section: Finance Act, 2026 (No. 4 of 2026), section 3(15) ("Health and Education Cess on income-tax")
+      source: https://egazette.gov.in/WriteReadData/2026/271439.pdf
+      retrieved: 2026-09-05
+      note: >-
+        Charged on the income-tax as increased by the applicable surcharge, and
+        so on the tax remaining after any rebate. Imposed by the annual Finance
+        Act rather than by the Income-tax Act: it must be re-sourced each year.
+      rate: 0.04
+
+  # The Income-tax Act, 2025 rounds with ONE section where the 1961 Act had two,
+  # and it rounds tax to the nearest ten rupees, not to the nearest rupee. The
+  # two entries below are two applications of that single section, kept apart
+  # because they are applied at two different points in the computation.
+  statutory_rounding:
+    title: The Income-tax Act, 2025 (No. 30 of 2025), section 516
+    source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+    retrieved: 2026-09-05
+    effective_from: 2026-04-01
+    total_income:
+      section: Income-tax Act, 2025, section 516 ("Rounding off of amount of total income, or amount payable or refundable")
+      source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+      retrieved: 2026-09-05
+      note: >-
+        "rounded off to the nearest multiple of 10 ignoring any part of a rupee
+        consisting of paise and thereafter if such amount is not a multiple of
+        ten" -- increased if the last figure is five or more, reduced if it is
+        less than five. Dropping the paise first and rounding the whole-rupee
+        figure on its last digit gives the same answer as rounding the exact
+        amount half upward, because the paise can only decide the outcome at an
+        exact rupee ending in five, where both readings round up.
+      unit_rupees: 10
+    tax_payable:
+      section: Income-tax Act, 2025, section 516 ("Rounding off of amount of total income, or amount payable or refundable")
+      source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+      retrieved: 2026-09-05
+      note: >-
+        The same section and the same unit: "any amount payable or refundable
+        under this Act" rounds to the nearest ten rupees. The 1961 Act's section
+        288B rounded tax to the nearest rupee; the 2025 Act carries no such
+        provision, and a search of its full text finds no other rounding rule
+        outside the tonnage-tax chapter.
+      unit_rupees: 10
+
+  # Employees' provident fund, employee's own share.
+  #
+  # Which statute applies here is not obvious and was checked rather than
+  # assumed. The four Labour Codes commenced on 21 November 2025, and the Code
+  # on Social Security, 2020 would on full commencement repeal the 1952 Act and
+  # fix the contribution itself. It has not: notification S.O. 5319(E) of
+  # 21 November 2025 commenced only part of the Code, and left out both section
+  # 16(1)(a), the provident fund contribution rate, and item 3 of section
+  # 164(1), the repeal of the 1952 Act. So for tax year 2026-27 the Employees'
+  # Provident Funds and Miscellaneous Provisions Act, 1952 still governs.
+  # S.O. 5319(E): https://egazette.gov.in/WriteReadData/2025/267882.pdf
+  #
+  # Two figures below carry a `note` recording that their operative instrument
+  # could not be retrieved. Read those notes before quoting the figures.
+  epf:
+    title: The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)
+    source: https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf
+    retrieved: 2026-09-05
+    # NOT sourced to the instrument that fixes it. `section` names the document
+    # `source` actually is, so the two never point at different papers: it is a
+    # Ministry statement, not the section, and the note says what the section
+    # itself says instead.
+    employee_rate:
+      section: Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023
+      source: https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf
+      retrieved: 2026-09-05
+      note: >-
+        Read this before quoting the figure. Section 6 of the Employees'
+        Provident Funds and Miscellaneous Provisions Act, 1952 says the
+        contribution is TEN per cent; its first proviso substitutes 12 per cent
+        only for establishments the Central Government has notified, and that
+        notification could not be retrieved -- epfindia.gov.in and epfo.gov.in
+        refuse requests from this environment. So 0.12 is not the rate read off
+        the section. It is the rate the Government states is applied: an
+        employee of a covered establishment "is statutorily required to join the
+        fund and to contribute 12% of wages". Re-source it from the notification
+        when that becomes reachable, and until then treat any figure computed
+        from it as resting on this statement rather than on the Act.
+      rate: 0.12
+    # Also NOT sourced to the instrument that fixes it; same caveat.
+    wage_ceiling:
+      section: Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023
+      source: https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf
+      retrieved: 2026-09-05
+      note: >-
+        Read this before quoting the figure. "The wage ceiling for coverage
+        under the EPF Scheme, 1952 is revised from time to time. Presently, it
+        is Rs.15000/- per month since 01.09.2014." Section 6 of the Act carries
+        no ceiling at all -- it lives in the Employees' Provident Fund Scheme,
+        1952, whose consolidated text could not be retrieved, and the 2014
+        notification that set it could not be retrieved either. This is the
+        Government's statement of the figure, not the instrument that fixed it.
+      monthly_rupees: 15000
+    wage_components:
+      section: Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6
+      source: https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf
+      retrieved: 2026-09-05
+      note: >-
+        Section 6 computes the contribution on "basic wages, dearness allowance
+        and retaining allowance", and section 2(b)(ii) excludes house rent
+        allowance from basic wages by name, along with overtime, bonus and
+        commission. Of the catalogue's entries only `basic` is inside that base;
+        this file carries no dearness or retaining allowance entry yet, and a
+        ticket adding one must add it here too. Whether a "special allowance"
+        falls inside section 2(b) has been litigated and is not settled by the
+        section's own words, so it is left out rather than guessed at.
+      entries:
+        - basic

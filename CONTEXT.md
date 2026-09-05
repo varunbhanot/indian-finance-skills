@@ -26,13 +26,23 @@ its own set of permitted deductions.
 the rate applying to income within that band. Slabs are ordered; the final
 slab has no upper bound.
 
-**Statutory rounding** — the two points where the Income Tax Act requires a
-figure to be rounded: §288A rounds **total income** to the nearest ₹10, and
-§288B rounds **tax payable** to the nearest ₹1. Nothing else is rounded;
-intermediate figures are carried at full precision. The section numbers here are
-from the Income-tax Act, 1961; the Income-tax Act, 2025 is in force from
-1 April 2026 and renumbers sections, so FY 2026-27 rules must cite the in-force
-provision as sourced, not these numbers.
+**Statutory rounding** — the two points where the Income-tax Act requires a
+figure to be rounded: **total income**, before the slabs are walked, and **tax
+payable**, after the cess. Nothing else is rounded; intermediate figures are
+carried at full precision, which is why a take-home figure can end in paise
+while the tax inside it does not.
+
+For FY 2026-27 both are **§516** of the Income-tax Act, 2025, and both round to
+the nearest **₹10** — paise dropped first, then the last figure decides: five or
+more rounds up, less than five rounds down. One section, two points of
+application.
+
+The historical aliases are **§288A** (total income, ₹10) and **§288B** (tax
+payable, ₹1) of the Income-tax Act, 1961, which §536(1) of the 2025 Act
+repealed. They are worth knowing because every Indian tax reference written
+before 2026 uses them, and because **§288B's ₹1 unit did not survive**: under
+the 2025 Act tax payable rounds to ₹10, not to ₹1. A rule or ticket that assumes
+a ₹1 rounding of tax is describing the repealed Act.
 
 ## Pay
 

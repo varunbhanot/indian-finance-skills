@@ -7,11 +7,17 @@
  * never a default. A rules file with no `components` group yields `undefined`,
  * which the decoder reports as an absent rule; a rules file whose catalogue is
  * malformed is a rejection naming the key. Neither is guessed at.
+ *
+ * Reads with `rules-reader.ts`'s own primitives (`isRulesMap`, `rulesFileInvalid`)
+ * rather than a second copy of them: the two files refuse a bad rules value in
+ * one voice. It does not read through `RulesNode` itself, because a catalogue
+ * entry's basis is either a statute's `source` or the author's own `rationale`,
+ * a shape `RulesNode.citation()` does not carry.
  */
 import type { RulesFile } from "../rules/files.ts";
 import type { RulesValue } from "../rules/loader.ts";
 import { readClassification, type Classification } from "./classification.ts";
-import { DecoderError } from "./errors.ts";
+import { isRulesMap, rulesFileInvalid } from "./rules-reader.ts";
 
 const CATALOGUE_GROUP = "components";
 export const CATALOGUE_GROUP_KEY = `groups.${CATALOGUE_GROUP}`;
@@ -40,20 +46,20 @@ export function readComponentCatalogue(rules: RulesFile): ComponentCatalogue | u
 
   const rawEntries = group["entries"];
   if (!isRulesMap(rawEntries)) {
-    throw malformed(rules, CATALOGUE_ENTRIES_KEY, "entries must be a map of component types");
+    throw rulesFileInvalid(rules, CATALOGUE_ENTRIES_KEY, "entries must be a map of component types");
   }
 
   const entries = new Map<string, CatalogueEntry>();
   for (const [type, rawEntry] of Object.entries(rawEntries)) {
     const rulesKey = `${CATALOGUE_ENTRIES_KEY}.${type}`;
     if (!isRulesMap(rawEntry)) {
-      throw malformed(rules, rulesKey, "a catalogue entry must be a map");
+      throw rulesFileInvalid(rules, rulesKey, "a catalogue entry must be a map");
     }
     entries.set(type, {
       type,
       classification: readClassification(
         (field) => rawEntry[field],
-        (field, message) => malformed(rules, `${rulesKey}.${field}`, message),
+        (field, message) => rulesFileInvalid(rules, `${rulesKey}.${field}`, message),
       ),
       basis: readBasis(rules, rawEntry, rulesKey),
       rules_key: rulesKey,
@@ -77,7 +83,7 @@ function readBasis(
   const rationale = entry["rationale"];
 
   if (source !== undefined && rationale !== undefined) {
-    throw malformed(
+    throw rulesFileInvalid(
       rules,
       rulesKey,
       "an entry cites a statute as its source or states a rationale, not both",
@@ -85,28 +91,16 @@ function readBasis(
   }
   if (source !== undefined) {
     if (typeof source !== "string" || !source.startsWith("https://")) {
-      throw malformed(rules, `${rulesKey}.source`, "an entry's source must be an https URL");
+      throw rulesFileInvalid(rules, `${rulesKey}.source`, "an entry's source must be an https URL");
     }
     return { kind: "statute", source };
   }
   if (typeof rationale === "string" && rationale.trim() !== "") {
     return { kind: "judgement", rationale };
   }
-  throw malformed(
+  throw rulesFileInvalid(
     rules,
     rulesKey,
     "an entry must carry a source, when a statute settles its classification, or a rationale, when the author does",
   );
-}
-
-function isRulesMap(value: RulesValue | undefined): value is { [key: string]: RulesValue } {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function malformed(rules: RulesFile, rulesKey: string, message: string): DecoderError {
-  return new DecoderError({
-    code: "rules_file_invalid",
-    message: `${rules.path}:${rulesKey} ${message}`,
-    details: { rules_file: rules.path, rules_key: rulesKey },
-  });
 }

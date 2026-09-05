@@ -41,16 +41,22 @@ emits display strings; never reformat a number yourself.
 ## Money
 
 Integer paise, rates as integer basis points after load. No floating-point
-arithmetic in the core, percentages included. Rounding only at §288A and §288B
-(ADR 0002). `npm run lint` walks the AST of `src/core` and fails on any float
+arithmetic in the core, percentages included. Rounding only at the two statutory
+points, and the unit for each is read from the rules file, never assumed — for
+FY 2026-27 both are §516 of the Income-tax Act, 2025 and both are ₹10
+(ADR 0002, CONTEXT.md). `npm run lint` walks the AST of `src/core` and fails on any float
 literal, `/`, `**`, `Math`, `parseFloat`, `Number(...)` or unary `+`;
-`parseInt(digits, 10)` is the sanctioned parse. The core does not divide yet.
-The ticket that first applies a rate (`amount × bp ÷ 10000`) chooses the
-integer-division helper and the lint's carve-out for it, without BigInt
-(spec #4 caps input at ₹100 crore so plain safe integers suffice) and records
-the choice in an ADR.
+`parseInt(digits, 10)` is the sanctioned parse, and the lint has **no
+carve-out**: nothing in `src/core` is exempt. Division goes through
+`divideWithRemainder` in `src/core/arithmetic.ts`, which is long division over
+the dividend's digits and so uses none of the banned constructs (ADR 0012).
+Applying a rate is `applyRate(paise, bp)` — `amount × bp ÷ 10000` with the
+sub-paise remainder discarded — and the two statutory roundings are
+`roundToMultipleOfRupees`, whose unit comes from the rules file.
 
-The cap is applied to each typed figure and to its annualised value.
+The cap is applied to each typed figure, to its annualised value, and to the
+total of them — rates are applied to sums, so it is the sum that has to stay a
+safe integer.
 
 ## Rules versus heuristics
 

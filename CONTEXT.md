@@ -81,6 +81,13 @@ target is not the payout.
 **Basic** — the base component. Drives employer PF, gratuity and HRA exemption,
 so its share of the package changes outcomes well beyond its own value.
 
+**Dearness allowance** — a cost-of-living component paid with basic, fixed by
+some letters ("FDA") and indexed to a price index by others. The second head of
+wages after basic pay (Code on Wages §2(y)(ii)), and never a synonym for it: it
+sits inside the provident fund and gratuity wage bases beside basic, and outside
+basic pay. A letter whose basic is below the PF ceiling but whose basic plus
+dearness allowance reaches it is at the ceiling.
+
 **Wage base** — the components a statutory rule computes on, as that rule
 defines them, not as an offer letter groups them. Each rule has its own: the
 provident fund's is basic wages, dearness allowance and retaining allowance
@@ -89,7 +96,8 @@ excluding house rent allowance and any other allowance (Payment of Gratuity Act
 §2(s)). Basic sits inside every one of them, which is why it drives all three.
 
 **PF wage base** — which wage an employer actually computes the provident fund
-contribution on: the whole of basic, or basic capped at the statutory monthly
+contribution on: the whole of its wage base — basic, and dearness allowance
+where the letter has one — or that wage capped at the statutory monthly
 ceiling. Both are ordinary, the difference is thousands of rupees a month, and
 an offer letter never states the choice — it states the employer's contribution
 *amount*, from which the choice can be read back. The decoder reads it and says

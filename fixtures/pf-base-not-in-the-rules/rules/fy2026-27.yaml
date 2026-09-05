@@ -50,6 +50,20 @@ groups:
         rationale: >-
           The base component of the salary structure, payable monthly under the
           terms of employment whatever the employee or the employer achieves.
+      # Dearness allowance is the second head of wages in section 2(y) of the Code
+      # on Wages, beside basic pay and distinct from it. The provident fund and
+      # gratuity wage bases both name it (`groups.epf.wage_components`,
+      # `groups.gratuity.wage_components`); `groups.basic_pay` does not.
+      dearness_allowance:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+        rationale: >-
+          A cost-of-living component paid with basic every month under the terms
+          of employment, whatever the employee or the employer achieves. A letter
+          may fix the amount, as a fixed dearness allowance, or index it to a
+          price index; the payment is unconditional either way, and only its
+          amount moves.
       hra:
         certainty: guaranteed
         form: cash-now
@@ -591,13 +605,15 @@ groups:
         Section 6 computes the contribution on "basic wages, dearness allowance
         and retaining allowance", and section 2(b)(ii) excludes house rent
         allowance from basic wages by name, along with overtime, bonus and
-        commission. Of the catalogue's entries only `basic` is inside that base;
-        this file carries no dearness or retaining allowance entry yet, and a
-        ticket adding one must add it here too. Whether a "special allowance"
-        falls inside section 2(b) has been litigated and is not settled by the
-        section's own words, so it is left out rather than guessed at.
+        commission. Of the catalogue's entries `basic` and `dearness_allowance`
+        are inside that base; this file carries no retaining allowance entry
+        yet, and a ticket adding one must add it here too. Whether a "special
+        allowance" falls inside section 2(b) has been litigated and is not
+        settled by the section's own words, so it is left out rather than
+        guessed at.
       entries:
         - basic
+        - dearness_allowance
 
   # Which catalogue entries are basic pay (spec #7). Basic is a head of wages in
   # its own right, not a residual: section 2(y) of the Code on Wages lists what
@@ -617,10 +633,11 @@ groups:
         Section 2(y) defines wages and lists what they include: "(i) basic pay;
         (ii) dearness allowance; and (iii) retaining allowance, if any". Basic
         pay is the first of the three and is its own head, distinct from the
-        other two. Of this file's catalogue entries only `basic` is basic pay; a
-        dearness or retaining allowance entry added to the catalogue is a
-        different head of wages and does not belong here, even though the two
-        share a base with basic pay under the provident fund and gratuity Acts.
+        other two. Of this file's catalogue entries only `basic` is basic pay.
+        `dearness_allowance` is the second head and does not belong here, even
+        though it shares a base with basic pay under the provident fund and
+        gratuity Acts, and a retaining allowance entry added to the catalogue
+        would be the third and belong here no more.
       entries:
         - basic
 
@@ -676,12 +693,12 @@ groups:
         employment and which are paid or are payable to him in cash and includes
         dearness allowance but does not include any bonus, commission, house
         rent allowance, overtime wages and any other allowance.' Of this file's
-        catalogue entries only `basic` is inside that base -- house rent
-        allowance is excluded by name, and a special allowance by the closing
-        words -- and a dearness allowance entry added to the catalogue must be
-        added here too.
+        catalogue entries `basic` and `dearness_allowance` are inside that base,
+        the second included by name -- house rent allowance is excluded by name,
+        and a special allowance by the closing words.
       entries:
         - basic
+        - dearness_allowance
 
   # House rent allowance: what the Act settles about the exemption, and what it
   # leaves to be prescribed (spec #7). No HRA figure is computed anywhere in this

@@ -6,14 +6,14 @@
       "name": "Basic",
       "as_typed": {
         "amount": {
-          "paise": 180000000,
-          "display": "₹18,00,000"
+          "paise": 1390000,
+          "display": "₹13,900"
         },
-        "period": "annual"
+        "period": "monthly"
       },
       "annual": {
-        "paise": 180000000,
-        "display": "₹18,00,000"
+        "paise": 16680000,
+        "display": "₹1,66,800"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -30,104 +30,169 @@
       }
     },
     {
-      "name": "Variable pay",
+      "name": "Fixed Dearness Allowance",
       "as_typed": {
         "amount": {
-          "paise": 40000000,
-          "display": "₹4,00,000"
+          "paise": 110000,
+          "display": "₹1,100"
         },
-        "period": "annual"
+        "period": "monthly"
       },
       "annual": {
-        "paise": 40000000,
-        "display": "₹4,00,000"
+        "paise": 1320000,
+        "display": "₹13,200"
       },
-      "certainty": "conditional-on-performance",
+      "certainty": "guaranteed",
       "form": "cash-now",
       "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": false,
+      "counts_toward_guaranteed_recurring_cash": true,
       "classified_by": {
         "kind": "catalogue",
-        "entry": "variable_pay",
-        "rules_key": "groups.components.entries.variable_pay",
+        "entry": "dearness_allowance",
+        "rules_key": "groups.components.entries.dearness_allowance",
         "basis": {
           "kind": "judgement",
-          "rationale": "Quoted at a target and paid against an assessment of performance, so neither its occurrence nor its amount is settled by the letter. It is offered each year, and it is cash in the year it is paid."
+          "rationale": "A cost-of-living component paid with basic every month under the terms of employment, whatever the employee or the employer achieves. A letter may fix the amount, as a fixed dearness allowance, or index it to a price index; the payment is unconditional either way, and only its amount moves."
         }
       }
     },
     {
-      "name": "Joining bonus",
+      "name": "Basket of Allowances",
       "as_typed": {
         "amount": {
-          "paise": 50000000,
-          "display": "₹5,00,000"
+          "paise": 744300,
+          "display": "₹7,443"
         },
-        "period": "annual"
+        "period": "monthly"
       },
       "annual": {
-        "paise": 50000000,
-        "display": "₹5,00,000"
+        "paise": 8931600,
+        "display": "₹89,316"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
-      "recurring": false,
-      "clawback_months": 12,
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "special_allowance",
+        "rules_key": "groups.components.entries.special_allowance",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "The residual monthly allowance that balances a structure to its agreed fixed pay, and is paid unconditionally like the rest of it."
+        }
+      }
+    },
+    {
+      "name": "Company PF",
+      "as_typed": {
+        "amount": {
+          "paise": 180000,
+          "display": "₹1,800"
+        },
+        "period": "monthly"
+      },
+      "annual": {
+        "paise": 2160000,
+        "display": "₹21,600"
+      },
+      "certainty": "guaranteed",
+      "form": "locked-savings",
+      "recurring": true,
       "counts_toward_guaranteed_recurring_cash": false,
       "classified_by": {
         "kind": "catalogue",
-        "entry": "joining_bonus",
-        "rules_key": "groups.components.entries.joining_bonus",
+        "entry": "employer_pf",
+        "rules_key": "groups.components.entries.employer_pf",
         "basis": {
-          "kind": "judgement",
-          "rationale": "Promised unconditionally for joining, paid in cash, and paid once."
+          "kind": "statute",
+          "document": {
+            "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+          }
+        }
+      }
+    },
+    {
+      "name": "Gratuity",
+      "as_typed": {
+        "amount": {
+          "paise": 72200,
+          "display": "₹722"
+        },
+        "period": "monthly"
+      },
+      "annual": {
+        "paise": 866400,
+        "display": "₹8,664"
+      },
+      "certainty": "conditional-on-tenure",
+      "form": "deferred-cash",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "gratuity",
+        "rules_key": "groups.components.entries.gratuity",
+        "basis": {
+          "kind": "statute",
+          "document": {
+            "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+          }
         }
       }
     }
   ],
   "totals": {
     "headline_ctc": {
-      "paise": 270000000,
-      "display": "₹27,00,000",
+      "paise": 29958000,
+      "display": "₹2,99,580",
       "components": [
         "Basic",
-        "Variable pay",
-        "Joining bonus"
+        "Fixed Dearness Allowance",
+        "Basket of Allowances",
+        "Company PF",
+        "Gratuity"
       ]
     },
     "fixed_pay": {
-      "paise": 230000000,
-      "display": "₹23,00,000",
+      "paise": 29958000,
+      "display": "₹2,99,580",
       "components": [
         "Basic",
-        "Joining bonus"
+        "Fixed Dearness Allowance",
+        "Basket of Allowances",
+        "Company PF",
+        "Gratuity"
       ]
     },
     "variable_pay_at_target": {
-      "paise": 40000000,
-      "display": "₹4,00,000",
-      "components": [
-        "Variable pay"
-      ]
-    },
-    "guaranteed_recurring_cash": {
-      "paise": 180000000,
-      "display": "₹18,00,000",
-      "components": [
-        "Basic"
-      ]
-    },
-    "retirals": {
       "paise": 0,
       "display": "₹0",
       "components": []
     },
-    "one_time_components": {
-      "paise": 50000000,
-      "display": "₹5,00,000",
+    "guaranteed_recurring_cash": {
+      "paise": 26931600,
+      "display": "₹2,69,316",
       "components": [
-        "Joining bonus"
+        "Basic",
+        "Fixed Dearness Allowance",
+        "Basket of Allowances"
       ]
+    },
+    "retirals": {
+      "paise": 3026400,
+      "display": "₹30,264",
+      "components": [
+        "Company PF",
+        "Gratuity"
+      ]
+    },
+    "one_time_components": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
     },
     "benefits_in_kind": {
       "paise": 0,
@@ -159,16 +224,16 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             },
             "variable_pay_at_target": {
               "paise": 0,
               "display": "₹0"
             },
             "one_time": {
-              "paise": 50000000,
-              "display": "₹5,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "equity_as_valued": {
               "paise": 0,
@@ -179,15 +244,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 230000000,
-              "display": "₹23,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -206,15 +271,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -233,15 +298,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -260,28 +325,26 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             }
           }
         ],
         "year_one": {
-          "paise": 230000000,
-          "display": "₹23,00,000"
+          "paise": 26931600,
+          "display": "₹2,69,316"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 192500000,
-            "display": "₹19,25,000"
+            "paise": 26931600,
+            "display": "₹2,69,316"
           },
           "without_one_time": {
-            "paise": 180000000,
-            "display": "₹18,00,000"
+            "paise": 26931600,
+            "display": "₹2,69,316"
           },
-          "one_time_components": [
-            "Joining bonus"
-          ]
+          "one_time_components": []
         }
       },
       {
@@ -290,16 +353,16 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             },
             "variable_pay_at_target": {
-              "paise": 40000000,
-              "display": "₹4,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
-              "paise": 50000000,
-              "display": "₹5,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "equity_as_valued": {
               "paise": 0,
@@ -310,19 +373,19 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 270000000,
-              "display": "₹27,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             },
             "variable_pay_at_target": {
-              "paise": 40000000,
-              "display": "₹4,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -337,19 +400,19 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 220000000,
-              "display": "₹22,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             },
             "variable_pay_at_target": {
-              "paise": 40000000,
-              "display": "₹4,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -364,19 +427,19 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 220000000,
-              "display": "₹22,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 180000000,
-              "display": "₹18,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             },
             "variable_pay_at_target": {
-              "paise": 40000000,
-              "display": "₹4,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -391,28 +454,26 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 220000000,
-              "display": "₹22,00,000"
+              "paise": 26931600,
+              "display": "₹2,69,316"
             }
           }
         ],
         "year_one": {
-          "paise": 270000000,
-          "display": "₹27,00,000"
+          "paise": 26931600,
+          "display": "₹2,69,316"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 232500000,
-            "display": "₹23,25,000"
+            "paise": 26931600,
+            "display": "₹2,69,316"
           },
           "without_one_time": {
-            "paise": 220000000,
-            "display": "₹22,00,000"
+            "paise": 26931600,
+            "display": "₹2,69,316"
           },
-          "one_time_components": [
-            "Joining bonus"
-          ]
+          "one_time_components": []
         }
       }
     ],
@@ -423,12 +484,12 @@
       "Basic"
     ],
     "annual": {
-      "paise": 180000000,
-      "display": "₹18,00,000"
+      "paise": 16680000,
+      "display": "₹1,66,800"
     },
     "share_of_fixed_pay": {
-      "bp": 7826,
-      "display": "78.26%"
+      "bp": 5567,
+      "display": "55.67%"
     },
     "citation": {
       "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
@@ -449,7 +510,8 @@
             "dearness_allowance"
           ],
           "components": [
-            "Basic"
+            "Basic",
+            "Fixed Dearness Allowance"
           ],
           "citation": {
             "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
@@ -501,7 +563,8 @@
             "dearness_allowance"
           ],
           "components": [
-            "Basic"
+            "Basic",
+            "Fixed Dearness Allowance"
           ],
           "citation": {
             "section": "The Payment of Gratuity Act, 1972, section 2(s)",
@@ -557,67 +620,147 @@
       }
     ]
   },
-  "flags": [
-    {
-      "code": "one-time-share",
-      "kind": "heuristic",
-      "measured": {
-        "one_time_in_year_one": {
-          "paise": 50000000,
-          "display": "₹5,00,000"
-        },
-        "year_one": {
-          "paise": 230000000,
-          "display": "₹23,00,000"
-        },
-        "share_of_year_one": {
-          "bp": 2173,
-          "display": "21.73%"
-        }
+  "employer_pf": {
+    "components": [
+      "Company PF"
+    ],
+    "components_citation": {
+      "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, section 6",
+      "document": {
+        "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+        "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
       },
-      "names": [
-        "Joining bonus"
-      ],
-      "threshold": {
-        "heuristics_key": "thresholds.one_time_share.at_or_above_rate",
-        "value": {
-          "bp": 1500,
-          "display": "15%"
-        },
-        "rationale": "A joining bonus large enough to be a seventh of year one is large enough that year two is a pay cut with nothing having changed. The threshold is about the shape of the drop rather than the size of the bonus, which is why it measures against year one and not against CTC."
+      "retrieved": "2026-09-05",
+      "rules_key": "groups.epf.employer_components",
+      "note": "Section 6 fixes one employer contribution, \"paid by the employer to the Fund\", and this names the catalogue entry that carries it on an offer letter. It is deliberately narrower than `employer_nps`, which is a contribution under a different Act to a different fund and is therefore not a figure this rate explains. Read `employer_rate`'s note with any figure derived from it: section 6A(2)(a) diverts part of the employer's share to the Employees' Pension Scheme, so a letter that states only the provident fund part of it will match neither wage base here."
+    },
+    "stated_contribution": {
+      "annual": {
+        "paise": 2160000,
+        "display": "₹21,600"
+      },
+      "monthly": {
+        "paise": 180000,
+        "display": "₹1,800"
       }
     },
-    {
-      "code": "clawback",
-      "kind": "letter",
-      "measured": {
-        "amount": {
-          "paise": 50000000,
-          "display": "₹5,00,000"
-        }
+    "bases": [
+      {
+        "basis": "full_basic",
+        "wage": {
+          "annual": {
+            "paise": 18000000,
+            "display": "₹1,80,000"
+          },
+          "monthly": {
+            "paise": 1500000,
+            "display": "₹15,000"
+          }
+        },
+        "implied_contribution": {
+          "annual": {
+            "paise": 2160000,
+            "display": "₹21,600"
+          },
+          "monthly": {
+            "paise": 180000,
+            "display": "₹1,800"
+          }
+        },
+        "matches": true
       },
-      "names": [
-        "Joining bonus"
-      ],
-      "months": 12
-    }
-  ],
-  "sources": [
-    {
-      "title": "The Code on Wages, 2019 (No. 29 of 2019)",
-      "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+      {
+        "basis": "statutory_ceiling",
+        "wage": {
+          "annual": {
+            "paise": 18000000,
+            "display": "₹1,80,000"
+          },
+          "monthly": {
+            "paise": 1500000,
+            "display": "₹15,000"
+          }
+        },
+        "implied_contribution": {
+          "annual": {
+            "paise": 2160000,
+            "display": "₹21,600"
+          },
+          "monthly": {
+            "paise": 180000,
+            "display": "₹1,800"
+          }
+        },
+        "matches": true
+      }
+    ],
+    "implies": [
+      "full_basic",
+      "statutory_ceiling"
+    ],
+    "bases_coincide": true,
+    "wage_components": [
+      "Basic",
+      "Fixed Dearness Allowance"
+    ],
+    "wage_citation": {
+      "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+      "document": {
+        "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+        "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+      },
+      "retrieved": "2026-09-05",
+      "rules_key": "groups.epf.wage_components",
+      "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
     },
+    "rate": {
+      "bp": 1200,
+      "display": "12%"
+    },
+    "rate_citation": {
+      "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+      "document": {
+        "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+        "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+      },
+      "retrieved": "2026-09-05",
+      "rules_key": "groups.epf.employer_rate",
+      "note": "Read this before quoting the figure, and read `employee_rate`'s note with it: the same caveat applies for the same reason. Section 6 says \"The contribution which shall be paid by the employer to the Fund shall be ten percent. Of the basic wages, dearness allowance and retaining allowance, if any\", and its first proviso substitutes \"12 percent\" for notified establishments \"at both the places where they occur\" -- that notification could not be retrieved. So 0.12 is the rate the Government states is applied, not the rate read off the section: \"The employer is also required to contribute 12% of the wages.\" That statement is accepted as the basis here, permanently, on the reasoning in ADR 0019. This is the WHOLE employer share. Section 6A(2)(a) diverts part of it to the Employees' Pension Scheme, but the Act fixes only a ceiling on that part -- \"not exceeding eight and one-third per cent of the basic wages, dearness allowance and retaining allowance\" -- and leaves the figure itself to \"as may be specified in the Pension Scheme\", which could not be retrieved. The split is therefore not carried here, and a figure computed from this rate is the employer's total contribution rather than what reaches the provident fund alone."
+    },
+    "ceiling": {
+      "monthly": {
+        "paise": 1500000,
+        "display": "₹15,000"
+      },
+      "citation": {
+        "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
+        "document": {
+          "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+          "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+        },
+        "retrieved": "2026-09-05",
+        "rules_key": "groups.epf.wage_ceiling",
+        "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
+      }
+    }
+  },
+  "flags": [],
+  "sources": [
     {
       "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
     },
     {
-      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
-      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
-    },
-    {
       "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+    },
+    {
+      "title": "The Code on Wages, 2019 (No. 29 of 2019)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+    },
+    {
+      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
     },
     {
       "title": "The Income-tax Act, 2025 (No. 30 of 2025)",

@@ -1,0 +1,10 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 13900, "period": "monthly" },
+    { "name": "Fixed Dearness Allowance", "type": "dearness_allowance", "amount": 1100, "period": "monthly" },
+    { "name": "Basket of Allowances", "type": "special_allowance", "amount": 7443, "period": "monthly" },
+    { "name": "Company PF", "type": "employer_pf", "amount": 1800, "period": "monthly" },
+    { "name": "Gratuity", "type": "gratuity", "amount": 722, "period": "monthly" }
+  ]
+}

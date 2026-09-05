@@ -529,14 +529,15 @@
       },
       "retrieved": "2026-09-05",
       "rules_key": "groups.basic_pay.catalogue_entries",
-      "note": "Section 2(y) defines wages and lists what they include: \"(i) basic pay; (ii) dearness allowance; and (iii) retaining allowance, if any\". Basic pay is the first of the three and is its own head, distinct from the other two. Of this file's catalogue entries only `basic` is basic pay; a dearness or retaining allowance entry added to the catalogue is a different head of wages and does not belong here, even though the two share a base with basic pay under the provident fund and gratuity Acts."
+      "note": "Section 2(y) defines wages and lists what they include: \"(i) basic pay; (ii) dearness allowance; and (iii) retaining allowance, if any\". Basic pay is the first of the three and is its own head, distinct from the other two. Of this file's catalogue entries only `basic` is basic pay. `dearness_allowance` is the second head and does not belong here, even though it shares a base with basic pay under the provident fund and gratuity Acts, and a retaining allowance entry added to the catalogue would be the third and belong here no more."
     },
     "drives": [
       {
         "drives": "employer-pf",
         "wage_base": {
           "entries": [
-            "basic"
+            "basic",
+            "dearness_allowance"
           ],
           "components": [
             "Basic"
@@ -549,7 +550,7 @@
             },
             "retrieved": "2026-09-05",
             "rules_key": "groups.epf.wage_components",
-            "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+            "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
           }
         },
         "rate": {
@@ -587,7 +588,8 @@
         "drives": "gratuity",
         "wage_base": {
           "entries": [
-            "basic"
+            "basic",
+            "dearness_allowance"
           ],
           "components": [
             "Basic"
@@ -600,7 +602,7 @@
             },
             "retrieved": "2026-09-05",
             "rules_key": "groups.gratuity.wage_components",
-            "note": "'\"wages\" means all emoluments which are earned by an employee while on duty or on leave in accordance with the terms and conditions of his employment and which are paid or are payable to him in cash and includes dearness allowance but does not include any bonus, commission, house rent allowance, overtime wages and any other allowance.' Of this file's catalogue entries only `basic` is inside that base -- house rent allowance is excluded by name, and a special allowance by the closing words -- and a dearness allowance entry added to the catalogue must be added here too."
+            "note": "'\"wages\" means all emoluments which are earned by an employee while on duty or on leave in accordance with the terms and conditions of his employment and which are paid or are payable to him in cash and includes dearness allowance but does not include any bonus, commission, house rent allowance, overtime wages and any other allowance.' Of this file's catalogue entries `basic` and `dearness_allowance` are inside that base, the second included by name -- house rent allowance is excluded by name, and a special allowance by the closing words."
           }
         },
         "accrual": {
@@ -735,7 +737,7 @@
       },
       "retrieved": "2026-09-05",
       "rules_key": "groups.epf.wage_components",
-      "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+      "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
     },
     "rate": {
       "bp": 1200,
@@ -838,7 +840,7 @@
                   },
                   "retrieved": "2026-09-05",
                   "rules_key": "groups.epf.wage_components",
-                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
                 }
               },
               "income_tax": {
@@ -1280,7 +1282,7 @@
                   },
                   "retrieved": "2026-09-05",
                   "rules_key": "groups.epf.wage_components",
-                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
                 }
               },
               "income_tax": {
@@ -1738,7 +1740,7 @@
                   },
                   "retrieved": "2026-09-05",
                   "rules_key": "groups.epf.wage_components",
-                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
                 }
               },
               "income_tax": {
@@ -2114,7 +2116,7 @@
                   },
                   "retrieved": "2026-09-05",
                   "rules_key": "groups.epf.wage_components",
-                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
                 }
               },
               "income_tax": {

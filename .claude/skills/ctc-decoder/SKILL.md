@@ -139,8 +139,9 @@ This first run carries no `take_home` block. Step 5 is what adds one.
 ## 5. The provident fund wage base
 
 Take-home needs one thing the letter does not state in words: which wage the
-employer computes provident fund on — the whole of basic, or basic capped at the
-statutory monthly ceiling. There is no default, and the two answers move the
+employer computes provident fund on — the whole of the provident fund wage base
+(basic, and dearness allowance where the letter has one), or that wage capped at
+the statutory monthly ceiling. There is no default, and the two answers move the
 monthly figure by thousands.
 
 It is a bad question to put cold, and usually you do not have to. **An Indian
@@ -159,8 +160,8 @@ confirmation instead of a quiz.
   *[the rate]* of the statutory ceiling of *[the ceiling]* a month — is that the
   basis?", with every bracket filled from the output and none of them from
   memory.
-- **Both entries** — `bases_coincide` is true: basic is at or below the ceiling,
-  so both bases give the same wage and no figure computed from them could tell
+- **Both entries** — `bases_coincide` is true: the wage base is at or below the
+  ceiling, so both bases give the same wage and no figure computed from them could tell
   them apart. Say that, say the figure is the same either way, and ask the plain
   question anyway, because the answer still travels into the input.
 - **No entries** — the letter's figure lands on neither. Say so, give all three
@@ -175,7 +176,8 @@ confirmation instead of a quiz.
   report the absence as a problem with their letter.
 
 The plain question, when you need it: does the employer compute provident fund
-on the whole of basic, or on the statutory monthly ceiling? Name the ceiling by
+on the whole of the wage base — basic, with dearness allowance where the letter
+has one — or on the statutory monthly ceiling? Name the ceiling by
 `employer_pf.ceiling.monthly.display` where the output carries it; where there is
 no `employer_pf` block, ask without a figure rather than supplying one from
 memory — you do not have the ceiling for that year unless the tool gave it to

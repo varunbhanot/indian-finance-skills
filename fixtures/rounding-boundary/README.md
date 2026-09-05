@@ -15,6 +15,13 @@ Both rounding steps come from one section of the Income-tax Act, 2025 and both
 use a ₹10 unit; the rules file carries them as two entries because they are
 applied at two different points.
 
+Spec #11 adds the old regime alongside the new. Both rounding steps happen on
+its side too, on their own figures, since its ₹50,000 standard deduction
+(against the new regime's ₹75,000) gives a different total income before
+rounding: ₹19,50,007, not a multiple of ₹10, rounding up on the same rule to
+₹19,50,010. Tax payable rounds down from ₹4,13,403.12 to ₹4,13,400 — a second,
+independent exercise of both statutory rounding steps.
+
 ## External cross-check
 
 **Deliberately not cross-checked against the Income Tax Department's

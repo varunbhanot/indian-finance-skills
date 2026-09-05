@@ -16,12 +16,17 @@ under the new regime — which is itself the point: the two fixtures differ by
 ₹1,22,400 of take-home a year (₹19,63,500 against ₹20,85,900 on the zero basis)
 on an otherwise identical letter.
 
+Spec #11 adds the old regime alongside the new, same as every other take-home
+fixture; it changes neither provident fund figure above, since employee PF
+does not depend on regime.
+
 ## External cross-check
 
 **Only partly cross-checkable, and this fixture asserts only what is.**
 
-- The **income tax** half is the same as `take-home-new-regime` and is covered
-  by the cross-check recorded there.
+- The **income tax** half is the same as `take-home-new-regime` (new regime)
+  and `take-home-old-regime` (old regime) and is covered by the cross-checks
+  recorded there.
 - The **provident fund** half is **not cross-checked against any calculator**.
   The two figures it rests on — the 12% employee rate and the ₹15,000 monthly
   ceiling — could not be sourced to the instruments that fix them: see

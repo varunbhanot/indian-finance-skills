@@ -26,6 +26,21 @@ its own set of permitted deductions.
 the rate applying to income within that band. Slabs are ordered; the final
 slab has no upper bound.
 
+**Surcharge** — an additional charge on the income-tax itself, not on income, at
+a rate fixed by the total income. It applies only above a threshold well beyond
+the top slab, and it is banded like a slab table but applies differently: the
+band's rate is charged on the *whole* income-tax, not on the income inside the
+band. A regime's surcharge bands are its own — the new regime's stop lower than
+the old regime's.
+
+**Marginal relief** — the statutory ceiling that stops crossing a surcharge
+threshold costing more than it earns: income-tax plus surcharge may not exceed
+what they came to *at* the threshold plus every rupee of income above it. It is
+not a deduction and not a rebate — it is a cap, and what it takes off is the
+surcharge. It does not cap the cess charged on the two, so a rupee above a
+threshold still costs the cess on its own tax. Distinct from the **rebate's** own
+marginal relief, which is a different provision about a different threshold.
+
 **Statutory rounding** — the two points where the Income-tax Act requires a
 figure to be rounded: **total income**, before the slabs are walked, and **tax
 payable**, after the cess. Nothing else is rounded; intermediate figures are

@@ -573,3 +573,570 @@ either quotation.
   https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/income-tax-calculator-um
 - Income Tax Department, calculator engine script —
   https://static.incometax.gov.in/iec/foservices/assets/js/tax-calc/itdcalc.js
+
+---
+
+## 7. Old regime: slabs, standard deduction, rebate
+
+Researched 2026-09-05, by fetching both gazette PDFs already cited in §0/§1–§3
+above and extracting their text directly (not recalled, not taken from the
+existing quotes in §1–§3 without re-checking them against the source).
+
+### 7.1 Old regime income tax slabs for FY 2026-27
+
+**Provision:** Finance Act, 2026 (No. 4 of 2026), **First Schedule, Part I,
+B.—Income-tax under the Income-tax Act, 2025** — this is what s.3(1) calls
+"Part I-B of the First Schedule" (the sub-heading text itself says "hereafter
+in this Part I-B referred to as the said Act"), **Paragraph A**.
+
+**Finding: Part I-B does NOT carry a single slab table. It carries three
+separate tables, banded by age**, exactly mirroring the structure the
+repealed 1961 Act used (compare Part I-A, quoted below for orientation only —
+that part charges tax for AY 2026-27 under the 1961 Act and is out of scope
+here):
+
+- **Item (I) — the table in scope for this ticket.** Verbatim opening words:
+  > "(I) In the case of every individual other than the individual referred to in items (II) and (III) of this Paragraph or Hindu undivided family or association of persons or body of individuals, whether incorporated or not, or every artificial juridical person referred to in section 2(77)(g) of the Income-tax Act, 2025 (hereafter in this Part I-B referred to as the said Act), not being a case to which Paragraphs B, C, D and E of this Part applies,—"
+
+  Because items (II) and (III) (below) are each expressly limited to "every
+  individual, **being a resident in India**", item (I) is not just "below
+  60" — it is **below 60 (resident or non-resident) AND every non-resident
+  individual regardless of age** (a non-resident senior citizen does not get
+  the higher exemption; only residents do). This is the band this project's
+  decoder encodes.
+
+  **Verbatim rate table (Sl. Nos. (1)–(4)):**
+  > "(1) where the total income does not exceed ₹ 250000 — Nil;
+  > (2) where the total income exceeds ₹ 250000 but does not exceed ₹ 500000 — 5% of the amount by which the total income exceeds ₹ 250000;
+  > (3) where the total income exceeds ₹ 500000 but does not exceed ₹ 1000000 — ₹ 12500 plus 20% of the amount by which the total income exceeds ₹ 500000;
+  > (4) where the total income exceeds ₹ 1000000 — ₹ 112500 plus 30% of the amount by which the total income exceeds ₹ 1000000."
+
+  **Ordered bands, upper bound in whole rupees, rate as decimal fraction:**
+
+  | # | Upper bound (₹) | Rate |
+  |---|---|---|
+  | 1 | 250000 | 0.00 |
+  | 2 | 500000 | 0.05 |
+  | 3 | 1000000 | 0.20 |
+  | 4 | unbounded | 0.30 |
+
+- **Item (II) — senior citizen, resident, age 60 to below 80. Out of scope
+  for this ticket, named for completeness.** Verbatim:
+  > "(II) In the case of every individual, being a resident in India, who is of the age of sixty years or more but less than eighty years at any time during the tax year,—
+  > (1) where the total income does not exceed ₹ 300000 — Nil;
+  > (2) where the total income exceeds ₹ 300000 but does not exceed ₹ 500000 — 5% of the amount by which the total income exceeds ₹ 300000;
+  > (3) where the total income exceeds ₹ 500000 but does not exceed ₹ 1000000 — ₹ 10000 plus 20% of the amount by which the total income exceeds ₹ 500000;
+  > (4) where the total income exceeds ₹ 1000000 — ₹ 110000 plus 30% of the amount by which the total income exceeds ₹ 1000000."
+
+- **Item (III) — super senior citizen, resident, age 80 or more. Out of
+  scope for this ticket, named for completeness.** Verbatim:
+  > "(III) In the case of every individual, being a resident in India, who is of the age of eighty years or more at any time during the tax year,—
+  > (1) where the total income does not exceed ₹ 500000 — Nil;
+  > (2) where the total income exceeds ₹ 500000 but does not exceed ₹ 1000000 — 20% of the amount by which the total income exceeds ₹ 500000;
+  > (3) where the total income exceeds ₹ 1000000 — ₹ 100000 plus 30% of the amount by which the total income exceeds ₹ 1000000."
+
+  Also present in Part I-B, and clearly out of scope (non-individual
+  assessees): **Paragraph B** (co-operative society), **Paragraph C** (firm,
+  flat 30%), **Paragraph D** (local authority, flat 30%), **Paragraph E**
+  (company).
+
+- **Cross-check against the charging section itself.** Finance Act 2026
+  s.3(2)(a)'s own Table (used for the agricultural-income aggregation
+  calculation) restates the same three bands by a different route, confirming
+  the read above:
+  > "Sl. No. 1 — (i) Every individual other than the individual referred to in Sl. No. 2 or 3 …, not being an assessee to which Paragraph B, C, D or E of Part I-B of the First Schedule applies or to whom Sl. No. 4 applies. — Maximum amount not chargeable to income-tax: ₹ 250000."
+  > "Sl. No. 2 — Every individual, being a resident in India, who is of the age of sixty or more but less than eighty years at any time during the tax year. — ₹ 300000."
+  > "Sl. No. 3 — Every individual, being a resident in India, who is of the age of eighty years or more at any time during the tax year. — ₹ 500000."
+
+  (Sl. No. 4 in that same Table is the s.202 new-regime assessee, ₹400000 —
+  already quoted in §0 above.)
+
+- **URL:** https://egazette.gov.in/WriteReadData/2026/271439.pdf (Finance Act,
+  2026, as enacted) — retrieved 2026-09-05.
+- **Status:** settled/notified — Finance Act 2026 has Presidential assent (30
+  March 2026); s.3 and the First Schedule are within ss.2–129, which commence
+  1 April 2026 per s.1(2)(a).
+- **Ambiguity/formatting note:** the PDF's table layout places the "Rates of
+  income-tax" column header and the numbered sub-clause labels in a way that a
+  naive text extraction can jumble (a stray "Sl. No. / A / 1. / 2. / 3. / 4. /
+  5." fragment appears immediately before item (I) in the extracted text —
+  it is column-header/cross-reference noise from the page layout, not
+  additional substantive text; the substantive Sl. No. (1)–(4) rows quoted
+  above are unambiguous and were checked twice against the raw PDF).
+
+### 7.2 Old regime standard deduction — reconfirmed against the primary text
+
+**Provision:** Income-tax Act, 2025, **section 19(1)**, Table Sl. No. 2(b).
+
+**Verbatim (re-fetched and re-checked byte-for-byte against §2 above — it
+matches):**
+> "2. Standard deduction. — (a) ₹ 75000 or the salary, whichever is less, where income-tax is computed under section 202(1); (b) ₹ 50000 or the salary, whichever is less, in any other case."
+
+- **Value:** **₹50,000** (old regime — "in any other case" than s.202(1),
+  i.e. every case other than the new regime), capped at the salary if the
+  salary is lower.
+- **URL:** https://egazette.gov.in/WriteReadData/2025/265620.pdf — retrieved
+  2026-09-05.
+- **Section reference:** Income-tax Act, 2025, s.19(1) Table Sl. No. 2(b).
+- **Status:** settled/notified. Confirmed no Finance Act 2026 amendment — see
+  §7.4.
+
+---
+
+### 8.5 Old regime, properly configured, for spec #11
+
+Researched 2026-09-05, re-fetching the engine directly rather than reusing the
+§8.2 run.
+
+**Re-fetch and integrity check.** Refetched
+`https://static.incometax.gov.in/iec/foservices/assets/js/tax-calc/itdcalc.js`
+today (2026-09-05): 198,608 bytes, MD5 `4315734cbad59b03dccd77bc921a8618` —
+byte-identical to the copy §8 already used. Nothing in the engine has changed
+since §8.2 was written.
+
+**Diagnosis of the §8.2 `TaxOld = 5,30,400` figure: confirmed a bug, not a
+second valid computation.** `ItdCalc.BasicCal.GetTaxCal(assYr, cStatus, age,
+rstatus, tinc, ded, total_taxable_incm_nw, exemptions_allowed_old_regime,
+deductions_allowed_old_regime)` — the function `doCalculation()` calls for
+`calcType: "basic"` — for an individual/HUF discards its own `tinc`/`ded`
+arguments and instead does:
+```
+tinc = total_taxable_incm_nw;
+ded = exemptions_allowed_old_regime + deductions_allowed_old_regime;
+return TaxInd(assYr, cStatus, age, rstatus, tinc, ded);
+```
+and inside `TaxInd`, the **old**-regime total income is `ttinc = tinc - ded`,
+while the **new**-regime slab call is `TaxIndNew(tlim, tinc)` — using the
+*same, un-netted* `tinc`, with no separate subtraction for the new regime at
+all. So whatever the caller puts in `total_taxable_incm_nw` is the base for
+*both* regimes; only the *old* regime additionally subtracts `ded`. The §8.2
+run set `total_taxable_incm_nw: gross - 75000` (already netted for the new
+regime) and `deductions_allowed_old_regime: 0`, so the old-regime path
+actually computed `ttinc = (gross - 75000) - 0 = 23,25,000` — the new
+regime's own total income, not `gross - 50000 = 23,50,000`. Reproduced
+directly: calling `GetTaxCal('2027-28','IND','NM','R', 2400000, 0, 2400000,
+0, 75000)` (i.e. putting the new regime's ₹75,000 into
+`deductions_allowed_old_regime` instead of the old regime's own ₹50,000)
+returns `TaxOld = 5,30,400` — the exact stray figure §8.2 reported. That
+confirms the suspicion in the ticket: **§8.2's `TaxOld` reused the new
+regime's standard deduction, not the old regime's own.**
+
+**Correct old-regime call.** The fix is simply to put the *old regime's own*
+standard deduction (₹50,000, capped at gross salary) into
+`deductions_allowed_old_regime` and leave `total_taxable_incm_nw` as the raw
+gross salary (untouched) — `js.TaxNew` from this same call is then
+meaningless (it gets no deduction at all) and must be ignored; only
+`js.TaxOld` is trustworthy from this call shape:
+```js
+ItdCalc.BasicCal.GetTaxCal(assYr, 'IND', 'NM', 'R',
+  /* tinc (unused for IND) */ gross, /* ded (unused for IND) */ 0,
+  /* total_taxable_incm_nw */ gross,
+  /* exemptions_allowed_old_regime */ 0,
+  /* deductions_allowed_old_regime */ Math.min(gross, 50000));
+```
+This was cross-checked against calling the engine's lower-level globals
+directly on an already-netted total income — `TaxIndOld(250000, gross -
+50000)`, `RebateCalculation(ttinc, tax, 'old', assYr, 'R', 'IND', 'NM')`,
+`SurChargeCalculation(ttinc, tax, 'old', assYr)`, cess `parseInt((tax -
+rebate + surcharge) * 4 / 100)` — and the two call paths agreed to the rupee
+in all eight runs (four cases × both `assYr` forms).
+
+**Old-regime selection mechanism.** There is no `taxRegime` parameter on the
+public entry point for the "basic" calculator; the old/new split for
+`calcType: "basic"` is which return field you read (`TaxOld` vs `TaxNew`) —
+the engine always computes both in one call. Lower down, the advanced
+calculator (`ItdCalc.AdvCalc.GetTaxCal(js)`) does branch explicitly on
+`js.oldnewslab` (`"old"` unless `js.oldnewslab == "new"`), and the
+lower-level helper functions (`TaxIndOld`/`TaxIndNew`,
+`RebateCalculation(..., taxRegime, ...)`,
+`SurChargeCalculation(..., taxRegime, ...)`) take an explicit `'old'`/`'new'`
+string. `taxAssYr`/`assYr` accepted either `"2027-28"` or `"2026-27"` with
+identical results in every case tried, confirming §8's finding again here.
+
+**Old-regime standard deduction, exactly as the engine's own code carries
+it.** There is no `incomeStdDec = 50000` constant sitting in the engine the
+way `incomeStdDec = 75000` sits for the new regime (§8.1) — the "basic"
+calculator instead expects the caller (the SPA, not this script) to compute
+the old regime's own deduction externally and pass it in through
+`deductions_allowed_old_regime`/`exemptions_allowed_old_regime`. The ₹50,000
+figure is not read from the engine at all; it is the statutory figure
+already sourced in §7.2 (ITA 2025 s.19(1) Table Sl. No. 2(b)) and supplied by
+the caller. This is a real gap in the engine as a source: it will compute
+whatever deduction you feed it, so **the ₹50,000 must come from the statute,
+not from the engine's defaults** — which is exactly why §7.2 sources it from
+the gazette rather than from this script.
+
+**Old-regime rebate code, quoted.** `RebateCalculation`, the branch that
+fires for `taxRegime == 'old'`, individual, under 60 (`ageGroup == 'NM'`):
+```js
+if (taxbleIncome <= 500000 && residentialStatus != "NR" && taxRegime == 'old'
+    && (categoryStatus == "IND" && ageGroup == 'NM')) {
+    rebate = 12500;
+    if (rebate > tax) {
+        rebate = tax;
+    }
+}
+```
+This is exactly the s.156(1)/old-§87A shape the ticket expected: total
+income ≤ ₹5,00,000, rebate = min(₹12,500, tax), and — unlike the new-regime
+branches immediately below it in the same function — **no marginal-relief
+clause at all** for the old regime. Crossing ₹5,00,000 loses the whole
+rebate on the engine's own logic too, matching §7.3's reading of the
+statute.
+
+**The four cases, engine output vs hand computation.** Individual under 60
+(`age: "NM"`), resident (`rstatus: "R"`), old regime, `assYr` "2027-28" and
+"2026-27" both tried (identical results both ways), no other income, no
+deduction beyond the ₹50,000 standard deduction:
+
+| Case | Gross salary | Total income (engine) | Tax at slabs (engine) | Rebate (engine) | Cess @4% (engine) | Total tax (engine) | Hand-computed total | Agrees? |
+|---|---|---|---|---|---|---|---|---|
+| A | 24,00,000 | 23,50,000 | 5,17,500 | 0 | 20,700 | **5,38,200** | 5,38,200 | **Yes — exact** |
+| B | 27,00,000 | 26,50,000 | 6,07,500 | 0 | 24,300 | **6,31,800** | 6,31,800 | **Yes — exact** |
+| C | 5,40,000 | 4,90,000 | 12,000 | 12,000 | 0 | **0** | 0 | **Yes — exact** |
+| D | 6,40,000 | 5,90,000 | 30,500 | 0 | 1,220 | **31,720** | 31,720 | **Yes — exact** |
+
+All four agree with the hand-computed expectation to the rupee — no
+truncation drift from the engine's `parseInt`-based arithmetic (§8.4) showed
+up here, because every intermediate figure in these four cases (5%/20%/30%
+of a round rupee amount, and 4% of a round rupee amount) happens to land on
+a whole rupee already. The §8.4 caveat about `parseInt` truncation vs the
+Act's own ₹10 rounding (s.516) still stands as a general matter for inputs
+that are not this clean; it simply did not bite for these four inputs.
+
+**Sources for this subsection:**
+- Engine URL: https://static.incometax.gov.in/iec/foservices/assets/js/tax-calc/itdcalc.js
+  — retrieved 2026-09-05 (re-fetched; MD5 `4315734cbad59b03dccd77bc921a8618`,
+  198,608 bytes — identical to §8's copy).
+- Old regime slabs, standard deduction and rebate statute: §7.1–§7.3 above
+  (Finance Act 2026 First Schedule Part I-B Paragraph A Item (I); ITA 2025
+  s.19(1) Table Sl. No. 2(b); ITA 2025 s.156(1)).
+
+### 7.3 Old regime rebate — and which subsection actually is the old-regime one
+
+The existing §3 of this document quotes s.156(1)–(3) together under the
+heading "New regime rebate". **Having now read the statute text on its own
+terms rather than trusting that heading: only s.156(2)–(3) is the new-regime
+rebate. Section 156(1) is the old-regime rebate** — it carries no reference
+to s.202(1) at all, unlike (2) and (3), which each open by tying themselves
+explicitly to "total income … chargeable to tax under section 202(1)" / "the
+rates provided in section 202(1)".
+
+**Provision:** Income-tax Act, 2025, Chapter IX ("REBATES AND RELIEFS"), Part
+A, **section 156(1)**, marginal note *"Rebate of income-tax in case of
+certain individuals."*
+
+**Verbatim:**
+> "156. (1) An assesse, being an individual resident in India, shall be entitled to a deduction of 100% of income-tax payable or ₹ 12500, whichever is less, from the income-tax (computed before allowing the deduction under this section) chargeable on the total income for any tax year if such total income does not exceed ₹ 500000."
+
+For contrast, the opening words of the genuinely new-regime subsections
+(re-quoted to show the s.202(1) tie that (1) lacks):
+> "(2) Where the total income of a resident individual assessee for any tax year is chargeable to tax under section 202(1), then from income-tax (computed before allowing the deduction under this section) following deductions shall be allowed, if— …"
+>
+> "(3) The deduction under sub-section (2), shall not exceed income-tax payable as per the rates provided in section 202(1)."
+
+- **Old-regime rebate amount:** **100% of income-tax payable or ₹12,500,
+  whichever is less.**
+- **Old-regime rebate threshold:** total income does not exceed **₹5,00,000**.
+- **No marginal relief is provided for the old-regime rebate** — unlike
+  s.156(2)(b) for the new regime, s.156(1) has no equivalent clause for
+  total income marginally above ₹5,00,000. Crossing ₹5,00,000 by even ₹1
+  loses the whole rebate on the face of this text.
+- **Availability:** resident individual only ("an individual resident in
+  India").
+- **URL:** https://egazette.gov.in/WriteReadData/2025/265620.pdf — retrieved
+  2026-09-05.
+- **Section reference:** Income-tax Act, 2025, s.156(1) (enabled by s.155(1),
+  quoted in full in §3 above).
+- **Status:** settled/notified. Confirmed no Finance Act 2026 amendment — see
+  §7.4.
+- **Correction to note against §3 of this document:** §3's heading "New
+  regime rebate" is imprecise — the section actually documents all three
+  subsections of s.156, of which only (2)–(3) are new-regime. This §7.3 is
+  the correction; §3's verbatim quotes are accurate and unchanged, only the
+  heading's framing is corrected here.
+
+### 7.4 Amendment check: does Finance Act 2026 touch s.19, s.155, s.156 (or Part I-B) for the old regime?
+
+**No.** I read every amending clause of Finance Act 2026's Income-tax Act,
+2025 amendments (they are numbered sequentially and each opens "In section
+`<n>` of the Income-tax Act, …" — the amendments to the 2025 Act run from
+s.35 of the Finance Act (amending ITA 2025 s.2) through s.122 of the Finance
+Act (amending ITA 2025 s.536), which is the full range Part B of the Finance
+Act touches). Searching that full amendment list, and the full text of the
+Finance Act, for "section 19", "section 155" or "section 156" of the
+Income-tax Act, 2025:
+
+- **No clause amends section 19** (standard deduction )— the nearest
+  neighbouring amendments are to ITA 2025 s.7, s.21, s.29, s.66 and s.70; none
+  touch s.19.
+- **No clause amends section 155 or section 156** (rebate) — the nearest
+  neighbouring amendments are to ITA 2025 s.149 and s.162; none touch s.155
+  or s.156.
+- **Part I-B of the First Schedule is not "amended" by anything** — it is
+  itself an original part of Finance Act 2026 (the Finance Act enacts the
+  First Schedule directly each year; there is no prior year's Part I-B under
+  the 2025 Act to amend, since tax year 2026-27 is the Act's first tax year).
+
+This confirms, for the old-regime provisions, the same conclusion the
+existing §0/§1 of this document already reached for the new-regime provision
+(s.202): **Finance Act 2026 leaves ss.19, 155 and 156 of the Income-tax Act,
+2025 exactly as enacted in August 2025.**
+
+- **URL:** https://egazette.gov.in/WriteReadData/2026/271439.pdf — retrieved
+  2026-09-05.
+- **Status:** settled — a negative finding (absence of amendment), checked
+  against the full text of the Act, not merely absence of a keyword hit.
+
+---
+
+## 11. Surcharge and marginal relief, both regimes (spec #12)
+
+Researched 2026-09-05, same discipline as §§1–7: every figure below is quoted
+from the gazette text of the Finance Act, 2026 fetched on that date
+(https://egazette.gov.in/WriteReadData/2026/271439.pdf), and every cross-check is
+the Income Tax Department's own engine, executed unmodified.
+
+**Correction to note against §1.** §1's parenthetical "Surcharge (not asked, but
+it bounds the slab table)" says the new regime's rates come from "Finance Act
+2026 s.3(4) Table Sl. No. 1" and lists them as 10 / 15 / 25 / **37**%. Both halves
+are wrong. Sl. No. 1 of that Table is the table for persons **not** chargeable
+under s.202 with income under the special-rate sections; the s.202 row is
+**Sl. No. 10**, and it stops at **25%** — it carries no 37% band at all. §1's
+quotes of s.202(1) itself are accurate and unchanged; only that parenthetical is
+corrected here.
+
+### 11.1 The new regime's surcharge — why it is not in the First Schedule
+
+Three provisions have to be read together, and the route is not the obvious one.
+
+- **FA 2026 s.3(3)**, verbatim:
+  > "(3) In cases to which the provisions of Part A, B, C or D of Chapter XIII or section 207 to 218, 223, 224, 307, 308, 311 or 334 of the said Act apply, the tax chargeable shall be determined— (i) as provided in that Chapter or that section; and (ii) with reference to the rates imposed by sub-section (1) or the rates as specified in that Chapter or section, as the case may be."
+
+- **s.202 is inside that.** The Income-tax Act, 2025 gazette text has s.202 under
+  **Chapter XIII ("DETERMINATION OF TAX IN SPECIAL CASES"), Part C ("New tax
+  regime")** — the heading "C.—New tax regime" opens at s.199 and s.202 carries
+  the side-note "New tax regime for individuals, Hindu undivided family and
+  others". s.202(1)'s own opening words ("subject to Parts A, B, E and this Part
+  of this Chapter") confirm it. So s.3(3) applies to it, and s.3(4) sets its
+  surcharge.
+
+- **FA 2026 s.3(4)(a)(ii)** then excludes it from Paragraph F by name, verbatim:
+  > "(a) the amount of income-tax computed in accordance with the provisions of section 196, 197 or 198 of the said Act shall be increased by a surcharge, for the purposes of the Union, as provided in Paragraph F of Part I-B of the First Schedule, except in case of— … (ii) an individual or Hindu undivided family or association of persons, or body of individuals, whether incorporated or not, or an artificial juridical person referred to in section 2(77)(g) of the said Act whose income is chargeable to tax under section 202 of the said Act;"
+
+**Provision for the rates:** FA 2026 **s.3(4)(b) Table, Sl. No. 10** — column B
+"202.", column C every individual / HUF / AOP / BOI / artificial juridical
+person. Column D, verbatim:
+> "(i) Where the total income (including dividend income or capital gains under the provisions of sections 196, 197 and 198 of the said Act) exceeds ₹ 5000000 but does not exceed ₹ 10000000, at the rate of 10%;
+> (ii) where the total income (including dividend income or capital gains under the provisions of sections 196, 197 and 198 of the said Act) exceeds ₹ 10000000 but does not exceed ₹ 20000000, at the rate of 15%;
+> (iii) where the total income (excluding dividend income or capital gains under the provisions of sections 196, 197 and 198 of the said Act) exceeds ₹ 20000000, at the rate of 25%;
+> (iv) where the total income (including dividend income or capital gains under the provisions of sections 196, 197 and 198 of the said Act) exceeds ₹ 20000000, but is not covered in clause (iii), at the rate of 15%;
+> (v) where the total income includes any dividend income or capital gains under the provisions of sections 196, 197 and 198 of the said Act, the rate of surcharge on the income-tax in respect of that part of income shall not exceed 15% and the provisions of clause (i) or (ii), as the case may be, shall apply accordingly."
+
+**Ordered bands for a salary-only total income** (no dividend income, no s.196–198
+capital gains, so (iv) and (v) do not arise and (iii) reads on the whole figure):
+
+| # | above (₹) | upto (₹) | rate |
+|---|---|---|---|
+| 1 | 5000000 | 10000000 | 0.10 |
+| 2 | 10000000 | 20000000 | 0.15 |
+| 3 | 20000000 | unbounded | 0.25 |
+
+- **Status:** settled/notified. FA 2026 has assent 30 March 2026.
+- **The salary-only caveat is real and is encoded as a `note`**, not silently
+  assumed: a total income carrying dividends or those capital gains needs clauses
+  (iv)–(v) and this table alone would overstate the surcharge.
+
+### 11.2 The old regime's surcharge — First Schedule, Part I-B, Paragraph F
+
+**Route:** FA 2026 **s.3(1)** charges tax "at the rates specified in Part I-B of
+the First Schedule and such tax shall be increased by a surcharge … calculated in
+each case in the manner provided therein" — *therein* being Part I-B, whose
+**Paragraph F** is headed "Surcharge on income-tax" and opens, verbatim:
+> "The amount of income-tax computed in accordance with Paragraphs A to E, or the provisions of section 196, 197 or 198 of the said Act, in the case of person as specified in column B in Table 1 below, shall be increased by a surcharge, for the purposes of the Union, calculated at the rate or rates as specified in column C of the said Table, of such income-tax."
+
+Paragraph A is the old regime's rate table (§7.1), so this is the old regime's
+surcharge.
+
+**Provision:** FA 2026, First Schedule, **Part I-B, Paragraph F, Table 1,
+Sl. No. 1** — column B every individual / HUF / AOP (except one of only
+companies) / BOI / artificial juridical person. Column C, verbatim:
+> "(i) Where the total income (including dividend income or capital gains under the provisions of sections 196, 197 and 198 of the said Act) exceeds ₹ 5000000 but does not exceed ₹ 10000000, at the rate of 10%;
+> (ii) where the total income (including …) exceeds ₹ 10000000 but does not exceed ₹ 20000000, at the rate of 15%;
+> (iii) where the total income (excluding dividend income or capital gains under the provisions of sections 196, 197 and 198 of the said Act) exceeds ₹ 20000000 but does not exceed ₹ 50000000, at the rate of 25%;
+> (iv) where the total income (excluding dividend income or capital gains under the provisions of sections 196, 197 and 198 of the said Act) exceeds ₹ 50000000, at the rate of 37%;
+> (v) where the total income (including …) exceeds ₹ 20000000, but is not covered in (iii) and (iv) above, at the rate of 15%;
+> (vi) where the total income includes any dividend income or capital gains … the rate of surcharge on the amount of income-tax computed in respect of that part of income shall not exceed 15% and the provisions of clause (i) or (ii), as the case may be, shall apply accordingly."
+
+**Ordered bands for a salary-only total income:**
+
+| # | above (₹) | upto (₹) | rate |
+|---|---|---|---|
+| 1 | 5000000 | 10000000 | 0.10 |
+| 2 | 10000000 | 20000000 | 0.15 |
+| 3 | 20000000 | 50000000 | 0.25 |
+| 4 | 50000000 | unbounded | 0.37 |
+
+**The one substantive difference between the two regimes** is the top: the old
+regime keeps a **37%** band above five crore rupees; the new regime's table has
+none, and stops at 25%. Everything below two crore is identical.
+
+### 11.3 Marginal relief — one formula, enacted twice
+
+**New regime.** FA 2026 **s.3(5)**, verbatim:
+> "(5) For the purposes of sub-section (4), in respect of the persons mentioned in column B of the Table below, having total income chargeable to tax under section 202, 206(1) or 206(2) of the said Act, as the case may be, and such income exceeds the amount as specified in column C of the said Table but does not exceed the amount specified in column D thereof, the total amount payable as income-tax and surcharge thereon shall not exceed the amount determined as per the following formula:—
+> Tn = Rn + Sn
+> where,–– Tn = the total amount beyond which the total amount payable as income-tax and surcharge thereon shall not exceed; Rn = the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C of the Table below; and Sn = the total income – amount as specified in column C of the said Table."
+
+Its Table, **Sl. No. 6** ("Persons specified against Sl. Nos. 10 and 11 in
+column C" — i.e. the s.202 persons of §11.1): column C / column D pairs
+₹50,00,000 / ₹1,00,00,000; ₹1,00,00,000 / ₹2,00,00,000; ₹2,00,00,000 / —.
+
+**Old regime.** FA 2026, First Schedule, Part I-B, **Paragraph F**, the passage
+following Table 1, verbatim:
+> "Further, in respect of the persons mentioned in column B of the Table 2 below, having total income exceeding the amount as specified in column C of the said Table but does not exceed the amount specified in column D thereof, the total amount payable as income-tax and surcharge thereon shall not exceed the amount determined as per the following formula:—
+> Wn = Un + Vn
+> where,–– Wn = the total amount beyond which the total amount payable as income-tax and surcharge thereon shall not exceed; Un = the total amount payable as income-tax and surcharge, if applicable, on an amount as specified in column C of the Table 2 below; and Vn = the total income – amount as specified in column C of the said Table."
+
+Its Table 2, **Sl. No. 1** ("Table 1: Sl. No. 1.B" — the individuals of §11.2):
+₹50,00,000 / ₹1,00,00,000; ₹1,00,00,000 / ₹2,00,00,000; ₹2,00,00,000 /
+₹5,00,00,000; ₹5,00,00,000 / —.
+
+**Two findings that let this be encoded as one rule with no second table:**
+
+1. The two formulae are word-for-word identical under different variable letters.
+   Tn/Rn/Sn and Wn/Un/Vn carry the same three definitions verbatim.
+2. **The column-C amounts are exactly the surcharge bands' own lower bounds, row
+   for row, in both regimes.** Checked against §11.1 and §11.2: new regime
+   50/100/200 lakh against bands above 50/100/200 lakh; old regime
+   50/100/200/500 lakh against bands above 50/100/200/500 lakh. No threshold in
+   either relief table is absent from that regime's surcharge table, and none is
+   extra. (What this repository does with that finding, and what it costs, is
+   ADR 0014.)
+
+**What the ceiling covers, and what it does not.** "the total amount payable as
+income-tax **and surcharge** thereon". The Health and Education Cess is imposed by
+a separate sub-section (s.3(15), §4 above) on income-tax as increased by the
+surcharge, and no ceiling touches it. So marginal relief stops take-home falling
+off a cliff at a threshold, but a rupee earned just above one still carries the
+4% cess on its own rupee of tax — the `fixtures/marginal-relief` README works the
+arithmetic through.
+
+**Interaction with the rebate: none, in practice.** The rebate thresholds are
+₹12,00,000 (new, s.156(2)) and ₹5,00,000 (old, s.156(1)); the first surcharge
+threshold is ₹50,00,000 in both. No total income can attract both, so the order
+the two are applied in is unobservable for FY 2026-27. The engine computes the
+surcharge on tax **after** rebate in its advanced path (`MNSUTX(tinc,
+TaxAftrRebate, …)`) and on tax **before** rebate in its basic path
+(`SurChargeCalculation(ttinc, taxold, …)`) — it does not itself settle the
+question, and it does not have to.
+
+### 11.4 One divergence: the engine caps the old regime at 25%, the statute does not
+
+`SurChargeCalculation`, verbatim from the engine:
+```js
+if (taxRegime == 'old') {
+    if (taxbleIncome > 5000000 && taxbleIncome <= 10000000)      { surc = parseInt((tax * 10) / 100); }
+    else if (taxbleIncome > 10000000 && taxbleIncome <= 20000000) { surc = parseInt((tax * 15) / 100); }
+    else if (taxbleIncome > 20000000 && taxbleIncome <= 50000000) { surc = parseInt((tax * 25) / 100); }
+    else if (taxbleIncome > 50000000 && taxAssYr >= '2024')       { surc = parseInt((tax * 25) / 100); }
+    else if (taxbleIncome > 50000000)                             { surc = parseInt((tax * 37) / 100); }
+    else { surc = 0; }
+}
+```
+For any assessment year from 2024 onward the 37% branch is unreachable under
+`'old'`. **Paragraph F Table 1 Sl. No. 1(iv) says 37%** for tax year 2026-27, and
+the rules file follows the Paragraph. The engine's `'new'` branch, by contrast,
+stops at 25% and agrees with §11.1.
+
+Flagged rather than resolved: I could not find anything in the Finance Act, 2026
+or the Income-tax Act, 2025 that would justify the engine's old-regime cap. No
+fixture in this repository reaches above five crore rupees, so nothing is
+asserted on the strength of either reading; a ticket that goes there must settle
+it first.
+
+### 11.5 Cross-check runs
+
+Engine URL
+`https://static.incometax.gov.in/iec/foservices/assets/js/tax-calc/itdcalc.js`,
+re-fetched 2026-09-05: MD5 `4315734cbad59b03dccd77bc921a8618`, 198,608 bytes —
+byte-identical to §8's and §7.2's copy.
+
+**Two things §8 did not have to know, which matter here.**
+
+1. **The basic calculator implements no marginal relief.** `TaxInd` calls
+   `SurChargeCalculation` and adds the result; the relief code lives only in the
+   advanced calculator's `MNSUTX`/`TCMNSUTX`. Comparing a relief case against the
+   basic calculator would "disagree" by exactly the relief.
+2. **`TaxIndNew` reads `assYr` off the global scope, not off its arguments.** In
+   a sandbox where that global is unset every branch falls through and the
+   function silently returns a tax from the wrong year's table. §8's runs were in
+   a context where the global happened to be set; a fresh harness must set it
+   explicitly. (Symptom: gross ₹24,00,000 returning something other than the
+   ₹2,92,500 §8.2 recorded.)
+
+**Advanced calculator call shape**, which drives the relief path directly and
+needs no old/new deduction juggling — the total income goes in as salary income
+and the regime is chosen explicitly:
+```js
+const js = { framework:'calculator', calcType:'advance', assYr:'2027-28',
+             cStatus:'IND', rstatus:'R', age:'NM',
+             oldnewslab: 'new' /* or 'old' */, slinc: totalIncome,
+             hpinc:0, bpoth:0, bp44ad:0, osinc:0 };
+ItdCalc.AdvCalc.GetTaxCal(js);
+// js.GrossTax, js.rebate87A, js.Surcharge, js.ECess, js.TotalTax
+```
+(`$.each` is only reached when `js.dedlist` is set, so a one-line `$` stub or an
+absent `dedlist` is enough; `assYr` accepted "2027-28" and "2026-27" alike, as
+§8 found.) Sanity check first: total income ₹23,25,000 under `'new'` returns
+`GrossTax` ₹2,81,250 and `TotalTax` ₹2,92,500, reproducing §8.2 through this call
+shape.
+
+**Runs, advanced calculator, individual under 60, resident, salary only:**
+
+| regime | total income ₹ | tax at slabs ₹ | surcharge ₹ | cess ₹ | total tax ₹ | this repo agrees |
+|---|---|---|---|---|---|---|
+| new | 49,75,000 | 10,72,500 | 0 | 42,900 | 11,15,400 | yes |
+| new | 50,50,000 | 10,95,000 | **35,000** (relief ₹74,500) | 45,200 | 11,75,200 | yes |
+| new | 55,50,000 | 12,45,000 | 1,24,500 | 54,780 | 14,24,280 | yes |
+| new | 59,25,000 | 13,57,500 | 1,35,750 | 59,730 | 15,52,980 | yes |
+| new | 65,25,000 | 15,37,500 | 1,53,750 | 67,650 | 17,58,900 | yes |
+| old | 50,00,000 | 13,12,500 | 0 | 52,500 | 13,65,000 | yes |
+| old | 50,75,000 | 13,35,000 | **52,500** (relief ₹81,000) | 55,500 | 14,43,000 | yes |
+| old | 55,75,000 | 14,85,000 | 1,48,500 | 65,340 | 16,98,840 | yes |
+| old | 59,50,000 | 15,97,500 | 1,59,750 | 70,290 | 18,27,540 | yes |
+| old | 65,50,000 | 17,77,500 | 1,77,750 | 78,210 | 20,33,460 | yes |
+
+Exact to the rupee on all ten. The basic calculator was run on the same salaries
+and agreed everywhere **except** the two relief rows, where it returned the
+un-relieved figures (₹12,52,680 and ₹15,27,240) — which is the §11.5(1) finding
+showing itself, not a disagreement about the statute.
+
+§8.4's caveat still stands as a general matter: the engine truncates with
+`parseInt` and does not apply the s.516 ₹10 rounding, so it is not a valid check
+on a salary whose tax is not already a multiple of ₹10. Every figure above lands
+on a whole ten rupees before that rounding, so it did not bite.
+
+### 11.6 What I could NOT source, for §12
+
+Nothing new. Both provisions came from the Finance Act, 2026 gazette text
+directly. Two notes on getting to it:
+
+- **egazette.gov.in serves an incomplete TLS chain** — the leaf only, no
+  intermediate — so a plain fetch fails "unable to get local issuer certificate".
+  The leaf's AIA names its issuer (`http://yr2.i.lencr.org/`); fetching that
+  intermediate and appending it to the trust bundle verifies the chain properly.
+  Verification was not disabled at any point.
+- **incometaxindia.gov.in remains unreachable** from this environment (§9 item 4),
+  so the consolidated "as amended" text still could not be read; as in §7.4, the
+  Finance Act, 2026 was read whole rather than searched, and it is an original
+  enactment for this tax year, not an amendment of a prior Part I-B.
+
+### 11.7 Stability summary, added rows
+
+| # | Item | Value | Status |
+|---|---|---|---|
+| 8 | New regime surcharge | 10 / 15 / 25% above 50 / 100 / 200 lakh; no 37% band | Settled — FA 2026 s.3(4)(b) Tbl. Sl. No. 10; re-source each year |
+| 9 | Old regime surcharge | 10 / 15 / 25 / 37% above 50 / 100 / 200 / 500 lakh | Settled — FA 2026 First Sch. Pt. I-B Para F Tbl. 1 Sl. No. 1; re-source each year |
+| 10 | Marginal relief on surcharge | ceiling = tax and surcharge at the threshold + income above it | Settled — FA 2026 s.3(5) and Pt. I-B Para F Tbl. 2 |
+| 11 | Surcharge on dividends / capital gains | capped at 15% on that part of income | **Not encoded** — salary-only decoder; the `note` on both surcharge keys says so |

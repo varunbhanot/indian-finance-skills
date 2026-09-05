@@ -1,5 +1,11 @@
 # take-home-new-regime-rebate
 
+Named for the new regime's rebate, which is what it was built to exercise
+(issue #9); spec #11 now reports the old regime alongside it on the same
+package, same as every other take-home fixture. The old regime's own rebate
+threshold (₹5,00,000 of total income) is well clear of both bases here, so
+neither shows it — that case is `take-home-old-regime-rebate`'s job.
+
 The rebate visible on one basis and not the other, out of one package. With
 variable pay at zero the total income (₹11,75,000) is inside the rebate, so the
 slab tax of ₹57,500 is wiped out entirely and both the tax and the cess on it
@@ -31,6 +37,8 @@ Engine retrieved and run on **2026-09-05**; see
 also read directly and carries `rebate = 60000; if (rebate > tax) rebate = tax;`
 for `taxbleIncome <= 1200000`, which is the rule this fixture exercises.
 
-**Not cross-checked:** the variable-pay-at-target basis, and the provident fund
-figures (see `pf-statutory-ceiling`'s README). Both are checked by hand against
-the statute and by independent recomputation.
+**Not cross-checked:** the variable-pay-at-target basis, the provident fund
+figures (see `pf-statutory-ceiling`'s README), and the old regime (see
+`take-home-old-regime`'s README, where the same computation path is checked
+against the Department's engine on the same zero-basis salary). All are
+checked by hand against the statute and by independent recomputation.

@@ -1,5 +1,5 @@
 /**
- * Income tax on a salary under the new regime, for one financial year.
+ * Income tax on a salary under either regime, for one financial year.
  *
  * Every rate, threshold and rounding unit is read from the rules file; nothing
  * statutory is written here, and a rule the file does not carry stops the

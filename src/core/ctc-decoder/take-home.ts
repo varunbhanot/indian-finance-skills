@@ -132,47 +132,39 @@ export function takeHomeFor(
     counted: components.filter((component) => included(component.classification)),
   }));
 
+  // Closes over the rules groups and the two non-tax deductions, which every
+  // basis of every regime shares; only the basis and the regime vary.
+  function basisFor(basis: TakeHomeOnBasis["basis"], counted: readonly TakeHomeComponent[], regime: Regime): TakeHomeOnBasis {
+    const gross = sum(counted);
+    const tax = incomeTaxFor(gross, incomeTax, rounding, regime);
+    const total =
+      employeePf.contribution.annual.paise +
+      (professionalTax?.annual.paise ?? 0) +
+      tax.tax_payable.after.paise;
+    return {
+      basis,
+      recurring_cash: {
+        ...periodic(gross),
+        components: counted.map((component) => component.name),
+      },
+      deductions: {
+        employee_pf: employeePf,
+        ...(professionalTax === undefined ? {} : { professional_tax: professionalTax }),
+        income_tax: tax,
+        total: periodic(total),
+      },
+      take_home: periodic(gross - total),
+    };
+  }
+
   const regimes = REGIMES.map((regime) => ({
     regime,
-    bases: grossByBasis.map(({ basis, counted }) =>
-      basisFor(basis, counted, regime, incomeTax, rounding, employeePf, professionalTax),
-    ),
+    bases: grossByBasis.map(({ basis, counted }) => basisFor(basis, counted, regime)),
     assumes: assumesFor(regime),
     excludes: excludesFor(request, regime),
   }));
 
   return { regimes };
-}
-
-function basisFor(
-  basis: TakeHomeOnBasis["basis"],
-  counted: readonly TakeHomeComponent[],
-  regime: Regime,
-  incomeTax: RulesNode,
-  rounding: RulesNode,
-  employeePf: EmployeePf,
-  professionalTax: PeriodicMoney | undefined,
-): TakeHomeOnBasis {
-  const gross = sum(counted);
-  const tax = incomeTaxFor(gross, incomeTax, rounding, regime);
-  const total =
-    employeePf.contribution.annual.paise +
-    (professionalTax?.annual.paise ?? 0) +
-    tax.tax_payable.after.paise;
-  return {
-    basis,
-    recurring_cash: {
-      ...periodic(gross),
-      components: counted.map((component) => component.name),
-    },
-    deductions: {
-      employee_pf: employeePf,
-      ...(professionalTax === undefined ? {} : { professional_tax: professionalTax }),
-      income_tax: tax,
-      total: periodic(total),
-    },
-    take_home: periodic(gross - total),
-  };
 }
 
 /**

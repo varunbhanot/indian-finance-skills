@@ -46,6 +46,21 @@ export interface Classification {
 }
 
 /**
+ * A component once the decoder has classified it: what it is worth, what it
+ * is, and which catalogue entry said so. The one shape every reading of an
+ * offer takes — the totals, basic pay, take-home — so a field added here
+ * reaches all of them without anyone copying it across.
+ */
+export interface ClassifiedComponent {
+  /** The name as the user typed it, which is how every reading names it back. */
+  name: string;
+  annual_paise: number;
+  classification: Classification;
+  /** The catalogue entry that classified it, absent when the user classified it inline. */
+  catalogue_entry?: string;
+}
+
+/**
  * Reads the three fields (and `instrument` when the form is equity) from
  * wherever they were written. `read` fetches a field by name; `reject` builds
  * the rejection each caller reports — a rules-file error for the catalogue, an

@@ -9,14 +9,7 @@
  * gratuity is a retiral that no total of cash includes.
  */
 import { money, type Money } from "../money.ts";
-import type { Certainty, Classification, Form } from "./classification.ts";
-
-/** A component reduced to what a total needs: what it is worth, and what it is. */
-export interface TotallableComponent {
-  name: string;
-  annual_paise: number;
-  classification: Classification;
-}
+import type { Certainty, Classification, ClassifiedComponent, Form } from "./classification.ts";
 
 export interface Total extends Money {
   /** The names, as typed, of the components summed into this figure. */
@@ -80,7 +73,7 @@ export function countsTowardRecurringCashAtTarget(classification: Classification
  */
 const RETIRAL_FORMS: ReadonlySet<Form> = new Set<Form>(["locked-savings", "deferred-cash"]);
 
-export function totalsFor(components: readonly TotallableComponent[]): OfferTotals {
+export function totalsFor(components: readonly ClassifiedComponent[]): OfferTotals {
   return {
     headline_ctc: total(components, () => true),
     // Fixed pay is everything not contingent on performance, which still
@@ -104,7 +97,7 @@ export function totalsFor(components: readonly TotallableComponent[]): OfferTota
 }
 
 function total(
-  components: readonly TotallableComponent[],
+  components: readonly ClassifiedComponent[],
   includes: (classification: Classification) => boolean,
 ): Total {
   const included = components.filter((component) => includes(component.classification));

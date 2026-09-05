@@ -11,12 +11,12 @@
  * but the user's (CLAUDE.md's two-layer rule).
  *
  * Which components are basic pay is read from the rules file, never named here
- * (ADR 0004), and only a component the catalogue classified can be one: a line
- * the user classified inline carries no catalogue entry, so it is outside the
- * base whatever they called it. Note the asymmetry that follows: it is in the
- * numerator, and — through `totals.fixed_pay` — still in the denominator, so
- * `basic.components` and `totals.fixed_pay.components` are both named in the
- * output and a reader can see which lines are in which.
+ * (ADR 0004), and only a component the catalogue classified can be one —
+ * `wage-base.ts` holds that rule. Note the asymmetry that follows: a line the
+ * user classified inline is outside the numerator and — through
+ * `totals.fixed_pay` — still in the denominator, so `basic.components` and
+ * `totals.fixed_pay.components` are both named in the output and a reader can
+ * see which lines are in which.
  *
  * `groups.basic_pay` is how a rules file opts into this reading at all: without
  * it there is no `basic` block, which is how the same decoder reads a rules file
@@ -31,24 +31,9 @@
  */
 import { money, rate, rupeesToPaise, shareInBasisPoints, type Money, type Rate } from "../money.ts";
 import type { RulesFile } from "../rules/files.ts";
-import { hasRulesGroup, rulesGroup, type Citation, type RulesNode } from "./rules-reader.ts";
-
-/** A decoded component reduced to what this reading needs: its worth, and what classified it. */
-export interface ClassifiedComponent {
-  name: string;
-  annual_paise: number;
-  /** The catalogue entry that classified it, absent when the user classified it inline. */
-  catalogue_entry?: string;
-}
-
-/** The components a statutory base is made of, as the rules file names them and as the user typed them. */
-export interface WageBase {
-  /** The catalogue entries the rules file counts into the base. */
-  entries: string[];
-  /** The components of this offer that fall inside it, by the name the user typed. */
-  components: string[];
-  citation: Citation;
-}
+import type { ClassifiedComponent } from "./classification.ts";
+import { hasRulesGroup, rulesGroup, type Citation } from "./rules-reader.ts";
+import { wageBaseFor, type WageBase } from "./wage-base.ts";
 
 /**
  * One thing basic drives, discriminated by `drives` because the three rest on
@@ -110,18 +95,14 @@ export function basicFor(
 ): Basic | undefined {
   if (!hasRulesGroup(rules, "basic_pay")) return undefined;
 
-  const base = wageBaseFor(components, rulesGroup(rules, "basic_pay").child("catalogue_entries"));
-  const annualPaise = componentsIn(components, base.entries).reduce(
-    (running, one) => running + one.annual_paise,
-    0,
-  );
-  const share = shareInBasisPoints(annualPaise, fixedPayPaise);
+  const basicPay = wageBaseFor(components, rulesGroup(rules, "basic_pay").child("catalogue_entries"));
+  const share = shareInBasisPoints(basicPay.annual_paise, fixedPayPaise);
 
   return {
-    components: base.components,
-    annual: money(annualPaise),
+    components: basicPay.base.components,
+    annual: money(basicPay.annual_paise),
     ...(share === undefined ? {} : { share_of_fixed_pay: rate(share) }),
-    citation: base.citation,
+    citation: basicPay.base.citation,
     drives: [employerPf(components, rules), gratuity(components, rules), hraExemption(rules)],
   };
 }
@@ -141,7 +122,7 @@ function employerPf(components: readonly ClassifiedComponent[], rules: RulesFile
   const ceilingNode = epf.child("wage_ceiling");
   return {
     drives: "employer-pf",
-    wage_base: wageBaseFor(components, epf.child("wage_components")),
+    wage_base: wageBaseFor(components, epf.child("wage_components")).base,
     rate: rate(rateNode.rateBasisPoints("rate")),
     rate_citation: rateNode.citation(),
     ceiling: {
@@ -164,7 +145,7 @@ function gratuity(components: readonly ClassifiedComponent[], rules: RulesFile):
   const qualifying = group.child("qualifying_service");
   return {
     drives: "gratuity",
-    wage_base: wageBaseFor(components, group.child("wage_components")),
+    wage_base: wageBaseFor(components, group.child("wage_components")).base,
     accrual: {
       days_of_wages: accrual.integer("days_of_wages"),
       days_in_month: accrual.integer("days_in_month"),
@@ -178,28 +159,3 @@ function hraExemption(rules: RulesFile): HraExemptionDriven {
   return { drives: "hra-exemption", citation: rulesGroup(rules, "hra").child("exemption").citation() };
 }
 
-/**
- * A statutory wage base as this offer meets it: the catalogue entries the rules
- * file counts into it, and which of the user's own lines fall inside. Three
- * rules name a base this way — basic pay itself, the provident fund's, and
- * gratuity's — and each names its own, so no component type is named in code.
- */
-function wageBaseFor(components: readonly ClassifiedComponent[], node: RulesNode): WageBase {
-  const entries = node.strings("entries");
-  return {
-    entries,
-    components: componentsIn(components, entries).map((one) => one.name),
-    citation: node.citation(),
-  };
-}
-
-/** The components inside a base, which only a catalogue entry can put one in. */
-function componentsIn(
-  components: readonly ClassifiedComponent[],
-  entries: readonly string[],
-): ClassifiedComponent[] {
-  const included = new Set(entries);
-  return components.filter(
-    (one) => one.catalogue_entry !== undefined && included.has(one.catalogue_entry),
-  );
-}

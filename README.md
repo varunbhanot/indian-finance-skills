@@ -1,52 +1,62 @@
 # Indian Finance Skills
 
-Skills for Indian personal finance.
+Claude Code skills for Indian personal finance, aimed at salaried people.
+
+Each skill takes the numbers you have — an offer letter, a payslip, a figure
+you typed — and tells you what is true about them, with every rate and
+threshold traced to its primary source. No skill ever tells you what to do.
+
+## Skills
+
+| Skill | What it does | Status |
+|---|---|---|
+| [CTC decoder](.claude/skills/ctc-decoder/README.md) | Decodes an offer letter's CTC into guaranteed recurring cash, values equity, lays the package out year by year, and estimates take-home under both tax regimes. | Shipped for FY 2026-27. Spec #4's stories are all built; the [known gaps](.claude/skills/ctc-decoder/README.md#what-it-does-not-do-yet) are specific and listed. |
+
+More skills will be added here as they are built.
+
+## How every skill is built
+
+Each skill has two layers, and the boundary between them is strict
+(see [CLAUDE.md](CLAUDE.md)):
+
+1. **A deterministic core** — plain TypeScript plus `rules/*.yaml`. All
+   arithmetic, all classification, all rule lookup. Unit tested, no
+   floating point, every rate sourced to a statutory document.
+2. **A skill layer** — the `SKILL.md` file. Conversation only: eliciting
+   figures, interpreting the core's output, flagging traps.
+
+The model never computes and never recalls a rate from memory. Every rupee
+figure in a skill's response comes from the core's output, and an eval
+enforces that (ADR 0003). Every rate, slab and limit lives in `rules/` with
+a source URL, CI-enforced (ADR 0001).
+
+## What no skill will do
+
+- **Recommend.** A skill states what is true about the numbers, links the
+  primary source — EPFO, the Payment of Gratuity Act, the Income Tax
+  Department — and stops (ADR 0007). It never says what to negotiate,
+  accept or reject.
+- **Guess a value.** Illiquid equity is ₹0 and is always named as such
+  (ADR 0005). Share-price growth is never modelled.
+- **Ask for credentials.** No passwords, no PAN, no account or card numbers.
+  A skill never repeats an identifying detail from a document you hand it.
 
 ## Structure
 
 Each skill lives under `.claude/skills/<skill-name>/` — the directory Claude
-Code auto-loads project skills from; a top-level directory would not load — and
-follows the standard Claude Skill layout:
+Code auto-loads project skills from; a top-level directory would not load —
+and follows the standard Claude Skill layout:
 
 ```
 .claude/skills/skill-name/
   SKILL.md      # required — name, description, and instructions
+  README.md     # what the skill does, its status, and what it won't do
   scripts/      # optional — helper scripts the skill can invoke
   references/   # optional — reference material loaded on demand
 ```
 
+The deterministic core behind the skills lives in `src/core/`, the CLI
+entrypoints in `src/cli/`, statutory rules in `rules/`, and behavioural
+fixtures in `fixtures/`. Design decisions are recorded in `docs/adr/`.
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add a new skill.
-
-## General-purpose engineering skills
-
-`.claude/skills/` holds general-purpose engineering skills vendored in from
-[mattpocock/skills](https://github.com/mattpocock/skills) (MIT-licensed).
-Claude Code auto-loads that directory, so they're available in every
-session in this repo, including on the web. See `.claude/skills/README.md`
-for provenance and how to update them. These are separate from the
-Indian-finance skills this repo exists to build, which live alongside them.
-
-`.claude/settings.json` also declares `mattpocock-skills` as a plugin
-(`extraKnownMarketplaces` + `enabledPlugins`). On the web that declaration
-alone doesn't currently load the skills — the vendored copies above are
-what actually make them available there — but it's kept in case a future
-Claude Code surface (CLI/desktop, via `/plugin install`) picks it up and
-tracks upstream automatically.
-
-## Status
-
-The **CTC decoder** (`.claude/skills/ctc-decoder`) is a first cut: it takes an
-offer letter — handed over as a document, pasted, or typed — confirms every
-figure with you, and decodes it into guaranteed recurring cash against headline
-CTC, with every component classified and every total traced to the lines it was
-built from. Take-home, equity valuation and the year-by-year view are in
-progress under spec #4.
-
-## What this deliberately won't do
-
-It never tells you what to negotiate, accept or reject. It states what is true
-about the numbers and links the primary source — EPFO, the Payment of Gratuity
-Act, the Income Tax Department — and stops there (ADR 0007). It never does
-arithmetic in conversation: every rupee figure comes from the deterministic
-core, and an eval checks that (ADR 0003). And it never asks for a password, a
-PAN or an account number.

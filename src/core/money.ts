@@ -70,6 +70,27 @@ export function applyRate(paise: number, basisPoints: number): number {
 }
 
 /**
+ * `part` as a share of `whole`, in integer basis points, with the sub-basis-point
+ * remainder discarded — the same truncation `applyRate` makes, and the inverse
+ * reading of it.
+ *
+ * Both figures are paise, and both are reduced to whole rupees before the
+ * division so the divisor stays inside `divideWithRemainder`'s range even at the
+ * ₹100 crore input cap. That costs nothing: every amount the decoder takes is
+ * typed in whole rupees, so a figure it derives from them carries no paise of
+ * its own until a rate is applied to it.
+ *
+ * A share of nothing is not zero and not 100%, so a `whole` of nil yields no
+ * share at all rather than a figure the reader would take for one.
+ */
+export function shareInBasisPoints(partPaise: number, wholePaise: number): number | undefined {
+  const whole = divideWithRemainder(wholePaise, PAISE_PER_RUPEE).quotient;
+  if (whole === 0) return undefined;
+  const part = divideWithRemainder(partPaise, PAISE_PER_RUPEE).quotient;
+  return divideWithRemainder(part * BASIS_POINTS_PER_UNIT, whole).quotient;
+}
+
+/**
  * A month of an annual figure, truncated towards zero. The discarded remainder
  * is under a rupee a year, and twelve monthly figures may therefore fall a few
  * paise short of the annual one they came from; that is why every figure the

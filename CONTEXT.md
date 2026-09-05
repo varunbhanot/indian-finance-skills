@@ -81,6 +81,13 @@ target is not the payout.
 **Basic** — the base component. Drives employer PF, gratuity and HRA exemption,
 so its share of the package changes outcomes well beyond its own value.
 
+**Wage base** — the components a statutory rule computes on, as that rule
+defines them, not as an offer letter groups them. Each rule has its own: the
+provident fund's is basic wages, dearness allowance and retaining allowance
+(EPF & MP Act §2(b), §6); gratuity's is wages including dearness allowance but
+excluding house rent allowance and any other allowance (Payment of Gratuity Act
+§2(s)). Basic sits inside every one of them, which is why it drives all three.
+
 **Retirals** — employer contributions counted in CTC but not received as cash
 now: employer PF, gratuity provision, employer NPS. The decoder derives the
 retirals total from the classification rather than that list — everything

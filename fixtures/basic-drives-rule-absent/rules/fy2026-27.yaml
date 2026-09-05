@@ -1,0 +1,28 @@
+# Test-only rules document, not statutory fact. It says which catalogue entry is
+# basic pay, and then says nothing about what basic drives: no `epf` group, no
+# `gratuity`, no `hra`. A file that claims the first must carry the rest, because
+# the share and the facts beside it are one reading (spec #7) -- so the decoder
+# reports the first missing rule by key rather than emit a share with nothing
+# attached to it.
+financial_year: 2026-27
+groups:
+  components:
+    title: A test-only catalogue
+    source: https://example.test/component-catalogue
+    retrieved: 2026-09-05
+    entries:
+      basic:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+        rationale: The base component of the salary structure.
+  basic_pay:
+    title: A test-only statement of which entries are basic pay
+    source: https://example.test/basic-pay
+    retrieved: 2026-09-05
+    catalogue_entries:
+      section: Test-only, standing in for the provision that names basic pay
+      source: https://example.test/basic-pay
+      retrieved: 2026-09-05
+      entries:
+        - basic

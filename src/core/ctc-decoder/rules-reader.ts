@@ -14,6 +14,13 @@
  * Every node can also produce its own `Citation`, because a rules key states the
  * provision it came from beside its value (ADR 0010): the group's `source` is
  * where the group's vocabulary comes from, not authority for each figure in it.
+ *
+ * A citation names the *document* the provision sits in, not just its URL, so
+ * the output can list every source it cites by name (ADR 0007, ADR 0015). A
+ * document is titled once, on the group, and a node citing a different document
+ * from its group's titles that one instead; a node citing an untitled document
+ * is refused, which is what makes the consolidated list complete rather than
+ * best-effort.
  */
 import type { RulesFile } from "../rules/files.ts";
 import type { RulesValue } from "../rules/loader.ts";
@@ -24,11 +31,18 @@ export function isRulesMap(value: RulesValue | undefined): value is { [key: stri
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+/** A document the output cites: the title the rules file gives it, and its URL. */
+export interface Source {
+  title: string;
+  url: string;
+}
+
 /** Where a figure came from, carried into the output beside the figure itself. */
 export interface Citation {
   /** The provision in force for this financial year, as the rules file states it. */
   section: string;
-  source: string;
+  /** The paper that provision sits in. */
+  document: Source;
   retrieved: string;
   /** The dotted key in the rules file, e.g. `groups.income_tax.cess`. */
   rules_key: string;
@@ -48,7 +62,30 @@ export function rulesGroup(file: RulesFile, name: string): RulesNode {
   const group = file.document.groups[name];
   const key = `${RULES_KEY_ROOT}.${name}`;
   if (group === undefined) throw absent(file, key);
-  return new RulesNode(file, key, group as unknown as RulesValue);
+  const value = group as unknown as RulesValue;
+  return new RulesNode(file, key, value, documentIn(value, undefined));
+}
+
+/** Whether the named group exists at all, for a reading the rules file need not carry. */
+export function hasRulesGroup(file: RulesFile, name: string): boolean {
+  return file.document.groups[name] !== undefined;
+}
+
+/**
+ * The document a node cites: its own `title` and `source` when it carries both,
+ * and otherwise whichever document encloses it. A node that narrows the source
+ * without naming the paper inherits nothing, so `citation()` can refuse it.
+ *
+ * Exported because the CI check that every rules file titles what it cites walks
+ * the raw document rather than `RulesNode`s (ADR 0015), and a second copy of
+ * this rule there would drift from this one silently.
+ */
+export function documentIn(value: RulesValue, enclosing: Source | undefined): Source | undefined {
+  if (!isRulesMap(value)) return enclosing;
+  const title = value["title"];
+  const url = value["source"];
+  if (typeof title === "string" && typeof url === "string") return { title, url };
+  return enclosing;
 }
 
 export class RulesNode {
@@ -56,11 +93,14 @@ export class RulesNode {
   /** The dotted rules key this node sits at, for the output and for rejections. */
   readonly key: string;
   readonly value: RulesValue;
+  /** The nearest titled document at or above this node, absent when none titles one. */
+  private readonly document: Source | undefined;
 
-  constructor(file: RulesFile, key: string, value: RulesValue) {
+  constructor(file: RulesFile, key: string, value: RulesValue, document: Source | undefined) {
     this.file = file;
     this.key = key;
     this.value = value;
+    this.document = document;
   }
 
   /** The child map or value at `name`; absent is a rejection, not a default. */
@@ -69,13 +109,13 @@ export class RulesNode {
     const value = map[name];
     const key = `${this.key}.${name}`;
     if (value === undefined) throw absent(this.file, key);
-    return new RulesNode(this.file, key, value);
+    return this.descend(key, value);
   }
 
   /** The child at `name`, or undefined when the rules file does not carry it. */
   optionalChild(name: string): RulesNode | undefined {
     const value = this.map()[name];
-    return value === undefined ? undefined : new RulesNode(this.file, `${this.key}.${name}`, value);
+    return value === undefined ? undefined : this.descend(`${this.key}.${name}`, value);
   }
 
   /** A whole number of rupees, a count, or any other plain integer the loader passed through. */
@@ -127,7 +167,7 @@ export class RulesNode {
     if (!Array.isArray(node.value)) {
       throw rulesFileInvalid(this.file, node.key, "expected a list");
     }
-    return node.value.map((item, index) => new RulesNode(this.file, `${node.key}[${index}]`, item));
+    return node.value.map((item, index) => node.descend(`${node.key}[${index}]`, item));
   }
 
   /** Every item read as a non-empty string, for a list of names. */
@@ -135,20 +175,33 @@ export class RulesNode {
     return this.items(name).map((item) => item.asText());
   }
 
-  /** This node's own provenance: the in-force provision, its URL, and when it was read. */
+  /** This node's own provenance: the in-force provision, the paper it sits in, and when it was read. */
   citation(): Citation {
     const source = this.text("source");
     if (!source.startsWith("https://")) {
       throw rulesFileInvalid(this.file, `${this.key}.source`, "source must be an https URL");
     }
+    const document = this.document;
+    if (document === undefined || document.url !== source) {
+      throw rulesFileInvalid(
+        this.file,
+        `${this.key}.title`,
+        "a value citing a document other than its group's must carry that document's title, so the output can name every source it cites",
+      );
+    }
     const note = this.optionalChild("note");
     return {
       section: this.text("section"),
-      source,
+      document,
       retrieved: this.text("retrieved"),
       rules_key: this.key,
       ...(note === undefined ? {} : { note: note.asText() }),
     };
+  }
+
+  /** A child node, carrying whichever document titles it: its own, or this one's. */
+  private descend(key: string, value: RulesValue): RulesNode {
+    return new RulesNode(this.file, key, value, documentIn(value, this.document));
   }
 
   private map(): { [key: string]: RulesValue } {

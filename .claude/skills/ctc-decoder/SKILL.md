@@ -97,17 +97,48 @@ Then the remaining totals — `variable_pay_at_target`, `retirals`,
 `one_time_components`, `benefits_in_kind` — each by `display` with its
 constituent names, and `clawback_months` on any component that carries it.
 
+Then `basic`, when the output carries it: `share_of_fixed_pay.display` beside
+`totals.fixed_pay.display` and `basic.annual.display`. Name the lines on both
+sides of it — `basic.components` above the line, `totals.fixed_pay.components`
+below — because a line the user classified inline is in the denominator and can
+never be in the numerator, and only the two lists show that. Say the share; do
+not say whether it is low, high or worth changing (ADR 0007).
+
+Then `basic.drives`, one fact each, from the fields and never from memory:
+
+- `employer-pf` — the contribution is computed on `wage_base.components` at
+  `rate.display`, and `ceiling.monthly.display` is the statutory monthly wage
+  ceiling. Say whether the ceiling applies to this employee only if the output
+  says so, which it does not here: `take_home.deductions.employee_pf` is the
+  only place the decoder applies it, and only for the employee's own share.
+- `gratuity` — it accrues on `wage_base.components`, at `accrual.days_of_wages`
+  days of wages per completed year with the monthly wage divided by
+  `accrual.days_in_month`, and is payable after `qualifying_service.years` years
+  of continuous service. No gratuity figure exists; do not compute one.
+- `hra-exemption` — read the citation's `note` before saying anything. The Act
+  settles that the exemption exists and leaves its extent to be prescribed; the
+  rules file does not carry the limbs, so say the exemption is bounded and that
+  the decoder cannot compute the bound.
+
 Then the conditions in the letter, quoted, each beside the component it
 attaches to.
 
-Cite as you go. `classified_by.basis` is a statute (`source` — link it) or the
-author's judgement (`rationale` — say it is judgement and give it). An inline
-classification has neither: it is the user's own.
+Cite as you go. `classified_by.basis` is a statute (`document` — give its
+`title` and link its `url`) or the author's judgement (`rationale` — say it is
+judgement and give it). An inline classification has neither: it is the user's
+own. Every other figure carries a `citation`: its `section` is the provision,
+its `document` the paper, and its `note`, when present, is a caveat to be said
+and not paraphrased away.
+
+End with `sources`: every document the output cites, once each, by `title` and
+`url`. That list is the whole of the answer to "why should I believe this" —
+give it, and do not add a link that is not in it.
 
 Figures are `display` strings, verbatim, and only those: `paise` stays in the
 JSON, and a percentage, share or difference exists only once the tool has
 emitted it.
 
-End on the facts and the links. Take-home, tax, equity value and the
-year-by-year view are not in the output yet; when asked, say the rules file
-does not carry them yet.
+End on the facts and the links. This skill does not yet gather the one thing
+take-home needs (`pf_wage_base`), so the output carries no `take_home` block;
+equity value and the year-by-year view are not in the output at all. When asked
+for any of them, say which of the two it is.

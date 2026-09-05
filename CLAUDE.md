@@ -40,10 +40,14 @@ emits display strings; never reformat a number yourself.
 Integer paise, rates as integer basis points after load. No floating-point
 arithmetic in the core, percentages included. Rounding only at §288A and §288B
 (ADR 0002). `npm run lint` walks the AST of `src/core` and fails on any float
-literal, `/`, `**`, `Math`, `parseFloat`, `Number(...)` or unary `+`. Division
-is allowed only on BigInt operands: `Number(BigInt(a) * BigInt(bp) / 10000n)`
-is the sanctioned integer division, and `parseInt(digits, 10)` the sanctioned
-parse.
+literal, `/`, `**`, `Math`, `parseFloat`, `Number(...)` or unary `+`;
+`parseInt(digits, 10)` is the sanctioned parse. The core does not divide yet.
+The ticket that first applies a rate (`amount × bp ÷ 10000`) chooses the
+integer-division helper and the lint's carve-out for it, without BigInt
+(spec #4 caps input at ₹100 crore so plain safe integers suffice) and records
+the choice in an ADR.
+
+The cap is applied to each typed figure and to its annualised value.
 
 ## Rules versus heuristics
 
@@ -77,8 +81,10 @@ Fixtures test the CLI seam only: JSON in, JSON out, through the same entrypoint
 the skill uses. Nothing is tested below it. One directory per fixture under
 `fixtures/`, holding `input.json` and either `expected.json` (exact stdout, exit
 0) or `expected-error.json` (exact stderr, exit non-zero); `test/fixtures.test.ts`
-discovers them. The two invariant checks beside the seam are the rules schema
-check (every `rules/*.yaml` loads) and the no-float lint.
+discovers them. Three checks sit beside the seam: the rules schema check
+(every `rules/*.yaml` loads), the no-float lint, and the rules loader's own
+tests against test-only YAML documents (the ticket that built the loader
+permits this, since no statutory value may be typed from memory to test it).
 
 The traceability eval (ADR 0003) runs **in CI against checked-in recorded
 transcripts**. Recording a transcript needs a model and is run on demand; CI

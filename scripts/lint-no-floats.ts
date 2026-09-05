@@ -4,8 +4,7 @@
  * Walks the TypeScript AST of every file under the linted directories
  * (default `src/core`) and reports:
  * - numeric literals with a fractional part or exponent;
- * - the `/`, `/=`, `**` and `**=` operators, unless both operands are bigint
- *   (BigInt division is integer division, and is the sanctioned way to divide);
+ * - the `/`, `/=`, `**` and `**=` operators, on any operands;
  * - any use of `Math`, `parseFloat`, `Number(...)`, unary `+`, and the
  *   `toFixed`, `toPrecision` and `toExponential` methods.
  *
@@ -53,7 +52,6 @@ interface Finding {
 
 function lint(files: string[]): Finding[] {
   const program = ts.createProgram(files, compilerOptions());
-  const checker = program.getTypeChecker();
   const findings: Finding[] = [];
   const wanted = new Set(files);
 
@@ -68,9 +66,6 @@ function lint(files: string[]): Finding[] {
         message,
       });
     };
-    const isBigInt = (node: ts.Node) =>
-      (checker.getTypeAtLocation(node).flags & ts.TypeFlags.BigIntLike) !== 0;
-
     const visit = (node: ts.Node): void => {
       if (ts.isNumericLiteral(node)) {
         const text = node.getText(sourceFile);
@@ -79,9 +74,7 @@ function lint(files: string[]): Finding[] {
           report(node, `floating-point literal ${text}`);
         }
       } else if (ts.isBinaryExpression(node) && DIVISION_OPERATORS.has(node.operatorToken.kind)) {
-        if (!(isBigInt(node.left) && isBigInt(node.right))) {
-          report(node.operatorToken, `operator ${node.operatorToken.getText(sourceFile)} on non-bigint operands`);
-        }
+        report(node.operatorToken, `operator ${node.operatorToken.getText(sourceFile)}`);
       } else if (ts.isPropertyAccessExpression(node)) {
         if (ts.isIdentifier(node.expression) && node.expression.text === "Math") {
           report(node, `Math.${node.name.text}`);

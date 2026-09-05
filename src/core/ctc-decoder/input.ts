@@ -1,10 +1,10 @@
 /**
  * The typed offer as the skill submits it, validated at the boundary.
  * Amounts are whole rupees; the core converts them to paise (ADR 0002).
+ * Unknown keys are rejected, so a ticket adding a field extends this file.
  */
-import { RUPEE_INPUT_CAP, type Period } from "../money.ts";
-import { rulesFileExists, rulesFilePathFor } from "../rules/files.ts";
-import { isConsecutiveFinancialYear } from "../rules/loader.ts";
+import { isFinancialYear } from "../financial-year.ts";
+import { annualise, formatIndianRupees, rupeesToPaise, RUPEE_INPUT_CAP, type Period } from "../money.ts";
 import { DecoderError } from "./errors.ts";
 
 export interface OfferComponentInput {
@@ -19,27 +19,20 @@ export interface OfferInput {
 }
 
 const PERIODS: ReadonlySet<string> = new Set(["annual", "monthly"]);
+const CAP_PAISE = rupeesToPaise(RUPEE_INPUT_CAP);
 
 export function validateOfferInput(raw: unknown): OfferInput {
   const root = expectObject(raw, "", ["financial_year", "components"]);
 
   const financialYear = root["financial_year"];
   if (typeof financialYear !== "string") {
-    throw invalid("financial_year", "financial_year is required, as a string such as \"2026-27\"");
+    throw invalid("financial_year", 'financial_year is required, as a string such as "2026-27"');
   }
-  if (!isConsecutiveFinancialYear(financialYear)) {
+  if (!isFinancialYear(financialYear)) {
     throw new DecoderError({
       code: "invalid_financial_year",
       message: `financial_year must be written YYYY-YY naming consecutive years, got ${JSON.stringify(financialYear)}`,
       path: "financial_year",
-    });
-  }
-  if (!rulesFileExists(financialYear)) {
-    throw new DecoderError({
-      code: "unknown_financial_year",
-      message: `No rules file for financial year ${financialYear}: expected ${rulesFilePathFor(financialYear)}`,
-      path: "financial_year",
-      details: { financial_year: financialYear, expected_file: rulesFilePathFor(financialYear) },
     });
   }
 
@@ -69,11 +62,16 @@ function validateComponent(raw: unknown, path: string): OfferComponentInput {
     throw invalid(`${path}.period`, 'period must be "annual" or "monthly"');
   }
 
-  const amount = validateAmount(component["amount"], `${path}.amount`);
+  const amount = validateAmount(component["amount"], period as Period, `${path}.amount`);
   return { name, amount, period: period as Period };
 }
 
-function validateAmount(raw: unknown, path: string): number {
+/**
+ * Whole, non-negative rupees, and at most ₹100 crore both as typed and once
+ * annualised, so every later product of paise and basis points stays a safe
+ * integer (spec #4).
+ */
+function validateAmount(raw: unknown, period: Period, path: string): number {
   if (typeof raw !== "number" || !Number.isFinite(raw)) {
     throw invalid(path, "amount must be a number of whole rupees");
   }
@@ -91,10 +89,16 @@ function validateAmount(raw: unknown, path: string): number {
       path,
     });
   }
-  if (raw > RUPEE_INPUT_CAP) {
+  const annualPaise = annualise(rupeesToPaise(raw), period);
+  if (annualPaise > CAP_PAISE) {
+    const typed = formatIndianRupees(rupeesToPaise(raw));
+    const annual = formatIndianRupees(annualPaise);
     throw new DecoderError({
       code: "above_cap",
-      message: `amount must not exceed ₹100 crore (${RUPEE_INPUT_CAP} rupees), got ${raw}`,
+      message:
+        period === "monthly"
+          ? `amount must not exceed ${formatIndianRupees(CAP_PAISE)} a year; ${typed} monthly is ${annual} a year`
+          : `amount must not exceed ${formatIndianRupees(CAP_PAISE)}, got ${typed}`,
       path,
       details: { cap_rupees: RUPEE_INPUT_CAP },
     });

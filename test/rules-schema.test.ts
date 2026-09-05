@@ -6,7 +6,7 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { listRulesFiles, readRulesFile } from "../src/core/rules/files.ts";
+import { listRulesFiles, loadRulesFile } from "../src/core/rules/files.ts";
 
 const files = listRulesFiles();
 
@@ -16,7 +16,6 @@ test("there is at least one rules file", () => {
 
 for (const file of files) {
   test(`${file.path} loads under the rules schema`, () => {
-    const document = readRulesFile(file.path);
-    assert.equal(document.financial_year, file.financial_year);
+    assert.doesNotThrow(() => loadRulesFile(file));
   });
 }

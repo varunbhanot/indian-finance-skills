@@ -39,7 +39,7 @@ test("the lint reports every kind of floating-point use it forbids", () => {
       "export const converted = Number('12');",
       "export const unary = +'12';",
       "export const fixed = (1).toFixed(2);",
-      "export const okBigInt = 10n / 4n;",
+      "export const bigIntQuotient = 10n / 4n;",
       "export const okHex = 0x1e;",
       "export const okInt = parseInt('12', 10) * 3 % 2;",
     ].join("\n"),
@@ -48,5 +48,5 @@ test("the lint reports every kind of floating-point use it forbids", () => {
   assert.equal(result.status, 1, result.stdout + result.stderr);
   const lines = result.stdout.trim().split("\n");
   const reported = lines.filter((line) => line.includes("bad.ts:")).map((line) => line.split(":")[1]);
-  assert.deepEqual(reported, ["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+  assert.deepEqual(reported, ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]);
 });

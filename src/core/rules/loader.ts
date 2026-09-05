@@ -14,6 +14,7 @@
  * - Every other number must be a plain integer as written.
  */
 import { parseDocument, isMap, isSeq, isScalar, type Node, type Pair } from "yaml";
+import { isFinancialYear } from "../financial-year.ts";
 
 export type RulesFileErrorCode =
   | "yaml_syntax"
@@ -66,23 +67,12 @@ export interface RulesDocument {
   groups: { [name: string]: RulesGroup };
 }
 
-export const FINANCIAL_YEAR_PATTERN = /^(\d{4})-(\d{2})$/;
-
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const PLAIN_INTEGER = /^-?\d+$/;
 const PLAIN_DECIMAL = /^(\d+)(?:\.(\d+))?$/;
 const BASIS_POINT_DECIMALS = 4;
 const BASIS_POINTS_PER_UNIT = 10000;
 
-
-/** True when a well-formed `YYYY-YY` names two consecutive years. */
-export function isConsecutiveFinancialYear(fy: string): boolean {
-  const match = FINANCIAL_YEAR_PATTERN.exec(fy);
-  if (match === null) return false;
-  const start = parseInt(match[1] ?? "", 10);
-  const end = parseInt(match[2] ?? "", 10);
-  return (start + 1) % 100 === end;
-}
 
 export function loadRulesDocument(text: string): RulesDocument {
   const doc = parseDocument(text, { keepSourceTokens: true });
@@ -115,7 +105,7 @@ export function loadRulesDocument(text: string): RulesDocument {
   if (financialYear === undefined) {
     throw new RulesFileError("missing_financial_year", "financial_year", "financial_year is required");
   }
-  if (!isConsecutiveFinancialYear(financialYear)) {
+  if (!isFinancialYear(financialYear)) {
     throw new RulesFileError(
       "invalid_financial_year",
       "financial_year",

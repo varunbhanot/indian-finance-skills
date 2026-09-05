@@ -4,12 +4,19 @@
  * error to stderr and exits non-zero. No arithmetic lives here.
  */
 import { decode } from "../core/ctc-decoder/decode.ts";
-import { DecoderError, type DecoderErrorReport } from "../core/ctc-decoder/errors.ts";
+import {
+  DecoderError,
+  type DecoderErrorCode,
+  type ErrorReport,
+} from "../core/ctc-decoder/errors.ts";
+
+/** Rejections that arise before the core sees an offer, plus the catch-all. */
+type CliErrorCode = "usage" | "invalid_json" | "internal_error";
 
 const EXIT_REJECTED = 1;
 const EXIT_INTERNAL = 2;
 
-function fail(report: DecoderErrorReport, exitCode: number): never {
+function fail(report: ErrorReport<DecoderErrorCode | CliErrorCode>, exitCode: number): never {
   process.stderr.write(`${JSON.stringify({ error: report }, null, 2)}\n`);
   process.exit(exitCode);
 }
@@ -19,7 +26,8 @@ if (argument === undefined || process.argv.length > 3) {
   fail(
     {
       code: "usage",
-      message: "expected exactly one argument: the offer as a JSON document, e.g. npm run ctc-decoder -- '{\"financial_year\":\"2026-27\",\"components\":[...]}'",
+      message:
+        "expected exactly one argument: the offer as a JSON document, e.g. npm run ctc-decoder -- '{\"financial_year\":\"2026-27\",\"components\":[...]}'",
     },
     EXIT_REJECTED,
   );
@@ -40,7 +48,7 @@ try {
 } catch (error) {
   if (error instanceof DecoderError) fail(error.report, EXIT_REJECTED);
   fail(
-    { code: "invalid_input", message: `unexpected failure: ${(error as Error).message}` },
+    { code: "internal_error", message: `unexpected failure: ${(error as Error).message}` },
     EXIT_INTERNAL,
   );
 }

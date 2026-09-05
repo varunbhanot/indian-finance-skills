@@ -4,7 +4,7 @@
 
 - `main` is the protected, always-releasable branch. Don't commit to it directly.
 - Create a branch per change (`git checkout -b <your-branch>`).
-- Open a pull request into `main` and let CI (once configured) pass before merging.
+- Open a pull request into `main` and let CI pass before merging.
 - Keep PRs focused on a single skill or a single change; avoid mixing unrelated edits.
 
 ## Running the core
@@ -20,6 +20,8 @@ npm test            # fixtures, rules schema check, loader tests
 
 The decoder prints one JSON document to stdout, or a JSON error
 (`{ "error": { "code", "message", "path" } }`) to stderr with a non-zero exit.
+Input is strict: unknown keys are rejected, so a ticket adding a field extends
+the validator in `src/core/ctc-decoder/input.ts`.
 
 ## Adding a fixture
 

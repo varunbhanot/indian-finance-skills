@@ -1,7 +1,5 @@
 /** Rejections the decoder reports to the caller as JSON with a machine-readable code. */
 export type DecoderErrorCode =
-  | "usage"
-  | "invalid_json"
   | "invalid_input"
   | "fractional_rupees"
   | "negative_amount"
@@ -10,17 +8,17 @@ export type DecoderErrorCode =
   | "unknown_financial_year"
   | "rules_file_invalid";
 
-export interface DecoderErrorReport {
-  code: DecoderErrorCode;
+export interface ErrorReport<Code extends string = DecoderErrorCode> {
+  code: Code;
   message: string;
   path?: string;
   details?: { [key: string]: string | number };
 }
 
 export class DecoderError extends Error {
-  readonly report: DecoderErrorReport;
+  readonly report: ErrorReport;
 
-  constructor(report: DecoderErrorReport) {
+  constructor(report: ErrorReport) {
     super(report.message);
     this.name = "DecoderError";
     this.report = report;

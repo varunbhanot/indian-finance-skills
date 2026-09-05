@@ -88,6 +88,15 @@ provident fund's is basic wages, dearness allowance and retaining allowance
 excluding house rent allowance and any other allowance (Payment of Gratuity Act
 §2(s)). Basic sits inside every one of them, which is why it drives all three.
 
+**PF wage base** — which wage an employer actually computes the provident fund
+contribution on: the whole of basic, or basic capped at the statutory monthly
+ceiling. Both are ordinary, the difference is thousands of rupees a month, and
+an offer letter never states the choice — it states the employer's contribution
+*amount*, from which the choice can be read back. The decoder reads it and says
+what the letter implies; the user still says what is true, and the two are
+allowed to disagree. A contribution matching neither base is reported as
+matching neither, never refused.
+
 **Retirals** — employer contributions counted in CTC but not received as cash
 now: employer PF, gratuity provision, employer NPS. The decoder derives the
 retirals total from the classification rather than that list — everything

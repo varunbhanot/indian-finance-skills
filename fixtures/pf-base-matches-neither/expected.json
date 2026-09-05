@@ -3,17 +3,17 @@
   "rules_file": "rules/fy2026-27.yaml",
   "components": [
     {
-      "name": "Basic salary",
+      "name": "Basic",
       "as_typed": {
         "amount": {
-          "paise": 5000000,
-          "display": "₹50,000"
+          "paise": 180000000,
+          "display": "₹18,00,000"
         },
-        "period": "monthly"
+        "period": "annual"
       },
       "annual": {
-        "paise": 60000000,
-        "display": "₹6,00,000"
+        "paise": 180000000,
+        "display": "₹18,00,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -33,10 +33,10 @@
       "name": "House rent allowance",
       "as_typed": {
         "amount": {
-          "paise": 2500000,
-          "display": "₹25,000"
+          "paise": 30000000,
+          "display": "₹3,00,000"
         },
-        "period": "monthly"
+        "period": "annual"
       },
       "annual": {
         "paise": 30000000,
@@ -57,71 +57,17 @@
       }
     },
     {
-      "name": "Special allowance",
+      "name": "Employer's contribution to PF",
       "as_typed": {
         "amount": {
-          "paise": 9500000,
-          "display": "₹95,000"
-        },
-        "period": "monthly"
-      },
-      "annual": {
-        "paise": 114000000,
-        "display": "₹11,40,000"
-      },
-      "certainty": "guaranteed",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": true,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "special_allowance",
-        "rules_key": "groups.components.entries.special_allowance",
-        "basis": {
-          "kind": "judgement",
-          "rationale": "The residual monthly allowance that balances a structure to its agreed fixed pay, and is paid unconditionally like the rest of it."
-        }
-      }
-    },
-    {
-      "name": "Leave travel allowance",
-      "as_typed": {
-        "amount": {
-          "paise": 6000000,
-          "display": "₹60,000"
+          "paise": 12000000,
+          "display": "₹1,20,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 6000000,
-        "display": "₹60,000"
-      },
-      "certainty": "guaranteed",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": true,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "lta",
-        "rules_key": "groups.components.entries.lta",
-        "basis": {
-          "kind": "judgement",
-          "rationale": "Budgeted in the annual fixed structure and paid to the employee whether or not it is claimed against travel, being taxable when unclaimed. The travel and the bills condition the exemption, not the payment."
-        }
-      }
-    },
-    {
-      "name": "Employer PF",
-      "as_typed": {
-        "amount": {
-          "paise": 2160000,
-          "display": "₹21,600"
-        },
-        "period": "annual"
-      },
-      "annual": {
-        "paise": 2160000,
-        "display": "₹21,600"
+        "paise": 12000000,
+        "display": "₹1,20,000"
       },
       "certainty": "guaranteed",
       "form": "locked-savings",
@@ -139,138 +85,45 @@
           }
         }
       }
-    },
-    {
-      "name": "Gratuity provision",
-      "as_typed": {
-        "amount": {
-          "paise": 2886000,
-          "display": "₹28,860"
-        },
-        "period": "annual"
-      },
-      "annual": {
-        "paise": 2886000,
-        "display": "₹28,860"
-      },
-      "certainty": "conditional-on-tenure",
-      "form": "deferred-cash",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": false,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "gratuity",
-        "rules_key": "groups.components.entries.gratuity",
-        "basis": {
-          "kind": "statute",
-          "document": {
-            "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
-            "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
-          }
-        }
-      }
-    },
-    {
-      "name": "Site allowance",
-      "as_typed": {
-        "amount": {
-          "paise": 12000000,
-          "display": "₹1,20,000"
-        },
-        "period": "annual"
-      },
-      "annual": {
-        "paise": 12000000,
-        "display": "₹1,20,000"
-      },
-      "certainty": "guaranteed",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": true,
-      "classified_by": {
-        "kind": "inline"
-      }
-    },
-    {
-      "name": "Performance bonus",
-      "as_typed": {
-        "amount": {
-          "paise": 40000000,
-          "display": "₹4,00,000"
-        },
-        "period": "annual"
-      },
-      "annual": {
-        "paise": 40000000,
-        "display": "₹4,00,000"
-      },
-      "certainty": "conditional-on-performance",
-      "form": "cash-now",
-      "recurring": true,
-      "counts_toward_guaranteed_recurring_cash": false,
-      "classified_by": {
-        "kind": "catalogue",
-        "entry": "variable_pay",
-        "rules_key": "groups.components.entries.variable_pay",
-        "basis": {
-          "kind": "judgement",
-          "rationale": "Quoted at a target and paid against an assessment of performance, so neither its occurrence nor its amount is settled by the letter. It is offered each year, and it is cash in the year it is paid."
-        }
-      }
     }
   ],
   "totals": {
     "headline_ctc": {
-      "paise": 267046000,
-      "display": "₹26,70,460",
-      "components": [
-        "Basic salary",
-        "House rent allowance",
-        "Special allowance",
-        "Leave travel allowance",
-        "Employer PF",
-        "Gratuity provision",
-        "Site allowance",
-        "Performance bonus"
-      ]
-    },
-    "fixed_pay": {
-      "paise": 227046000,
-      "display": "₹22,70,460",
-      "components": [
-        "Basic salary",
-        "House rent allowance",
-        "Special allowance",
-        "Leave travel allowance",
-        "Employer PF",
-        "Gratuity provision",
-        "Site allowance"
-      ]
-    },
-    "variable_pay_at_target": {
-      "paise": 40000000,
-      "display": "₹4,00,000",
-      "components": [
-        "Performance bonus"
-      ]
-    },
-    "guaranteed_recurring_cash": {
       "paise": 222000000,
       "display": "₹22,20,000",
       "components": [
-        "Basic salary",
+        "Basic",
         "House rent allowance",
-        "Special allowance",
-        "Leave travel allowance",
-        "Site allowance"
+        "Employer's contribution to PF"
+      ]
+    },
+    "fixed_pay": {
+      "paise": 222000000,
+      "display": "₹22,20,000",
+      "components": [
+        "Basic",
+        "House rent allowance",
+        "Employer's contribution to PF"
+      ]
+    },
+    "variable_pay_at_target": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "guaranteed_recurring_cash": {
+      "paise": 210000000,
+      "display": "₹21,00,000",
+      "components": [
+        "Basic",
+        "House rent allowance"
       ]
     },
     "retirals": {
-      "paise": 5046000,
-      "display": "₹50,460",
+      "paise": 12000000,
+      "display": "₹1,20,000",
       "components": [
-        "Employer PF",
-        "Gratuity provision"
+        "Employer's contribution to PF"
       ]
     },
     "one_time_components": {
@@ -308,8 +161,8 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -328,15 +181,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -355,15 +208,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -382,15 +235,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -409,24 +262,24 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             }
           }
         ],
         "year_one": {
-          "paise": 222000000,
-          "display": "₹22,20,000"
+          "paise": 210000000,
+          "display": "₹21,00,000"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 222000000,
-            "display": "₹22,20,000"
+            "paise": 210000000,
+            "display": "₹21,00,000"
           },
           "without_one_time": {
-            "paise": 222000000,
-            "display": "₹22,20,000"
+            "paise": 210000000,
+            "display": "₹21,00,000"
           },
           "one_time_components": []
         }
@@ -437,12 +290,12 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             },
             "variable_pay_at_target": {
-              "paise": 40000000,
-              "display": "₹4,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -457,19 +310,19 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 262000000,
-              "display": "₹26,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             },
             "variable_pay_at_target": {
-              "paise": 40000000,
-              "display": "₹4,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -484,19 +337,19 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 262000000,
-              "display": "₹26,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             },
             "variable_pay_at_target": {
-              "paise": 40000000,
-              "display": "₹4,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -511,19 +364,19 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 262000000,
-              "display": "₹26,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 222000000,
-              "display": "₹22,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             },
             "variable_pay_at_target": {
-              "paise": 40000000,
-              "display": "₹4,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "one_time": {
               "paise": 0,
@@ -538,24 +391,24 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 262000000,
-              "display": "₹26,20,000"
+              "paise": 210000000,
+              "display": "₹21,00,000"
             }
           }
         ],
         "year_one": {
-          "paise": 262000000,
-          "display": "₹26,20,000"
+          "paise": 210000000,
+          "display": "₹21,00,000"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 262000000,
-            "display": "₹26,20,000"
+            "paise": 210000000,
+            "display": "₹21,00,000"
           },
           "without_one_time": {
-            "paise": 262000000,
-            "display": "₹26,20,000"
+            "paise": 210000000,
+            "display": "₹21,00,000"
           },
           "one_time_components": []
         }
@@ -565,15 +418,15 @@
   },
   "basic": {
     "components": [
-      "Basic salary"
+      "Basic"
     ],
     "annual": {
-      "paise": 60000000,
-      "display": "₹6,00,000"
+      "paise": 180000000,
+      "display": "₹18,00,000"
     },
     "share_of_fixed_pay": {
-      "bp": 2642,
-      "display": "26.42%"
+      "bp": 8108,
+      "display": "81.08%"
     },
     "citation": {
       "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
@@ -593,7 +446,7 @@
             "basic"
           ],
           "components": [
-            "Basic salary"
+            "Basic"
           ],
           "citation": {
             "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
@@ -644,7 +497,7 @@
             "basic"
           ],
           "components": [
-            "Basic salary"
+            "Basic"
           ],
           "citation": {
             "section": "The Payment of Gratuity Act, 1972, section 2(s)",
@@ -702,7 +555,7 @@
   },
   "employer_pf": {
     "components": [
-      "Employer PF"
+      "Employer's contribution to PF"
     ],
     "components_citation": {
       "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, section 6",
@@ -716,12 +569,12 @@
     },
     "contribution": {
       "annual": {
-        "paise": 2160000,
-        "display": "₹21,600"
+        "paise": 12000000,
+        "display": "₹1,20,000"
       },
       "monthly": {
-        "paise": 180000,
-        "display": "₹1,800"
+        "paise": 1000000,
+        "display": "₹10,000"
       }
     },
     "bases": [
@@ -729,22 +582,22 @@
         "basis": "full_basic",
         "wage": {
           "annual": {
-            "paise": 60000000,
-            "display": "₹6,00,000"
+            "paise": 180000000,
+            "display": "₹18,00,000"
           },
           "monthly": {
-            "paise": 5000000,
-            "display": "₹50,000"
+            "paise": 15000000,
+            "display": "₹1,50,000"
           }
         },
         "contribution": {
           "annual": {
-            "paise": 7200000,
-            "display": "₹72,000"
+            "paise": 21600000,
+            "display": "₹2,16,000"
           },
           "monthly": {
-            "paise": 600000,
-            "display": "₹6,000"
+            "paise": 1800000,
+            "display": "₹18,000"
           }
         },
         "matches": false
@@ -771,15 +624,13 @@
             "display": "₹1,800"
           }
         },
-        "matches": true
+        "matches": false
       }
     ],
-    "implies": [
-      "statutory_ceiling"
-    ],
+    "implies": [],
     "bases_coincide": false,
     "wage_components": [
-      "Basic salary"
+      "Basic"
     ],
     "wage_citation": {
       "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
@@ -822,53 +673,11 @@
       }
     }
   },
-  "flags": [
-    {
-      "code": "basic-share",
-      "kind": "heuristic",
-      "measured": {
-        "basic": {
-          "paise": 60000000,
-          "display": "₹6,00,000"
-        },
-        "fixed_pay": {
-          "paise": 227046000,
-          "display": "₹22,70,460"
-        },
-        "share_of_fixed_pay": {
-          "bp": 2642,
-          "display": "26.42%"
-        },
-        "typical_band_floor": {
-          "bp": 4000,
-          "display": "40%"
-        },
-        "typical_band_ceiling": {
-          "bp": 5000,
-          "display": "50%"
-        }
-      },
-      "names": [
-        "Basic salary"
-      ],
-      "threshold": {
-        "heuristics_key": "thresholds.basic_share_band.floor_rate",
-        "value": {
-          "bp": 4000,
-          "display": "40%"
-        },
-        "rationale": "Indian salary structures commonly set basic between 40% and 50% of fixed pay, and the Code on Wages pushes toward the upper half of that by counting excluded allowances above one-half of remuneration back into wages. Below the floor, everything basic drives — the provident fund contribution, gratuity accrual, the bound on the house rent allowance exemption — is smaller than the headline implies. The band is where the flag stops firing, not a target to aim at."
-      }
-    }
-  ],
+  "flags": [],
   "sources": [
     {
       "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
-    },
-    {
-      "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
-      "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
     },
     {
       "title": "The Code on Wages, 2019 (No. 29 of 2019)",
@@ -877,6 +686,10 @@
     {
       "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+    },
+    {
+      "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
     },
     {
       "title": "The Income-tax Act, 2025 (No. 30 of 2025)",

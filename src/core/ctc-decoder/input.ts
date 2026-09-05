@@ -28,7 +28,8 @@ import {
 } from "../money.ts";
 import { readClassification, type Classification } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
-import { PF_WAGE_BASES, type PfWageBase, type TakeHomeRequest } from "./take-home.ts";
+import type { TakeHomeRequest } from "./take-home.ts";
+import { PF_WAGE_BASES, type PfWageBase } from "./wage-base.ts";
 
 /** How the user asked for this component to be classified. */
 export type ComponentClassificationInput =

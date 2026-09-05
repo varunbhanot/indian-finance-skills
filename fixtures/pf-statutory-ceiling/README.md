@@ -16,6 +16,14 @@ under the new regime — which is itself the point: the two fixtures differ by
 ₹1,22,400 of take-home a year (₹19,63,500 against ₹20,85,900 on the zero basis)
 on an otherwise identical letter.
 
+Issue #31 adds `employer_pf` to this output, and it is worth reading against the
+table above: the letter's own employer contribution of ₹1,44,000 is 12% of the
+whole ₹12,00,000 basic, so the reading says the letter implies `full_basic`
+while `pf_wage_base` here is typed as `statutory_ceiling`. Nothing is wrong and
+nothing is refused. The reading says what the letter implies; the user says what
+is true, and the two are allowed to disagree — a fixture built to exercise the
+ceiling says so whatever its own employer PF line happens to be.
+
 Spec #11 adds the old regime alongside the new, same as every other take-home
 fixture; it changes neither provident fund figure above, since employee PF
 does not depend on regime.

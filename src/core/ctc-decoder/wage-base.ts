@@ -16,6 +16,18 @@
 import type { ClassifiedComponent } from "./classification.ts";
 import type { Citation, RulesNode } from "./rules-reader.ts";
 
+/**
+ * Which wage the employer computes a provident fund contribution on: the whole
+ * of the base, or the base capped at the statutory monthly ceiling.
+ *
+ * It lives here rather than beside either reading that needs it, because both
+ * do — take-home applies the employee's rate to the wage the user says their
+ * employer uses, and the employer-contribution reading measures a typed figure
+ * against both — and neither owns the choice.
+ */
+export const PF_WAGE_BASES = ["full_basic", "statutory_ceiling"] as const;
+export type PfWageBase = (typeof PF_WAGE_BASES)[number];
+
 /** A base as the output carries it: what the rules count in, and which lines of this offer fell inside. */
 export interface WageBase {
   /** The catalogue entries the rules file counts into the base. */

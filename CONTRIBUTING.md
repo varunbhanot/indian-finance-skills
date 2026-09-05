@@ -100,4 +100,9 @@ that gives the same document two.
    will not be loaded by Claude Code.
 2. Add a `SKILL.md` with frontmatter (`name`, `description`) and clear instructions.
 3. Keep helper scripts in `scripts/` and reference-only material in `references/`.
-4. Open a PR describing what the skill does and when it should trigger.
+   A skill needs neither: `ctc-decoder` is one `SKILL.md` and nothing else.
+4. Have the skill reach the core through its CLI entrypoint and narrate the JSON
+   it returns (ADR 0003). No arithmetic, no rate recalled from memory, and every
+   rupee figure said is a `display` string copied from that tool's input or
+   output.
+5. Open a PR describing what the skill does and when it should trigger.

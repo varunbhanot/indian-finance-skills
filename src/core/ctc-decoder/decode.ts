@@ -31,6 +31,7 @@ import type {
   Form,
   Instrument,
 } from "./classification.ts";
+import { employerPfReadingFor, type EmployerPfReading } from "./employer-pf.ts";
 import { DecoderError } from "./errors.ts";
 import { flagsFor, type Flag } from "./flags.ts";
 import { loadHeuristics, heuristicsFilePath, type HeuristicsFile } from "../heuristics/file.ts";
@@ -83,6 +84,13 @@ export interface DecodedOffer {
    * file says which components are basic pay; see `basic.ts`.
    */
   basic?: Basic;
+  /**
+   * What the letter's own employer provident fund contribution says about the
+   * wage base behind it; see `employer-pf.ts`. Present only when the offer
+   * carries such a line. It answers, as a reading of the letter, the one
+   * question `take_home` cannot be computed without.
+   */
+  employer_pf?: EmployerPfReading;
   /** Present only when the caller typed `pf_wage_base`; see `input.ts`. */
   take_home?: TakeHome;
   /**
@@ -122,6 +130,7 @@ export function decode(raw: unknown): DecodedOffer {
 
   const totals = totalsFor(classified);
   const basic = basicFor(classified, totals.fixed_pay.paise, rules);
+  const employerPf = employerPfReadingFor(classified, rules);
 
   const decodedOffer = {
     financial_year: input.financial_year,
@@ -130,6 +139,7 @@ export function decode(raw: unknown): DecodedOffer {
     totals,
     year_by_year: yearByYearFor(classified),
     ...(basic === undefined ? {} : { basic }),
+    ...(employerPf === undefined ? {} : { employer_pf: employerPf }),
     ...(input.take_home === undefined
       ? {}
       : { take_home: takeHomeFor(classified, input.take_home, rules) }),

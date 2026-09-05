@@ -126,7 +126,12 @@ typed from memory to test it).
 
 The traceability eval (ADR 0003) runs **in CI against checked-in recorded
 transcripts**. Recording a transcript needs a model and is run on demand; CI
-only replays the recordings. No API key lives in the repository.
+only replays the recordings. No API key lives in the repository. They live in
+`fixtures/transcripts/<name>/transcript.json` — an ordered `events` list of
+`user`, `assistant` and `tool` turns, each `tool` turn carrying the exact CLI
+`input` and `output` — and `fixtures/transcripts/` is the one directory under
+`fixtures/` that is not a fixture, skipped by `test/fixtures.test.ts` and
+documented by its own README.
 
 ## Decisions must be committed
 

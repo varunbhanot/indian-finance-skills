@@ -1,0 +1,23 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    {
+      "name": "Basic",
+      "type": "basic",
+      "amount": 1800000,
+      "period": "annual"
+    },
+    {
+      "name": "House rent allowance",
+      "type": "hra",
+      "amount": 300000,
+      "period": "annual"
+    },
+    {
+      "name": "Employer's contribution to PF",
+      "type": "employer_pf",
+      "amount": 21600,
+      "period": "annual"
+    }
+  ]
+}

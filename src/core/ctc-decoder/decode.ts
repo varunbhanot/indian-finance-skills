@@ -20,7 +20,6 @@ import {
 import type { Certainty, Classification, Form, Instrument } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
 import { validateOfferInput, type OfferComponentInput } from "./input.ts";
-import { RulesReader } from "./rules-reader.ts";
 import { takeHomeFor, type TakeHome } from "./take-home.ts";
 import { countsTowardGuaranteedRecurringCash, totalsFor, type OfferTotals } from "./totals.ts";
 
@@ -86,7 +85,7 @@ export function decode(raw: unknown): DecodedOffer {
     totals: totalsFor(totallable),
     ...(input.take_home === undefined
       ? {}
-      : { take_home: takeHomeFor(totallable, input.take_home, new RulesReader(rules)) }),
+      : { take_home: takeHomeFor(totallable, input.take_home, rules) }),
   };
 }
 

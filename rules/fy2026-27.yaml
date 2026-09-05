@@ -266,34 +266,40 @@ groups:
     title: The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)
     source: https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf
     retrieved: 2026-09-05
+    # NOT sourced to the instrument that fixes it. `section` names the document
+    # `source` actually is, so the two never point at different papers: it is a
+    # Ministry statement, not the section, and the note says what the section
+    # itself says instead.
     employee_rate:
-      section: Employees' Provident Funds and Miscellaneous Provisions Act, 1952, section 6 and its first proviso ("Contributions and matters which may be provided for in Schemes")
+      section: Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023
       source: https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf
       retrieved: 2026-09-05
       note: >-
-        Section 6 itself says ten per cent, and its first proviso substitutes
-        12 per cent for establishments the Central Government notifies. That
+        Read this before quoting the figure. Section 6 of the Employees'
+        Provident Funds and Miscellaneous Provisions Act, 1952 says the
+        contribution is TEN per cent; its first proviso substitutes 12 per cent
+        only for establishments the Central Government has notified, and that
         notification could not be retrieved -- epfindia.gov.in and epfo.gov.in
-        refuse requests -- so 0.12 rests on the Ministry of Labour and
-        Employment's own statement to the Lok Sabha (Unstarred Question No. 586,
-        24 July 2023), which is this entry's source: an employee of a covered
-        establishment "is statutorily required to join the fund and to
-        contribute 12% of wages". This figure is the rate as the Government
-        states it is applied, not the rate read off the section, and it should
-        be re-sourced from the notification when that becomes reachable.
+        refuse requests from this environment. So 0.12 is not the rate read off
+        the section. It is the rate the Government states is applied: an
+        employee of a covered establishment "is statutorily required to join the
+        fund and to contribute 12% of wages". Re-source it from the notification
+        when that becomes reachable, and until then treat any figure computed
+        from it as resting on this statement rather than on the Act.
       rate: 0.12
+    # Also NOT sourced to the instrument that fixes it; same caveat.
     wage_ceiling:
-      section: Employees' Provident Fund Scheme, 1952, as stated by the Ministry of Labour and Employment
+      section: Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023
       source: https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf
       retrieved: 2026-09-05
       note: >-
-        "The wage ceiling for coverage under the EPF Scheme, 1952 is revised
-        from time to time. Presently, it is Rs.15000/- per month since
-        01.09.2014." Section 6 of the Act carries no ceiling at all; it lives in
-        the Scheme, whose consolidated text could not be retrieved, and the 2014
-        notification that set it could not be retrieved either. Same caveat as
-        the rate above: this is the Government's statement of the figure, not
-        the instrument that fixed it.
+        Read this before quoting the figure. "The wage ceiling for coverage
+        under the EPF Scheme, 1952 is revised from time to time. Presently, it
+        is Rs.15000/- per month since 01.09.2014." Section 6 of the Act carries
+        no ceiling at all -- it lives in the Employees' Provident Fund Scheme,
+        1952, whose consolidated text could not be retrieved, and the 2014
+        notification that set it could not be retrieved either. This is the
+        Government's statement of the figure, not the instrument that fixed it.
       monthly_rupees: 15000
     wage_components:
       section: Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6

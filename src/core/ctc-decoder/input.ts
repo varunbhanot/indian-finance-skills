@@ -84,14 +84,38 @@ export function validateOfferInput(raw: unknown): OfferInput {
   }
 
   const takeHome = validateTakeHomeRequest(root);
+  const validated = components.map((component, index) =>
+    validateComponent(component, `components[${index}]`),
+  );
+  rejectTotalAboveCap(validated);
 
   return {
     financial_year: financialYear,
-    components: components.map((component, index) =>
-      validateComponent(component, `components[${index}]`),
-    ),
+    components: validated,
     ...(takeHome === undefined ? {} : { take_home: takeHome }),
   };
+}
+
+/**
+ * The cap binds the total as well as each figure, because rates are applied to
+ * sums — a slab charge and the provident fund wage are both totals of several
+ * components — and it is the product of paise and basis points that has to stay
+ * a safe integer (ADR 0002, ADR 0012). Capping only the parts would let enough
+ * of them add up to break that, and the core would fail as a crash rather than
+ * as a rejection naming the problem.
+ */
+function rejectTotalAboveCap(components: readonly OfferComponentInput[]): void {
+  const total = components.reduce(
+    (running, component) => running + annualise(rupeesToPaise(component.amount), component.period),
+    0,
+  );
+  if (total <= CAP_PAISE) return;
+  throw new DecoderError({
+    code: "above_cap",
+    message: `the components add up to ${formatIndianRupees(total)} a year, above the ${formatIndianRupees(CAP_PAISE)} the decoder accepts`,
+    path: "components",
+    details: { cap_rupees: RUPEE_INPUT_CAP },
+  });
 }
 
 /**

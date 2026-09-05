@@ -13,7 +13,8 @@ of fixtures is the comparison:
 `ceiling.applied` is `true` because the basic exceeds it. The income tax and the
 gross are identical in both, since neither depends on the provident fund choice
 under the new regime — which is itself the point: the two fixtures differ by
-₹1,22,400 of take-home a year on an otherwise identical letter.
+₹1,22,400 of take-home a year (₹19,63,500 against ₹20,85,900 on the zero basis)
+on an otherwise identical letter.
 
 ## External cross-check
 

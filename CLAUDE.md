@@ -54,7 +54,9 @@ Applying a rate is `applyRate(paise, bp)` — `amount × bp ÷ 10000` with the
 sub-paise remainder discarded — and the two statutory roundings are
 `roundToMultipleOfRupees`, whose unit comes from the rules file.
 
-The cap is applied to each typed figure and to its annualised value.
+The cap is applied to each typed figure, to its annualised value, and to the
+total of them — rates are applied to sums, so it is the sum that has to stay a
+safe integer.
 
 ## Rules versus heuristics
 

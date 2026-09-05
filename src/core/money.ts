@@ -11,6 +11,16 @@ export interface Money {
 
 export type Period = "annual" | "monthly";
 
+/**
+ * A rate as the output carries it (spec #4): the exact basis points the core
+ * computed with, and the percentage a human reads. Like `Money`, the display
+ * string is produced here and nowhere else (ADR 0003).
+ */
+export interface Rate {
+  bp: number;
+  display: string;
+}
+
 export const PAISE_PER_RUPEE = 100;
 export const MONTHS_PER_YEAR = 12;
 /** ₹100 crore: the largest single figure accepted as input, keeping every product of paise and basis points a safe integer. */
@@ -28,6 +38,14 @@ export function annualise(paise: number, period: Period): number {
 
 export function money(paise: number): Money {
   return { paise, display: formatIndianRupees(paise) };
+}
+
+/** `1200` basis points → `12%`; `250` → `2.5%`. Pure string handling: no division. */
+export function rate(basisPoints: number): Rate {
+  const digits = String(basisPoints).padStart(3, "0");
+  const whole = digits.slice(0, -2);
+  const fraction = digits.slice(-2).replace(/0+$/, "");
+  return { bp: basisPoints, display: `${whole}${fraction === "" ? "" : `.${fraction}`}%` };
 }
 
 /** `123456700` paise → `₹12,34,567`; `5050` → `₹50.50`. Pure string handling: no division. */

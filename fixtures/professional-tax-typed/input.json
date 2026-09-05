@@ -3,10 +3,35 @@
   "pf_wage_base": "full_basic",
   "professional_tax": 2500,
   "components": [
-    { "name": "Basic", "type": "basic", "amount": 1200000, "period": "annual" },
-    { "name": "House rent allowance", "type": "hra", "amount": 600000, "period": "annual" },
-    { "name": "Special allowance", "type": "special_allowance", "amount": 450000, "period": "annual" },
-    { "name": "Employer PF", "type": "employer_pf", "amount": 144000, "period": "annual" },
-    { "name": "Performance bonus", "type": "variable_pay", "amount": 300000, "period": "annual" }
+    {
+      "name": "Basic",
+      "type": "basic",
+      "amount": 1200000,
+      "period": "annual"
+    },
+    {
+      "name": "House rent allowance",
+      "type": "hra",
+      "amount": 600000,
+      "period": "annual"
+    },
+    {
+      "name": "Special allowance",
+      "type": "special_allowance",
+      "amount": 600000,
+      "period": "annual"
+    },
+    {
+      "name": "Employer PF",
+      "type": "employer_pf",
+      "amount": 144000,
+      "period": "annual"
+    },
+    {
+      "name": "Performance bonus",
+      "type": "variable_pay",
+      "amount": 300000,
+      "period": "annual"
+    }
   ]
 }

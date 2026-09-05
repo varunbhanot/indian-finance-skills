@@ -3,28 +3,23 @@
  * zero, and variable pay at its quoted target.
  *
  * "Steady state" is what makes this derivable rather than listed. Every figure
- * here is built from recurring cash-now components — the ones the employee sees
+ * is built from recurring cash-now components — the ones the employee sees
  * again next year — so a one-time joining bonus, a retiral, a benefit in kind
  * and an equity grant are all outside it, and each is named in `excludes`
  * rather than quietly dropped.
  *
- * No rate, threshold or rounding unit is written here; all of them are read from
- * the rules file, and a rule the file does not carry stops the computation with
- * the key it wanted (CLAUDE.md). Rounding happens at exactly the two points the
- * statute names and nowhere else: total income to its unit before the slabs are
- * walked, and tax payable to its unit after the cess.
+ * `excludes` carries names and nothing else. What each exclusion means, and
+ * what it costs the reader, is the skill's to say: the core classifies, the
+ * skill narrates (CLAUDE.md's two-layer rule). The caveats that are statutory
+ * — that the rebate needs a resident individual, that the rules file's rebate
+ * has a marginal relief this does not compute — travel instead as the `note` on
+ * the citation beside the figure they qualify, sourced rather than recalled.
  */
-import {
-  annualise,
-  applyRate,
-  money,
-  perMonth,
-  roundToMultipleOfRupees,
-  rupeesToPaise,
-  type Money,
-} from "../money.ts";
+import { annualise, applyRate, money, perMonth, rate, rupeesToPaise, type Money, type Rate } from "../money.ts";
 import type { Classification } from "./classification.ts";
-import { RulesReader, type Citation, type RulesNode } from "./rules-reader.ts";
+import { incomeTaxFor, type IncomeTax } from "./income-tax.ts";
+import { rulesGroup, type Citation, type RulesNode } from "./rules-reader.ts";
+import type { RulesFile } from "../rules/files.ts";
 import { countsTowardGuaranteedRecurringCash, countsTowardRecurringCashAtTarget } from "./totals.ts";
 
 /** How the employer computes the employee's provident fund contribution. */
@@ -53,60 +48,31 @@ export interface PeriodicMoney {
   monthly: Money;
 }
 
-export interface EmployeePf extends PeriodicMoney {
+export interface EmployeePf {
   basis: PfWageBase;
+  /** The contribution itself: the rate applied to the wage below. */
+  contribution: PeriodicMoney;
   /** The wage the rate was applied to, after the ceiling if the caller chose it. */
   wage: PeriodicMoney;
   /** The components the wage was summed from, by the name the user typed. */
   wage_components: string[];
-  rate_basis_points: number;
+  rate: Rate;
   rate_citation: Citation;
-  /** Which catalogue entries the rules file counts as the wage, and why. */
+  /** Which catalogue entries the rules file counts as the wage, and on what authority. */
   wage_citation: Citation;
   /** Present only when the ceiling was chosen, whether or not it bit. */
   ceiling?: { monthly: Money; applied: boolean; citation: Citation };
 }
 
-export interface SlabCharge {
-  from: Money;
-  /** Absent on the final slab, which has no upper bound. */
-  upto?: Money;
-  rate_basis_points: number;
-  income_in_band: Money;
-  tax: Money;
-}
-
-export interface Rebate {
-  applied: boolean;
-  total_income_threshold: Money;
-  maximum: Money;
-  amount: Money;
-  citation: Citation;
-}
-
-export interface Rounded {
-  before: Money;
-  after: Money;
-  unit_rupees: number;
-  citation: Citation;
-}
-
-export interface IncomeTax {
-  period: "annual";
-  regime: "new";
-  salary: Money;
-  standard_deduction: { amount: Money; citation: Citation };
-  total_income: Rounded;
-  slabs: { charges: SlabCharge[]; total: Money; citation: Citation };
-  rebate: Rebate;
-  tax_after_rebate: Money;
-  cess: { rate_basis_points: number; amount: Money; citation: Citation };
-  tax_payable: Rounded;
-}
-
 export interface TakeHomeOnBasis {
   basis: "variable-pay-at-zero" | "variable-pay-at-target";
-  gross_recurring_cash: PeriodicMoney & { components: string[] };
+  /**
+   * The recurring cash the tax is computed on. On the zero basis this is
+   * exactly CONTEXT.md's *guaranteed recurring cash*, and equals the total of
+   * that name; on the target basis it is that plus variable pay, which is no
+   * longer guaranteed, so it is not given the glossary's term.
+   */
+  recurring_cash: PeriodicMoney & { components: string[] };
   deductions: {
     employee_pf: EmployeePf;
     professional_tax?: PeriodicMoney;
@@ -116,28 +82,21 @@ export interface TakeHomeOnBasis {
   take_home: PeriodicMoney;
 }
 
-export interface Statement {
-  name: string;
-  why: string;
-}
-
 export interface TakeHome {
   regime: "new";
   bases: TakeHomeOnBasis[];
-  /** What had to be true for these figures to be the right ones. */
-  assumes: Statement[];
-  /** What these figures do not attempt, so a confident number cannot imply completeness. */
-  excludes: Statement[];
+  /** What this estimate does not attempt, by name, for the skill to narrate. */
+  excludes: string[];
 }
 
 export function takeHomeFor(
   components: readonly TakeHomeComponent[],
   request: TakeHomeRequest,
-  reader: RulesReader,
+  rules: RulesFile,
 ): TakeHome {
-  const epf = reader.group("epf");
-  const incomeTax = reader.group("income_tax");
-  const rounding = reader.group("statutory_rounding");
+  const epf = rulesGroup(rules, "epf");
+  const incomeTax = rulesGroup(rules, "income_tax");
+  const rounding = rulesGroup(rules, "statutory_rounding");
 
   const employeePf = employeePfFor(components, request.pf_wage_base, epf);
   const professionalTax =
@@ -146,22 +105,19 @@ export function takeHomeFor(
       : periodic(rupeesToPaise(request.professional_tax));
 
   const bases = [
-    {
-      basis: "variable-pay-at-zero" as const,
-      included: countsTowardGuaranteedRecurringCash,
-    },
-    {
-      basis: "variable-pay-at-target" as const,
-      included: countsTowardRecurringCashAtTarget,
-    },
+    { basis: "variable-pay-at-zero" as const, included: countsTowardGuaranteedRecurringCash },
+    { basis: "variable-pay-at-target" as const, included: countsTowardRecurringCashAtTarget },
   ].map(({ basis, included }) => {
     const counted = components.filter((component) => included(component.classification));
     const gross = sum(counted);
     const tax = incomeTaxFor(gross, incomeTax, rounding);
-    const total = employeePf.annual.paise + (professionalTax?.annual.paise ?? 0) + tax.tax_payable.after.paise;
+    const total =
+      employeePf.contribution.annual.paise +
+      (professionalTax?.annual.paise ?? 0) +
+      tax.tax_payable.after.paise;
     return {
       basis,
-      gross_recurring_cash: {
+      recurring_cash: {
         ...periodic(gross),
         components: counted.map((component) => component.name),
       },
@@ -175,7 +131,7 @@ export function takeHomeFor(
     };
   });
 
-  return { regime: "new", bases, assumes: ASSUMPTIONS, excludes: excludesFor(request) };
+  return { regime: "new", bases, excludes: excludesFor(request) };
 }
 
 /**
@@ -203,14 +159,16 @@ function employeePfFor(
   const ceilingAnnual = annualise(ceilingMonthly, "monthly");
   const capped = basis === "statutory_ceiling" && fullWage > ceilingAnnual;
   const wage = capped ? ceilingAnnual : fullWage;
+
   const rateNode = epf.child("employee_rate");
-  const rate = rateNode.rate("rate");
+  const basisPoints = rateNode.rate("rate");
 
   return {
     basis,
+    contribution: periodic(applyRate(wage, basisPoints)),
     wage: periodic(wage),
     wage_components: included.map((component) => component.name),
-    rate_basis_points: rate,
+    rate: rate(basisPoints),
     rate_citation: rateNode.citation(),
     wage_citation: wageNode.citation(),
     ...(basis === "statutory_ceiling"
@@ -222,172 +180,26 @@ function employeePfFor(
           },
         }
       : {}),
-    ...periodic(applyRate(wage, rate)),
   };
-}
-
-function incomeTaxFor(salaryPaise: number, incomeTax: RulesNode, rounding: RulesNode): IncomeTax {
-  const newRegime = incomeTax.child("new_regime");
-
-  const standardDeductionNode = newRegime.child("standard_deduction");
-  // Never more than the salary it is deducted from: a negative total income is
-  // not a smaller tax bill, it is an arithmetic mistake.
-  const standardDeduction = atMost(
-    rupeesToPaise(standardDeductionNode.integer("amount")),
-    salaryPaise,
-  );
-
-  const totalIncomeRule = rounding.child("total_income");
-  const totalIncomeUnit = totalIncomeRule.integer("unit_rupees");
-  const totalIncomeBefore = salaryPaise - standardDeduction;
-  const totalIncome = roundToMultipleOfRupees(totalIncomeBefore, totalIncomeUnit);
-
-  const slabsNode = newRegime.child("slabs");
-  const charges = chargesFor(totalIncome, slabsNode);
-  const taxBeforeRebate = charges.reduce((running, charge) => running + charge.tax.paise, 0);
-
-  const rebateNode = newRegime.child("rebate");
-  const rebateThreshold = rupeesToPaise(rebateNode.integer("total_income_threshold"));
-  const rebateMaximum = rupeesToPaise(rebateNode.integer("maximum"));
-  const rebateApplies = totalIncome <= rebateThreshold;
-  const rebateAmount = rebateApplies ? atMost(rebateMaximum, taxBeforeRebate) : 0;
-  const taxAfterRebate = taxBeforeRebate - rebateAmount;
-
-  const cessNode = incomeTax.child("cess");
-  const cessRate = cessNode.rate("rate");
-  const cess = applyRate(taxAfterRebate, cessRate);
-
-  const taxPayableRule = rounding.child("tax_payable");
-  const taxPayableUnit = taxPayableRule.integer("unit_rupees");
-  const taxAndCess = taxAfterRebate + cess;
-
-  return {
-    period: "annual",
-    regime: "new",
-    salary: money(salaryPaise),
-    standard_deduction: {
-      amount: money(standardDeduction),
-      citation: standardDeductionNode.citation(),
-    },
-    total_income: {
-      before: money(totalIncomeBefore),
-      after: money(totalIncome),
-      unit_rupees: totalIncomeUnit,
-      citation: totalIncomeRule.citation(),
-    },
-    slabs: { charges, total: money(taxBeforeRebate), citation: slabsNode.citation() },
-    rebate: {
-      applied: rebateApplies,
-      total_income_threshold: money(rebateThreshold),
-      maximum: money(rebateMaximum),
-      amount: money(rebateAmount),
-      citation: rebateNode.citation(),
-    },
-    tax_after_rebate: money(taxAfterRebate),
-    cess: { rate_basis_points: cessRate, amount: money(cess), citation: cessNode.citation() },
-    tax_payable: {
-      before: money(taxAndCess),
-      after: money(roundToMultipleOfRupees(taxAndCess, taxPayableUnit)),
-      unit_rupees: taxPayableUnit,
-      citation: taxPayableRule.citation(),
-    },
-  };
-}
-
-/** One charge per band the income reaches, each showing the slice it was charged on. */
-function chargesFor(totalIncome: number, slabs: RulesNode): SlabCharge[] {
-  let from = 0;
-  const charges: SlabCharge[] = [];
-  for (const band of slabs.items("bands")) {
-    const uptoRupees = band.optionalChild("upto");
-    const upto = uptoRupees === undefined ? undefined : rupeesToPaise(uptoRupees.asInteger());
-    const ceiling = upto === undefined ? totalIncome : atMost(upto, totalIncome);
-    const inBand = ceiling > from ? ceiling - from : 0;
-    const rate = band.rate("rate");
-    charges.push({
-      from: money(from),
-      ...(upto === undefined ? {} : { upto: money(upto) }),
-      rate_basis_points: rate,
-      income_in_band: money(inBand),
-      tax: money(applyRate(inBand, rate)),
-    });
-    if (upto === undefined) break;
-    from = upto;
-  }
-  return charges;
 }
 
 /**
- * What this estimate does not attempt, named so the skill can say so rather than
- * letting a confident figure imply completeness. The professional tax entry
- * appears only when the user did not type one, since a typed figure is in the
- * breakdown instead.
+ * The professional tax entry appears only when the user did not type one, since
+ * a typed figure is in the breakdown instead.
  */
-function excludesFor(request: TakeHomeRequest): Statement[] {
+function excludesFor(request: TakeHomeRequest): string[] {
   return [
-    {
-      name: "HRA exemption",
-      why: "Depends on rent actually paid and the city of residence, neither of which the offer letter states. The new regime does not allow it in any case.",
-    },
-    {
-      name: "Chapter VI-A deductions",
-      why: "Depend on the taxpayer's own investments and payments, not on the offer.",
-    },
-    {
-      name: "Employer NPS deduction",
-      why: "Available against the employer's contribution, which is a retiral rather than recurring cash and so sits outside this estimate.",
-    },
-    ...(request.professional_tax === undefined
-      ? [
-          {
-            name: "Professional tax",
-            why: "Levied by the state, not by the Union, and no figure was typed. Take-home here is that much too high.",
-          },
-        ]
-      : []),
-    {
-      name: "Perquisite tax on vesting equity",
-      why: "Arises on vest or exercise at slab rate, on a value this decoder refuses to guess (ADR 0005).",
-    },
-    {
-      name: "Surcharge",
-      why: "Not yet computed by this decoder, so the tax shown is too low above the first surcharge threshold. The cess is charged on tax plus surcharge, so it is understated there too.",
-    },
-    {
-      name: "Marginal relief on the rebate",
-      why: "The rules file gives the rebate a marginal relief the decoder does not yet compute, so the tax shown is too high just above the rebate threshold.",
-    },
-    {
-      name: "One-time components",
-      why: "A joining bonus, relocation or retention bonus is taxable in the year it is paid, but this is the steady-state year.",
-    },
-    {
-      name: "Benefits in kind and retirals",
-      why: "Neither reaches the bank account as cash, and the tax on the taxable part of an employer contribution is not modelled.",
-    },
+    "HRA exemption",
+    "Chapter VI-A deductions",
+    "Employer NPS deduction",
+    ...(request.professional_tax === undefined ? ["Professional tax"] : []),
+    "Perquisite tax on vesting equity",
+    "Surcharge",
+    "Marginal relief on the rebate",
+    "One-time components",
+    "Benefits in kind and retirals",
   ];
 }
-
-/**
- * The conditions under which these figures are the right ones. They are not
- * caveats about precision: each is a fact about the taxpayer that the offer
- * letter does not state and the decoder does not ask for, and each would change
- * the numbers if it were untrue.
- */
-const ASSUMPTIONS: Statement[] = [
-  {
-    name: "The new regime applies",
-    why: "It is the default, but the taxpayer may opt out of it and be taxed under the old regime instead.",
-  },
-  {
-    name: "A resident individual",
-    why: "The rules file's rebate is available to a resident individual only, and the slabs are the ones for an individual.",
-  },
-  {
-    name: "A full year on this package, in a year with no one-time component",
-    why: "Steady state: a year joined part-way through, or the first year with its joining bonus, is a different year.",
-  },
-];
 
 function sum(components: readonly TakeHomeComponent[]): number {
   return components.reduce((running, component) => running + component.annual_paise, 0);
@@ -395,8 +207,4 @@ function sum(components: readonly TakeHomeComponent[]): number {
 
 function periodic(annualPaise: number): PeriodicMoney {
   return { annual: money(annualPaise), monthly: money(perMonth(annualPaise)) };
-}
-
-function atMost(value: number, limit: number): number {
-  return value > limit ? limit : value;
 }

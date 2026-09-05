@@ -17,8 +17,8 @@
     {
       "name": "Special allowance",
       "type": "special_allowance",
-      "amount": 20000,
-      "period": "monthly"
+      "amount": 350000,
+      "period": "annual"
     },
     {
       "name": "Employer PF",

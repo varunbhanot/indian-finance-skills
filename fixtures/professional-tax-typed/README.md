@@ -11,9 +11,11 @@ rules file carries no state tables. The new regime disallows the deduction for
 it in any case, so it reduces take-home without reducing taxable salary — which
 is why it sits in the breakdown below the income tax rather than above it.
 
-The monthly take-home here ends in paise (₹1,54,166.66 on the zero basis)
-because a year does not divide by twelve evenly. That is truncation of the
-monthly figure, not a rounding of the annual one.
+The monthly take-home here ends in paise (₹1,63,416.66 on the zero basis, from
+₹19,61,000 a year) because a year does not divide by twelve evenly. That is
+truncation of the monthly figure, not a rounding of the annual one, and it is
+why every figure states its own period instead of inviting the reader to
+multiply one out of the other.
 
 ## External cross-check
 

@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "above_cap",
+    "message": "the components add up to ₹1,10,00,00,000 a year, above the ₹1,00,00,00,000 the decoder accepts",
+    "path": "components",
+    "details": {
+      "cap_rupees": 1000000000
+    }
+  }
+}

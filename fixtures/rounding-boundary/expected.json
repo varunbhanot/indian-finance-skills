@@ -108,7 +108,7 @@
     "bases": [
       {
         "basis": "variable-pay-at-zero",
-        "gross_recurring_cash": {
+        "recurring_cash": {
           "annual": {
             "paise": 200000700,
             "display": "₹20,00,007"
@@ -125,6 +125,16 @@
         "deductions": {
           "employee_pf": {
             "basis": "full_basic",
+            "contribution": {
+              "annual": {
+                "paise": 12000036,
+                "display": "₹1,20,000.36"
+              },
+              "monthly": {
+                "paise": 1000003,
+                "display": "₹10,000.03"
+              }
+            },
             "wage": {
               "annual": {
                 "paise": 100000300,
@@ -138,13 +148,16 @@
             "wage_components": [
               "Basic"
             ],
-            "rate_basis_points": 1200,
+            "rate": {
+              "bp": 1200,
+              "display": "12%"
+            },
             "rate_citation": {
-              "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, section 6 and its first proviso (\"Contributions and matters which may be provided for in Schemes\")",
+              "section": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023",
               "source": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf",
               "retrieved": "2026-09-05",
               "rules_key": "groups.epf.employee_rate",
-              "note": "Section 6 itself says ten per cent, and its first proviso substitutes 12 per cent for establishments the Central Government notifies. That notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests -- so 0.12 rests on the Ministry of Labour and Employment's own statement to the Lok Sabha (Unstarred Question No. 586, 24 July 2023), which is this entry's source: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". This figure is the rate as the Government states it is applied, not the rate read off the section, and it should be re-sourced from the notification when that becomes reachable."
+              "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
             },
             "wage_citation": {
               "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
@@ -152,14 +165,6 @@
               "retrieved": "2026-09-05",
               "rules_key": "groups.epf.wage_components",
               "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
-            },
-            "annual": {
-              "paise": 12000036,
-              "display": "₹1,20,000.36"
-            },
-            "monthly": {
-              "paise": 1000003,
-              "display": "₹10,000.03"
             }
           },
           "income_tax": {
@@ -211,7 +216,10 @@
                     "paise": 40000000,
                     "display": "₹4,00,000"
                   },
-                  "rate_basis_points": 0,
+                  "rate": {
+                    "bp": 0,
+                    "display": "0%"
+                  },
                   "income_in_band": {
                     "paise": 40000000,
                     "display": "₹4,00,000"
@@ -230,7 +238,10 @@
                     "paise": 80000000,
                     "display": "₹8,00,000"
                   },
-                  "rate_basis_points": 500,
+                  "rate": {
+                    "bp": 500,
+                    "display": "5%"
+                  },
                   "income_in_band": {
                     "paise": 40000000,
                     "display": "₹4,00,000"
@@ -249,7 +260,10 @@
                     "paise": 120000000,
                     "display": "₹12,00,000"
                   },
-                  "rate_basis_points": 1000,
+                  "rate": {
+                    "bp": 1000,
+                    "display": "10%"
+                  },
                   "income_in_band": {
                     "paise": 40000000,
                     "display": "₹4,00,000"
@@ -268,7 +282,10 @@
                     "paise": 160000000,
                     "display": "₹16,00,000"
                   },
-                  "rate_basis_points": 1500,
+                  "rate": {
+                    "bp": 1500,
+                    "display": "15%"
+                  },
                   "income_in_band": {
                     "paise": 40000000,
                     "display": "₹4,00,000"
@@ -287,7 +304,10 @@
                     "paise": 200000000,
                     "display": "₹20,00,000"
                   },
-                  "rate_basis_points": 2000,
+                  "rate": {
+                    "bp": 2000,
+                    "display": "20%"
+                  },
                   "income_in_band": {
                     "paise": 32501000,
                     "display": "₹3,25,010"
@@ -306,7 +326,10 @@
                     "paise": 240000000,
                     "display": "₹24,00,000"
                   },
-                  "rate_basis_points": 2500,
+                  "rate": {
+                    "bp": 2500,
+                    "display": "25%"
+                  },
                   "income_in_band": {
                     "paise": 0,
                     "display": "₹0"
@@ -321,7 +344,10 @@
                     "paise": 240000000,
                     "display": "₹24,00,000"
                   },
-                  "rate_basis_points": 3000,
+                  "rate": {
+                    "bp": 3000,
+                    "display": "30%"
+                  },
                   "income_in_band": {
                     "paise": 0,
                     "display": "₹0"
@@ -371,7 +397,10 @@
               "display": "₹1,85,002"
             },
             "cess": {
-              "rate_basis_points": 400,
+              "rate": {
+                "bp": 400,
+                "display": "4%"
+              },
               "amount": {
                 "paise": 740008,
                 "display": "₹7,400.08"
@@ -427,7 +456,7 @@
       },
       {
         "basis": "variable-pay-at-target",
-        "gross_recurring_cash": {
+        "recurring_cash": {
           "annual": {
             "paise": 200000700,
             "display": "₹20,00,007"
@@ -444,6 +473,16 @@
         "deductions": {
           "employee_pf": {
             "basis": "full_basic",
+            "contribution": {
+              "annual": {
+                "paise": 12000036,
+                "display": "₹1,20,000.36"
+              },
+              "monthly": {
+                "paise": 1000003,
+                "display": "₹10,000.03"
+              }
+            },
             "wage": {
               "annual": {
                 "paise": 100000300,
@@ -457,13 +496,16 @@
             "wage_components": [
               "Basic"
             ],
-            "rate_basis_points": 1200,
+            "rate": {
+              "bp": 1200,
+              "display": "12%"
+            },
             "rate_citation": {
-              "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, section 6 and its first proviso (\"Contributions and matters which may be provided for in Schemes\")",
+              "section": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023",
               "source": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf",
               "retrieved": "2026-09-05",
               "rules_key": "groups.epf.employee_rate",
-              "note": "Section 6 itself says ten per cent, and its first proviso substitutes 12 per cent for establishments the Central Government notifies. That notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests -- so 0.12 rests on the Ministry of Labour and Employment's own statement to the Lok Sabha (Unstarred Question No. 586, 24 July 2023), which is this entry's source: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". This figure is the rate as the Government states it is applied, not the rate read off the section, and it should be re-sourced from the notification when that becomes reachable."
+              "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". Re-source it from the notification when that becomes reachable, and until then treat any figure computed from it as resting on this statement rather than on the Act."
             },
             "wage_citation": {
               "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
@@ -471,14 +513,6 @@
               "retrieved": "2026-09-05",
               "rules_key": "groups.epf.wage_components",
               "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries only `basic` is inside that base; this file carries no dearness or retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
-            },
-            "annual": {
-              "paise": 12000036,
-              "display": "₹1,20,000.36"
-            },
-            "monthly": {
-              "paise": 1000003,
-              "display": "₹10,000.03"
             }
           },
           "income_tax": {
@@ -530,7 +564,10 @@
                     "paise": 40000000,
                     "display": "₹4,00,000"
                   },
-                  "rate_basis_points": 0,
+                  "rate": {
+                    "bp": 0,
+                    "display": "0%"
+                  },
                   "income_in_band": {
                     "paise": 40000000,
                     "display": "₹4,00,000"
@@ -549,7 +586,10 @@
                     "paise": 80000000,
                     "display": "₹8,00,000"
                   },
-                  "rate_basis_points": 500,
+                  "rate": {
+                    "bp": 500,
+                    "display": "5%"
+                  },
                   "income_in_band": {
                     "paise": 40000000,
                     "display": "₹4,00,000"
@@ -568,7 +608,10 @@
                     "paise": 120000000,
                     "display": "₹12,00,000"
                   },
-                  "rate_basis_points": 1000,
+                  "rate": {
+                    "bp": 1000,
+                    "display": "10%"
+                  },
                   "income_in_band": {
                     "paise": 40000000,
                     "display": "₹4,00,000"
@@ -587,7 +630,10 @@
                     "paise": 160000000,
                     "display": "₹16,00,000"
                   },
-                  "rate_basis_points": 1500,
+                  "rate": {
+                    "bp": 1500,
+                    "display": "15%"
+                  },
                   "income_in_band": {
                     "paise": 40000000,
                     "display": "₹4,00,000"
@@ -606,7 +652,10 @@
                     "paise": 200000000,
                     "display": "₹20,00,000"
                   },
-                  "rate_basis_points": 2000,
+                  "rate": {
+                    "bp": 2000,
+                    "display": "20%"
+                  },
                   "income_in_band": {
                     "paise": 32501000,
                     "display": "₹3,25,010"
@@ -625,7 +674,10 @@
                     "paise": 240000000,
                     "display": "₹24,00,000"
                   },
-                  "rate_basis_points": 2500,
+                  "rate": {
+                    "bp": 2500,
+                    "display": "25%"
+                  },
                   "income_in_band": {
                     "paise": 0,
                     "display": "₹0"
@@ -640,7 +692,10 @@
                     "paise": 240000000,
                     "display": "₹24,00,000"
                   },
-                  "rate_basis_points": 3000,
+                  "rate": {
+                    "bp": 3000,
+                    "display": "30%"
+                  },
                   "income_in_band": {
                     "paise": 0,
                     "display": "₹0"
@@ -690,7 +745,10 @@
               "display": "₹1,85,002"
             },
             "cess": {
-              "rate_basis_points": 400,
+              "rate": {
+                "bp": 400,
+                "display": "4%"
+              },
               "amount": {
                 "paise": 740008,
                 "display": "₹7,400.08"
@@ -745,57 +803,16 @@
         }
       }
     ],
-    "assumes": [
-      {
-        "name": "The new regime applies",
-        "why": "It is the default, but the taxpayer may opt out of it and be taxed under the old regime instead."
-      },
-      {
-        "name": "A resident individual",
-        "why": "The rules file's rebate is available to a resident individual only, and the slabs are the ones for an individual."
-      },
-      {
-        "name": "A full year on this package, in a year with no one-time component",
-        "why": "Steady state: a year joined part-way through, or the first year with its joining bonus, is a different year."
-      }
-    ],
     "excludes": [
-      {
-        "name": "HRA exemption",
-        "why": "Depends on rent actually paid and the city of residence, neither of which the offer letter states. The new regime does not allow it in any case."
-      },
-      {
-        "name": "Chapter VI-A deductions",
-        "why": "Depend on the taxpayer's own investments and payments, not on the offer."
-      },
-      {
-        "name": "Employer NPS deduction",
-        "why": "Available against the employer's contribution, which is a retiral rather than recurring cash and so sits outside this estimate."
-      },
-      {
-        "name": "Professional tax",
-        "why": "Levied by the state, not by the Union, and no figure was typed. Take-home here is that much too high."
-      },
-      {
-        "name": "Perquisite tax on vesting equity",
-        "why": "Arises on vest or exercise at slab rate, on a value this decoder refuses to guess (ADR 0005)."
-      },
-      {
-        "name": "Surcharge",
-        "why": "Not yet computed by this decoder, so the tax shown is too low above the first surcharge threshold. The cess is charged on tax plus surcharge, so it is understated there too."
-      },
-      {
-        "name": "Marginal relief on the rebate",
-        "why": "The rules file gives the rebate a marginal relief the decoder does not yet compute, so the tax shown is too high just above the rebate threshold."
-      },
-      {
-        "name": "One-time components",
-        "why": "A joining bonus, relocation or retention bonus is taxable in the year it is paid, but this is the steady-state year."
-      },
-      {
-        "name": "Benefits in kind and retirals",
-        "why": "Neither reaches the bank account as cash, and the tax on the taxable part of an employer contribution is not modelled."
-      }
+      "HRA exemption",
+      "Chapter VI-A deductions",
+      "Employer NPS deduction",
+      "Professional tax",
+      "Perquisite tax on vesting equity",
+      "Surcharge",
+      "Marginal relief on the rebate",
+      "One-time components",
+      "Benefits in kind and retirals"
     ]
   }
 }

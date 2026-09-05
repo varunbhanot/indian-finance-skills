@@ -1,6 +1,8 @@
 /**
- * Reading typed values out of a loaded rules file, by the dotted key a ticket
- * names (`income_tax.new_regime.rebate.maximum`).
+ * Reading typed values out of a loaded rules file. `rulesGroup` opens a group;
+ * `child` walks into it a step at a time, and every node knows the dotted key
+ * it sits at, so a rejection quotes the key a ticket named
+ * (`groups.income_tax.new_regime.rebate.maximum`) rather than a position.
  *
  * Two rejections come from here and nowhere else, so the decoder answers "the
  * rules do not say" and "the rules say something I cannot read" in one voice:
@@ -36,20 +38,12 @@ export interface Citation {
 
 const RULES_KEY_ROOT = "groups";
 
-export class RulesReader {
-  readonly file: RulesFile;
-
-  constructor(file: RulesFile) {
-    this.file = file;
-  }
-
-  /** The group named `name`, or an absent-rule rejection quoting its key. */
-  group(name: string): RulesNode {
-    const group = this.file.document.groups[name];
-    const key = `${RULES_KEY_ROOT}.${name}`;
-    if (group === undefined) throw absent(this.file, key);
-    return new RulesNode(this.file, key, group as unknown as RulesValue);
-  }
+/** The named group of a rules file, or an absent-rule rejection quoting its key. */
+export function rulesGroup(file: RulesFile, name: string): RulesNode {
+  const group = file.document.groups[name];
+  const key = `${RULES_KEY_ROOT}.${name}`;
+  if (group === undefined) throw absent(file, key);
+  return new RulesNode(file, key, group as unknown as RulesValue);
 }
 
 export class RulesNode {

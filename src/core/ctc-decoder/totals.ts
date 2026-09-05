@@ -9,7 +9,13 @@
  * gratuity is a retiral that no total of cash includes.
  */
 import { money, type Money } from "../money.ts";
-import type { Certainty, Classification, ClassifiedComponent, Form } from "./classification.ts";
+import type {
+  Certainty,
+  Classification,
+  ClassifiedComponent,
+  EquityReading,
+  Form,
+} from "./classification.ts";
 
 export interface Total extends Money {
   /** The names, as typed, of the components summed into this figure. */
@@ -24,6 +30,18 @@ export interface OfferTotals {
   retirals: Total;
   one_time_components: Total;
   benefits_in_kind: Total;
+  /** What the letter claims the equity grants are worth, whatever they were valued at. */
+  equity_as_claimed: Total;
+  /** What the decoder holds those same grants at (ADR 0005). */
+  equity_as_valued: Total;
+  /**
+   * The **claimed** value of the grants the decoder refuses to value — the same
+   * basis as `equity_as_claimed` and not as `equity_as_valued`, which holds
+   * every one of them at nil. It answers "how much of what the letter counted
+   * rests on a figure nobody can check", so it has to be the letter's number.
+   * Never dropped from the output, and in no total of cash.
+   */
+  unvaluable_equity: Total;
 }
 
 /** Cash-now and recurring, with certainty narrowed to whichever set the caller names. */
@@ -93,14 +111,60 @@ export function totalsFor(components: readonly ClassifiedComponent[]): OfferTota
       components,
       (classification) => classification.form === "benefit-in-kind",
     ),
+    // The three equity readings, and the gap between the first two is the point
+    // of them: what the letter counted, and what survives a refusal to forecast
+    // a share price. None of them is a cash total, and none can become one —
+    // equity is not the cash-now form, so every cash figure above excludes it
+    // whatever it was valued at.
+    equity_as_claimed: total(components, (classification) => classification.form === "equity"),
+    equity_as_valued: totalOfGrants(components, (equity) => equity.valued_paise),
+    unvaluable_equity: totalOfGrants(components, (equity, component) =>
+      equity.unvaluable ? component.annual_paise : undefined,
+    ),
   };
 }
 
+/**
+ * The one shape a total takes: what each component contributes, or nothing when
+ * it is outside the reading. Both builders below reduce to this, so a figure and
+ * the names beside it can never come apart — `components` lists exactly what was
+ * added up, whichever reading did the adding.
+ */
+function totalOf(
+  components: readonly ClassifiedComponent[],
+  contribution: (component: ClassifiedComponent) => number | undefined,
+): Total {
+  const included: { name: string; paise: number }[] = [];
+  for (const component of components) {
+    const paise = contribution(component);
+    if (paise !== undefined) included.push({ name: component.name, paise });
+  }
+  return {
+    ...money(included.reduce((sum, one) => sum + one.paise, 0)),
+    components: included.map((one) => one.name),
+  };
+}
+
+/** A total of the amounts as typed, over the components a predicate on the axes admits. */
 function total(
   components: readonly ClassifiedComponent[],
   includes: (classification: Classification) => boolean,
 ): Total {
-  const included = components.filter((component) => includes(component.classification));
-  const paise = included.reduce((sum, component) => sum + component.annual_paise, 0);
-  return { ...money(paise), components: included.map((component) => component.name) };
+  return totalOf(components, (component) =>
+    includes(component.classification) ? component.annual_paise : undefined,
+  );
+}
+
+/**
+ * A total over the equity grants alone, summing whatever figure the reading
+ * names rather than the amount typed — because what a grant is held at is not
+ * what the letter counted it as.
+ */
+function totalOfGrants(
+  components: readonly ClassifiedComponent[],
+  paiseOf: (equity: EquityReading, component: ClassifiedComponent) => number | undefined,
+): Total {
+  return totalOf(components, (component) =>
+    component.equity === undefined ? undefined : paiseOf(component.equity, component),
+  );
 }

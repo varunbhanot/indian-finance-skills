@@ -125,3 +125,14 @@ sale.
 **Unvaluable** — equity the decoder refuses to value: worth depends on a strike,
 a vesting schedule and a liquidity event. Held at ₹0 and always reported as
 such, never silently dropped.
+
+**Equity as claimed / equity as valued** — the two readings of the same grants,
+reported side by side. As claimed is what the letter counted them at; as valued
+is what survives a refusal to forecast a share price. The distance between them
+is the reading's whole point, and it is not itself a figure the decoder emits.
+
+**Valuation method** — how a grant reached its figure, named on every grant:
+grant-date fair market value (units × price, held flat), the claimed value taken
+as the grant-date value, intrinsic value (the amount the price exceeds the
+strike, usually nil), unvaluable, or employee-funded. Four of the five are ways
+of declining to guess, which is why each carries its assumption in words.

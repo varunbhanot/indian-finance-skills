@@ -9,6 +9,7 @@ export type DecoderErrorCode =
   | "unknown_component_type"
   | "clawback_on_recurring_component"
   | "rule_absent"
+  | "vesting_schedule_not_whole"
   | "rules_file_invalid";
 
 export interface ErrorReport<Code extends string = DecoderErrorCode> {

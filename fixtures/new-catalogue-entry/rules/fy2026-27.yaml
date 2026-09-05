@@ -2,6 +2,11 @@
 # that rules/fy2026-27.yaml does not have: a benefit in kind, and an equity grant
 # with an instrument. The decoder classifies both from this file alone, which is
 # what "adding a catalogue entry is a rules-file change only" (ADR 0004) means.
+#
+# The perquisite group below is here because valuing a grant needs one, and the
+# statement it carries is invented for this fixture rather than sourced -- which
+# is why it sits in a fixture's own rules directory (ADR 0009) and not in
+# rules/, and why its URL is a test domain.
 financial_year: 2026-27
 groups:
   components:
@@ -19,3 +24,14 @@ groups:
         recurring: false
         instrument: rsu
         rationale: A single grant of restricted stock units, vesting only while employed.
+
+  perquisite:
+    title: A test-only paper, cited by nothing real
+    source: https://example.test/perquisite
+    retrieved: 2026-09-05
+    equity:
+      rsu:
+        statement: Invented for this fixture. The value of a vested unit is a perquisite.
+        section: Nothing; this document states no provision of any Act.
+        source: https://example.test/perquisite
+        retrieved: 2026-09-05

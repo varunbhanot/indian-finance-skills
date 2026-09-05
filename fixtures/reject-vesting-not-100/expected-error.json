@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "vesting_schedule_not_whole",
+    "message": "components[1].equity.vesting.years: a vesting schedule must account for the whole grant, which is 10000 basis points; these 3 years total 7500",
+    "path": "components[1].equity.vesting.years",
+    "details": {
+      "basis_points": 7500,
+      "expected_basis_points": 10000,
+      "years": 3
+    }
+  }
+}

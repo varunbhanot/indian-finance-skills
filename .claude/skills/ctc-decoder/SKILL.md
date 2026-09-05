@@ -33,6 +33,31 @@ The catalogue types are the keys under `groups.components.entries` in
 classified inline with `certainty`, `form` and `recurring` — three questions to
 the user, whose answers are theirs.
 
+An equity line needs more than an amount, and the extra questions are the
+whole of what makes it valuable or not. Ask, for each grant:
+
+- **Is the company listed?** The one question the valuation turns on.
+- **The vesting schedule**, as the letter states it: the share arriving in each
+  year, and any cliff. Take it in whatever words the letter uses ("25% a year
+  after a one-year cliff", "5/15/40/40") and write it as basis points per year
+  summing to 10000. Ask; never assume, and never fill it in from what you know
+  about the employer — this repository carries no employer's vesting shape
+  (ADR 0005). A share purchase plan has no schedule, and inventing one for it to
+  fill the field is the exact thing this rule forbids.
+- **Units, the grant-date fair market value per unit, and the strike** for an
+  option, wherever the letter states them — including for an unlisted company,
+  whose letters usually state all three. They are carried into the output either
+  way; whether they are multiplied out is the decoder's to decide.
+- **The discount**, for a share purchase plan, in basis points.
+
+A listed option is the one grant that cannot be valued without all three: what
+the letter quotes is the value of the shares, not of the option over them. If
+the letter does not give the strike, ask for it; the decoder will refuse the
+grant rather than guess, and say so.
+
+Do not ask what the shares might be worth later, and do not accept an answer
+framed that way. No growth rate exists anywhere in the input.
+
 ## 2. Draft the input
 
 The CLI takes one JSON document. Amounts are whole rupees; `period` is
@@ -46,10 +71,26 @@ The CLI takes one JSON document. Amounts are whole rupees; `period` is
     { "name": "Special allowance", "type": "special_allowance", "amount": 60000, "period": "monthly" },
     { "name": "Joining bonus", "type": "joining_bonus", "amount": 300000, "period": "annual", "clawback_months": 12 },
     { "name": "Site allowance", "amount": 120000, "period": "annual",
-      "certainty": "guaranteed", "form": "cash-now", "recurring": true }
+      "certainty": "guaranteed", "form": "cash-now", "recurring": true },
+    { "name": "RSU grant", "type": "rsu", "amount": 4000000, "period": "annual",
+      "equity": {
+        "listed": true,
+        "units": 800,
+        "grant_date_fair_market_value": 4500,
+        "vesting": { "cliff_months": 12, "years": [2500, 2500, 2500, 2500] }
+      } }
   ]
 }
 ```
+
+An equity line's `amount` is what the **letter claims** the grant is worth; the
+`equity` block is what the decoder values it from. The block is required on
+every equity line and refused on every other. Type every figure the letter
+states: a figure the valuation does not multiply out is still reported, beside
+the assumption that says why. Only two things are refused, and both are category
+errors rather than unused numbers — a `strike` on a restricted stock unit, which
+is a promise of shares and not a right to buy them, and a
+`discount_basis_points` on anything but a share purchase plan.
 
 For every line keep its **source**: the pasted text, the user's words, or the
 letter's own sentence. A one-time line whose fine print names a recovery
@@ -64,7 +105,9 @@ of them are shown in step 3 and narrated in step 5.
 
 Show the draft as a table — name as on the letter, amount, period, type or
 inline axes, clawback — with the source beside each row, then the quoted
-conditions. Ask the user to correct anything.
+conditions. Ask the user to correct anything. Show each equity grant's block
+below its row: listed or not, units, prices, discount, and the schedule year by
+year with its cliff, each beside the sentence of the letter it came from.
 
 The step is complete when the user has said the draft is right. Until then the
 CLI has not run, however simple the user says the letter is: the confirmation
@@ -96,6 +139,36 @@ reason is on the component, and it is the only one you give.
 Then the remaining totals — `variable_pay_at_target`, `retirals`,
 `one_time_components`, `benefits_in_kind` — each by `display` with its
 constituent names, and `clawback_months` on any component that carries it.
+
+Then the equity, when any component carries an `equity` block. Say
+`totals.equity_as_claimed.display` and `totals.equity_as_valued.display` side by
+side, and `totals.unvaluable_equity.display` with the grants it names. The
+distance between the first two is the point of the reading, and like every other
+difference it is not a figure the tool emitted: put the two figures next to each
+other and let them stand. `unvaluable_equity` is on the **claimed** basis, not
+the valued one — it is how much of what the letter counted rests on a figure
+nobody can check — so say which basis it is on when you say it.
+
+Then each grant, from its own `equity` block and nothing else:
+
+- `valued.display` beside `claimed.display`, and `method`.
+- `assumption`, said and not paraphrased. It is what stops a figure held flat
+  or held at nil from being read as a forecast, and it is the reason the number
+  is what it is.
+- `vesting`, where the grant has one — each year by its `share.display`, in
+  order, and `cliff_months` where present. Say the schedule; a grant divided
+  across it is not a figure the tool emitted, and the flat annual average is the
+  number this reading exists to take apart. A share purchase plan carries no
+  `vesting` and needs none said of it.
+- `units`, `grant_date_fair_market_value.display`, `strike.display` and
+  `discount.display` where the block carries them.
+- `perquisite.statement`, with its `citation` — the value is taxed as salary,
+  and the `note` on that citation says what the Act leaves to be prescribed.
+  Say it; no perquisite figure exists, and none can be computed.
+
+A grant whose `method` is `unvaluable` or `employee-funded` is held at nil and
+must still be named, with its claimed value beside it and the reason from its
+`assumption` (ADR 0005). Never let a nil valuation become silence.
 
 Then `basic`, when the output carries it: `share_of_fixed_pay.display` beside
 `totals.fixed_pay.display` and `basic.annual.display`. Name the lines on both
@@ -140,5 +213,5 @@ emitted it.
 
 End on the facts and the links. This skill does not yet gather the one thing
 take-home needs (`pf_wage_base`), so the output carries no `take_home` block;
-equity value and the year-by-year view are not in the output at all. When asked
-for any of them, say which of the two it is.
+the year-by-year view of a package is not in the output at all. When asked for
+either, say which of the two it is.

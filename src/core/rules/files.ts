@@ -2,13 +2,19 @@
  * The rules files on disk: which financial years exist, and loading one.
  * Paths are reported relative to the repository root so output is stable
  * across machines.
+ *
+ * `CTC_DECODER_RULES_DIR` names a different repository-relative directory to
+ * read them from. It exists so a fixture can pin a rules document this
+ * repository does not ship -- one missing a group, or one carrying a catalogue
+ * entry that does not exist yet -- without a second CLI seam (ADR 0009). It is
+ * a test affordance: nothing in `rules/` or the skill layer sets it.
  */
 import { readFileSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { loadRulesDocument, RulesFileError, type RulesDocument } from "./loader.ts";
 
 export const REPOSITORY_ROOT = resolve(import.meta.dirname, "..", "..", "..");
-const RULES_DIRECTORY = "rules";
+const RULES_DIRECTORY = process.env["CTC_DECODER_RULES_DIR"] ?? "rules";
 const RULES_FILE_PATTERN = /^fy(\d{4}-\d{2})\.yaml$/;
 
 export interface RulesFileEntry {

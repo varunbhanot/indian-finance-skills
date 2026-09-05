@@ -1,0 +1,5 @@
+# Test-only rules document, not statutory fact. It is well-formed under the
+# rules schema but carries no `components` catalogue, so the decoder must report
+# the rule as absent by key rather than guess a classification.
+financial_year: 2026-27
+groups: {}

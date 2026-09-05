@@ -1,0 +1,14 @@
+# Test-only rules document, not statutory fact. It carries one catalogue entry,
+# `car_lease`, that rules/fy2026-27.yaml does not have. The decoder classifies it
+# from this file alone, which is what "adding a catalogue entry is a rules-file
+# change only" (ADR 0004) means.
+financial_year: 2026-27
+groups:
+  components:
+    source: https://example.test/component-catalogue
+    retrieved: 2026-09-05
+    entries:
+      car_lease:
+        certainty: guaranteed
+        form: benefit-in-kind
+        recurring: true

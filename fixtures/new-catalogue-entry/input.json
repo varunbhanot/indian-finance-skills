@@ -1,0 +1,6 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "Company car lease", "type": "car_lease", "amount": 240000, "period": "annual" }
+  ]
+}

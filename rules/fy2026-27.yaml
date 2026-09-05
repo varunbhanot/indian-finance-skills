@@ -11,6 +11,87 @@
 # key named `rate` or ending in `_rate`; the loader converts them to integer
 # basis points and refuses more precision than basis points can hold (ADR 0002).
 #
-# No groups yet: each is added by the ticket that sources it.
+# Groups are added by the ticket that sources them.
 financial_year: 2026-27
-groups: {}
+groups:
+  # The catalogue of offer-letter component types (ADR 0004). Each entry
+  # classifies a component on the two axes -- `certainty` (guaranteed /
+  # conditional-on-performance / conditional-on-tenure / conditional-on-liquidity)
+  # and `form` (cash-now / deferred-cash / locked-savings / equity /
+  # benefit-in-kind) -- plus a `recurring` flag, and may carry `instrument` for an
+  # equity type. Guaranteed recurring cash is derived from those three
+  # (guaranteed and cash-now and recurring), never listed here.
+  #
+  # Adding a component type is a change to this group alone; the decoder reads
+  # whatever entries it finds. An entry whose classification follows from a
+  # statute carries that statute as its own `source`, beside the group's.
+  components:
+    title: The Code on Wages, 2019 (No. 29 of 2019), section 2(y)
+    source: https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf
+    retrieved: 2026-09-05
+    entries:
+      basic:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+      hra:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+      special_allowance:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+      lta:
+        certainty: guaranteed
+        form: cash-now
+        recurring: true
+      # Section 6 of the EPF & MP Act requires the employer's contribution to be
+      # paid into the fund, not to the employee, so it is locked savings.
+      employer_pf:
+        certainty: guaranteed
+        form: locked-savings
+        recurring: true
+        title: The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)
+        source: https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf
+      # Section 4(1): gratuity is payable only after not less than five years of
+      # continuous service, and only on termination -- conditional on tenure, and
+      # deferred.
+      gratuity:
+        certainty: conditional-on-tenure
+        form: deferred-cash
+        recurring: true
+        title: The Payment of Gratuity Act, 1972 (No. 39 of 1972), section 4(1)
+        source: https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf
+      # NPS is a defined-contribution pension scheme regulated by PFRDA; the
+      # employer's contribution goes into the subscriber's pension account.
+      employer_nps:
+        certainty: guaranteed
+        form: locked-savings
+        recurring: true
+        title: Pension Fund Regulatory and Development Authority -- National Pension System
+        source: https://www.pfrda.org.in/
+      variable_pay:
+        certainty: conditional-on-performance
+        form: cash-now
+        recurring: true
+      joining_bonus:
+        certainty: guaranteed
+        form: cash-now
+        recurring: false
+      relocation:
+        certainty: guaranteed
+        form: cash-now
+        recurring: false
+      retention_bonus:
+        certainty: conditional-on-tenure
+        form: cash-now
+        recurring: false
+      insurance_premium:
+        certainty: guaranteed
+        form: benefit-in-kind
+        recurring: true
+      meal_card:
+        certainty: guaranteed
+        form: benefit-in-kind
+        recurring: true

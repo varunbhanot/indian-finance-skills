@@ -1,0 +1,46 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "rules/fy2026-27.yaml",
+  "components": [
+    {
+      "name": "Basic",
+      "as_typed": { "amount": { "paise": 120000000, "display": "₹12,00,000" }, "period": "annual" },
+      "annual": { "paise": 120000000, "display": "₹12,00,000" },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "basic",
+        "rules_key": "groups.components.entries.basic",
+        "source": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+      }
+    },
+    {
+      "name": "Joining bonus",
+      "as_typed": { "amount": { "paise": 30000000, "display": "₹3,00,000" }, "period": "annual" },
+      "annual": { "paise": 30000000, "display": "₹3,00,000" },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": false,
+      "clawback_months": 12,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "joining_bonus",
+        "rules_key": "groups.components.entries.joining_bonus",
+        "source": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+      }
+    }
+  ],
+  "totals": {
+    "headline_ctc": { "paise": 150000000, "display": "₹15,00,000", "components": ["Basic", "Joining bonus"] },
+    "fixed_pay": { "paise": 150000000, "display": "₹15,00,000", "components": ["Basic", "Joining bonus"] },
+    "variable_pay_at_target": { "paise": 0, "display": "₹0", "components": [] },
+    "guaranteed_recurring_cash": { "paise": 120000000, "display": "₹12,00,000", "components": ["Basic"] },
+    "retirals": { "paise": 0, "display": "₹0", "components": [] },
+    "one_time_components": { "paise": 30000000, "display": "₹3,00,000", "components": ["Joining bonus"] },
+    "benefits_in_kind": { "paise": 0, "display": "₹0", "components": [] }
+  }
+}

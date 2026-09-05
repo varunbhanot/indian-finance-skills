@@ -1,0 +1,13 @@
+# Test-only rules document, not statutory fact. Its one catalogue entry gives a
+# certainty that is not on the axis (ADR 0004), which the decoder must refuse
+# rather than treat as an unknown-but-harmless value.
+financial_year: 2026-27
+groups:
+  components:
+    source: https://example.test/component-catalogue
+    retrieved: 2026-09-05
+    entries:
+      basic:
+        certainty: probably
+        form: cash-now
+        recurring: true

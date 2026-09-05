@@ -4,27 +4,69 @@
   "components": [
     {
       "name": "Basic",
-      "as_typed": {
-        "amount": { "paise": 60000000, "display": "₹6,00,000" },
-        "period": "annual"
-      },
-      "annual": { "paise": 60000000, "display": "₹6,00,000" }
+      "as_typed": { "amount": { "paise": 60000000, "display": "₹6,00,000" }, "period": "annual" },
+      "annual": { "paise": 60000000, "display": "₹6,00,000" },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "basic",
+        "rules_key": "groups.components.entries.basic",
+        "source": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+      }
     },
     {
       "name": "HRA",
-      "as_typed": {
-        "amount": { "paise": 2000000, "display": "₹20,000" },
-        "period": "monthly"
-      },
-      "annual": { "paise": 24000000, "display": "₹2,40,000" }
+      "as_typed": { "amount": { "paise": 2000000, "display": "₹20,000" }, "period": "monthly" },
+      "annual": { "paise": 24000000, "display": "₹2,40,000" },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "hra",
+        "rules_key": "groups.components.entries.hra",
+        "source": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+      }
     },
     {
       "name": "Special allowance",
-      "as_typed": {
-        "amount": { "paise": 123456700, "display": "₹12,34,567" },
-        "period": "annual"
-      },
-      "annual": { "paise": 123456700, "display": "₹12,34,567" }
+      "as_typed": { "amount": { "paise": 123456700, "display": "₹12,34,567" }, "period": "annual" },
+      "annual": { "paise": 123456700, "display": "₹12,34,567" },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "special_allowance",
+        "rules_key": "groups.components.entries.special_allowance",
+        "source": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+      }
     }
-  ]
+  ],
+  "totals": {
+    "headline_ctc": {
+      "paise": 207456700,
+      "display": "₹20,74,567",
+      "components": ["Basic", "HRA", "Special allowance"]
+    },
+    "fixed_pay": {
+      "paise": 207456700,
+      "display": "₹20,74,567",
+      "components": ["Basic", "HRA", "Special allowance"]
+    },
+    "variable_pay_at_target": { "paise": 0, "display": "₹0", "components": [] },
+    "guaranteed_recurring_cash": {
+      "paise": 207456700,
+      "display": "₹20,74,567",
+      "components": ["Basic", "HRA", "Special allowance"]
+    },
+    "retirals": { "paise": 0, "display": "₹0", "components": [] },
+    "one_time_components": { "paise": 0, "display": "₹0", "components": [] },
+    "benefits_in_kind": { "paise": 0, "display": "₹0", "components": [] }
+  }
 }

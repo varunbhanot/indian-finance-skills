@@ -1,42 +1,152 @@
 /**
- * The CTC decoder's deterministic core. This walking skeleton normalises the
- * offer: whole rupees become paise, monthly amounts are annualised, and the
- * financial year is resolved to its rules file. No classification yet.
+ * The CTC decoder's deterministic core. It normalises the offer (whole rupees
+ * to paise, monthly amounts annualised), classifies every component on the two
+ * axes from the rules file's catalogue or the axes typed inline (ADR 0004), and
+ * derives the totals from those classifications.
+ *
+ * Nothing here decides what a component type means; that is the rules file's
+ * job, and a type it does not carry is reported, not guessed.
  */
 import { annualise, money, rupeesToPaise, type Money, type Period } from "../money.ts";
 import { resolveRulesFile, rulesFilePathFor, type RulesFile } from "../rules/files.ts";
 import { RulesFileError } from "../rules/loader.ts";
+import {
+  CATALOGUE_ENTRIES_KEY,
+  CATALOGUE_GROUP_KEY,
+  readComponentCatalogue,
+  type ComponentCatalogue,
+} from "./catalogue.ts";
+import type { Certainty, Classification, Form, Instrument } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
-import { validateOfferInput } from "./input.ts";
+import { validateOfferInput, type OfferComponentInput } from "./input.ts";
+import { countsTowardGuaranteedRecurringCash, totalsFor, type OfferTotals } from "./totals.ts";
+
+/** Which rule classified a component: a catalogue entry, or the user's own answer. */
+export type ClassifiedBy =
+  | { kind: "catalogue"; entry: string; rules_key: string; source: string }
+  | { kind: "inline" };
 
 export interface DecodedComponent {
   name: string;
   /** The amount and period exactly as the user entered them, for the narration to quote. */
   as_typed: { amount: Money; period: Period };
   annual: Money;
+  certainty: Certainty;
+  form: Form;
+  recurring: boolean;
+  instrument?: Instrument;
+  clawback_months?: number;
+  counts_toward_guaranteed_recurring_cash: boolean;
+  classified_by: ClassifiedBy;
 }
 
 export interface DecodedOffer {
   financial_year: string;
   rules_file: string;
   components: DecodedComponent[];
+  totals: OfferTotals;
 }
 
 export function decode(raw: unknown): DecodedOffer {
   const input = validateOfferInput(raw);
   const rules = rulesFor(input.financial_year);
+  const catalogue = readComponentCatalogue(rules);
+
+  const components = input.components.map((component, index) =>
+    decodeComponent(component, `components[${index}]`, rules, catalogue),
+  );
 
   return {
     financial_year: input.financial_year,
     rules_file: rules.path,
-    components: input.components.map((component) => {
-      const typedPaise = rupeesToPaise(component.amount);
-      return {
+    components,
+    totals: totalsFor(
+      components.map((component) => ({
         name: component.name,
-        as_typed: { amount: money(typedPaise), period: component.period },
-        annual: money(annualise(typedPaise, component.period)),
-      };
-    }),
+        annual_paise: component.annual.paise,
+        classification: {
+          certainty: component.certainty,
+          form: component.form,
+          recurring: component.recurring,
+        },
+      })),
+    ),
+  };
+}
+
+function decodeComponent(
+  component: OfferComponentInput,
+  path: string,
+  rules: RulesFile,
+  catalogue: ComponentCatalogue | undefined,
+): DecodedComponent {
+  const { classification, classifiedBy } = classify(component, path, rules, catalogue);
+  const clawbackMonths = component.clawback_months;
+  if (clawbackMonths !== undefined && classification.recurring) {
+    throw new DecoderError({
+      code: "clawback_on_recurring_component",
+      message: `${path}.clawback_months: a clawback period belongs to a one-time component, but ${JSON.stringify(component.name)} is classified as recurring`,
+      path: `${path}.clawback_months`,
+      details: { name: component.name, clawback_months: clawbackMonths },
+    });
+  }
+
+  const typedPaise = rupeesToPaise(component.amount);
+  return {
+    name: component.name,
+    as_typed: { amount: money(typedPaise), period: component.period },
+    annual: money(annualise(typedPaise, component.period)),
+    certainty: classification.certainty,
+    form: classification.form,
+    recurring: classification.recurring,
+    ...(classification.instrument === undefined ? {} : { instrument: classification.instrument }),
+    ...(clawbackMonths === undefined ? {} : { clawback_months: clawbackMonths }),
+    counts_toward_guaranteed_recurring_cash: countsTowardGuaranteedRecurringCash(classification),
+    classified_by: classifiedBy,
+  };
+}
+
+function classify(
+  component: OfferComponentInput,
+  path: string,
+  rules: RulesFile,
+  catalogue: ComponentCatalogue | undefined,
+): { classification: Classification; classifiedBy: ClassifiedBy } {
+  if (component.classify.kind === "inline") {
+    return {
+      classification: component.classify.classification,
+      classifiedBy: { kind: "inline" },
+    };
+  }
+
+  const type = component.classify.type;
+  if (catalogue === undefined) {
+    throw new DecoderError({
+      code: "rule_absent",
+      message: `${rules.path} carries no component catalogue: the rule at ${CATALOGUE_GROUP_KEY} is absent`,
+      path: `${path}.type`,
+      details: { rules_file: rules.path, rules_key: CATALOGUE_GROUP_KEY },
+    });
+  }
+
+  const entry = catalogue.entries.get(type);
+  if (entry === undefined) {
+    throw new DecoderError({
+      code: "unknown_component_type",
+      message: `${path}.type: ${rules.path} has no component catalogue entry for ${JSON.stringify(type)}; give certainty, form and recurring inline instead`,
+      path: `${path}.type`,
+      details: { type, rules_file: rules.path, rules_key: CATALOGUE_ENTRIES_KEY },
+    });
+  }
+
+  return {
+    classification: entry.classification,
+    classifiedBy: {
+      kind: "catalogue",
+      entry: entry.type,
+      rules_key: entry.rules_key,
+      source: entry.source,
+    },
   };
 }
 

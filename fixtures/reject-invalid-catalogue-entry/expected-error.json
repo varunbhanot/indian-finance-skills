@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "rules_file_invalid",
+    "message": "fixtures/reject-invalid-catalogue-entry/rules/fy2026-27.yaml:groups.components.entries.basic.certainty certainty must be one of the axis values (ADR 0004), got \"probably\"",
+    "details": {
+      "rules_file": "fixtures/reject-invalid-catalogue-entry/rules/fy2026-27.yaml",
+      "rules_key": "groups.components.entries.basic.certainty"
+    }
+  }
+}

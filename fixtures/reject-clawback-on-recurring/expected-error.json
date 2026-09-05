@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "clawback_on_recurring_component",
+    "message": "components[0].clawback_months: a clawback period belongs to a one-time component, but \"House rent allowance\" is classified as recurring",
+    "path": "components[0].clawback_months",
+    "details": { "name": "House rent allowance", "clawback_months": 12 }
+  }
+}

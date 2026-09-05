@@ -1,0 +1,30 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "fixtures/new-catalogue-entry/rules/fy2026-27.yaml",
+  "components": [
+    {
+      "name": "Company car lease",
+      "as_typed": { "amount": { "paise": 24000000, "display": "₹2,40,000" }, "period": "annual" },
+      "annual": { "paise": 24000000, "display": "₹2,40,000" },
+      "certainty": "guaranteed",
+      "form": "benefit-in-kind",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "car_lease",
+        "rules_key": "groups.components.entries.car_lease",
+        "source": "https://example.test/component-catalogue"
+      }
+    }
+  ],
+  "totals": {
+    "headline_ctc": { "paise": 24000000, "display": "₹2,40,000", "components": ["Company car lease"] },
+    "fixed_pay": { "paise": 24000000, "display": "₹2,40,000", "components": ["Company car lease"] },
+    "variable_pay_at_target": { "paise": 0, "display": "₹0", "components": [] },
+    "guaranteed_recurring_cash": { "paise": 0, "display": "₹0", "components": [] },
+    "retirals": { "paise": 0, "display": "₹0", "components": [] },
+    "one_time_components": { "paise": 0, "display": "₹0", "components": [] },
+    "benefits_in_kind": { "paise": 24000000, "display": "₹2,40,000", "components": ["Company car lease"] }
+  }
+}

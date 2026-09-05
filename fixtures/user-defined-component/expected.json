@@ -1,0 +1,52 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "rules/fy2026-27.yaml",
+  "components": [
+    {
+      "name": "Special allowance",
+      "as_typed": { "amount": { "paise": 30000000, "display": "₹3,00,000" }, "period": "annual" },
+      "annual": { "paise": 30000000, "display": "₹3,00,000" },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "special_allowance",
+        "rules_key": "groups.components.entries.special_allowance",
+        "source": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+      }
+    },
+    {
+      "name": "Site allowance",
+      "as_typed": { "amount": { "paise": 30000000, "display": "₹3,00,000" }, "period": "annual" },
+      "annual": { "paise": 30000000, "display": "₹3,00,000" },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": { "kind": "inline" }
+    }
+  ],
+  "totals": {
+    "headline_ctc": {
+      "paise": 60000000,
+      "display": "₹6,00,000",
+      "components": ["Special allowance", "Site allowance"]
+    },
+    "fixed_pay": {
+      "paise": 60000000,
+      "display": "₹6,00,000",
+      "components": ["Special allowance", "Site allowance"]
+    },
+    "variable_pay_at_target": { "paise": 0, "display": "₹0", "components": [] },
+    "guaranteed_recurring_cash": {
+      "paise": 60000000,
+      "display": "₹6,00,000",
+      "components": ["Special allowance", "Site allowance"]
+    },
+    "retirals": { "paise": 0, "display": "₹0", "components": [] },
+    "one_time_components": { "paise": 0, "display": "₹0", "components": [] },
+    "benefits_in_kind": { "paise": 0, "display": "₹0", "components": [] }
+  }
+}

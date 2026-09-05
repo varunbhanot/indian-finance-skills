@@ -1,7 +1,14 @@
 {
   "financial_year": "2026-27",
   "components": [
-    { "name": "Basic", "amount": 600000, "period": "annual" },
-    { "name": "Notice period recovery", "amount": -50000, "period": "annual" }
+    { "name": "Basic", "type": "basic", "amount": 600000, "period": "annual" },
+    {
+      "name": "Notice period recovery",
+      "amount": -50000,
+      "period": "annual",
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": false
+    }
   ]
 }

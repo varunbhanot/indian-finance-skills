@@ -81,7 +81,11 @@ Fixtures test the CLI seam only: JSON in, JSON out, through the same entrypoint
 the skill uses. Nothing is tested below it. One directory per fixture under
 `fixtures/`, holding `input.json` and either `expected.json` (exact stdout, exit
 0) or `expected-error.json` (exact stderr, exit non-zero); `test/fixtures.test.ts`
-discovers them. Three checks sit beside the seam: the rules schema check
+discovers them. A fixture may also hold a `rules/` directory, which the runner
+pins through `CTC_DECODER_RULES_DIR` so it can exercise a rules file this
+repository does not ship — an absent group, or a catalogue entry added without
+code (ADR 0009). That variable is a test affordance and is not part of the JSON
+contract. Three checks sit beside the seam: the rules schema check
 (every `rules/*.yaml` loads), the no-float lint, and the rules loader's own
 tests against test-only YAML documents (the ticket that built the loader
 permits this, since no statutory value may be typed from memory to test it).

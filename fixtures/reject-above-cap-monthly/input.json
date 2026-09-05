@@ -1,6 +1,6 @@
 {
   "financial_year": "2026-27",
   "components": [
-    { "name": "Basic", "amount": 83333334, "period": "monthly" }
+    { "name": "Basic", "type": "basic", "amount": 83333334, "period": "monthly" }
   ]
 }

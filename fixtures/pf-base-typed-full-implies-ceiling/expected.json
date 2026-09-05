@@ -87,14 +87,14 @@
       "name": "Employer PF",
       "as_typed": {
         "amount": {
-          "paise": 14400000,
-          "display": "₹1,44,000"
+          "paise": 2160000,
+          "display": "₹21,600"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 14400000,
-        "display": "₹1,44,000"
+        "paise": 2160000,
+        "display": "₹21,600"
       },
       "certainty": "guaranteed",
       "form": "locked-savings",
@@ -200,8 +200,8 @@
   ],
   "totals": {
     "headline_ctc": {
-      "paise": 310172000,
-      "display": "₹31,01,720",
+      "paise": 297932000,
+      "display": "₹29,79,320",
       "components": [
         "Basic",
         "House rent allowance",
@@ -213,8 +213,8 @@
       ]
     },
     "fixed_pay": {
-      "paise": 280172000,
-      "display": "₹28,01,720",
+      "paise": 267932000,
+      "display": "₹26,79,320",
       "components": [
         "Basic",
         "House rent allowance",
@@ -241,8 +241,8 @@
       ]
     },
     "retirals": {
-      "paise": 20172000,
-      "display": "₹2,01,720",
+      "paise": 7932000,
+      "display": "₹79,320",
       "components": [
         "Employer PF",
         "Gratuity"
@@ -553,8 +553,8 @@
       "display": "₹12,00,000"
     },
     "share_of_fixed_pay": {
-      "bp": 4283,
-      "display": "42.83%"
+      "bp": 4478,
+      "display": "44.78%"
     },
     "citation": {
       "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
@@ -699,12 +699,12 @@
     },
     "stated_contribution": {
       "annual": {
-        "paise": 14400000,
-        "display": "₹1,44,000"
+        "paise": 2160000,
+        "display": "₹21,600"
       },
       "monthly": {
-        "paise": 1200000,
-        "display": "₹12,000"
+        "paise": 180000,
+        "display": "₹1,800"
       }
     },
     "bases": [
@@ -730,7 +730,7 @@
             "display": "₹12,000"
           }
         },
-        "matches": true
+        "matches": false
       },
       {
         "basis": "statutory_ceiling",
@@ -754,11 +754,11 @@
             "display": "₹1,800"
           }
         },
-        "matches": false
+        "matches": true
       }
     ],
     "implies": [
-      "full_basic"
+      "statutory_ceiling"
     ],
     "bases_coincide": false,
     "wage_components": [
@@ -829,25 +829,25 @@
             },
             "deductions": {
               "employee_pf": {
-                "basis": "statutory_ceiling",
+                "basis": "full_basic",
                 "contribution": {
                   "annual": {
-                    "paise": 2160000,
-                    "display": "₹21,600"
+                    "paise": 14400000,
+                    "display": "₹1,44,000"
                   },
                   "monthly": {
-                    "paise": 180000,
-                    "display": "₹1,800"
+                    "paise": 1200000,
+                    "display": "₹12,000"
                   }
                 },
                 "wage": {
                   "annual": {
-                    "paise": 18000000,
-                    "display": "₹1,80,000"
+                    "paise": 120000000,
+                    "display": "₹12,00,000"
                   },
                   "monthly": {
-                    "paise": 1500000,
-                    "display": "₹15,000"
+                    "paise": 10000000,
+                    "display": "₹1,00,000"
                   }
                 },
                 "wage_components": [
@@ -876,23 +876,6 @@
                   "retrieved": "2026-09-05",
                   "rules_key": "groups.epf.wage_components",
                   "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
-                },
-                "ceiling": {
-                  "monthly": {
-                    "paise": 1500000,
-                    "display": "₹15,000"
-                  },
-                  "applied": true,
-                  "citation": {
-                    "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
-                    "document": {
-                      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
-                      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
-                    },
-                    "retrieved": "2026-09-05",
-                    "rules_key": "groups.epf.wage_ceiling",
-                    "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
-                  }
                 }
               },
               "income_tax": {
@@ -1180,23 +1163,23 @@
               },
               "total": {
                 "annual": {
-                  "paise": 31410000,
-                  "display": "₹3,14,100"
+                  "paise": 43650000,
+                  "display": "₹4,36,500"
                 },
                 "monthly": {
-                  "paise": 2617500,
-                  "display": "₹26,175"
+                  "paise": 3637500,
+                  "display": "₹36,375"
                 }
               }
             },
             "take_home": {
               "annual": {
-                "paise": 208590000,
-                "display": "₹20,85,900"
+                "paise": 196350000,
+                "display": "₹19,63,500"
               },
               "monthly": {
-                "paise": 17382500,
-                "display": "₹1,73,825"
+                "paise": 16362500,
+                "display": "₹1,63,625"
               }
             }
           },
@@ -1220,25 +1203,25 @@
             },
             "deductions": {
               "employee_pf": {
-                "basis": "statutory_ceiling",
+                "basis": "full_basic",
                 "contribution": {
                   "annual": {
-                    "paise": 2160000,
-                    "display": "₹21,600"
+                    "paise": 14400000,
+                    "display": "₹1,44,000"
                   },
                   "monthly": {
-                    "paise": 180000,
-                    "display": "₹1,800"
+                    "paise": 1200000,
+                    "display": "₹12,000"
                   }
                 },
                 "wage": {
                   "annual": {
-                    "paise": 18000000,
-                    "display": "₹1,80,000"
+                    "paise": 120000000,
+                    "display": "₹12,00,000"
                   },
                   "monthly": {
-                    "paise": 1500000,
-                    "display": "₹15,000"
+                    "paise": 10000000,
+                    "display": "₹1,00,000"
                   }
                 },
                 "wage_components": [
@@ -1267,23 +1250,6 @@
                   "retrieved": "2026-09-05",
                   "rules_key": "groups.epf.wage_components",
                   "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
-                },
-                "ceiling": {
-                  "monthly": {
-                    "paise": 1500000,
-                    "display": "₹15,000"
-                  },
-                  "applied": true,
-                  "citation": {
-                    "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
-                    "document": {
-                      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
-                      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
-                    },
-                    "retrieved": "2026-09-05",
-                    "rules_key": "groups.epf.wage_ceiling",
-                    "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
-                  }
                 }
               },
               "income_tax": {
@@ -1571,23 +1537,23 @@
               },
               "total": {
                 "annual": {
-                  "paise": 40380000,
-                  "display": "₹4,03,800"
+                  "paise": 52620000,
+                  "display": "₹5,26,200"
                 },
                 "monthly": {
-                  "paise": 3365000,
-                  "display": "₹33,650"
+                  "paise": 4385000,
+                  "display": "₹43,850"
                 }
               }
             },
             "take_home": {
               "annual": {
-                "paise": 229620000,
-                "display": "₹22,96,200"
+                "paise": 217380000,
+                "display": "₹21,73,800"
               },
               "monthly": {
-                "paise": 19135000,
-                "display": "₹1,91,350"
+                "paise": 18115000,
+                "display": "₹1,81,150"
               }
             }
           }
@@ -1627,25 +1593,25 @@
             },
             "deductions": {
               "employee_pf": {
-                "basis": "statutory_ceiling",
+                "basis": "full_basic",
                 "contribution": {
                   "annual": {
-                    "paise": 2160000,
-                    "display": "₹21,600"
+                    "paise": 14400000,
+                    "display": "₹1,44,000"
                   },
                   "monthly": {
-                    "paise": 180000,
-                    "display": "₹1,800"
+                    "paise": 1200000,
+                    "display": "₹12,000"
                   }
                 },
                 "wage": {
                   "annual": {
-                    "paise": 18000000,
-                    "display": "₹1,80,000"
+                    "paise": 120000000,
+                    "display": "₹12,00,000"
                   },
                   "monthly": {
-                    "paise": 1500000,
-                    "display": "₹15,000"
+                    "paise": 10000000,
+                    "display": "₹1,00,000"
                   }
                 },
                 "wage_components": [
@@ -1674,23 +1640,6 @@
                   "retrieved": "2026-09-05",
                   "rules_key": "groups.epf.wage_components",
                   "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
-                },
-                "ceiling": {
-                  "monthly": {
-                    "paise": 1500000,
-                    "display": "₹15,000"
-                  },
-                  "applied": true,
-                  "citation": {
-                    "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
-                    "document": {
-                      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
-                      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
-                    },
-                    "retrieved": "2026-09-05",
-                    "rules_key": "groups.epf.wage_ceiling",
-                    "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
-                  }
                 }
               },
               "income_tax": {
@@ -1912,23 +1861,23 @@
               },
               "total": {
                 "annual": {
-                  "paise": 55980000,
-                  "display": "₹5,59,800"
+                  "paise": 68220000,
+                  "display": "₹6,82,200"
                 },
                 "monthly": {
-                  "paise": 4665000,
-                  "display": "₹46,650"
+                  "paise": 5685000,
+                  "display": "₹56,850"
                 }
               }
             },
             "take_home": {
               "annual": {
-                "paise": 184020000,
-                "display": "₹18,40,200"
+                "paise": 171780000,
+                "display": "₹17,17,800"
               },
               "monthly": {
-                "paise": 15335000,
-                "display": "₹1,53,350"
+                "paise": 14315000,
+                "display": "₹1,43,150"
               }
             }
           },
@@ -1952,25 +1901,25 @@
             },
             "deductions": {
               "employee_pf": {
-                "basis": "statutory_ceiling",
+                "basis": "full_basic",
                 "contribution": {
                   "annual": {
-                    "paise": 2160000,
-                    "display": "₹21,600"
+                    "paise": 14400000,
+                    "display": "₹1,44,000"
                   },
                   "monthly": {
-                    "paise": 180000,
-                    "display": "₹1,800"
+                    "paise": 1200000,
+                    "display": "₹12,000"
                   }
                 },
                 "wage": {
                   "annual": {
-                    "paise": 18000000,
-                    "display": "₹1,80,000"
+                    "paise": 120000000,
+                    "display": "₹12,00,000"
                   },
                   "monthly": {
-                    "paise": 1500000,
-                    "display": "₹15,000"
+                    "paise": 10000000,
+                    "display": "₹1,00,000"
                   }
                 },
                 "wage_components": [
@@ -1999,23 +1948,6 @@
                   "retrieved": "2026-09-05",
                   "rules_key": "groups.epf.wage_components",
                   "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
-                },
-                "ceiling": {
-                  "monthly": {
-                    "paise": 1500000,
-                    "display": "₹15,000"
-                  },
-                  "applied": true,
-                  "citation": {
-                    "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
-                    "document": {
-                      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
-                      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
-                    },
-                    "retrieved": "2026-09-05",
-                    "rules_key": "groups.epf.wage_ceiling",
-                    "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
-                  }
                 }
               },
               "income_tax": {
@@ -2237,23 +2169,23 @@
               },
               "total": {
                 "annual": {
-                  "paise": 65340000,
-                  "display": "₹6,53,400"
+                  "paise": 77580000,
+                  "display": "₹7,75,800"
                 },
                 "monthly": {
-                  "paise": 5445000,
-                  "display": "₹54,450"
+                  "paise": 6465000,
+                  "display": "₹64,650"
                 }
               }
             },
             "take_home": {
               "annual": {
-                "paise": 204660000,
-                "display": "₹20,46,600"
+                "paise": 192420000,
+                "display": "₹19,24,200"
               },
               "monthly": {
-                "paise": 17055000,
-                "display": "₹1,70,550"
+                "paise": 16035000,
+                "display": "₹1,60,350"
               }
             }
           }
@@ -2309,21 +2241,21 @@
       "kind": "letter",
       "measured": {
         "stated_contribution": {
-          "paise": 14400000,
-          "display": "₹1,44,000"
-        },
-        "contribution_implied_by_typed_base": {
           "paise": 2160000,
           "display": "₹21,600"
+        },
+        "contribution_implied_by_typed_base": {
+          "paise": 14400000,
+          "display": "₹1,44,000"
         }
       },
       "names": [
         "Employer PF"
       ],
       "wage_bases": {
-        "typed": "statutory_ceiling",
+        "typed": "full_basic",
         "implied": [
-          "full_basic"
+          "statutory_ceiling"
         ]
       }
     }

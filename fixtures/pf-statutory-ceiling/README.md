@@ -24,6 +24,19 @@ nothing is refused. The reading says what the letter implies; the user says what
 is true, and the two are allowed to disagree — a fixture built to exercise the
 ceiling says so whatever its own employer PF line happens to be.
 
+Issue #43 is that they were allowed to disagree *in silence*. Both halves were
+already on the page — `employer_pf.implies` said `full_basic`, and the employee
+deduction below it was ₹1,800 a month rather than ₹8,400 — with nothing pointing
+either at the other, so a reader had to notice the contradiction themselves or
+take a take-home figure that is ₹1,22,400 a year too high. This fixture now
+carries `pf-wage-base-disagreement`, naming both bases and the two contributions
+they imply. It still decodes, and the typed base still drives every deduction:
+the flag states the disagreement and settles nothing (ADR 0007).
+
+`pf-base-typed-full-implies-ceiling` is the inverse — `full_basic` typed against
+a letter implying the ceiling — and `take-home-new-regime`, the fixture this one
+is otherwise identical to, is the control where the two agree and no flag fires.
+
 Spec #11 adds the old regime alongside the new, same as every other take-home
 fixture; it changes neither provident fund figure above, since employee PF
 does not depend on regime.

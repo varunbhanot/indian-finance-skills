@@ -25,6 +25,13 @@ The decoder prints one JSON document to stdout, or a JSON error
 Input is strict: unknown keys are rejected, so a ticket adding a field extends
 the validator in `src/core/ctc-decoder/input.ts`.
 
+`pf_wage_base` is typed by the caller, and the decoder separately reads what the
+letter's own employer provident fund line implies. Where the two disagree — a
+contribution of 12% of the whole basic decoded with `statutory_ceiling` typed,
+or the reverse — the output carries a `pf-wage-base-disagreement` flag naming
+both. The typed base still drives every deduction: the flag states the
+disagreement and does not resolve it (issue #43, ADR 0007).
+
 Every component either names a `type` the rules file's catalogue knows, or
 classifies itself inline with all three of `certainty`, `form` and `recurring`.
 All three, because the two axes alone do not separate a joining bonus from basic

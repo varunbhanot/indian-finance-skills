@@ -9,8 +9,20 @@
 
 ## Running the core
 
-Node 22.18 or later, then `npm install`. There is no build step. In a Claude
-Code session on the web that install runs for you, from
+**Node 22.18 or later**, then `npm install`. There is no build step, and that is
+why the version is a hard requirement rather than a preference: the scripts run
+the TypeScript sources directly, which Node does without a flag only from 22.18
+on. On anything older every script here fails with
+
+```
+TypeError [ERR_UNKNOWN_FILE_EXTENSION]: Unknown file extension ".ts"
+```
+
+which names neither Node nor a version. `npm test`, `npm run lint` and `npm run
+typecheck` check first and print the version they found against the one they
+need (issue #37). CI runs Node 22.
+
+In a Claude Code session on the web the install runs for you, from
 `.claude/hooks/session-start.sh`.
 
 ```

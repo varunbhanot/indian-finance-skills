@@ -59,4 +59,20 @@ The deterministic core behind the skills lives in `src/core/`, the CLI
 entrypoints in `src/cli/`, statutory rules in `rules/`, and behavioural
 fixtures in `fixtures/`. Design decisions are recorded in `docs/adr/`.
 
+## Running it
+
+**Node 22.18 or later is required**, and it is not a preference. There is no
+build step: every script hands Node a `.ts` file and relies on it stripping the
+types itself, which Node does without a flag only from 22.18 on. Below that
+version `npm test` and `npm run lint` both die with
+`ERR_UNKNOWN_FILE_EXTENSION`, which names no version and reads like a bug here.
+`npm test`, `npm run lint` and `npm run typecheck` check the version first and
+say so plainly instead. CI runs Node 22.
+
+```
+npm install
+npm test
+npm run ctc-decoder -- '{"financial_year":"2026-27","components":[{"name":"Basic","type":"basic","amount":600000,"period":"annual"}]}'
+```
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add a new skill.

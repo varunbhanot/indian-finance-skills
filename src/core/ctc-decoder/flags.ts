@@ -179,28 +179,37 @@ function backLoaded(offer: FlagInput, heuristics: HeuristicsFile): Flag[] {
   });
 }
 
-/** One-time components against year one on the zero basis, which is the honest one. */
+/**
+ * One-time components against year one, on the zero basis because that is the
+ * honest one.
+ *
+ * It reads the year-by-year table's own year-one figures rather than
+ * `totals.one_time_components`, and the difference matters: that total counts
+ * every non-recurring component, and an equity grant is one. But a grant is not
+ * a payment that lands and then stops — it spreads over the years its schedule
+ * names, and the table already puts it in the equity columns instead. This flag
+ * is about the drop from year one to year two, so it measures the thing that
+ * actually drops: cash that arrives once.
+ */
 function oneTimeShare(offer: FlagInput, heuristics: HeuristicsFile): Flag[] {
   const key = "one_time_share";
   const threshold = thresholdRate(heuristics, key, "at_or_above_rate");
 
   const zeroBasis = offer.year_by_year.bases.find((one) => one.basis === "variable-pay-at-zero");
-  if (zeroBasis === undefined) return [];
-  const share = shareInBasisPoints(
-    offer.totals.one_time_components.paise,
-    zeroBasis.year_one.paise,
-  );
+  const yearOne = zeroBasis?.years[0];
+  if (zeroBasis === undefined || yearOne === undefined) return [];
+  const share = shareInBasisPoints(yearOne.one_time.paise, zeroBasis.year_one.paise);
   if (share === undefined || share < threshold.value.bp) return [];
   return [
     {
       code: "one-time-share",
       kind: "heuristic",
       measured: {
-        one_time_components: money(offer.totals.one_time_components),
+        one_time_in_year_one: yearOne.one_time,
         year_one: zeroBasis.year_one,
         share_of_year_one: rate(share),
       },
-      names: offer.totals.one_time_components.components,
+      names: zeroBasis.average.one_time_components,
       threshold,
     },
   ];

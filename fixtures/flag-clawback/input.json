@@ -1,0 +1,7 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 2000000, "period": "annual" },
+    { "name": "Joining bonus", "type": "joining_bonus", "amount": 200000, "period": "annual", "clawback_months": 12 }
+  ]
+}

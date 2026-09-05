@@ -6,14 +6,14 @@
       "name": "Basic",
       "as_typed": {
         "amount": {
-          "paise": 120000000,
-          "display": "₹12,00,000"
+          "paise": 200000000,
+          "display": "₹20,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 120000000,
-        "display": "₹12,00,000"
+        "paise": 200000000,
+        "display": "₹20,00,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -33,14 +33,14 @@
       "name": "Joining bonus",
       "as_typed": {
         "amount": {
-          "paise": 30000000,
-          "display": "₹3,00,000"
+          "paise": 20000000,
+          "display": "₹2,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 30000000,
-        "display": "₹3,00,000"
+        "paise": 20000000,
+        "display": "₹2,00,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -60,16 +60,16 @@
   ],
   "totals": {
     "headline_ctc": {
-      "paise": 150000000,
-      "display": "₹15,00,000",
+      "paise": 220000000,
+      "display": "₹22,00,000",
       "components": [
         "Basic",
         "Joining bonus"
       ]
     },
     "fixed_pay": {
-      "paise": 150000000,
-      "display": "₹15,00,000",
+      "paise": 220000000,
+      "display": "₹22,00,000",
       "components": [
         "Basic",
         "Joining bonus"
@@ -81,8 +81,8 @@
       "components": []
     },
     "guaranteed_recurring_cash": {
-      "paise": 120000000,
-      "display": "₹12,00,000",
+      "paise": 200000000,
+      "display": "₹20,00,000",
       "components": [
         "Basic"
       ]
@@ -93,8 +93,8 @@
       "components": []
     },
     "one_time_components": {
-      "paise": 30000000,
-      "display": "₹3,00,000",
+      "paise": 20000000,
+      "display": "₹2,00,000",
       "components": [
         "Joining bonus"
       ]
@@ -129,16 +129,16 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
               "display": "₹0"
             },
             "one_time": {
-              "paise": 30000000,
-              "display": "₹3,00,000"
+              "paise": 20000000,
+              "display": "₹2,00,000"
             },
             "equity_as_valued": {
               "paise": 0,
@@ -149,15 +149,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 150000000,
-              "display": "₹15,00,000"
+              "paise": 220000000,
+              "display": "₹22,00,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -176,15 +176,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -203,15 +203,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -230,24 +230,24 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             }
           }
         ],
         "year_one": {
-          "paise": 150000000,
-          "display": "₹15,00,000"
+          "paise": 220000000,
+          "display": "₹22,00,000"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 127500000,
-            "display": "₹12,75,000"
+            "paise": 205000000,
+            "display": "₹20,50,000"
           },
           "without_one_time": {
-            "paise": 120000000,
-            "display": "₹12,00,000"
+            "paise": 200000000,
+            "display": "₹20,00,000"
           },
           "one_time_components": [
             "Joining bonus"
@@ -260,16 +260,16 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
               "display": "₹0"
             },
             "one_time": {
-              "paise": 30000000,
-              "display": "₹3,00,000"
+              "paise": 20000000,
+              "display": "₹2,00,000"
             },
             "equity_as_valued": {
               "paise": 0,
@@ -280,15 +280,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 150000000,
-              "display": "₹15,00,000"
+              "paise": 220000000,
+              "display": "₹22,00,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -307,15 +307,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -334,15 +334,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -361,24 +361,24 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             }
           }
         ],
         "year_one": {
-          "paise": 150000000,
-          "display": "₹15,00,000"
+          "paise": 220000000,
+          "display": "₹22,00,000"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 127500000,
-            "display": "₹12,75,000"
+            "paise": 205000000,
+            "display": "₹20,50,000"
           },
           "without_one_time": {
-            "paise": 120000000,
-            "display": "₹12,00,000"
+            "paise": 200000000,
+            "display": "₹20,00,000"
           },
           "one_time_components": [
             "Joining bonus"
@@ -393,12 +393,12 @@
       "Basic"
     ],
     "annual": {
-      "paise": 120000000,
-      "display": "₹12,00,000"
+      "paise": 200000000,
+      "display": "₹20,00,000"
     },
     "share_of_fixed_pay": {
-      "bp": 8000,
-      "display": "80%"
+      "bp": 9090,
+      "display": "90.9%"
     },
     "citation": {
       "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
@@ -527,41 +527,12 @@
   },
   "flags": [
     {
-      "code": "one-time-share",
-      "kind": "heuristic",
-      "measured": {
-        "one_time_in_year_one": {
-          "paise": 30000000,
-          "display": "₹3,00,000"
-        },
-        "year_one": {
-          "paise": 150000000,
-          "display": "₹15,00,000"
-        },
-        "share_of_year_one": {
-          "bp": 2000,
-          "display": "20%"
-        }
-      },
-      "names": [
-        "Joining bonus"
-      ],
-      "threshold": {
-        "heuristics_key": "thresholds.one_time_share.at_or_above_rate",
-        "value": {
-          "bp": 1500,
-          "display": "15%"
-        },
-        "rationale": "A joining bonus large enough to be a seventh of year one is large enough that year two is a pay cut with nothing having changed. The threshold is about the shape of the drop rather than the size of the bonus, which is why it measures against year one and not against CTC."
-      }
-    },
-    {
       "code": "clawback",
       "kind": "letter",
       "measured": {
         "amount": {
-          "paise": 30000000,
-          "display": "₹3,00,000"
+          "paise": 20000000,
+          "display": "₹2,00,000"
         }
       },
       "names": [

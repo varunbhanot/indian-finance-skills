@@ -44,6 +44,28 @@ group, or one carrying a catalogue entry that does not exist yet — may add a
 it (ADR 0009). Such a file is test data, not statutory fact; say so in a comment
 at its head.
 
+## Adding or changing a heuristic
+
+`heuristics.yaml` at the repository root holds the authored thresholds behind
+the decoder's flags — when variable pay is a large share, when basic is low, and
+so on. It is the rules file's opposite number (ADR 0006): every threshold gives
+a `rationale` saying why the number is where it is, and **none may carry a
+`source`**, because a URL here would be a statutory claim standing in a file of
+opinions. `npm test` refuses both mistakes.
+
+It is not scoped to a financial year — "that is a lot of variable pay" is not a
+tax-year concept — which is why it sits beside `rules/` rather than inside it.
+
+Disagreeing with a threshold is a pull request against this one file, and an
+argument about judgement, with nobody wondering whether a tax rate was edited.
+Changing one changes what the decoder flags with no code change at all;
+`fixtures/flag-threshold-from-the-file` is that claim, shown rather than
+asserted.
+
+A flag states a fact and never a recommendation (ADR 0007), and the wording is
+checked: `test/output-invariants.test.ts` fails any string in any fixture's
+output that reads as advice, rationales included.
+
 ## Adding a component type
 
 Add an entry under the `components` group in `rules/fy<YYYY-YY>.yaml` giving its

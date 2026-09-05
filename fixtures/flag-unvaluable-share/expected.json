@@ -6,14 +6,14 @@
       "name": "Basic",
       "as_typed": {
         "amount": {
-          "paise": 120000000,
-          "display": "₹12,00,000"
+          "paise": 400000000,
+          "display": "₹40,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 120000000,
-        "display": "₹12,00,000"
+        "paise": 400000000,
+        "display": "₹40,00,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -30,49 +30,112 @@
       }
     },
     {
-      "name": "Joining bonus",
+      "name": "ESOP grant",
       "as_typed": {
         "amount": {
-          "paise": 30000000,
-          "display": "₹3,00,000"
+          "paise": 100000000,
+          "display": "₹10,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 30000000,
-        "display": "₹3,00,000"
+        "paise": 100000000,
+        "display": "₹10,00,000"
       },
-      "certainty": "guaranteed",
-      "form": "cash-now",
+      "certainty": "conditional-on-tenure",
+      "form": "equity",
       "recurring": false,
-      "clawback_months": 12,
+      "instrument": "option",
       "counts_toward_guaranteed_recurring_cash": false,
       "classified_by": {
         "kind": "catalogue",
-        "entry": "joining_bonus",
-        "rules_key": "groups.components.entries.joining_bonus",
+        "entry": "stock_option",
+        "rules_key": "groups.components.entries.stock_option",
         "basis": {
           "kind": "judgement",
-          "rationale": "Promised unconditionally for joining, paid in cash, and paid once."
+          "rationale": "A right to buy at a fixed strike price, exercisable only over the part of the grant that has vested. Whether exercising it is worth anything is a second question the strike settles, and the letter settles neither."
+        }
+      },
+      "equity": {
+        "listed": false,
+        "method": "unvaluable",
+        "valued": {
+          "paise": 0,
+          "display": "₹0"
+        },
+        "claimed": {
+          "paise": 100000000,
+          "display": "₹10,00,000"
+        },
+        "units": 5000,
+        "strike": {
+          "paise": 10000,
+          "display": "₹100"
+        },
+        "assumption": "Held at nil, and named rather than dropped: shares in an unlisted company have no market price, and what this grant is worth turns on a liquidity event that may never happen. The value the letter claims is carried beside it, unchanged, and so is any price per share it states — which is a company's own valuation of itself and not a price anyone has paid.",
+        "vesting": {
+          "years": [
+            {
+              "year": 1,
+              "share": {
+                "bp": 2500,
+                "display": "25%"
+              }
+            },
+            {
+              "year": 2,
+              "share": {
+                "bp": 2500,
+                "display": "25%"
+              }
+            },
+            {
+              "year": 3,
+              "share": {
+                "bp": 2500,
+                "display": "25%"
+              }
+            },
+            {
+              "year": 4,
+              "share": {
+                "bp": 2500,
+                "display": "25%"
+              }
+            }
+          ]
+        },
+        "perquisite": {
+          "statement": "Shares acquired by exercising an employee stock option are a specified security transferred at a concessional rate, so the amount by which their fair market value on the date of exercise exceeds the strike price actually paid is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so that excess enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
+          "citation": {
+            "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(e), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+            "document": {
+              "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+              "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+            },
+            "retrieved": "2026-09-05",
+            "rules_key": "groups.perquisite.equity.option",
+            "note": "Section 17(4)(e) defines \"option\" as \"a right but not an obligation, granted to an employee to apply for the specified security or sweat equity shares at a predetermined price\", and section 17(4)(h) fixes the amount: \"the value of any specified security or sweat equity shares shall be the fair market value of the specified security or sweat equity shares, on the date on which the option is exercised by the assessee, as reduced by the amount actually paid by, or recovered from, the assessee in respect of such security or shares.\" The charge therefore falls on exercise and not on vesting, and it falls on the spread rather than on the whole value of the shares. Section 73(1), Table Sl. No. 4, deems the cost of acquisition to be the \"Fair market value taken into account for the purposes of the said clause\". What the Act does not settle is the fair market value itself: section 17(4)(a) leaves it to \"the value determined in accordance with the method, as may be prescribed\", and no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the perquisite therefore cannot be computed from this file, and neither the fair market value on a future exercise date nor the date itself is knowable from an offer letter."
+          }
         }
       }
     }
   ],
   "totals": {
     "headline_ctc": {
-      "paise": 150000000,
-      "display": "₹15,00,000",
+      "paise": 500000000,
+      "display": "₹50,00,000",
       "components": [
         "Basic",
-        "Joining bonus"
+        "ESOP grant"
       ]
     },
     "fixed_pay": {
-      "paise": 150000000,
-      "display": "₹15,00,000",
+      "paise": 500000000,
+      "display": "₹50,00,000",
       "components": [
         "Basic",
-        "Joining bonus"
+        "ESOP grant"
       ]
     },
     "variable_pay_at_target": {
@@ -81,8 +144,8 @@
       "components": []
     },
     "guaranteed_recurring_cash": {
-      "paise": 120000000,
-      "display": "₹12,00,000",
+      "paise": 400000000,
+      "display": "₹40,00,000",
       "components": [
         "Basic"
       ]
@@ -93,10 +156,10 @@
       "components": []
     },
     "one_time_components": {
-      "paise": 30000000,
-      "display": "₹3,00,000",
+      "paise": 100000000,
+      "display": "₹10,00,000",
       "components": [
-        "Joining bonus"
+        "ESOP grant"
       ]
     },
     "benefits_in_kind": {
@@ -105,19 +168,25 @@
       "components": []
     },
     "equity_as_claimed": {
-      "paise": 0,
-      "display": "₹0",
-      "components": []
+      "paise": 100000000,
+      "display": "₹10,00,000",
+      "components": [
+        "ESOP grant"
+      ]
     },
     "equity_as_valued": {
       "paise": 0,
       "display": "₹0",
-      "components": []
+      "components": [
+        "ESOP grant"
+      ]
     },
     "unvaluable_equity": {
-      "paise": 0,
-      "display": "₹0",
-      "components": []
+      "paise": 100000000,
+      "display": "₹10,00,000",
+      "components": [
+        "ESOP grant"
+      ]
     }
   },
   "year_by_year": {
@@ -129,35 +198,35 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
               "display": "₹0"
             },
             "one_time": {
-              "paise": 30000000,
-              "display": "₹3,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "equity_as_valued": {
               "paise": 0,
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 25000000,
+              "display": "₹2,50,000"
             },
             "total": {
-              "paise": 150000000,
-              "display": "₹15,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -172,19 +241,19 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 25000000,
+              "display": "₹2,50,000"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -199,19 +268,19 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 25000000,
+              "display": "₹2,50,000"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -226,32 +295,30 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 25000000,
+              "display": "₹2,50,000"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             }
           }
         ],
         "year_one": {
-          "paise": 150000000,
-          "display": "₹15,00,000"
+          "paise": 400000000,
+          "display": "₹40,00,000"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 127500000,
-            "display": "₹12,75,000"
+            "paise": 400000000,
+            "display": "₹40,00,000"
           },
           "without_one_time": {
-            "paise": 120000000,
-            "display": "₹12,00,000"
+            "paise": 400000000,
+            "display": "₹40,00,000"
           },
-          "one_time_components": [
-            "Joining bonus"
-          ]
+          "one_time_components": []
         }
       },
       {
@@ -260,35 +327,35 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
               "display": "₹0"
             },
             "one_time": {
-              "paise": 30000000,
-              "display": "₹3,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "equity_as_valued": {
               "paise": 0,
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 25000000,
+              "display": "₹2,50,000"
             },
             "total": {
-              "paise": 150000000,
-              "display": "₹15,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -303,19 +370,19 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 25000000,
+              "display": "₹2,50,000"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -330,19 +397,19 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 25000000,
+              "display": "₹2,50,000"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -357,44 +424,110 @@
               "display": "₹0"
             },
             "equity_as_claimed": {
-              "paise": 0,
-              "display": "₹0"
+              "paise": 25000000,
+              "display": "₹2,50,000"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 400000000,
+              "display": "₹40,00,000"
             }
           }
         ],
         "year_one": {
-          "paise": 150000000,
-          "display": "₹15,00,000"
+          "paise": 400000000,
+          "display": "₹40,00,000"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 127500000,
-            "display": "₹12,75,000"
+            "paise": 400000000,
+            "display": "₹40,00,000"
           },
           "without_one_time": {
-            "paise": 120000000,
-            "display": "₹12,00,000"
+            "paise": 400000000,
+            "display": "₹40,00,000"
           },
-          "one_time_components": [
-            "Joining bonus"
-          ]
+          "one_time_components": []
         }
       }
     ],
-    "grants": []
+    "grants": [
+      {
+        "name": "ESOP grant",
+        "unvaluable": true,
+        "spread": "vesting-schedule",
+        "years": [
+          {
+            "year": 1,
+            "share": {
+              "bp": 2500,
+              "display": "25%"
+            },
+            "as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "as_claimed": {
+              "paise": 25000000,
+              "display": "₹2,50,000"
+            }
+          },
+          {
+            "year": 2,
+            "share": {
+              "bp": 2500,
+              "display": "25%"
+            },
+            "as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "as_claimed": {
+              "paise": 25000000,
+              "display": "₹2,50,000"
+            }
+          },
+          {
+            "year": 3,
+            "share": {
+              "bp": 2500,
+              "display": "25%"
+            },
+            "as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "as_claimed": {
+              "paise": 25000000,
+              "display": "₹2,50,000"
+            }
+          },
+          {
+            "year": 4,
+            "share": {
+              "bp": 2500,
+              "display": "25%"
+            },
+            "as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "as_claimed": {
+              "paise": 25000000,
+              "display": "₹2,50,000"
+            }
+          }
+        ]
+      }
+    ]
   },
   "basic": {
     "components": [
       "Basic"
     ],
     "annual": {
-      "paise": 120000000,
-      "display": "₹12,00,000"
+      "paise": 400000000,
+      "display": "₹40,00,000"
     },
     "share_of_fixed_pay": {
       "bp": 8000,
@@ -527,50 +660,68 @@
   },
   "flags": [
     {
-      "code": "one-time-share",
+      "code": "unvaluable-share",
       "kind": "heuristic",
       "measured": {
-        "one_time_in_year_one": {
-          "paise": 30000000,
-          "display": "₹3,00,000"
+        "unvaluable_equity_as_claimed": {
+          "paise": 100000000,
+          "display": "₹10,00,000"
         },
-        "year_one": {
-          "paise": 150000000,
-          "display": "₹15,00,000"
+        "headline_ctc": {
+          "paise": 500000000,
+          "display": "₹50,00,000"
         },
-        "share_of_year_one": {
+        "share_of_headline_ctc": {
           "bp": 2000,
           "display": "20%"
         }
       },
       "names": [
-        "Joining bonus"
+        "ESOP grant"
       ],
       "threshold": {
-        "heuristics_key": "thresholds.one_time_share.at_or_above_rate",
+        "heuristics_key": "thresholds.unvaluable_share.at_or_above_rate",
         "value": {
-          "bp": 1500,
-          "display": "15%"
+          "bp": 1000,
+          "display": "10%"
         },
-        "rationale": "A joining bonus large enough to be a seventh of year one is large enough that year two is a pay cut with nothing having changed. The threshold is about the shape of the drop rather than the size of the bonus, which is why it measures against year one and not against CTC."
+        "rationale": "A tenth of the claimed package resting on a figure nobody can check is worth naming, because it is the part of the headline that cannot be compared against another offer at all. It is measured on the claimed basis: the question is how much of what the letter counted is unverifiable, not what the decoder held it at, which is nil by construction."
       }
     },
     {
-      "code": "clawback",
-      "kind": "letter",
+      "code": "equity-perquisite",
+      "kind": "statute",
       "measured": {
-        "amount": {
-          "paise": 30000000,
-          "display": "₹3,00,000"
+        "equity_as_claimed": {
+          "paise": 100000000,
+          "display": "₹10,00,000"
+        },
+        "equity_as_valued": {
+          "paise": 0,
+          "display": "₹0"
         }
       },
       "names": [
-        "Joining bonus"
+        "ESOP grant"
       ],
-      "months": 12
+      "statement": "Shares acquired by exercising an employee stock option are a specified security transferred at a concessional rate, so the amount by which their fair market value on the date of exercise exceeds the strike price actually paid is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so that excess enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
+      "citation": {
+        "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(e), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+        "document": {
+          "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+          "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+        },
+        "retrieved": "2026-09-05",
+        "rules_key": "groups.perquisite.equity.option",
+        "note": "Section 17(4)(e) defines \"option\" as \"a right but not an obligation, granted to an employee to apply for the specified security or sweat equity shares at a predetermined price\", and section 17(4)(h) fixes the amount: \"the value of any specified security or sweat equity shares shall be the fair market value of the specified security or sweat equity shares, on the date on which the option is exercised by the assessee, as reduced by the amount actually paid by, or recovered from, the assessee in respect of such security or shares.\" The charge therefore falls on exercise and not on vesting, and it falls on the spread rather than on the whole value of the shares. Section 73(1), Table Sl. No. 4, deems the cost of acquisition to be the \"Fair market value taken into account for the purposes of the said clause\". What the Act does not settle is the fair market value itself: section 17(4)(a) leaves it to \"the value determined in accordance with the method, as may be prescribed\", and no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the perquisite therefore cannot be computed from this file, and neither the fair market value on a future exercise date nor the date itself is knowable from an offer letter."
+      }
     }
   ],
   "sources": [
+    {
+      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+    },
     {
       "title": "The Code on Wages, 2019 (No. 29 of 2019)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
@@ -586,10 +737,6 @@
     {
       "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
-    },
-    {
-      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
-      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
     }
   ]
 }

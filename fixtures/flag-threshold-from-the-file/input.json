@@ -1,0 +1,7 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 1000000, "period": "annual" },
+    { "name": "Special allowance", "type": "special_allowance", "amount": 1000000, "period": "annual" }
+  ]
+}

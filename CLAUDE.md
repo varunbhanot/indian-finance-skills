@@ -107,17 +107,22 @@ Fixtures test the CLI seam only: JSON in, JSON out, through the same entrypoint
 the skill uses. Nothing is tested below it. One directory per fixture under
 `fixtures/`, holding `input.json` and either `expected.json` (exact stdout, exit
 0) or `expected-error.json` (exact stderr, exit non-zero); `test/fixtures.test.ts`
-discovers them. A fixture may also hold a `rules/` directory, which the runner
-pins through `CTC_DECODER_RULES_DIR` so it can exercise a rules file this
-repository does not ship — an absent group, or a catalogue entry added without
-code (ADR 0009). That variable is a test affordance and is not part of the JSON
-contract. Four checks sit beside the seam: the rules schema check
+discovers them. A fixture may also hold a `rules/` directory or a
+`heuristics.yaml`, which the runner pins through `CTC_DECODER_RULES_DIR` and
+`CTC_DECODER_HEURISTICS_FILE` so it can exercise a document this repository does
+not ship — an absent group, a catalogue entry added without code (ADR 0009), or
+a threshold moved to show that what is flagged is data and not code. Both
+variables are test affordances and are not part of the JSON contract.
+Five checks sit beside the seam: the rules schema check
 (every `rules/*.yaml` loads, and titles each document it cites exactly once),
-the no-float lint, the output invariants over every fixture's `expected.json`
-(`sources` is the complete deduplicated union of the documents cited above it,
-and nothing in the output reads as advice — ADR 0007), and the rules loader's
-own tests against test-only YAML documents (the ticket that built the loader
-permits this, since no statutory value may be typed from memory to test it).
+the heuristics schema check (every threshold gives a `rationale`, and none
+carries a `source` at any depth — the guarantee ADR 0006 rests on, and the one
+the rules schema cannot give), the no-float lint, the output invariants over
+every fixture's `expected.json` (`sources` is the complete deduplicated union of
+the documents cited above it, and nothing in the output reads as advice —
+ADR 0007), and the two loaders' own tests against test-only YAML documents (the
+ticket that built the rules loader permits this, since no statutory value may be
+typed from memory to test it).
 
 The traceability eval (ADR 0003) runs **in CI against checked-in recorded
 transcripts**. Recording a transcript needs a model and is run on demand; CI

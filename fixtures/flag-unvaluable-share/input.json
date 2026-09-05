@@ -1,0 +1,18 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 4000000, "period": "annual" },
+    {
+      "name": "ESOP grant",
+      "type": "stock_option",
+      "amount": 1000000,
+      "period": "annual",
+      "equity": {
+        "listed": false,
+        "units": 5000,
+        "strike": 100,
+        "vesting": { "years": [2500, 2500, 2500, 2500] }
+      }
+    }
+  ]
+}

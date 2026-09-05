@@ -722,35 +722,6 @@
       }
     },
     {
-      "code": "one-time-share",
-      "kind": "heuristic",
-      "measured": {
-        "one_time_components": {
-          "paise": 600000000,
-          "display": "₹60,00,000"
-        },
-        "year_one": {
-          "paise": 150000000,
-          "display": "₹15,00,000"
-        },
-        "share_of_year_one": {
-          "bp": 40000,
-          "display": "400%"
-        }
-      },
-      "names": [
-        "ESOP grant"
-      ],
-      "threshold": {
-        "heuristics_key": "thresholds.one_time_share.at_or_above_rate",
-        "value": {
-          "bp": 1500,
-          "display": "15%"
-        },
-        "rationale": "A joining bonus large enough to be a seventh of year one is large enough that year two is a pay cut with nothing having changed. The threshold is about the shape of the drop rather than the size of the bonus, which is why it measures against year one and not against CTC."
-      }
-    },
-    {
       "code": "unvaluable-share",
       "kind": "heuristic",
       "measured": {

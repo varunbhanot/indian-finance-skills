@@ -6,14 +6,14 @@
       "name": "Basic",
       "as_typed": {
         "amount": {
-          "paise": 120000000,
-          "display": "₹12,00,000"
+          "paise": 100000000,
+          "display": "₹10,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 120000000,
-        "display": "₹12,00,000"
+        "paise": 100000000,
+        "display": "₹10,00,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -30,7 +30,34 @@
       }
     },
     {
-      "name": "Joining bonus",
+      "name": "Special allowance",
+      "as_typed": {
+        "amount": {
+          "paise": 50000000,
+          "display": "₹5,00,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 50000000,
+        "display": "₹5,00,000"
+      },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "special_allowance",
+        "rules_key": "groups.components.entries.special_allowance",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "The residual monthly allowance that balances a structure to its agreed fixed pay, and is paid unconditionally like the rest of it."
+        }
+      }
+    },
+    {
+      "name": "Employer PF",
       "as_typed": {
         "amount": {
           "paise": 30000000,
@@ -43,36 +70,69 @@
         "display": "₹3,00,000"
       },
       "certainty": "guaranteed",
-      "form": "cash-now",
-      "recurring": false,
-      "clawback_months": 12,
+      "form": "locked-savings",
+      "recurring": true,
       "counts_toward_guaranteed_recurring_cash": false,
       "classified_by": {
         "kind": "catalogue",
-        "entry": "joining_bonus",
-        "rules_key": "groups.components.entries.joining_bonus",
+        "entry": "employer_pf",
+        "rules_key": "groups.components.entries.employer_pf",
+        "basis": {
+          "kind": "statute",
+          "document": {
+            "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+          }
+        }
+      }
+    },
+    {
+      "name": "Group medical premium",
+      "as_typed": {
+        "amount": {
+          "paise": 20000000,
+          "display": "₹2,00,000"
+        },
+        "period": "annual"
+      },
+      "annual": {
+        "paise": 20000000,
+        "display": "₹2,00,000"
+      },
+      "certainty": "guaranteed",
+      "form": "benefit-in-kind",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "insurance_premium",
+        "rules_key": "groups.components.entries.insurance_premium",
         "basis": {
           "kind": "judgement",
-          "rationale": "Promised unconditionally for joining, paid in cash, and paid once."
+          "rationale": "A premium the employer pays to an insurer every year. The employee receives cover, and never the money."
         }
       }
     }
   ],
   "totals": {
     "headline_ctc": {
-      "paise": 150000000,
-      "display": "₹15,00,000",
+      "paise": 200000000,
+      "display": "₹20,00,000",
       "components": [
         "Basic",
-        "Joining bonus"
+        "Special allowance",
+        "Employer PF",
+        "Group medical premium"
       ]
     },
     "fixed_pay": {
-      "paise": 150000000,
-      "display": "₹15,00,000",
+      "paise": 200000000,
+      "display": "₹20,00,000",
       "components": [
         "Basic",
-        "Joining bonus"
+        "Special allowance",
+        "Employer PF",
+        "Group medical premium"
       ]
     },
     "variable_pay_at_target": {
@@ -81,28 +141,31 @@
       "components": []
     },
     "guaranteed_recurring_cash": {
-      "paise": 120000000,
-      "display": "₹12,00,000",
+      "paise": 150000000,
+      "display": "₹15,00,000",
       "components": [
-        "Basic"
+        "Basic",
+        "Special allowance"
       ]
     },
     "retirals": {
-      "paise": 0,
-      "display": "₹0",
-      "components": []
-    },
-    "one_time_components": {
       "paise": 30000000,
       "display": "₹3,00,000",
       "components": [
-        "Joining bonus"
+        "Employer PF"
       ]
     },
-    "benefits_in_kind": {
+    "one_time_components": {
       "paise": 0,
       "display": "₹0",
       "components": []
+    },
+    "benefits_in_kind": {
+      "paise": 20000000,
+      "display": "₹2,00,000",
+      "components": [
+        "Group medical premium"
+      ]
     },
     "equity_as_claimed": {
       "paise": 0,
@@ -129,16 +192,16 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
               "display": "₹0"
             },
             "one_time": {
-              "paise": 30000000,
-              "display": "₹3,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "equity_as_valued": {
               "paise": 0,
@@ -156,8 +219,8 @@
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -176,15 +239,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -203,15 +266,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -230,8 +293,8 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             }
           }
         ],
@@ -242,16 +305,14 @@
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 127500000,
-            "display": "₹12,75,000"
+            "paise": 150000000,
+            "display": "₹15,00,000"
           },
           "without_one_time": {
-            "paise": 120000000,
-            "display": "₹12,00,000"
+            "paise": 150000000,
+            "display": "₹15,00,000"
           },
-          "one_time_components": [
-            "Joining bonus"
-          ]
+          "one_time_components": []
         }
       },
       {
@@ -260,16 +321,16 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
               "display": "₹0"
             },
             "one_time": {
-              "paise": 30000000,
-              "display": "₹3,00,000"
+              "paise": 0,
+              "display": "₹0"
             },
             "equity_as_valued": {
               "paise": 0,
@@ -287,8 +348,8 @@
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -307,15 +368,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -334,15 +395,15 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -361,8 +422,8 @@
               "display": "₹0"
             },
             "total": {
-              "paise": 120000000,
-              "display": "₹12,00,000"
+              "paise": 150000000,
+              "display": "₹15,00,000"
             }
           }
         ],
@@ -373,16 +434,14 @@
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 127500000,
-            "display": "₹12,75,000"
+            "paise": 150000000,
+            "display": "₹15,00,000"
           },
           "without_one_time": {
-            "paise": 120000000,
-            "display": "₹12,00,000"
+            "paise": 150000000,
+            "display": "₹15,00,000"
           },
-          "one_time_components": [
-            "Joining bonus"
-          ]
+          "one_time_components": []
         }
       }
     ],
@@ -393,12 +452,12 @@
       "Basic"
     ],
     "annual": {
-      "paise": 120000000,
-      "display": "₹12,00,000"
+      "paise": 100000000,
+      "display": "₹10,00,000"
     },
     "share_of_fixed_pay": {
-      "bp": 8000,
-      "display": "80%"
+      "bp": 5000,
+      "display": "50%"
     },
     "citation": {
       "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
@@ -527,57 +586,48 @@
   },
   "flags": [
     {
-      "code": "one-time-share",
+      "code": "non-cash-share",
       "kind": "heuristic",
       "measured": {
-        "one_time_in_year_one": {
+        "retirals": {
           "paise": 30000000,
           "display": "₹3,00,000"
         },
-        "year_one": {
-          "paise": 150000000,
-          "display": "₹15,00,000"
+        "benefits_in_kind": {
+          "paise": 20000000,
+          "display": "₹2,00,000"
         },
-        "share_of_year_one": {
-          "bp": 2000,
-          "display": "20%"
+        "headline_ctc": {
+          "paise": 200000000,
+          "display": "₹20,00,000"
+        },
+        "share_of_headline_ctc": {
+          "bp": 2500,
+          "display": "25%"
         }
       },
       "names": [
-        "Joining bonus"
+        "Employer PF",
+        "Group medical premium"
       ],
       "threshold": {
-        "heuristics_key": "thresholds.one_time_share.at_or_above_rate",
+        "heuristics_key": "thresholds.non_cash_share.at_or_above_rate",
         "value": {
-          "bp": 1500,
-          "display": "15%"
+          "bp": 2000,
+          "display": "20%"
         },
-        "rationale": "A joining bonus large enough to be a seventh of year one is large enough that year two is a pay cut with nothing having changed. The threshold is about the shape of the drop rather than the size of the bonus, which is why it measures against year one and not against CTC."
+        "rationale": "Retirals and benefits in kind are real, and they are not spendable this month. At a fifth of CTC the distance between the headline and what reaches a bank account is wide enough that a reader comparing two headline figures is comparing the wrong thing."
       }
-    },
-    {
-      "code": "clawback",
-      "kind": "letter",
-      "measured": {
-        "amount": {
-          "paise": 30000000,
-          "display": "₹3,00,000"
-        }
-      },
-      "names": [
-        "Joining bonus"
-      ],
-      "months": 12
     }
   ],
   "sources": [
     {
-      "title": "The Code on Wages, 2019 (No. 29 of 2019)",
-      "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
-    },
-    {
       "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
       "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+    },
+    {
+      "title": "The Code on Wages, 2019 (No. 29 of 2019)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
     },
     {
       "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",

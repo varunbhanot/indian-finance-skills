@@ -1,0 +1,27 @@
+# Test-only heuristics document, not the repository's judgement. It is
+# `heuristics.yaml` with one number changed: the basic-pay band's floor moved
+# from 40% to 60%. The input is byte-identical to `fixtures/no-flags`, which
+# raises nothing, and the same decoder binary raises `basic-share` against this
+# file. That is the whole proof that a threshold is data and not code.
+thresholds:
+  variable_pay_share:
+    rationale: Test-only. Left where the repository's own file has it.
+    at_or_above_rate: 0.20
+  basic_share_band:
+    rationale: >-
+      Test-only, and the one line that differs: a floor of 60% rather than 40%,
+      so an offer whose basic is exactly half of fixed pay falls below it.
+    floor_rate: 0.60
+    ceiling_rate: 0.70
+  back_loaded:
+    rationale: Test-only. Left where the repository's own file has it.
+    year_one_below_even_share_rate: 0.60
+  one_time_share:
+    rationale: Test-only. Left where the repository's own file has it.
+    at_or_above_rate: 0.15
+  unvaluable_share:
+    rationale: Test-only. Left where the repository's own file has it.
+    at_or_above_rate: 0.10
+  non_cash_share:
+    rationale: Test-only. Left where the repository's own file has it.
+    at_or_above_rate: 0.20

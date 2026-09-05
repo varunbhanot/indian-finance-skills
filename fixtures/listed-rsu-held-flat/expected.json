@@ -658,6 +658,87 @@
       }
     ]
   },
+  "flags": [
+    {
+      "code": "basic-share",
+      "kind": "heuristic",
+      "measured": {
+        "basic": {
+          "paise": 240000000,
+          "display": "₹24,00,000"
+        },
+        "fixed_pay": {
+          "paise": 640000000,
+          "display": "₹64,00,000"
+        },
+        "share_of_fixed_pay": {
+          "bp": 3750,
+          "display": "37.5%"
+        },
+        "typical_band_floor": {
+          "bp": 4000,
+          "display": "40%"
+        },
+        "typical_band_ceiling": {
+          "bp": 5000,
+          "display": "50%"
+        }
+      },
+      "names": [
+        "Basic"
+      ],
+      "threshold": {
+        "heuristics_key": "thresholds.basic_share_band.floor_rate",
+        "value": {
+          "bp": 4000,
+          "display": "40%"
+        },
+        "rationale": "Indian salary structures commonly set basic between 40% and 50% of fixed pay, and the Code on Wages pushes toward the upper half of that by counting excluded allowances above one-half of remuneration back into wages. Below the floor, everything basic drives — the provident fund contribution, gratuity accrual, the bound on the house rent allowance exemption — is smaller than the headline implies. The band is where the flag stops firing, not a target to aim at."
+      }
+    },
+    {
+      "code": "cliff",
+      "kind": "letter",
+      "measured": {
+        "grant_as_claimed": {
+          "paise": 400000000,
+          "display": "₹40,00,000"
+        }
+      },
+      "names": [
+        "RSU grant"
+      ],
+      "months": 12
+    },
+    {
+      "code": "equity-perquisite",
+      "kind": "statute",
+      "measured": {
+        "equity_as_claimed": {
+          "paise": 400000000,
+          "display": "₹40,00,000"
+        },
+        "equity_as_valued": {
+          "paise": 360000000,
+          "display": "₹36,00,000"
+        }
+      },
+      "names": [
+        "RSU grant"
+      ],
+      "statement": "Shares delivered under a restricted stock unit grant are a specified security allotted to the employee free of cost, so their value is a perquisite under section 17(1)(d). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so the value enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
+      "citation": {
+        "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+        "document": {
+          "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+          "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+        },
+        "retrieved": "2026-09-05",
+        "rules_key": "groups.perquisite.equity.rsu",
+        "note": "Section 17(1)(d) counts \"the value of any specified security or sweat equity shares allotted or transferred, directly or indirectly, by the current employer, or former employer, free of cost or at concessional rate to the assessee\". Section 17(4)(f) defines \"specified security\" by reference to section 2(h) of the Securities Contracts (Regulation) Act, 1956, and adds that \"where employees' stock option has been granted under any plan or scheme therefor, includes the securities offered under such plan or scheme\". Section 16 reads '\"salary\" includes ... (e) perquisites', and section 15(1)(a) charges \"any salary due from an employer to an assessee in the tax year, whether paid or not\". Section 73(1), Table Sl. No. 4, deems the cost of acquisition of a specified security referred to in section 17(1)(d) to be the \"Fair market value taken into account for the purposes of the said clause\", which is what keeps the perquisite and the later capital gain from being charged on the same amount twice. Two things the Act does not settle. Section 17(4)(h) fixes the value \"on the date on which the option is exercised by the assessee, as reduced by the amount actually paid by, or recovered from, the assessee\" -- a restricted stock unit carries no option to exercise, so the Act's own words do not name the date for a unit that simply vests and is allotted. And section 17(4)(a) leaves \"fair market value\" to \"the value determined in accordance with the method, as may be prescribed\"; no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the perquisite therefore cannot be computed from this file."
+      }
+    }
+  ],
   "sources": [
     {
       "title": "The Income-tax Act, 2025 (No. 30 of 2025)",

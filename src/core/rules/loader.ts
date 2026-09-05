@@ -134,7 +134,7 @@ function loadGroup(node: Node | null, path: string): RulesGroup {
   const entries: { [key: string]: RulesValue } = {};
   for (const pair of node.items) {
     const key = keyOf(pair, path);
-    entries[key] = loadValue(pair.value as Node | null, `${path}.${key}`, key);
+    entries[key] = loadRulesValue(pair.value as Node | null, `${path}.${key}`, key);
   }
 
   const source = entries["source"];
@@ -160,18 +160,24 @@ function loadGroup(node: Node | null, path: string): RulesGroup {
   return { ...entries, source, retrieved };
 }
 
-function loadValue(node: Node | null, path: string, key: string): RulesValue {
+/**
+ * One YAML node as a rules value, applying the rate convention and the
+ * integers-as-written rule. Exported because `heuristics.yaml` is a different
+ * document with a different schema but the same *values* (ADR 0006), and a
+ * second copy of the rate rule there would drift from this one silently.
+ */
+export function loadRulesValue(node: Node | null, path: string, key: string): RulesValue {
   if (isMap(node)) {
     const out: { [key: string]: RulesValue } = {};
     for (const pair of node.items) {
       const childKey = keyOf(pair, path);
-      out[childKey] = loadValue(pair.value as Node | null, `${path}.${childKey}`, childKey);
+      out[childKey] = loadRulesValue(pair.value as Node | null, `${path}.${childKey}`, childKey);
     }
     return out;
   }
   if (isSeq(node)) {
     return node.items.map((item, index) =>
-      loadValue(item as Node | null, `${path}[${index}]`, key),
+      loadRulesValue(item as Node | null, `${path}[${index}]`, key),
     );
   }
   if (!isScalar(node)) {

@@ -1,0 +1,75 @@
+# Authored judgement, not law (ADR 0006).
+#
+# Every threshold here is the author's opinion about when a fact is worth a
+# reader's attention. None of it is sourced, none of it is statutory, and none
+# of it is scoped to a financial year — "that is a lot of variable pay" is not a
+# tax-year concept. Each entry carries a `rationale` instead of a `source`, and
+# the loader refuses a `source` anywhere in this file, so a reader can always
+# tell which numbers are law by which file they sit in.
+#
+# A threshold decides when the decoder *states a fact*. It never decides what
+# the reader should do about it (ADR 0007). Disagreeing with one of these is a
+# pull request against this file, and an argument about judgement — with nobody
+# wondering whether a tax rate was edited.
+#
+# Rates follow the rules file's convention: a key named `rate` or ending
+# `_rate` is a decimal fraction here and integer basis points once loaded.
+
+thresholds:
+  variable_pay_share:
+    rationale: >-
+      A fifth of the package riding on a performance rating is the point at
+      which the distance between the headline and a zero-payout year stops
+      being a rounding difference and becomes a change in how the year is
+      lived. Below it the variable line reads as a bonus; at or above it the
+      headline is a forecast. The figure is a judgement about what deserves a
+      reader's attention, not a claim that a fifth is unusual or wrong.
+    at_or_above_rate: 0.20
+
+  basic_share_band:
+    rationale: >-
+      Indian salary structures commonly set basic between 40% and 50% of fixed
+      pay, and the Code on Wages pushes toward the upper half of that by
+      counting excluded allowances above one-half of remuneration back into
+      wages. Below the floor, everything basic drives — the provident fund
+      contribution, gratuity accrual, the bound on the house rent allowance
+      exemption — is smaller than the headline implies. The band is
+      where the flag stops firing, not a target to aim at.
+    floor_rate: 0.40
+    ceiling_rate: 0.50
+
+  back_loaded:
+    rationale: >-
+      A grant vesting evenly gives year one one nth of itself. At below
+      three-fifths of that share, the multi-year average an offer quotes is
+      describing a year the holder will not have: a 5/15/40/40 schedule gives
+      year one a fifth of its even share. The fraction is a judgement about
+      when an average misleads, and it is measured against the schedule's own
+      even share, so it holds for a three-year grant as well as a four-year one.
+    year_one_below_even_share_rate: 0.60
+
+  one_time_share:
+    rationale: >-
+      A joining bonus large enough to be a seventh of year one is large enough
+      that year two is a pay cut with nothing having changed. The threshold is
+      about the shape of the drop rather than the size of the bonus, which is
+      why it measures against year one and not against CTC.
+    at_or_above_rate: 0.15
+
+  unvaluable_share:
+    rationale: >-
+      A tenth of the claimed package resting on a figure nobody can check is
+      worth naming, because it is the part of the headline that cannot be
+      compared against another offer at all. It is measured on the claimed
+      basis: the question is how much of what the letter counted is
+      unverifiable, not what the decoder held it at, which is nil by
+      construction.
+    at_or_above_rate: 0.10
+
+  non_cash_share:
+    rationale: >-
+      Retirals and benefits in kind are real, and they are not spendable this
+      month. At a fifth of CTC the distance between the headline and what
+      reaches a bank account is wide enough that a reader comparing two
+      headline figures is comparing the wrong thing.
+    at_or_above_rate: 0.20

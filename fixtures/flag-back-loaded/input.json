@@ -1,0 +1,18 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 4000000, "period": "annual" },
+    {
+      "name": "RSU grant",
+      "type": "rsu",
+      "amount": 1000000,
+      "period": "annual",
+      "equity": {
+        "listed": true,
+        "units": 1000,
+        "grant_date_fair_market_value": 1000,
+        "vesting": { "years": [500, 1500, 4000, 4000] }
+      }
+    }
+  ]
+}

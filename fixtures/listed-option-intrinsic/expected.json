@@ -662,6 +662,50 @@
       }
     ]
   },
+  "flags": [
+    {
+      "code": "cliff",
+      "kind": "letter",
+      "measured": {
+        "grant_as_claimed": {
+          "paise": 300000000,
+          "display": "₹30,00,000"
+        }
+      },
+      "names": [
+        "Stock options"
+      ],
+      "months": 12
+    },
+    {
+      "code": "equity-perquisite",
+      "kind": "statute",
+      "measured": {
+        "equity_as_claimed": {
+          "paise": 300000000,
+          "display": "₹30,00,000"
+        },
+        "equity_as_valued": {
+          "paise": 0,
+          "display": "₹0"
+        }
+      },
+      "names": [
+        "Stock options"
+      ],
+      "statement": "Shares acquired by exercising an employee stock option are a specified security transferred at a concessional rate, so the amount by which their fair market value on the date of exercise exceeds the strike price actually paid is a perquisite under section 17(1)(d), measured by section 17(4)(h). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so that excess enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
+      "citation": {
+        "section": "Income-tax Act, 2025, section 17(1)(d), read with sections 16(e), 15(1), 17(4)(e), 17(4)(f), 17(4)(h) and 73(1) Table Sl. No. 4",
+        "document": {
+          "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+          "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+        },
+        "retrieved": "2026-09-05",
+        "rules_key": "groups.perquisite.equity.option",
+        "note": "Section 17(4)(e) defines \"option\" as \"a right but not an obligation, granted to an employee to apply for the specified security or sweat equity shares at a predetermined price\", and section 17(4)(h) fixes the amount: \"the value of any specified security or sweat equity shares shall be the fair market value of the specified security or sweat equity shares, on the date on which the option is exercised by the assessee, as reduced by the amount actually paid by, or recovered from, the assessee in respect of such security or shares.\" The charge therefore falls on exercise and not on vesting, and it falls on the spread rather than on the whole value of the shares. Section 73(1), Table Sl. No. 4, deems the cost of acquisition to be the \"Fair market value taken into account for the purposes of the said clause\". What the Act does not settle is the fair market value itself: section 17(4)(a) leaves it to \"the value determined in accordance with the method, as may be prescribed\", and no primary text of those prescribed rules could be retrieved, because incometaxindia.gov.in refuses requests from this environment. A figure for the perquisite therefore cannot be computed from this file, and neither the fair market value on a future exercise date nor the date itself is knowable from an offer letter."
+      }
+    }
+  ],
   "sources": [
     {
       "title": "The Income-tax Act, 2025 (No. 30 of 2025)",

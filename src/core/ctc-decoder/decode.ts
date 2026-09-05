@@ -32,6 +32,9 @@ import type {
   Instrument,
 } from "./classification.ts";
 import { DecoderError } from "./errors.ts";
+import { flagsFor, type Flag } from "./flags.ts";
+import { loadHeuristics, heuristicsFilePath, type HeuristicsFile } from "../heuristics/file.ts";
+import { HeuristicsFileError } from "../heuristics/loader.ts";
 import { validateOfferInput, type OfferComponentInput } from "./input.ts";
 import type { Source } from "./rules-reader.ts";
 import { sourcesIn } from "./sources.ts";
@@ -82,6 +85,12 @@ export interface DecodedOffer {
   basic?: Basic;
   /** Present only when the caller typed `pf_wage_base`; see `input.ts`. */
   take_home?: TakeHome;
+  /**
+   * Facts about the package worth a reader's attention, each with the figures
+   * it rests on and what it stands on; see `flags.ts`. Never a recommendation
+   * (ADR 0007).
+   */
+  flags: Flag[];
   /** Every document cited anywhere above, deduplicated; see `sources.ts`. */
   sources: Source[];
 }
@@ -125,9 +134,10 @@ export function decode(raw: unknown): DecodedOffer {
       ? {}
       : { take_home: takeHomeFor(classified, input.take_home, rules) }),
   };
-  // Last, and over the whole of it: the sources are a reading of the output, so
-  // they are collected once it exists rather than gathered along the way.
-  return { ...decodedOffer, sources: sourcesIn(decodedOffer) };
+  // Both of these are readings *of* the finished output rather than steps in
+  // building it, so they come last and take what is already there.
+  const flagged = { ...decodedOffer, flags: flagsFor(decodedOffer, heuristicsFor()) };
+  return { ...flagged, sources: sourcesIn(flagged) };
 }
 
 function decodeComponent(
@@ -247,6 +257,36 @@ function classify(
       basis: entry.basis,
     },
   };
+}
+
+/**
+ * The heuristics file, which the decoder needs to know when a fact is worth
+ * flagging (ADR 0006). Absent or malformed is a rejection naming the file: a
+ * threshold the repository has not been given is not one to be guessed at, and
+ * flags quietly missing from an output is exactly the silent default CLAUDE.md
+ * refuses.
+ */
+function heuristicsFor(): HeuristicsFile {
+  const path = heuristicsFilePath();
+  let heuristics: HeuristicsFile | undefined;
+  try {
+    heuristics = loadHeuristics(path);
+  } catch (error) {
+    if (!(error instanceof HeuristicsFileError)) throw error;
+    throw new DecoderError({
+      code: "rules_file_invalid",
+      message: `${path} failed the heuristics schema: ${error.message}`,
+      details: { heuristics_file: path, heuristics_error: error.code },
+    });
+  }
+  if (heuristics === undefined) {
+    throw new DecoderError({
+      code: "rule_absent",
+      message: `No heuristics file at ${path}: the authored thresholds behind the flags are absent`,
+      details: { heuristics_file: path },
+    });
+  }
+  return heuristics;
 }
 
 /** The rules file for the typed financial year; a missing or malformed file is a rejection. */

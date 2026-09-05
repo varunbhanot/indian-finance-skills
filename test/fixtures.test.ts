@@ -7,10 +7,13 @@
  * Every fixture runs through `npm run ctc-decoder -- '<json>'`, the same
  * entrypoint the skill uses (ADR 0003). Nothing is tested below that seam.
  *
- * A fixture may also hold a `rules/` directory. When it does, the decoder reads
- * that directory instead of the repository's `rules/`, which is how a fixture
- * exercises a rules file this repository does not ship: one missing a group, or
- * one carrying a catalogue entry that does not exist yet (ADR 0009).
+ * A fixture may also hold a `rules/` directory, or a `heuristics.yaml`. When it
+ * does, the decoder reads that instead of the repository's own, which is how a
+ * fixture exercises a document this repository does not ship: a rules file
+ * missing a group, one carrying a catalogue entry that does not exist yet, or a
+ * heuristics file whose thresholds differ — which is how "changing a threshold
+ * changes what is flagged, with no code change" is shown rather than asserted
+ * (ADR 0009, ADR 0006).
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -22,16 +25,26 @@ const repositoryRoot = resolve(import.meta.dirname, "..");
 const fixturesRoot = join(repositoryRoot, "fixtures");
 const npm = process.platform === "win32" ? "npm.cmd" : "npm";
 
-function runDecoder(inputJson: string, rulesDirectory?: string) {
-  // Always set the variable, never inherit it: a fixture without its own rules
-  // directory must read the repository's, whatever the surrounding shell says.
+function runDecoder(inputJson: string, pinned: PinnedDocuments) {
+  // Always set both variables, never inherit them: a fixture without its own
+  // documents must read the repository's, whatever the surrounding shell says.
   const result = spawnSync(npm, ["run", "--silent", "ctc-decoder", "--", inputJson], {
     cwd: repositoryRoot,
     encoding: "utf8",
-    env: { ...process.env, CTC_DECODER_RULES_DIR: rulesDirectory ?? "rules" },
+    env: {
+      ...process.env,
+      CTC_DECODER_RULES_DIR: pinned.rules ?? "rules",
+      CTC_DECODER_HEURISTICS_FILE: pinned.heuristics ?? "heuristics.yaml",
+    },
   });
   if (result.error !== undefined) throw result.error;
   return { status: result.status, stdout: result.stdout, stderr: result.stderr };
+}
+
+/** The documents a fixture pins for itself, each falling back to the repository's. */
+interface PinnedDocuments {
+  rules?: string;
+  heuristics?: string;
 }
 
 const fixtureNames = readdirSync(fixturesRoot, { withFileTypes: true })
@@ -48,14 +61,17 @@ for (const name of fixtureNames) {
   const input = readFileSync(join(directory, "input.json"), "utf8");
   const expectedPath = join(directory, "expected.json");
   const expectedErrorPath = join(directory, "expected-error.json");
-  const rulesDirectory = existsSync(join(directory, "rules"))
-    ? `fixtures/${name}/rules`
-    : undefined;
+  const pinned: PinnedDocuments = {
+    ...(existsSync(join(directory, "rules")) ? { rules: `fixtures/${name}/rules` } : {}),
+    ...(existsSync(join(directory, "heuristics.yaml"))
+      ? { heuristics: `fixtures/${name}/heuristics.yaml` }
+      : {}),
+  };
 
   if (existsSync(expectedPath)) {
     test(`fixture ${name} decodes as expected`, () => {
       const expected: unknown = JSON.parse(readFileSync(expectedPath, "utf8"));
-      const run = runDecoder(input, rulesDirectory);
+      const run = runDecoder(input, pinned);
       assert.equal(run.stderr, "", "stderr must be empty on success");
       assert.equal(run.status, 0, "exit status must be 0 on success");
       assert.deepEqual(JSON.parse(run.stdout), expected);
@@ -63,7 +79,7 @@ for (const name of fixtureNames) {
   } else if (existsSync(expectedErrorPath)) {
     test(`fixture ${name} is rejected as expected`, () => {
       const expected: unknown = JSON.parse(readFileSync(expectedErrorPath, "utf8"));
-      const run = runDecoder(input, rulesDirectory);
+      const run = runDecoder(input, pinned);
       assert.equal(run.stdout, "", "stdout must be empty on error");
       assert.notEqual(run.status, 0, "exit status must be non-zero on error");
       assert.deepEqual(JSON.parse(run.stderr), expected);

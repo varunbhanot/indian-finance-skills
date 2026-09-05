@@ -515,6 +515,82 @@
       }
     ]
   },
+  "flags": [
+    {
+      "code": "non-cash-share",
+      "kind": "heuristic",
+      "measured": {
+        "retirals": {
+          "paise": 0,
+          "display": "₹0"
+        },
+        "benefits_in_kind": {
+          "paise": 24000000,
+          "display": "₹2,40,000"
+        },
+        "headline_ctc": {
+          "paise": 104000000,
+          "display": "₹10,40,000"
+        },
+        "share_of_headline_ctc": {
+          "bp": 2307,
+          "display": "23.07%"
+        }
+      },
+      "names": [
+        "Company car lease"
+      ],
+      "threshold": {
+        "heuristics_key": "thresholds.non_cash_share.at_or_above_rate",
+        "value": {
+          "bp": 2000,
+          "display": "20%"
+        },
+        "rationale": "Retirals and benefits in kind are real, and they are not spendable this month. At a fifth of CTC the distance between the headline and what reaches a bank account is wide enough that a reader comparing two headline figures is comparing the wrong thing."
+      }
+    },
+    {
+      "code": "cliff",
+      "kind": "letter",
+      "measured": {
+        "grant_as_claimed": {
+          "paise": 80000000,
+          "display": "₹8,00,000"
+        }
+      },
+      "names": [
+        "RSU grant as the letter values it"
+      ],
+      "months": 12
+    },
+    {
+      "code": "equity-perquisite",
+      "kind": "statute",
+      "measured": {
+        "equity_as_claimed": {
+          "paise": 80000000,
+          "display": "₹8,00,000"
+        },
+        "equity_as_valued": {
+          "paise": 80000000,
+          "display": "₹8,00,000"
+        }
+      },
+      "names": [
+        "RSU grant as the letter values it"
+      ],
+      "statement": "Invented for this fixture. The value of a vested unit is a perquisite.",
+      "citation": {
+        "section": "Nothing; this document states no provision of any Act.",
+        "document": {
+          "title": "A test-only paper, cited by nothing real",
+          "url": "https://example.test/perquisite"
+        },
+        "retrieved": "2026-09-05",
+        "rules_key": "groups.perquisite.equity.rsu"
+      }
+    }
+  ],
   "sources": [
     {
       "title": "A test-only paper, cited by nothing real",

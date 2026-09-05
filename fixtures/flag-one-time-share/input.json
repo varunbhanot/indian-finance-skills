@@ -1,0 +1,8 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    { "name": "Basic", "type": "basic", "amount": 1000000, "period": "annual" },
+    { "name": "Special allowance", "type": "special_allowance", "amount": 500000, "period": "annual" },
+    { "name": "Joining bonus", "type": "joining_bonus", "amount": 400000, "period": "annual" }
+  ]
+}

@@ -1,0 +1,2266 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "rules/fy2026-27.yaml",
+  "components": [
+    {
+      "name": "Basic",
+      "as_typed": {
+        "amount": {
+          "paise": 1390000,
+          "display": "₹13,900"
+        },
+        "period": "monthly"
+      },
+      "annual": {
+        "paise": 16680000,
+        "display": "₹1,66,800"
+      },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "basic",
+        "rules_key": "groups.components.entries.basic",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "The base component of the salary structure, payable monthly under the terms of employment whatever the employee or the employer achieves."
+        }
+      }
+    },
+    {
+      "name": "Fixed Dearness Allowance",
+      "as_typed": {
+        "amount": {
+          "paise": 110000,
+          "display": "₹1,100"
+        },
+        "period": "monthly"
+      },
+      "annual": {
+        "paise": 1320000,
+        "display": "₹13,200"
+      },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "dearness_allowance",
+        "rules_key": "groups.components.entries.dearness_allowance",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "A cost-of-living component paid with basic every month under the terms of employment, whatever the employee or the employer achieves. A letter may fix the amount, as a fixed dearness allowance, or index it to a price index; the payment is unconditional either way, and only its amount moves."
+        }
+      }
+    },
+    {
+      "name": "Basket of Allowances",
+      "as_typed": {
+        "amount": {
+          "paise": 744300,
+          "display": "₹7,443"
+        },
+        "period": "monthly"
+      },
+      "annual": {
+        "paise": 8931600,
+        "display": "₹89,316"
+      },
+      "certainty": "guaranteed",
+      "form": "cash-now",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": true,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "special_allowance",
+        "rules_key": "groups.components.entries.special_allowance",
+        "basis": {
+          "kind": "judgement",
+          "rationale": "The residual monthly allowance that balances a structure to its agreed fixed pay, and is paid unconditionally like the rest of it."
+        }
+      }
+    },
+    {
+      "name": "Company PF",
+      "as_typed": {
+        "amount": {
+          "paise": 180000,
+          "display": "₹1,800"
+        },
+        "period": "monthly"
+      },
+      "annual": {
+        "paise": 2160000,
+        "display": "₹21,600"
+      },
+      "certainty": "guaranteed",
+      "form": "locked-savings",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "employer_pf",
+        "rules_key": "groups.components.entries.employer_pf",
+        "basis": {
+          "kind": "statute",
+          "document": {
+            "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+          }
+        }
+      }
+    },
+    {
+      "name": "Gratuity",
+      "as_typed": {
+        "amount": {
+          "paise": 72200,
+          "display": "₹722"
+        },
+        "period": "monthly"
+      },
+      "annual": {
+        "paise": 866400,
+        "display": "₹8,664"
+      },
+      "certainty": "conditional-on-tenure",
+      "form": "deferred-cash",
+      "recurring": true,
+      "counts_toward_guaranteed_recurring_cash": false,
+      "classified_by": {
+        "kind": "catalogue",
+        "entry": "gratuity",
+        "rules_key": "groups.components.entries.gratuity",
+        "basis": {
+          "kind": "statute",
+          "document": {
+            "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+          }
+        }
+      }
+    }
+  ],
+  "totals": {
+    "headline_ctc": {
+      "paise": 29958000,
+      "display": "₹2,99,580",
+      "components": [
+        "Basic",
+        "Fixed Dearness Allowance",
+        "Basket of Allowances",
+        "Company PF",
+        "Gratuity"
+      ]
+    },
+    "fixed_pay": {
+      "paise": 29958000,
+      "display": "₹2,99,580",
+      "components": [
+        "Basic",
+        "Fixed Dearness Allowance",
+        "Basket of Allowances",
+        "Company PF",
+        "Gratuity"
+      ]
+    },
+    "variable_pay_at_target": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "guaranteed_recurring_cash": {
+      "paise": 26931600,
+      "display": "₹2,69,316",
+      "components": [
+        "Basic",
+        "Fixed Dearness Allowance",
+        "Basket of Allowances"
+      ]
+    },
+    "retirals": {
+      "paise": 3026400,
+      "display": "₹30,264",
+      "components": [
+        "Company PF",
+        "Gratuity"
+      ]
+    },
+    "one_time_components": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "benefits_in_kind": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "equity_as_claimed": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "equity_as_valued": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    },
+    "unvaluable_equity": {
+      "paise": 0,
+      "display": "₹0",
+      "components": []
+    }
+  },
+  "year_by_year": {
+    "years_covered": 4,
+    "bases": [
+      {
+        "basis": "variable-pay-at-zero",
+        "years": [
+          {
+            "year": 1,
+            "guaranteed_recurring_cash": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            }
+          },
+          {
+            "year": 2,
+            "guaranteed_recurring_cash": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            }
+          },
+          {
+            "year": 3,
+            "guaranteed_recurring_cash": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            }
+          },
+          {
+            "year": 4,
+            "guaranteed_recurring_cash": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            }
+          }
+        ],
+        "year_one": {
+          "paise": 26931600,
+          "display": "₹2,69,316"
+        },
+        "average": {
+          "over_years": 4,
+          "with_one_time": {
+            "paise": 26931600,
+            "display": "₹2,69,316"
+          },
+          "without_one_time": {
+            "paise": 26931600,
+            "display": "₹2,69,316"
+          },
+          "one_time_components": []
+        }
+      },
+      {
+        "basis": "variable-pay-at-target",
+        "years": [
+          {
+            "year": 1,
+            "guaranteed_recurring_cash": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            }
+          },
+          {
+            "year": 2,
+            "guaranteed_recurring_cash": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            }
+          },
+          {
+            "year": 3,
+            "guaranteed_recurring_cash": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            }
+          },
+          {
+            "year": 4,
+            "guaranteed_recurring_cash": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 26931600,
+              "display": "₹2,69,316"
+            }
+          }
+        ],
+        "year_one": {
+          "paise": 26931600,
+          "display": "₹2,69,316"
+        },
+        "average": {
+          "over_years": 4,
+          "with_one_time": {
+            "paise": 26931600,
+            "display": "₹2,69,316"
+          },
+          "without_one_time": {
+            "paise": 26931600,
+            "display": "₹2,69,316"
+          },
+          "one_time_components": []
+        }
+      }
+    ],
+    "grants": []
+  },
+  "basic": {
+    "components": [
+      "Basic"
+    ],
+    "annual": {
+      "paise": 16680000,
+      "display": "₹1,66,800"
+    },
+    "share_of_fixed_pay": {
+      "bp": 5567,
+      "display": "55.67%"
+    },
+    "citation": {
+      "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",
+      "document": {
+        "title": "The Code on Wages, 2019 (No. 29 of 2019)",
+        "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+      },
+      "retrieved": "2026-09-05",
+      "rules_key": "groups.basic_pay.catalogue_entries",
+      "note": "Section 2(y) defines wages and lists what they include: \"(i) basic pay; (ii) dearness allowance; and (iii) retaining allowance, if any\". Basic pay is the first of the three and is its own head, distinct from the other two. Of this file's catalogue entries only `basic` is basic pay. `dearness_allowance` is the second head and does not belong here, even though it shares a base with basic pay under the provident fund and gratuity Acts, and a retaining allowance entry added to the catalogue would be the third and belong here no more."
+    },
+    "drives": [
+      {
+        "drives": "employer-pf",
+        "wage_base": {
+          "entries": [
+            "basic",
+            "dearness_allowance"
+          ],
+          "components": [
+            "Basic",
+            "Fixed Dearness Allowance"
+          ],
+          "citation": {
+            "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+            "document": {
+              "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+              "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+            },
+            "retrieved": "2026-09-05",
+            "rules_key": "groups.epf.wage_components",
+            "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+          }
+        },
+        "rate": {
+          "bp": 1200,
+          "display": "12%"
+        },
+        "rate_citation": {
+          "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+          "document": {
+            "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+            "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+          },
+          "retrieved": "2026-09-05",
+          "rules_key": "groups.epf.employer_rate",
+          "note": "Read this before quoting the figure, and read `employee_rate`'s note with it: the same caveat applies for the same reason. Section 6 says \"The contribution which shall be paid by the employer to the Fund shall be ten percent. Of the basic wages, dearness allowance and retaining allowance, if any\", and its first proviso substitutes \"12 percent\" for notified establishments \"at both the places where they occur\" -- that notification could not be retrieved. So 0.12 is the rate the Government states is applied, not the rate read off the section: \"The employer is also required to contribute 12% of the wages.\" That statement is accepted as the basis here, permanently, on the reasoning in ADR 0019. This is the WHOLE employer share. Section 6A(2)(a) diverts part of it to the Employees' Pension Scheme, but the Act fixes only a ceiling on that part -- \"not exceeding eight and one-third per cent of the basic wages, dearness allowance and retaining allowance\" -- and leaves the figure itself to \"as may be specified in the Pension Scheme\", which could not be retrieved. The split is therefore not carried here, and a figure computed from this rate is the employer's total contribution rather than what reaches the provident fund alone."
+        },
+        "ceiling": {
+          "monthly": {
+            "paise": 1500000,
+            "display": "₹15,000"
+          },
+          "citation": {
+            "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
+            "document": {
+              "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+              "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+            },
+            "retrieved": "2026-09-05",
+            "rules_key": "groups.epf.wage_ceiling",
+            "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
+          }
+        }
+      },
+      {
+        "drives": "gratuity",
+        "wage_base": {
+          "entries": [
+            "basic",
+            "dearness_allowance"
+          ],
+          "components": [
+            "Basic",
+            "Fixed Dearness Allowance"
+          ],
+          "citation": {
+            "section": "The Payment of Gratuity Act, 1972, section 2(s)",
+            "document": {
+              "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+              "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+            },
+            "retrieved": "2026-09-05",
+            "rules_key": "groups.gratuity.wage_components",
+            "note": "'\"wages\" means all emoluments which are earned by an employee while on duty or on leave in accordance with the terms and conditions of his employment and which are paid or are payable to him in cash and includes dearness allowance but does not include any bonus, commission, house rent allowance, overtime wages and any other allowance.' Of this file's catalogue entries `basic` and `dearness_allowance` are inside that base, the second included by name -- house rent allowance is excluded by name, and a special allowance by the closing words."
+          }
+        },
+        "accrual": {
+          "days_of_wages": 15,
+          "days_in_month": 26,
+          "citation": {
+            "section": "The Payment of Gratuity Act, 1972, section 4(2) and its Explanation",
+            "document": {
+              "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+              "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+            },
+            "retrieved": "2026-09-05",
+            "rules_key": "groups.gratuity.accrual",
+            "note": "\"For every completed year of service or part thereof in excess of six months, the employer shall pay gratuity to an employee at the rate of fifteen days' wages based on the rate of wages last drawn by the employee concerned.\" The Explanation fixes the divisor: \"In the case of a monthly rated employee, the fifteen days' wages shall be calculated by dividing the monthly rate of wages last drawn by him by twenty-six and multiplying the quotient by fifteen.\" Two provisos to the same sub-section put a piece-rated and a seasonal employee outside this formula, and neither is encoded here."
+          }
+        },
+        "qualifying_service": {
+          "years": 5,
+          "citation": {
+            "section": "The Payment of Gratuity Act, 1972, section 4(1)",
+            "document": {
+              "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+              "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+            },
+            "retrieved": "2026-09-05",
+            "rules_key": "groups.gratuity.qualifying_service",
+            "note": "\"Gratuity shall be payable to an employee on the termination of his employment after he has rendered continuous service for not less than five years\" -- on superannuation, on retirement or resignation, or on death or disablement. The first proviso waives the five years where the termination is due to death or disablement, so the period bounds a resignation and not every ending of the employment."
+          }
+        }
+      },
+      {
+        "drives": "hra-exemption",
+        "citation": {
+          "section": "Income-tax Act, 2025, Schedule III (see section 11), Table Sl. No. 11 (\"Any special allowance from employer\"), read with section 202(2)(a)(i)",
+          "document": {
+            "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+            "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+          },
+          "retrieved": "2026-09-05",
+          "rules_key": "groups.hra.exemption",
+          "note": "Read this before saying anything about HRA. Schedule III excludes from total income \"any special allowance from employer\" where \"such allowance is specifically granted to meet expenditure actually incurred on payment of rent (by whatever name called) in respect of residential accommodation occupied by the assessee\", the accommodation \"is not owned by him\", and he \"has actually incurred expenditure on payment of rent\". HOW MUCH is exempt is not in the Act. Condition (b) of the same entry reads \"such allowance is to such extent as may be prescribed having regard to the area or place in which such accommodation is situated and other relevant considerations\", so the limbs of the exemption -- and the definition of \"salary\" that decides whether basic bounds it -- live in the rules prescribed under the Act, not in the Act. No primary text of those rules could be retrieved: incometaxindia.gov.in refuses requests from this environment. This file therefore states that the exemption exists and is bounded by a prescribed extent, and does not state the bound; a figure for it cannot be computed from this file. Section 202(2)(a)(i) excludes Schedule III Table Sl. No. 11 from the computation of total income by name, so the exemption is the old regime's alone."
+        }
+      }
+    ]
+  },
+  "employer_pf": {
+    "components": [
+      "Company PF"
+    ],
+    "components_citation": {
+      "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, section 6",
+      "document": {
+        "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+        "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+      },
+      "retrieved": "2026-09-05",
+      "rules_key": "groups.epf.employer_components",
+      "note": "Section 6 fixes one employer contribution, \"paid by the employer to the Fund\", and this names the catalogue entry that carries it on an offer letter. It is deliberately narrower than `employer_nps`, which is a contribution under a different Act to a different fund and is therefore not a figure this rate explains. Read `employer_rate`'s note with any figure derived from it: section 6A(2)(a) diverts part of the employer's share to the Employees' Pension Scheme, so a letter that states only the provident fund part of it will match neither wage base here."
+    },
+    "stated_contribution": {
+      "annual": {
+        "paise": 2160000,
+        "display": "₹21,600"
+      },
+      "monthly": {
+        "paise": 180000,
+        "display": "₹1,800"
+      }
+    },
+    "bases": [
+      {
+        "basis": "full_basic",
+        "wage": {
+          "annual": {
+            "paise": 18000000,
+            "display": "₹1,80,000"
+          },
+          "monthly": {
+            "paise": 1500000,
+            "display": "₹15,000"
+          }
+        },
+        "implied_contribution": {
+          "annual": {
+            "paise": 2160000,
+            "display": "₹21,600"
+          },
+          "monthly": {
+            "paise": 180000,
+            "display": "₹1,800"
+          }
+        },
+        "matches": true
+      },
+      {
+        "basis": "statutory_ceiling",
+        "wage": {
+          "annual": {
+            "paise": 18000000,
+            "display": "₹1,80,000"
+          },
+          "monthly": {
+            "paise": 1500000,
+            "display": "₹15,000"
+          }
+        },
+        "implied_contribution": {
+          "annual": {
+            "paise": 2160000,
+            "display": "₹21,600"
+          },
+          "monthly": {
+            "paise": 180000,
+            "display": "₹1,800"
+          }
+        },
+        "matches": true
+      }
+    ],
+    "implies": [
+      "full_basic",
+      "statutory_ceiling"
+    ],
+    "bases_coincide": true,
+    "wage_components": [
+      "Basic",
+      "Fixed Dearness Allowance"
+    ],
+    "wage_citation": {
+      "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+      "document": {
+        "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+        "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+      },
+      "retrieved": "2026-09-05",
+      "rules_key": "groups.epf.wage_components",
+      "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+    },
+    "rate": {
+      "bp": 1200,
+      "display": "12%"
+    },
+    "rate_citation": {
+      "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+      "document": {
+        "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+        "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+      },
+      "retrieved": "2026-09-05",
+      "rules_key": "groups.epf.employer_rate",
+      "note": "Read this before quoting the figure, and read `employee_rate`'s note with it: the same caveat applies for the same reason. Section 6 says \"The contribution which shall be paid by the employer to the Fund shall be ten percent. Of the basic wages, dearness allowance and retaining allowance, if any\", and its first proviso substitutes \"12 percent\" for notified establishments \"at both the places where they occur\" -- that notification could not be retrieved. So 0.12 is the rate the Government states is applied, not the rate read off the section: \"The employer is also required to contribute 12% of the wages.\" That statement is accepted as the basis here, permanently, on the reasoning in ADR 0019. This is the WHOLE employer share. Section 6A(2)(a) diverts part of it to the Employees' Pension Scheme, but the Act fixes only a ceiling on that part -- \"not exceeding eight and one-third per cent of the basic wages, dearness allowance and retaining allowance\" -- and leaves the figure itself to \"as may be specified in the Pension Scheme\", which could not be retrieved. The split is therefore not carried here, and a figure computed from this rate is the employer's total contribution rather than what reaches the provident fund alone."
+    },
+    "ceiling": {
+      "monthly": {
+        "paise": 1500000,
+        "display": "₹15,000"
+      },
+      "citation": {
+        "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
+        "document": {
+          "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+          "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+        },
+        "retrieved": "2026-09-05",
+        "rules_key": "groups.epf.wage_ceiling",
+        "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
+      }
+    }
+  },
+  "take_home": {
+    "regimes": [
+      {
+        "regime": "new",
+        "bases": [
+          {
+            "basis": "variable-pay-at-zero",
+            "recurring_cash": {
+              "annual": {
+                "paise": 26931600,
+                "display": "₹2,69,316"
+              },
+              "monthly": {
+                "paise": 2244300,
+                "display": "₹22,443"
+              },
+              "components": [
+                "Basic",
+                "Fixed Dearness Allowance",
+                "Basket of Allowances"
+              ]
+            },
+            "deductions": {
+              "employee_pf": {
+                "basis": "statutory_ceiling",
+                "contribution": {
+                  "annual": {
+                    "paise": 2160000,
+                    "display": "₹21,600"
+                  },
+                  "monthly": {
+                    "paise": 180000,
+                    "display": "₹1,800"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 18000000,
+                    "display": "₹1,80,000"
+                  },
+                  "monthly": {
+                    "paise": 1500000,
+                    "display": "₹15,000"
+                  }
+                },
+                "wage_components": [
+                  "Basic",
+                  "Fixed Dearness Allowance"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+                  "document": {
+                    "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate",
+                  "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". That statement is accepted as the basis here rather than the figure being withheld, and this note is permanent rather than provisional -- ADR 0019 gives the reasoning and the four conditions it depends on. Treat any figure computed from this rate as resting on the Ministry's statement rather than on the Act."
+                },
+                "wage_citation": {
+                  "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                  "document": {
+                    "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components",
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                },
+                "ceiling": {
+                  "monthly": {
+                    "paise": 1500000,
+                    "display": "₹15,000"
+                  },
+                  "applied": false,
+                  "citation": {
+                    "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
+                    "document": {
+                      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.epf.wage_ceiling",
+                    "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
+                  }
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "new",
+                "salary": {
+                  "paise": 26931600,
+                  "display": "₹2,69,316"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 7500000,
+                    "display": "₹75,000"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(a) (\"Deductions from salaries\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.standard_deduction",
+                    "note": "\"75000 or the salary, whichever is less, where income-tax is computed under section 202(1)\" -- so it is capped at the salary it is deducted from. Section 202(2)(a) disallows only Sl. No. 1 of the same table, which is the tax on employment, so the standard deduction survives in the new regime."
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 19431600,
+                    "display": "₹1,94,316"
+                  },
+                  "after": {
+                    "paise": 19432000,
+                    "display": "₹1,94,320"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income",
+                    "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 19432000,
+                        "display": "₹1,94,320"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "upto": {
+                        "paise": 80000000,
+                        "display": "₹8,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 80000000,
+                        "display": "₹8,00,000"
+                      },
+                      "upto": {
+                        "paise": 120000000,
+                        "display": "₹12,00,000"
+                      },
+                      "rate": {
+                        "bp": 1000,
+                        "display": "10%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 120000000,
+                        "display": "₹12,00,000"
+                      },
+                      "upto": {
+                        "paise": 160000000,
+                        "display": "₹16,00,000"
+                      },
+                      "rate": {
+                        "bp": 1500,
+                        "display": "15%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 160000000,
+                        "display": "₹16,00,000"
+                      },
+                      "upto": {
+                        "paise": 200000000,
+                        "display": "₹20,00,000"
+                      },
+                      "rate": {
+                        "bp": 2000,
+                        "display": "20%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 200000000,
+                        "display": "₹20,00,000"
+                      },
+                      "upto": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "rate": {
+                        "bp": 2500,
+                        "display": "25%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "rate": {
+                        "bp": 3000,
+                        "display": "30%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 202(1) Table (\"New tax regime for individuals, Hindu undivided family and others\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.slabs",
+                    "note": "Charged for tax year 2026-27 by the Finance Act, 2026, section 3(1), which refers to these rates rather than restating them. Finance Act, 2026, section 56 is its only amendment to section 202 and touches sub-section (2)(a)(iii) alone, leaving this table untouched. The Act states the table as band and rate without spelling out the marginal arithmetic; it is read as a slab table, which is how the Income Tax Department's own calculation engine applies it."
+                  }
+                },
+                "rebate": {
+                  "applied": true,
+                  "total_income_threshold": {
+                    "paise": 120000000,
+                    "display": "₹12,00,000"
+                  },
+                  "maximum": {
+                    "paise": 6000000,
+                    "display": "₹60,000"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 156(2) and (3) (\"Rebate of income-tax in case of certain individuals\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.rebate",
+                    "note": "Available to a resident individual only. Section 156(2)(b) also gives marginal relief where total income exceeds twelve lakh rupees, which this decoder does not yet compute, so the figures above the threshold are the pre-relief ones."
+                  }
+                },
+                "tax_after_rebate": {
+                  "paise": 0,
+                  "display": "₹0"
+                },
+                "cess": {
+                  "rate": {
+                    "bp": 400,
+                    "display": "4%"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                    "document": {
+                      "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess",
+                    "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
+                  }
+                },
+                "tax_payable": {
+                  "before": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "after": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable",
+                    "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+                  }
+                }
+              },
+              "total": {
+                "annual": {
+                  "paise": 2160000,
+                  "display": "₹21,600"
+                },
+                "monthly": {
+                  "paise": 180000,
+                  "display": "₹1,800"
+                }
+              }
+            },
+            "take_home": {
+              "annual": {
+                "paise": 24771600,
+                "display": "₹2,47,716"
+              },
+              "monthly": {
+                "paise": 2064300,
+                "display": "₹20,643"
+              }
+            }
+          },
+          {
+            "basis": "variable-pay-at-target",
+            "recurring_cash": {
+              "annual": {
+                "paise": 26931600,
+                "display": "₹2,69,316"
+              },
+              "monthly": {
+                "paise": 2244300,
+                "display": "₹22,443"
+              },
+              "components": [
+                "Basic",
+                "Fixed Dearness Allowance",
+                "Basket of Allowances"
+              ]
+            },
+            "deductions": {
+              "employee_pf": {
+                "basis": "statutory_ceiling",
+                "contribution": {
+                  "annual": {
+                    "paise": 2160000,
+                    "display": "₹21,600"
+                  },
+                  "monthly": {
+                    "paise": 180000,
+                    "display": "₹1,800"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 18000000,
+                    "display": "₹1,80,000"
+                  },
+                  "monthly": {
+                    "paise": 1500000,
+                    "display": "₹15,000"
+                  }
+                },
+                "wage_components": [
+                  "Basic",
+                  "Fixed Dearness Allowance"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+                  "document": {
+                    "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate",
+                  "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". That statement is accepted as the basis here rather than the figure being withheld, and this note is permanent rather than provisional -- ADR 0019 gives the reasoning and the four conditions it depends on. Treat any figure computed from this rate as resting on the Ministry's statement rather than on the Act."
+                },
+                "wage_citation": {
+                  "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                  "document": {
+                    "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components",
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                },
+                "ceiling": {
+                  "monthly": {
+                    "paise": 1500000,
+                    "display": "₹15,000"
+                  },
+                  "applied": false,
+                  "citation": {
+                    "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
+                    "document": {
+                      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.epf.wage_ceiling",
+                    "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
+                  }
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "new",
+                "salary": {
+                  "paise": 26931600,
+                  "display": "₹2,69,316"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 7500000,
+                    "display": "₹75,000"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(a) (\"Deductions from salaries\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.standard_deduction",
+                    "note": "\"75000 or the salary, whichever is less, where income-tax is computed under section 202(1)\" -- so it is capped at the salary it is deducted from. Section 202(2)(a) disallows only Sl. No. 1 of the same table, which is the tax on employment, so the standard deduction survives in the new regime."
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 19431600,
+                    "display": "₹1,94,316"
+                  },
+                  "after": {
+                    "paise": 19432000,
+                    "display": "₹1,94,320"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income",
+                    "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 19432000,
+                        "display": "₹1,94,320"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 40000000,
+                        "display": "₹4,00,000"
+                      },
+                      "upto": {
+                        "paise": 80000000,
+                        "display": "₹8,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 80000000,
+                        "display": "₹8,00,000"
+                      },
+                      "upto": {
+                        "paise": 120000000,
+                        "display": "₹12,00,000"
+                      },
+                      "rate": {
+                        "bp": 1000,
+                        "display": "10%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 120000000,
+                        "display": "₹12,00,000"
+                      },
+                      "upto": {
+                        "paise": 160000000,
+                        "display": "₹16,00,000"
+                      },
+                      "rate": {
+                        "bp": 1500,
+                        "display": "15%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 160000000,
+                        "display": "₹16,00,000"
+                      },
+                      "upto": {
+                        "paise": 200000000,
+                        "display": "₹20,00,000"
+                      },
+                      "rate": {
+                        "bp": 2000,
+                        "display": "20%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 200000000,
+                        "display": "₹20,00,000"
+                      },
+                      "upto": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "rate": {
+                        "bp": 2500,
+                        "display": "25%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 240000000,
+                        "display": "₹24,00,000"
+                      },
+                      "rate": {
+                        "bp": 3000,
+                        "display": "30%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 202(1) Table (\"New tax regime for individuals, Hindu undivided family and others\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.slabs",
+                    "note": "Charged for tax year 2026-27 by the Finance Act, 2026, section 3(1), which refers to these rates rather than restating them. Finance Act, 2026, section 56 is its only amendment to section 202 and touches sub-section (2)(a)(iii) alone, leaving this table untouched. The Act states the table as band and rate without spelling out the marginal arithmetic; it is read as a slab table, which is how the Income Tax Department's own calculation engine applies it."
+                  }
+                },
+                "rebate": {
+                  "applied": true,
+                  "total_income_threshold": {
+                    "paise": 120000000,
+                    "display": "₹12,00,000"
+                  },
+                  "maximum": {
+                    "paise": 6000000,
+                    "display": "₹60,000"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 156(2) and (3) (\"Rebate of income-tax in case of certain individuals\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.new_regime.rebate",
+                    "note": "Available to a resident individual only. Section 156(2)(b) also gives marginal relief where total income exceeds twelve lakh rupees, which this decoder does not yet compute, so the figures above the threshold are the pre-relief ones."
+                  }
+                },
+                "tax_after_rebate": {
+                  "paise": 0,
+                  "display": "₹0"
+                },
+                "cess": {
+                  "rate": {
+                    "bp": 400,
+                    "display": "4%"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                    "document": {
+                      "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess",
+                    "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
+                  }
+                },
+                "tax_payable": {
+                  "before": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "after": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable",
+                    "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+                  }
+                }
+              },
+              "total": {
+                "annual": {
+                  "paise": 2160000,
+                  "display": "₹21,600"
+                },
+                "monthly": {
+                  "paise": 180000,
+                  "display": "₹1,800"
+                }
+              }
+            },
+            "take_home": {
+              "annual": {
+                "paise": 24771600,
+                "display": "₹2,47,716"
+              },
+              "monthly": {
+                "paise": 2064300,
+                "display": "₹20,643"
+              }
+            }
+          }
+        ],
+        "assumes": [
+          "The new regime",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ],
+        "excludes": [
+          "HRA exemption",
+          "Chapter VI-A deductions",
+          "Employer NPS deduction",
+          "Professional tax",
+          "Perquisite tax on vesting equity"
+        ]
+      },
+      {
+        "regime": "old",
+        "bases": [
+          {
+            "basis": "variable-pay-at-zero",
+            "recurring_cash": {
+              "annual": {
+                "paise": 26931600,
+                "display": "₹2,69,316"
+              },
+              "monthly": {
+                "paise": 2244300,
+                "display": "₹22,443"
+              },
+              "components": [
+                "Basic",
+                "Fixed Dearness Allowance",
+                "Basket of Allowances"
+              ]
+            },
+            "deductions": {
+              "employee_pf": {
+                "basis": "statutory_ceiling",
+                "contribution": {
+                  "annual": {
+                    "paise": 2160000,
+                    "display": "₹21,600"
+                  },
+                  "monthly": {
+                    "paise": 180000,
+                    "display": "₹1,800"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 18000000,
+                    "display": "₹1,80,000"
+                  },
+                  "monthly": {
+                    "paise": 1500000,
+                    "display": "₹15,000"
+                  }
+                },
+                "wage_components": [
+                  "Basic",
+                  "Fixed Dearness Allowance"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+                  "document": {
+                    "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate",
+                  "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". That statement is accepted as the basis here rather than the figure being withheld, and this note is permanent rather than provisional -- ADR 0019 gives the reasoning and the four conditions it depends on. Treat any figure computed from this rate as resting on the Ministry's statement rather than on the Act."
+                },
+                "wage_citation": {
+                  "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                  "document": {
+                    "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components",
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                },
+                "ceiling": {
+                  "monthly": {
+                    "paise": 1500000,
+                    "display": "₹15,000"
+                  },
+                  "applied": false,
+                  "citation": {
+                    "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
+                    "document": {
+                      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.epf.wage_ceiling",
+                    "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
+                  }
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "old",
+                "salary": {
+                  "paise": 26931600,
+                  "display": "₹2,69,316"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 5000000,
+                    "display": "₹50,000"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(b) (\"Deductions from salaries\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.standard_deduction",
+                    "note": "\"50000 or the salary, whichever is less, in any other case\" -- \"any other case\" being every case other than section 202(1), i.e. the old regime. Capped at the salary it is deducted from, as the new regime's standard deduction is."
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 21931600,
+                    "display": "₹2,19,316"
+                  },
+                  "after": {
+                    "paise": 21932000,
+                    "display": "₹2,19,320"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income",
+                    "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 21932000,
+                        "display": "₹2,19,320"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "upto": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "upto": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 2000,
+                        "display": "20%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 3000,
+                        "display": "30%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph A, item (I) (\"In the case of every individual other than the individual referred to in items (II) and (III) of this Paragraph...\")",
+                    "document": {
+                      "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.slabs",
+                    "note": "Item (I) of three age-banded tables in Part I-B: this is the table for individuals below 60 (resident or non-resident) and for every non-resident individual whatever their age, since items (II) (resident, 60 to under 80) and item (III) (resident, 80 or more) are each limited to residents. Those two tables carry higher exemptions and are not encoded here. \"12500 plus 20% of the amount by which the total income exceeds 500000\" and \"112500 plus 30% of the amount by which the total income exceeds 1000000\" are the cumulative tax at the start of bands 3 and 4 stated as constants, which is the same arithmetic a slab table gives when walked band by band -- 5% of the 250000-500000 band is exactly 12500, and adding 20% of the 500000-1000000 band gives exactly 112500 -- so it is read as a slab table here too."
+                  }
+                },
+                "rebate": {
+                  "applied": true,
+                  "total_income_threshold": {
+                    "paise": 50000000,
+                    "display": "₹5,00,000"
+                  },
+                  "maximum": {
+                    "paise": 1250000,
+                    "display": "₹12,500"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 156(1) (\"Rebate of income-tax in case of certain individuals\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.rebate",
+                    "note": "Available to a resident individual only, same as the new regime's rebate at section 156(2)-(3), but this is the plain subsection: it carries no reference to section 202(1) at all, unlike (2) and (3), which each tie themselves explicitly to total income \"chargeable to tax under section 202(1)\". Unlike the new regime's rebate, section 156(1) gives no marginal relief for total income just above the threshold: crossing five lakh rupees by even one rupee loses the whole rebate on the face of this text."
+                  }
+                },
+                "tax_after_rebate": {
+                  "paise": 0,
+                  "display": "₹0"
+                },
+                "cess": {
+                  "rate": {
+                    "bp": 400,
+                    "display": "4%"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                    "document": {
+                      "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess",
+                    "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
+                  }
+                },
+                "tax_payable": {
+                  "before": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "after": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable",
+                    "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+                  }
+                }
+              },
+              "total": {
+                "annual": {
+                  "paise": 2160000,
+                  "display": "₹21,600"
+                },
+                "monthly": {
+                  "paise": 180000,
+                  "display": "₹1,800"
+                }
+              }
+            },
+            "take_home": {
+              "annual": {
+                "paise": 24771600,
+                "display": "₹2,47,716"
+              },
+              "monthly": {
+                "paise": 2064300,
+                "display": "₹20,643"
+              }
+            }
+          },
+          {
+            "basis": "variable-pay-at-target",
+            "recurring_cash": {
+              "annual": {
+                "paise": 26931600,
+                "display": "₹2,69,316"
+              },
+              "monthly": {
+                "paise": 2244300,
+                "display": "₹22,443"
+              },
+              "components": [
+                "Basic",
+                "Fixed Dearness Allowance",
+                "Basket of Allowances"
+              ]
+            },
+            "deductions": {
+              "employee_pf": {
+                "basis": "statutory_ceiling",
+                "contribution": {
+                  "annual": {
+                    "paise": 2160000,
+                    "display": "₹21,600"
+                  },
+                  "monthly": {
+                    "paise": 180000,
+                    "display": "₹1,800"
+                  }
+                },
+                "wage": {
+                  "annual": {
+                    "paise": 18000000,
+                    "display": "₹1,80,000"
+                  },
+                  "monthly": {
+                    "paise": 1500000,
+                    "display": "₹15,000"
+                  }
+                },
+                "wage_components": [
+                  "Basic",
+                  "Fixed Dearness Allowance"
+                ],
+                "rate": {
+                  "bp": 1200,
+                  "display": "12%"
+                },
+                "rate_citation": {
+                  "section": "The paragraph beginning \"Under the EPF, Scheme, 1952, an employee of any covered establishment\"",
+                  "document": {
+                    "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.employee_rate",
+                  "note": "Read this before quoting the figure. Section 6 of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952 says the contribution is TEN per cent; its first proviso substitutes 12 per cent only for establishments the Central Government has notified, and that notification could not be retrieved -- epfindia.gov.in and epfo.gov.in refuse requests from this environment. So 0.12 is not the rate read off the section. It is the rate the Government states is applied: an employee of a covered establishment \"is statutorily required to join the fund and to contribute 12% of wages\". That statement is accepted as the basis here rather than the figure being withheld, and this note is permanent rather than provisional -- ADR 0019 gives the reasoning and the four conditions it depends on. Treat any figure computed from this rate as resting on the Ministry's statement rather than on the Act."
+                },
+                "wage_citation": {
+                  "section": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952, sections 2(b) and 6",
+                  "document": {
+                    "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+                    "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+                  },
+                  "retrieved": "2026-09-05",
+                  "rules_key": "groups.epf.wage_components",
+                  "note": "Section 6 computes the contribution on \"basic wages, dearness allowance and retaining allowance\", and section 2(b)(ii) excludes house rent allowance from basic wages by name, along with overtime, bonus and commission. Of the catalogue's entries `basic` and `dearness_allowance` are inside that base; this file carries no retaining allowance entry yet, and a ticket adding one must add it here too. Whether a \"special allowance\" falls inside section 2(b) has been litigated and is not settled by the section's own words, so it is left out rather than guessed at."
+                },
+                "ceiling": {
+                  "monthly": {
+                    "paise": 1500000,
+                    "display": "₹15,000"
+                  },
+                  "applied": false,
+                  "citation": {
+                    "section": "The paragraph beginning \"The wage ceiling for coverage under the EPF Scheme, 1952\"",
+                    "document": {
+                      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+                      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.epf.wage_ceiling",
+                    "note": "Read this before quoting the figure. \"The wage ceiling for coverage under the EPF Scheme, 1952 is revised from time to time. Presently, it is Rs.15000/- per month since 01.09.2014.\" Section 6 of the Act carries no ceiling at all -- it lives in the Employees' Provident Fund Scheme, 1952, whose consolidated text could not be retrieved, and the 2014 notification that set it could not be retrieved either. This is the Government's statement of the figure, not the instrument that fixed it, and it is accepted as the basis here, permanently, on the reasoning in ADR 0019."
+                  }
+                }
+              },
+              "income_tax": {
+                "period": "annual",
+                "regime": "old",
+                "salary": {
+                  "paise": 26931600,
+                  "display": "₹2,69,316"
+                },
+                "standard_deduction": {
+                  "amount": {
+                    "paise": 5000000,
+                    "display": "₹50,000"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 19(1) Table Sl. No. 2(b) (\"Deductions from salaries\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.standard_deduction",
+                    "note": "\"50000 or the salary, whichever is less, in any other case\" -- \"any other case\" being every case other than section 202(1), i.e. the old regime. Capped at the salary it is deducted from, as the new regime's standard deduction is."
+                  }
+                },
+                "total_income": {
+                  "before": {
+                    "paise": 21931600,
+                    "display": "₹2,19,316"
+                  },
+                  "after": {
+                    "paise": 21932000,
+                    "display": "₹2,19,320"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.total_income",
+                    "note": "\"rounded off to the nearest multiple of 10 ignoring any part of a rupee consisting of paise and thereafter if such amount is not a multiple of ten\" -- increased if the last figure is five or more, reduced if it is less than five. Dropping the paise first and rounding the whole-rupee figure on its last digit gives the same answer as rounding the exact amount half upward, because the paise can only decide the outcome at an exact rupee ending in five, where both readings round up."
+                  }
+                },
+                "slabs": {
+                  "charges": [
+                    {
+                      "from": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "upto": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "rate": {
+                        "bp": 0,
+                        "display": "0%"
+                      },
+                      "income_in_band": {
+                        "paise": 21932000,
+                        "display": "₹2,19,320"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 25000000,
+                        "display": "₹2,50,000"
+                      },
+                      "upto": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "rate": {
+                        "bp": 500,
+                        "display": "5%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 50000000,
+                        "display": "₹5,00,000"
+                      },
+                      "upto": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 2000,
+                        "display": "20%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    },
+                    {
+                      "from": {
+                        "paise": 100000000,
+                        "display": "₹10,00,000"
+                      },
+                      "rate": {
+                        "bp": 3000,
+                        "display": "30%"
+                      },
+                      "income_in_band": {
+                        "paise": 0,
+                        "display": "₹0"
+                      },
+                      "tax": {
+                        "paise": 0,
+                        "display": "₹0"
+                      }
+                    }
+                  ],
+                  "total": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), First Schedule, Part I-B, Paragraph A, item (I) (\"In the case of every individual other than the individual referred to in items (II) and (III) of this Paragraph...\")",
+                    "document": {
+                      "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.slabs",
+                    "note": "Item (I) of three age-banded tables in Part I-B: this is the table for individuals below 60 (resident or non-resident) and for every non-resident individual whatever their age, since items (II) (resident, 60 to under 80) and item (III) (resident, 80 or more) are each limited to residents. Those two tables carry higher exemptions and are not encoded here. \"12500 plus 20% of the amount by which the total income exceeds 500000\" and \"112500 plus 30% of the amount by which the total income exceeds 1000000\" are the cumulative tax at the start of bands 3 and 4 stated as constants, which is the same arithmetic a slab table gives when walked band by band -- 5% of the 250000-500000 band is exactly 12500, and adding 20% of the 500000-1000000 band gives exactly 112500 -- so it is read as a slab table here too."
+                  }
+                },
+                "rebate": {
+                  "applied": true,
+                  "total_income_threshold": {
+                    "paise": 50000000,
+                    "display": "₹5,00,000"
+                  },
+                  "maximum": {
+                    "paise": 1250000,
+                    "display": "₹12,500"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 156(1) (\"Rebate of income-tax in case of certain individuals\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.old_regime.rebate",
+                    "note": "Available to a resident individual only, same as the new regime's rebate at section 156(2)-(3), but this is the plain subsection: it carries no reference to section 202(1) at all, unlike (2) and (3), which each tie themselves explicitly to total income \"chargeable to tax under section 202(1)\". Unlike the new regime's rebate, section 156(1) gives no marginal relief for total income just above the threshold: crossing five lakh rupees by even one rupee loses the whole rebate on the face of this text."
+                  }
+                },
+                "tax_after_rebate": {
+                  "paise": 0,
+                  "display": "₹0"
+                },
+                "cess": {
+                  "rate": {
+                    "bp": 400,
+                    "display": "4%"
+                  },
+                  "amount": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "citation": {
+                    "section": "Finance Act, 2026 (No. 4 of 2026), section 3(15) (\"Health and Education Cess on income-tax\")",
+                    "document": {
+                      "title": "The Finance Act, 2026 (No. 4 of 2026)",
+                      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.income_tax.cess",
+                    "note": "Charged on the income-tax as increased by the applicable surcharge, and so on the tax remaining after any rebate. Imposed by the annual Finance Act rather than by the Income-tax Act: it must be re-sourced each year."
+                  }
+                },
+                "tax_payable": {
+                  "before": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "after": {
+                    "paise": 0,
+                    "display": "₹0"
+                  },
+                  "unit_rupees": 10,
+                  "citation": {
+                    "section": "Income-tax Act, 2025, section 516 (\"Rounding off of amount of total income, or amount payable or refundable\")",
+                    "document": {
+                      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+                      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+                    },
+                    "retrieved": "2026-09-05",
+                    "rules_key": "groups.statutory_rounding.tax_payable",
+                    "note": "The same section and the same unit: \"any amount payable or refundable under this Act\" rounds to the nearest ten rupees. The 1961 Act's section 288B rounded tax to the nearest rupee; the 2025 Act carries no such provision, and a search of its full text finds no other rounding rule outside the tonnage-tax chapter."
+                  }
+                }
+              },
+              "total": {
+                "annual": {
+                  "paise": 2160000,
+                  "display": "₹21,600"
+                },
+                "monthly": {
+                  "paise": 180000,
+                  "display": "₹1,800"
+                }
+              }
+            },
+            "take_home": {
+              "annual": {
+                "paise": 24771600,
+                "display": "₹2,47,716"
+              },
+              "monthly": {
+                "paise": 2064300,
+                "display": "₹20,643"
+              }
+            }
+          }
+        ],
+        "assumes": [
+          "The old regime",
+          "Below 60 years of age",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ],
+        "excludes": [
+          "HRA exemption",
+          "Chapter VI-A deductions",
+          "Employer NPS deduction",
+          "Professional tax",
+          "Perquisite tax on vesting equity",
+          "Floor: excluding HRA exemption and Chapter VI-A deductions can only lower this further, never raise it"
+        ]
+      }
+    ],
+    "break_even": [
+      {
+        "basis": "variable-pay-at-zero",
+        "kind": "old-regime-wins-at-zero",
+        "assumes": [
+          "Below 60 years of age",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ]
+      },
+      {
+        "basis": "variable-pay-at-target",
+        "kind": "old-regime-wins-at-zero",
+        "assumes": [
+          "Below 60 years of age",
+          "A resident individual",
+          "Steady state: no one-time component"
+        ]
+      }
+    ]
+  },
+  "flags": [],
+  "sources": [
+    {
+      "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952 (No. 19 of 1952)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/03cab9b7485af64f747d8c658cb56a7e.pdf"
+    },
+    {
+      "title": "The Payment of Gratuity Act, 1972 (No. 39 of 1972)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/072a4b7ea8246533c62b96b68a30da53.pdf"
+    },
+    {
+      "title": "The Code on Wages, 2019 (No. 29 of 2019)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/c328da14bbb15fc4ad571dc33e7a4ab3.pdf"
+    },
+    {
+      "title": "Ministry of Labour and Employment, reply to Lok Sabha Unstarred Question No. 586, 24 July 2023 (PIB release 1942083)",
+      "url": "https://www.labour.gov.in/static/uploads/2025/06/93561f36d5094b0cfe52570b4e8d2dc1.pdf"
+    },
+    {
+      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+    },
+    {
+      "title": "The Finance Act, 2026 (No. 4 of 2026)",
+      "url": "https://egazette.gov.in/WriteReadData/2026/271439.pdf"
+    }
+  ]
+}

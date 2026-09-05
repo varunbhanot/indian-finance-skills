@@ -1,0 +1,25 @@
+{
+  "financial_year": "2026-27",
+  "components": [
+    {
+      "name": "Basic",
+      "type": "basic",
+      "amount": 1200000,
+      "period": "annual"
+    },
+    {
+      "name": "Joining bonus",
+      "type": "joining_bonus",
+      "amount": 300000,
+      "period": "annual",
+      "clawback_months": 12
+    },
+    {
+      "name": "Retention bonus",
+      "type": "retention_bonus",
+      "amount": 500000,
+      "period": "annual",
+      "clawback_months": 24
+    }
+  ]
+}

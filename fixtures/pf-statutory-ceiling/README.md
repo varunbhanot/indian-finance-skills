@@ -47,3 +47,8 @@ does not depend on regime.
   applies to establishments the Central Government has notified, and that
   notification could not be retrieved. If it turns out not to cover an
   employer, this fixture's PF figure is wrong for them.
+
+  This is settled rather than outstanding. #24 re-probed every publisher and
+  found them still closed to this environment, and ADR 0019 records the decision
+  to accept the Ministry's statement as the basis and the conditions that
+  decision depends on.

@@ -35,4 +35,18 @@ tracks upstream automatically.
 
 ## Status
 
-This repository does not yet contain any Indian-finance skills of its own.
+The **CTC decoder** (`.claude/skills/ctc-decoder`) is a first cut: it takes an
+offer letter — handed over as a document, pasted, or typed — confirms every
+figure with you, and decodes it into guaranteed recurring cash against headline
+CTC, with every component classified and every total traced to the lines it was
+built from. Take-home, equity valuation and the year-by-year view are in
+progress under spec #4.
+
+## What this deliberately won't do
+
+It never tells you what to negotiate, accept or reject. It states what is true
+about the numbers and links the primary source — EPFO, the Payment of Gratuity
+Act, the Income Tax Department — and stops there (ADR 0007). It never does
+arithmetic in conversation: every rupee figure comes from the deterministic
+core, and an eval checks that (ADR 0003). And it never asks for a password, a
+PAN or an account number.

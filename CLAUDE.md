@@ -26,8 +26,11 @@ emits display strings; never reformat a number yourself.
 
 ## Hard constraints
 
-- **Typed input only.** No PDF or statement parsing, no passwords, no card or
-  account numbers. This is settled; do not reopen it.
+- **The core takes typed JSON only.** A skill may read a document the user
+  hands it to draft that input, and every figure is confirmed by the user beside
+  its source line before anything runs (ADR 0011). No passwords, no card or
+  account numbers, and a skill never repeats an identifying detail from a
+  document.
 - **Analysis and citation, never a recommendation to act** (ADR 0007). State what
   is true, link the primary source, and stop. Do not tell the user what to do.
 - **Never value the unvaluable.** Illiquid equity is ₹0 and is always named

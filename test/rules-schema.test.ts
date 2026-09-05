@@ -13,7 +13,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { DEFAULT_RULES_DIRECTORY, listRulesFiles, loadRulesFile } from "../src/core/rules/files.ts";
-import type { RulesDocument } from "../src/core/rules/loader.ts";
+import type { RulesDocument, RulesValue } from "../src/core/rules/loader.ts";
+import { documentIn, type Source } from "../src/core/ctc-decoder/rules-reader.ts";
 
 // Named explicitly: this checks the repository's own rules, never a directory a
 // fixture or an ambient CTC_DECODER_RULES_DIR points at (ADR 0009).
@@ -40,27 +41,23 @@ for (const file of files) {
 
 /**
  * Every `source` in a rules document, paired with the title of the paper it
- * points at: the value's own `title`, or the nearest enclosing one that titles
- * the same URL — which is exactly how `RulesNode.citation()` resolves it, so
- * this check fails on the same files the decoder would refuse, in CI rather
- * than at the moment a user asks for the figure.
+ * points at. Which paper that is comes from `documentIn`, the same rule
+ * `RulesNode.citation()` resolves a citation with, so this check fails on
+ * exactly the files the decoder would refuse — in CI, rather than at the moment
+ * a user asks for the figure.
  */
-function citedDocumentsIn(document: RulesDocument): [string, { title: string; url: string }][] {
-  const cited: [string, { title: string; url: string }][] = [];
+function citedDocumentsIn(document: RulesDocument): [string, Source][] {
+  const cited: [string, Source][] = [];
 
-  const walk = (value: unknown, key: string, enclosing: { title: string; url: string } | undefined): void => {
+  const walk = (value: RulesValue, key: string, enclosing: Source | undefined): void => {
     if (Array.isArray(value)) {
       value.forEach((item, index) => walk(item, `${key}[${index}]`, enclosing));
       return;
     }
     if (typeof value !== "object" || value === null) return;
 
-    const map = value as { [name: string]: unknown };
-    const url = map["source"];
-    const ownTitle = map["title"];
-    const here =
-      typeof ownTitle === "string" && typeof url === "string" ? { title: ownTitle, url } : enclosing;
-
+    const here = documentIn(value, enclosing);
+    const url = value["source"];
     if (typeof url === "string") {
       assert.ok(
         here !== undefined && here.url === url,
@@ -68,9 +65,9 @@ function citedDocumentsIn(document: RulesDocument): [string, { title: string; ur
       );
       cited.push([key, here]);
     }
-    for (const [name, child] of Object.entries(map)) walk(child, `${key}.${name}`, here);
+    for (const [name, child] of Object.entries(value)) walk(child, `${key}.${name}`, here);
   };
 
-  walk(document.groups, "groups", undefined);
+  walk(document.groups as unknown as RulesValue, "groups", undefined);
   return cited;
 }

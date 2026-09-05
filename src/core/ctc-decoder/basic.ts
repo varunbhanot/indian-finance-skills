@@ -13,9 +13,18 @@
  * Which components are basic pay is read from the rules file, never named here
  * (ADR 0004), and only a component the catalogue classified can be one: a line
  * the user classified inline carries no catalogue entry, so it is outside the
- * base whatever they called it. A rules file carrying no `basic_pay` group
- * yields nothing at all rather than a guess, which is how the same decoder reads
- * a rules file that predates this reading.
+ * base whatever they called it. Note the asymmetry that follows: it is in the
+ * numerator, and — through `totals.fixed_pay` — still in the denominator, so
+ * `basic.components` and `totals.fixed_pay.components` are both named in the
+ * output and a reader can see which lines are in which.
+ *
+ * `groups.basic_pay` is how a rules file opts into this reading at all: without
+ * it there is no `basic` block, which is how the same decoder reads a rules file
+ * that predates the reading. Once a file opts in, the reading must be whole — a
+ * missing `epf`, `gratuity` or `hra` group is `rule_absent` naming the key, not
+ * a fact quietly dropped from `drives`. The two answers are to two different
+ * questions: "this file does not do this reading" and "this file does it, and is
+ * incomplete".
  *
  * No figure of provident fund, gratuity or house rent allowance is computed
  * here. The share is the only arithmetic in this file.
@@ -23,8 +32,6 @@
 import { money, rate, rupeesToPaise, shareInBasisPoints, type Money, type Rate } from "../money.ts";
 import type { RulesFile } from "../rules/files.ts";
 import { hasRulesGroup, rulesGroup, type Citation, type RulesNode } from "./rules-reader.ts";
-
-const BASIC_PAY_GROUP = "basic_pay";
 
 /** A decoded component reduced to what this reading needs: its worth, and what classified it. */
 export interface ClassifiedComponent {
@@ -101,9 +108,9 @@ export function basicFor(
   fixedPayPaise: number,
   rules: RulesFile,
 ): Basic | undefined {
-  if (!hasRulesGroup(rules, BASIC_PAY_GROUP)) return undefined;
+  if (!hasRulesGroup(rules, "basic_pay")) return undefined;
 
-  const base = wageBaseFor(components, rulesGroup(rules, BASIC_PAY_GROUP).child("catalogue_entries"));
+  const base = wageBaseFor(components, rulesGroup(rules, "basic_pay").child("catalogue_entries"));
   const annualPaise = componentsIn(components, base.entries).reduce(
     (running, one) => running + one.annual_paise,
     0,

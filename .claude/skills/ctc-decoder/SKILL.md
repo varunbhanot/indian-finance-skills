@@ -98,9 +98,11 @@ Then the remaining totals — `variable_pay_at_target`, `retirals`,
 constituent names, and `clawback_months` on any component that carries it.
 
 Then `basic`, when the output carries it: `share_of_fixed_pay.display` beside
-`totals.fixed_pay.display` and `basic.annual.display`, naming the lines in
-`basic.components`. Say the share; do not say whether it is low, high or worth
-changing (ADR 0007).
+`totals.fixed_pay.display` and `basic.annual.display`. Name the lines on both
+sides of it — `basic.components` above the line, `totals.fixed_pay.components`
+below — because a line the user classified inline is in the denominator and can
+never be in the numerator, and only the two lists show that. Say the share; do
+not say whether it is low, high or worth changing (ADR 0007).
 
 Then `basic.drives`, one fact each, from the fields and never from memory:
 

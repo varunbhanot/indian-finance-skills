@@ -75,8 +75,12 @@ export function hasRulesGroup(file: RulesFile, name: string): boolean {
  * The document a node cites: its own `title` and `source` when it carries both,
  * and otherwise whichever document encloses it. A node that narrows the source
  * without naming the paper inherits nothing, so `citation()` can refuse it.
+ *
+ * Exported because the CI check that every rules file titles what it cites walks
+ * the raw document rather than `RulesNode`s (ADR 0015), and a second copy of
+ * this rule there would drift from this one silently.
  */
-function documentIn(value: RulesValue, enclosing: Source | undefined): Source | undefined {
+export function documentIn(value: RulesValue, enclosing: Source | undefined): Source | undefined {
   if (!isRulesMap(value)) return enclosing;
   const title = value["title"];
   const url = value["source"];

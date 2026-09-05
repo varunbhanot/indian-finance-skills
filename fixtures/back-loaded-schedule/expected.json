@@ -6,14 +6,14 @@
       "name": "Basic",
       "as_typed": {
         "amount": {
-          "paise": 240000000,
-          "display": "₹24,00,000"
+          "paise": 200000000,
+          "display": "₹20,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 240000000,
-        "display": "₹24,00,000"
+        "paise": 200000000,
+        "display": "₹20,00,000"
       },
       "certainty": "guaranteed",
       "form": "cash-now",
@@ -33,14 +33,14 @@
       "name": "RSU grant",
       "as_typed": {
         "amount": {
-          "paise": 400000000,
-          "display": "₹40,00,000"
+          "paise": 800000000,
+          "display": "₹80,00,000"
         },
         "period": "annual"
       },
       "annual": {
-        "paise": 400000000,
-        "display": "₹40,00,000"
+        "paise": 800000000,
+        "display": "₹80,00,000"
       },
       "certainty": "conditional-on-tenure",
       "form": "equity",
@@ -58,16 +58,21 @@
       },
       "equity": {
         "listed": true,
-        "method": "claimed-as-grant-date-value",
+        "method": "grant-date-fair-market-value",
         "valued": {
-          "paise": 400000000,
-          "display": "₹40,00,000"
+          "paise": 760000000,
+          "display": "₹76,00,000"
         },
         "claimed": {
-          "paise": 400000000,
-          "display": "₹40,00,000"
+          "paise": 800000000,
+          "display": "₹80,00,000"
         },
-        "assumption": "The value the letter claims, taken as the grant-date value and held flat, because no unit count and price per unit were typed beside it. No growth in the share price is modelled, and the figure rests on the letter rather than on a market quote.",
+        "units": 2000,
+        "grant_date_fair_market_value": {
+          "paise": 380000,
+          "display": "₹3,800"
+        },
+        "assumption": "Grant-date fair market value held flat: the units multiplied by the fair market value per unit typed from the letter. No growth in the share price is modelled, so this is what the shares are worth on the grant date and not what they may be worth on any vesting date.",
         "vesting": {
           "years": [
             {
@@ -98,8 +103,7 @@
                 "display": "40%"
               }
             }
-          ],
-          "cliff_months": 12
+          ]
         },
         "perquisite": {
           "statement": "Shares delivered under a restricted stock unit grant are a specified security allotted to the employee free of cost, so their value is a perquisite under section 17(1)(d). Section 16(e) makes a perquisite part of \"salary\" and section 15(1) charges salary to income-tax under the head \"Salaries\", so the value enters total income for the tax year and bears the same rates as the rest of the salary. The gain on a later sale is a separate charge under the head \"Capital gains\", computed from a cost of acquisition that is the same fair market value.",
@@ -119,16 +123,16 @@
   ],
   "totals": {
     "headline_ctc": {
-      "paise": 640000000,
-      "display": "₹64,00,000",
+      "paise": 1000000000,
+      "display": "₹1,00,00,000",
       "components": [
         "Basic",
         "RSU grant"
       ]
     },
     "fixed_pay": {
-      "paise": 640000000,
-      "display": "₹64,00,000",
+      "paise": 1000000000,
+      "display": "₹1,00,00,000",
       "components": [
         "Basic",
         "RSU grant"
@@ -140,8 +144,8 @@
       "components": []
     },
     "guaranteed_recurring_cash": {
-      "paise": 240000000,
-      "display": "₹24,00,000",
+      "paise": 200000000,
+      "display": "₹20,00,000",
       "components": [
         "Basic"
       ]
@@ -152,8 +156,8 @@
       "components": []
     },
     "one_time_components": {
-      "paise": 400000000,
-      "display": "₹40,00,000",
+      "paise": 800000000,
+      "display": "₹80,00,000",
       "components": [
         "RSU grant"
       ]
@@ -164,15 +168,15 @@
       "components": []
     },
     "equity_as_claimed": {
-      "paise": 400000000,
-      "display": "₹40,00,000",
+      "paise": 800000000,
+      "display": "₹80,00,000",
       "components": [
         "RSU grant"
       ]
     },
     "equity_as_valued": {
-      "paise": 400000000,
-      "display": "₹40,00,000",
+      "paise": 760000000,
+      "display": "₹76,00,000",
       "components": [
         "RSU grant"
       ]
@@ -192,8 +196,8 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 240000000,
-              "display": "₹24,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -204,23 +208,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 20000000,
-              "display": "₹2,00,000"
+              "paise": 38000000,
+              "display": "₹3,80,000"
             },
             "equity_as_claimed": {
-              "paise": 20000000,
-              "display": "₹2,00,000"
+              "paise": 40000000,
+              "display": "₹4,00,000"
             },
             "total": {
-              "paise": 260000000,
-              "display": "₹26,00,000"
+              "paise": 238000000,
+              "display": "₹23,80,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 240000000,
-              "display": "₹24,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -231,23 +235,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 60000000,
-              "display": "₹6,00,000"
+              "paise": 114000000,
+              "display": "₹11,40,000"
             },
             "equity_as_claimed": {
-              "paise": 60000000,
-              "display": "₹6,00,000"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             },
             "total": {
-              "paise": 300000000,
-              "display": "₹30,00,000"
+              "paise": 314000000,
+              "display": "₹31,40,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 240000000,
-              "display": "₹24,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -258,23 +262,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 304000000,
+              "display": "₹30,40,000"
             },
             "equity_as_claimed": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 320000000,
+              "display": "₹32,00,000"
             },
             "total": {
-              "paise": 400000000,
-              "display": "₹40,00,000"
+              "paise": 504000000,
+              "display": "₹50,40,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 240000000,
-              "display": "₹24,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -285,32 +289,32 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 304000000,
+              "display": "₹30,40,000"
             },
             "equity_as_claimed": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 320000000,
+              "display": "₹32,00,000"
             },
             "total": {
-              "paise": 400000000,
-              "display": "₹40,00,000"
+              "paise": 504000000,
+              "display": "₹50,40,000"
             }
           }
         ],
         "year_one": {
-          "paise": 260000000,
-          "display": "₹26,00,000"
+          "paise": 238000000,
+          "display": "₹23,80,000"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 340000000,
-            "display": "₹34,00,000"
+            "paise": 390000000,
+            "display": "₹39,00,000"
           },
           "without_one_time": {
-            "paise": 340000000,
-            "display": "₹34,00,000"
+            "paise": 390000000,
+            "display": "₹39,00,000"
           },
           "one_time_components": []
         }
@@ -321,8 +325,8 @@
           {
             "year": 1,
             "guaranteed_recurring_cash": {
-              "paise": 240000000,
-              "display": "₹24,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -333,23 +337,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 20000000,
-              "display": "₹2,00,000"
+              "paise": 38000000,
+              "display": "₹3,80,000"
             },
             "equity_as_claimed": {
-              "paise": 20000000,
-              "display": "₹2,00,000"
+              "paise": 40000000,
+              "display": "₹4,00,000"
             },
             "total": {
-              "paise": 260000000,
-              "display": "₹26,00,000"
+              "paise": 238000000,
+              "display": "₹23,80,000"
             }
           },
           {
             "year": 2,
             "guaranteed_recurring_cash": {
-              "paise": 240000000,
-              "display": "₹24,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -360,23 +364,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 60000000,
-              "display": "₹6,00,000"
+              "paise": 114000000,
+              "display": "₹11,40,000"
             },
             "equity_as_claimed": {
-              "paise": 60000000,
-              "display": "₹6,00,000"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             },
             "total": {
-              "paise": 300000000,
-              "display": "₹30,00,000"
+              "paise": 314000000,
+              "display": "₹31,40,000"
             }
           },
           {
             "year": 3,
             "guaranteed_recurring_cash": {
-              "paise": 240000000,
-              "display": "₹24,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -387,23 +391,23 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 304000000,
+              "display": "₹30,40,000"
             },
             "equity_as_claimed": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 320000000,
+              "display": "₹32,00,000"
             },
             "total": {
-              "paise": 400000000,
-              "display": "₹40,00,000"
+              "paise": 504000000,
+              "display": "₹50,40,000"
             }
           },
           {
             "year": 4,
             "guaranteed_recurring_cash": {
-              "paise": 240000000,
-              "display": "₹24,00,000"
+              "paise": 200000000,
+              "display": "₹20,00,000"
             },
             "variable_pay_at_target": {
               "paise": 0,
@@ -414,32 +418,32 @@
               "display": "₹0"
             },
             "equity_as_valued": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 304000000,
+              "display": "₹30,40,000"
             },
             "equity_as_claimed": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 320000000,
+              "display": "₹32,00,000"
             },
             "total": {
-              "paise": 400000000,
-              "display": "₹40,00,000"
+              "paise": 504000000,
+              "display": "₹50,40,000"
             }
           }
         ],
         "year_one": {
-          "paise": 260000000,
-          "display": "₹26,00,000"
+          "paise": 238000000,
+          "display": "₹23,80,000"
         },
         "average": {
           "over_years": 4,
           "with_one_time": {
-            "paise": 340000000,
-            "display": "₹34,00,000"
+            "paise": 390000000,
+            "display": "₹39,00,000"
           },
           "without_one_time": {
-            "paise": 340000000,
-            "display": "₹34,00,000"
+            "paise": 390000000,
+            "display": "₹39,00,000"
           },
           "one_time_components": []
         }
@@ -450,7 +454,6 @@
         "name": "RSU grant",
         "unvaluable": false,
         "spread": "vesting-schedule",
-        "cliff_months": 12,
         "years": [
           {
             "year": 1,
@@ -459,12 +462,12 @@
               "display": "5%"
             },
             "as_valued": {
-              "paise": 20000000,
-              "display": "₹2,00,000"
+              "paise": 38000000,
+              "display": "₹3,80,000"
             },
             "as_claimed": {
-              "paise": 20000000,
-              "display": "₹2,00,000"
+              "paise": 40000000,
+              "display": "₹4,00,000"
             }
           },
           {
@@ -474,12 +477,12 @@
               "display": "15%"
             },
             "as_valued": {
-              "paise": 60000000,
-              "display": "₹6,00,000"
+              "paise": 114000000,
+              "display": "₹11,40,000"
             },
             "as_claimed": {
-              "paise": 60000000,
-              "display": "₹6,00,000"
+              "paise": 120000000,
+              "display": "₹12,00,000"
             }
           },
           {
@@ -489,12 +492,12 @@
               "display": "40%"
             },
             "as_valued": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 304000000,
+              "display": "₹30,40,000"
             },
             "as_claimed": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 320000000,
+              "display": "₹32,00,000"
             }
           },
           {
@@ -504,12 +507,12 @@
               "display": "40%"
             },
             "as_valued": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 304000000,
+              "display": "₹30,40,000"
             },
             "as_claimed": {
-              "paise": 160000000,
-              "display": "₹16,00,000"
+              "paise": 320000000,
+              "display": "₹32,00,000"
             }
           }
         ]
@@ -521,12 +524,12 @@
       "Basic"
     ],
     "annual": {
-      "paise": 240000000,
-      "display": "₹24,00,000"
+      "paise": 200000000,
+      "display": "₹20,00,000"
     },
     "share_of_fixed_pay": {
-      "bp": 3750,
-      "display": "37.5%"
+      "bp": 2000,
+      "display": "20%"
     },
     "citation": {
       "section": "The Code on Wages, 2019 (No. 29 of 2019), section 2(y)(i)",

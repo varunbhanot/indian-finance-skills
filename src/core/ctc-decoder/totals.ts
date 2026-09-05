@@ -82,6 +82,34 @@ export function countsTowardRecurringCashAtTarget(classification: Classification
 }
 
 /**
+ * A one-time component that lands whole in the year it arrives. Non-recurring,
+ * and not equity: a grant is non-recurring too, but its value arrives over the
+ * years its schedule names rather than all at once, so the year-by-year reading
+ * spreads it instead and counting it here would count it in year one as well.
+ * That is the one place the two readings of "one-time" differ —
+ * `one_time_components` below is every non-recurring component, grants included,
+ * because as a *total* the grant is a one-time award and belongs in it.
+ */
+export function landsWholeInYearOne(classification: Classification): boolean {
+  return !classification.recurring && classification.form !== "equity";
+}
+
+/**
+ * The two bases every reading of an offer is reported on, each paired with the
+ * predicate that selects its recurring cash: variable pay at zero, and variable
+ * pay at its quoted target. Declared once, because take-home and the
+ * year-by-year table report the same two bases in the same order and a second
+ * list is how the two would come to disagree about what a basis is. The order
+ * carries no preference (ADR 0007).
+ */
+export const BASES = [
+  { basis: "variable-pay-at-zero", counts: countsTowardGuaranteedRecurringCash },
+  { basis: "variable-pay-at-target", counts: countsTowardRecurringCashAtTarget },
+] as const;
+
+export type Basis = (typeof BASES)[number]["basis"];
+
+/**
  * Retirals are derived as "counted in CTC, but not cash now" — the deferred and
  * locked-savings forms. That is broader than the three employer contributions
  * CONTEXT.md names: a user-defined deferred component joins them. Broader is
@@ -145,8 +173,13 @@ function totalOf(
   };
 }
 
-/** A total of the amounts as typed, over the components a predicate on the axes admits. */
-function total(
+/**
+ * A total of the amounts as typed, over the components a predicate on the axes
+ * admits. Exported because the year-by-year reading needs the same figure in the
+ * same shape — a sum and the names behind it — and a second adder would be a
+ * second chance for a figure and its names to come apart.
+ */
+export function total(
   components: readonly ClassifiedComponent[],
   includes: (classification: Classification) => boolean,
 ): Total {

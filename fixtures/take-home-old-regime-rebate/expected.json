@@ -212,6 +212,270 @@
       "components": []
     }
   },
+  "year_by_year": {
+    "years_covered": 4,
+    "bases": [
+      {
+        "basis": "variable-pay-at-zero",
+        "years": [
+          {
+            "year": 1,
+            "guaranteed_recurring_cash": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            }
+          },
+          {
+            "year": 2,
+            "guaranteed_recurring_cash": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            }
+          },
+          {
+            "year": 3,
+            "guaranteed_recurring_cash": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            }
+          },
+          {
+            "year": 4,
+            "guaranteed_recurring_cash": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            }
+          }
+        ],
+        "year_one": {
+          "paise": 54000000,
+          "display": "₹5,40,000"
+        },
+        "average": {
+          "over_years": 4,
+          "with_one_time": {
+            "paise": 54000000,
+            "display": "₹5,40,000"
+          },
+          "without_one_time": {
+            "paise": 54000000,
+            "display": "₹5,40,000"
+          },
+          "one_time_components": []
+        }
+      },
+      {
+        "basis": "variable-pay-at-target",
+        "years": [
+          {
+            "year": 1,
+            "guaranteed_recurring_cash": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 10000000,
+              "display": "₹1,00,000"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 64000000,
+              "display": "₹6,40,000"
+            }
+          },
+          {
+            "year": 2,
+            "guaranteed_recurring_cash": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 10000000,
+              "display": "₹1,00,000"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 64000000,
+              "display": "₹6,40,000"
+            }
+          },
+          {
+            "year": 3,
+            "guaranteed_recurring_cash": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 10000000,
+              "display": "₹1,00,000"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 64000000,
+              "display": "₹6,40,000"
+            }
+          },
+          {
+            "year": 4,
+            "guaranteed_recurring_cash": {
+              "paise": 54000000,
+              "display": "₹5,40,000"
+            },
+            "variable_pay_at_target": {
+              "paise": 10000000,
+              "display": "₹1,00,000"
+            },
+            "one_time": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_valued": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "equity_as_claimed": {
+              "paise": 0,
+              "display": "₹0"
+            },
+            "total": {
+              "paise": 64000000,
+              "display": "₹6,40,000"
+            }
+          }
+        ],
+        "year_one": {
+          "paise": 64000000,
+          "display": "₹6,40,000"
+        },
+        "average": {
+          "over_years": 4,
+          "with_one_time": {
+            "paise": 64000000,
+            "display": "₹6,40,000"
+          },
+          "without_one_time": {
+            "paise": 64000000,
+            "display": "₹6,40,000"
+          },
+          "one_time_components": []
+        }
+      }
+    ],
+    "grants": []
+  },
   "basic": {
     "components": [
       "Basic"

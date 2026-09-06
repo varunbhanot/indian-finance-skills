@@ -1,6 +1,6 @@
 # Triage Labels
 
-The skills speak in terms of five canonical triage roles. This file maps those roles to the actual label strings used in this repo's issue tracker.
+The `/triage` skill speaks in terms of five canonical triage roles. This file maps those roles to the actual label strings used in this repo's issue tracker. The skill itself is not vendored here; CONTRIBUTING.md says how to load it.
 
 | Label in mattpocock/skills | Label in our tracker | Meaning                                  |
 | -------------------------- | -------------------- | ---------------------------------------- |

@@ -1,5 +1,13 @@
+#!/usr/bin/env node
 /**
- * CLI seam for the CTC decoder (ADR 0003): `npm run ctc-decoder -- '<json>'`.
+ * CLI seam for the CTC decoder (ADR 0003): `npm run ctc-decoder -- '<json>'`
+ * from the repository root, or — where the skill was installed into another
+ * project and no repository root exists — the same file as the package's
+ * `ctc-decoder` bin, reached through
+ * `npx --yes --package=github:varunbhanot/indian-finance-skills ctc-decoder '<json>'`
+ * (ADR 0020). The shebang above is what makes the second form work: npm links
+ * the bin to this file and Node 22.18+ runs the `.ts` directly.
+ *
  * Prints one JSON document to stdout on success. On rejection prints a JSON
  * error to stderr and exits non-zero. No arithmetic lives here.
  */
@@ -27,7 +35,7 @@ if (argument === undefined || process.argv.length > 3) {
     {
       code: "usage",
       message:
-        "expected exactly one argument: the offer as a JSON document, e.g. npm run ctc-decoder -- '{\"financial_year\":\"2026-27\",\"components\":[...]}'",
+        "expected exactly one argument: the offer as a JSON document, e.g. npm run ctc-decoder -- '{\"financial_year\":\"2026-27\",\"components\":[...]}' from the repository root, or npx --yes --package=github:varunbhanot/indian-finance-skills ctc-decoder '{...}' from anywhere else",
     },
     EXIT_REJECTED,
   );

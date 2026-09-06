@@ -206,4 +206,13 @@ by a contributor, not CI.
    it returns (ADR 0003). No arithmetic, no rate recalled from memory, and every
    rupee figure said is a `display` string copied from that tool's input or
    output.
-5. Open a PR describing what the skill does and when it should trigger.
+5. Make that entrypoint reachable from outside the clone (ADR 0020). The
+   `skills` CLI copies the skill's directory into another project and nothing
+   beside it, so: declare the entrypoint as a `bin` in `package.json`, give the
+   file a `#!/usr/bin/env node` first line, and have `SKILL.md` give both forms
+   of the command — `npm run <name> -- '<json>'` from the repository root, and
+   `npx --yes --package=github:varunbhanot/indian-finance-skills <name> '<json>'`
+   from anywhere else — saying which applies where.
+   `test/skills-reach-the-core-from-outside.test.ts` fails a skill that gives
+   only the first, and an entrypoint in `src/cli/` that is not a bin.
+6. Open a PR describing what the skill does and when it should trigger.

@@ -8,6 +8,9 @@
   "engines": {
     "node": ">=22.18"
   },
+  "bin": {
+    "ctc-decoder": "src/cli/ctc-decoder.ts"
+  },
   "scripts": {
     "ctc-decoder": "node src/cli/ctc-decoder.ts",
     "record-transcript": "node scripts/record-transcript.ts",

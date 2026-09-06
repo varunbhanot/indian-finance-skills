@@ -37,7 +37,12 @@ even to confirm you read the right letter (ADR 0011). Name a line by what the
 letter calls it, never by who it belongs to.
 
 The catalogue types are the keys under `groups.components.entries` in
-`rules/fy<YYYY-YY>.yaml`; read them from the file. A line no type fits is
+`rules/fy<YYYY-YY>.yaml`; read them from the file. Inside the repository that
+is the file at `rules/`; where this skill was installed into another project
+there is no local copy (ADR 0020), so read
+`https://raw.githubusercontent.com/varunbhanot/indian-finance-skills/main/rules/fy<YYYY-YY>.yaml`
+instead. Either way the CLI refuses a type the file does not carry, so a
+misread costs a rerun and nothing else. A line no type fits is
 classified inline with `certainty`, `form` and `recurring` — three questions to
 the user, whose answers are theirs.
 
@@ -123,11 +128,30 @@ is the typing (ADR 0011).
 
 ## 4. Run
 
-From the repository root:
+One command in two forms, and where you are decides which:
 
-```
-npm run ctc-decoder -- '<json>'
-```
+- **Inside the repository** — the working directory holds a `package.json`
+  whose `name` is `indian-finance-skills`, with `src/`, `rules/` and
+  `.claude/skills/` beside it:
+
+  ```
+  npm run ctc-decoder -- '<json>'
+  ```
+
+- **Anywhere else** — this skill was installed into the project by the
+  `skills` CLI, and only this directory came with it (ADR 0020):
+
+  ```
+  npx --yes --package=github:varunbhanot/indian-finance-skills ctc-decoder '<json>'
+  ```
+
+  The first run clones the repository into npm's cache and installs its one
+  dependency, which takes a moment and needs git and Node 22.18 or later;
+  later runs reuse the cache. A failure naming `ERR_UNKNOWN_FILE_EXTENSION` is
+  Node below 22.18 and not a fault in the offer: say so.
+
+Both forms run the same file against the same `rules/`; the JSON in and the
+JSON out are identical.
 
 Success prints the decoded offer on stdout. A rejection prints
 `{ "error": { "code", "message", "path" } }` on stderr: relay `message`, fix

@@ -93,6 +93,14 @@ Node 22.18+ runs the `.ts` sources directly, so there is no build step:
 TypeScript syntax is used (no enums, no parameter properties); `tsc` enforces
 both.
 
+Every entrypoint in `src/cli/` is also a `bin` in `package.json`, beginning
+with `#!/usr/bin/env node`, so a skill the `skills` CLI has copied into another
+project — where there is no repository root for `npm run` — reaches the same
+file through `npx --yes --package=github:varunbhanot/indian-finance-skills
+<bin> '<json>'` (ADR 0020). Every `SKILL.md` gives both forms and says which
+applies where; `test/skills-reach-the-core-from-outside.test.ts` holds all
+three parts of that.
+
 Layout: `src/core/` is the deterministic core (linted for floats), `src/cli/`
 the entrypoints, `rules/` the YAML, `fixtures/` the behavioural tests, `test/`
 the runners and invariant checks.

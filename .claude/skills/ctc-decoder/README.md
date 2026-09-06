@@ -81,10 +81,17 @@ password, a PAN or an account number.
 ## How it runs
 
 The skill calls the core through its CLI entrypoint and narrates the JSON it
-returns:
+returns. From the repository root:
 
 ```
 npm run ctc-decoder -- '<json>'
+```
+
+Installed into another project by the `skills` CLI, where only this directory
+came along, it reaches the same file through npm's cache (ADR 0020):
+
+```
+npx --yes --package=github:varunbhanot/indian-finance-skills ctc-decoder '<json>'
 ```
 
 Rules it reads live in `rules/fy<YYYY-YY>.yaml`; the judgement thresholds

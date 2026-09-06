@@ -186,3 +186,13 @@ Either a **rules benchmark** (a statutory rate with a primary source, such as
 PPF) or a **typed benchmark** (a figure the user asserts and the output labels
 as theirs). Never a default the tool chose.
 _Avoid_: "growth benchmark", "market return", "expected return".
+
+**Nominal IRR** — the single annual rate at which a policy's premiums, survival
+benefits and maturity benefit reconcile, before any allowance for inflation.
+The policy's own figure; a benchmark is compared against it, never mixed into
+it.
+
+**Real return** — the nominal IRR deflated by a typed inflation figure through
+the Fisher relation, `(1 + nominal) ÷ (1 + inflation) − 1`. Never the
+subtraction `nominal − inflation`, which is a different and larger number.
+_Avoid_: "inflation-adjusted return" as a synonym for the subtraction.

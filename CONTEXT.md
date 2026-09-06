@@ -253,3 +253,9 @@ across every policy the person holds, the premium's ratio to the sum assured,
 and the policy's issue date. Each is stated on its own; the tool never
 computes the tax. Death proceeds are exempt regardless.
 _Avoid_: "10(10D) flag" as if it were one check.
+
+**Classification** — a stated fact about the figures the tool emitted: a
+**comparison** (two figures both in the output, and which side the first
+landed on) or a **statute** (a rules-file condition with its citation). Never a
+verdict, a score or a threshold the tool authored.
+_Avoid_: "verdict", "rating", "recommendation".

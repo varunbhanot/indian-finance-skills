@@ -10,11 +10,8 @@
  * error to stderr and exits non-zero. No arithmetic lives here.
  */
 import { decode } from "../core/ctc-decoder/decode.ts";
-import {
-  DecoderError,
-  type DecoderErrorCode,
-  type ErrorReport,
-} from "../core/ctc-decoder/errors.ts";
+import { DecoderError, type DecoderErrorCode } from "../core/ctc-decoder/errors.ts";
+import type { ErrorReport } from "../core/errors.ts";
 
 /** Rejections that arise before the core sees an offer, plus the catch-all. */
 type CliErrorCode = "usage" | "invalid_json" | "internal_error";

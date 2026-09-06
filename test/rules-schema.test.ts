@@ -14,7 +14,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { DEFAULT_RULES_DIRECTORY, listRulesFiles, loadRulesFile } from "../src/core/rules/files.ts";
 import type { RulesDocument, RulesValue } from "../src/core/rules/loader.ts";
-import { documentIn, type Source } from "../src/core/ctc-decoder/rules-reader.ts";
+import { documentIn } from "../src/core/ctc-decoder/rules-reader.ts";
+import type { Source } from "../src/core/sources.ts";
 
 // Named explicitly: this checks the repository's own rules, never a directory a
 // fixture or an ambient CTC_DECODER_RULES_DIR points at (ADR 0009).

@@ -47,3 +47,30 @@ export function divideWithRemainder(dividend: number, divisor: number): Division
   }
   return { quotient, remainder };
 }
+
+/**
+ * `dividend ÷ divisor` when the dividend may be negative. `divideWithRemainder`
+ * only accepts a non-negative one, so this splits the sign off first, divides
+ * the magnitude through it, and reapplies the sign to both the quotient and
+ * the remainder — the same split-sign-divide-magnitude-reapply-sign pattern
+ * `perMonth` in `money.ts` uses for a negative annual figure, generalised to
+ * any divisor rather than one money already knows (twelve).
+ *
+ * A balance an IRR solver rolls forward is negative from the first year,
+ * because premiums leave before any benefit arrives, and every later year
+ * still divides that signed balance by a positive rate denominator — the
+ * case this helper exists for.
+ *
+ * A zero quotient or remainder is reapplied as `0`, never `-0`: the sign
+ * belongs to a magnitude that was actually discarded, and a whole division or
+ * an exact remainder discarded none.
+ */
+export function divideSignedWithRemainder(dividend: number, divisor: number): Division {
+  const negative = dividend < 0;
+  const { quotient, remainder } = divideWithRemainder(negative ? -dividend : dividend, divisor);
+  if (!negative) return { quotient, remainder };
+  return {
+    quotient: quotient === 0 ? 0 : -quotient,
+    remainder: remainder === 0 ? 0 : -remainder,
+  };
+}

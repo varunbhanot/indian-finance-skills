@@ -16,8 +16,9 @@
  */
 import type { RulesFile } from "../rules/files.ts";
 import type { RulesValue } from "../rules/loader.ts";
+import type { Source } from "../sources.ts";
 import { readClassification, type Classification } from "./classification.ts";
-import { isRulesMap, rulesFileInvalid, type Source } from "./rules-reader.ts";
+import { isRulesMap, rulesFileInvalid } from "./rules-reader.ts";
 
 const CATALOGUE_GROUP = "components";
 export const CATALOGUE_GROUP_KEY = `groups.${CATALOGUE_GROUP}`;

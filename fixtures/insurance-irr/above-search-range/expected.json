@@ -1,0 +1,47 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "rules/fy2026-27.yaml",
+  "linked": false,
+  "annual_premium": {
+    "paise": 1000000,
+    "display": "₹10,000"
+  },
+  "premium_paying_term": 1,
+  "policy_term": 1,
+  "sum_assured": {
+    "paise": 5000000,
+    "display": "₹50,000"
+  },
+  "scenarios": [
+    {
+      "name": "guaranteed",
+      "maturity_benefit": {
+        "paise": 5000000,
+        "display": "₹50,000"
+      },
+      "survival_benefits": [],
+      "irr": null,
+      "real_return": null
+    }
+  ],
+  "premiums_paid": 0,
+  "inflation": {
+    "bp": 500,
+    "display": "5%",
+    "source": "user-typed"
+  },
+  "classifications": [
+    {
+      "code": "above-search-range",
+      "kind": "comparison",
+      "scenario": "guaranteed",
+      "measured": {
+        "search_ceiling": {
+          "bp": 10000,
+          "display": "100%"
+        }
+      }
+    }
+  ],
+  "sources": []
+}

@@ -655,6 +655,33 @@ groups:
       entries:
         - basic
 
+  # The RBI's inflation target (ADR 0013 [insurance-irr]): a statutory target
+  # under section 45ZA of the RBI Act, 1934, not a forecast and not a
+  # measurement. The core never reads this as a default -- inflation_bp stays
+  # mandatory input -- but when the figure the user confirms happens to equal
+  # this one, the output cites it rather than recording the figure as merely
+  # user-typed.
+  inflation_target:
+    title: 'Reserve Bank of India, "Monetary Policy -- Overview"'
+    source: https://www.rbi.org.in/scripts/FS_Overview.aspx?fn=2752
+    retrieved: 2026-09-06
+    effective_from: 2026-04-01
+    effective_to: 2031-03-31
+    section: >-
+      Reserve Bank of India Act, 1934, section 45ZA, and the Government of
+      India's notification retaining the inflation target and tolerance band
+      for the five-year period 1 April 2026 to 31 March 2031
+    note: >-
+      "In its second review, on March 25, 2026, the Central Government
+      retained the inflation target and the tolerance band for the next
+      5-year period -- April 1, 2026 to March 31, 2031." A target is a policy
+      objective, not a forecast or a measurement (ADR 0013 [insurance-irr]):
+      a figure the user confirms against it is cited as a statutory target,
+      never as an expected rate of inflation.
+    rate: 0.04
+    lower_tolerance_rate: 0.02
+    upper_tolerance_rate: 0.06
+
   # Gratuity: what basic drives on termination of employment (spec #7). Only the
   # accrual formula, the qualifying service period and the wage base are carried;
   # this file computes no gratuity figure.

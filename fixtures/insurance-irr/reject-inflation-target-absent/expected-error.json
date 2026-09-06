@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "rule_absent",
+    "message": "fixtures/insurance-irr/reject-inflation-target-absent/rules/fy2026-27.yaml carries no groups.inflation_target: the statutory inflation target is absent, so a typed figure cannot be compared against it",
+    "details": {
+      "rules_file": "fixtures/insurance-irr/reject-inflation-target-absent/rules/fy2026-27.yaml",
+      "rules_key": "groups.inflation_target"
+    }
+  }
+}

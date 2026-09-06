@@ -37,8 +37,9 @@ and Paid-up side by side as three rows of terminal wealth.
 are the whole design, the glossary terms are in the root `CONTEXT.md` under
 *Insurance*, and the primary sources for every rule it will read are in
 [`docs/research/insurance-irr-statutory-sources.md`](../../../docs/research/insurance-irr-statutory-sources.md).
-The tickets that build it name their rules keys and fixtures; until they are
-closed the skill's `SKILL.md` says so and computes nothing.
+Spec #63 describes the build — the input, every rules group and its source,
+the classifications, and the fixture suite that is its contract. Until it is
+built the skill's `SKILL.md` says so and computes nothing.
 
 ## What it deliberately won't do
 

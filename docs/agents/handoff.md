@@ -23,25 +23,22 @@ not built**. Nothing under `src/` changed.
   `test/skills-are-this-projects-own.test.ts` passes. Ticket 9/9 replaces them.
 - Root `README.md` has the skill's row, status "Designed, not built".
 
-## The tickets
+## The spec
 
-Nine GitHub issues, `ready-for-agent`, chained with `Blocked by:` lines. Each
-names its ADRs, rules keys and fixtures, per CLAUDE.md § Tickets.
+Issue **#63**, `ready-for-agent`, written by `/to-spec` from this session:
+problem, solution, 44 user stories, the implementation decisions (input
+shape, every rules group and its source, the classification codes, the
+rejections), the testing decisions (one seam — the CLI — and the full fixture
+list), and what is out of scope. Tickets have **not** been cut from it: that
+is `/to-tickets`'s job, one ticket per rules group or module, each naming its
+rules keys and fixtures per CLAUDE.md § Tickets.
 
-| # | Ticket | Blocked by |
-|---|---|---|
-| #53 | 1/9 CLI entrypoint, input schema, rejections | — |
-| #54 | 2/9 IRR by bisection, Fisher real return, `inflation_target` | #53 |
-| #55 | 3/9 GST nil rate applied and cited | #53 |
-| #56 | 7/9 taxability classifications | #53 |
-| #57 | 4/9 comparison columns, PPF from rules, typed benchmarks | #54, #55 |
-| #58 | 6/9 illustration scenarios | #54 |
-| #59 | 5/9 in-force rows, in-force IRR, regulatory floors | #57 |
-| #60 | 8/9 classifications, sources, output invariants | #56, #57, #58, #59 |
-| #61 | 9/9 SKILL.md, README status, transcript | #60 |
+Issues #53–#61 were nine tickets cut prematurely in this session before the
+spec existed; they are closed as not planned and should not be reopened — cut
+fresh ones from #63.
 
-Start with #53. One ticket per context window; `/clear` between; restart the
-working branch from `origin/main` first (CLAUDE.md § Every session starts from
+Then one ticket per context window; `/clear` between; restart the working
+branch from `origin/main` first (CLAUDE.md § Every session starts from
 `main`).
 
 ## The decisions in one breath

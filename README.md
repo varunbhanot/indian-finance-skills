@@ -11,6 +11,7 @@ threshold traced to its primary source. No skill ever tells you what to do.
 | Skill | What it does | Status |
 |---|---|---|
 | [CTC decoder](.claude/skills/ctc-decoder/README.md) | Decodes an offer letter's CTC into guaranteed recurring cash, values equity, lays the package out year by year, and estimates take-home under both tax regimes. | Shipped for FY 2026-27. Spec #4's stories are all built; the [known gaps](.claude/skills/ctc-decoder/README.md#what-it-does-not-do-yet) are specific and listed. |
+| [Insurance IRR](.claude/skills/insurance-irr/README.md) | Reduces a life insurance policy to its nominal IRR and real return, sets it beside what the same premiums do elsewhere, and lays Keep, Surrender and Paid-up side by side for a policy in force. | Designed, not built. Sixteen [ADRs](.claude/skills/insurance-irr/docs/adr/) fix the design; the tickets that build it are open. |
 
 More skills will be added here as they are built.
 

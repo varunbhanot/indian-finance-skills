@@ -246,3 +246,10 @@ IRR and never derives one scenario from another.
 showing benefits under each regulatory scenario. The source every
 non-guaranteed figure is confirmed against.
 _Avoid_: "brochure" (a brochure headlines; an illustration tabulates).
+
+**Maturity taxability** — whether a policy's maturity proceeds are exempt from
+income tax, which turns on three separate conditions: the aggregate premium
+across every policy the person holds, the premium's ratio to the sum assured,
+and the policy's issue date. Each is stated on its own; the tool never
+computes the tax. Death proceeds are exempt regardless.
+_Avoid_: "10(10D) flag" as if it were one check.

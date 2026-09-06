@@ -206,4 +206,17 @@ by a contributor, not CI.
    it returns (ADR 0003). No arithmetic, no rate recalled from memory, and every
    rupee figure said is a `display` string copied from that tool's input or
    output.
-5. Open a PR describing what the skill does and when it should trigger.
+5. Make that entrypoint reachable from outside the clone (ADR 0020). The
+   `skills` CLI copies the skill's directory into another project and nothing
+   beside it, so `npm run <name>` has no repository root to run from there —
+   and an npm-installed copy of the entrypoint cannot run its `.ts` source at
+   all, because Node refuses to strip types from a file under `node_modules`
+   with no override, which rules out reaching it through `npx` or a `bin`.
+   Have `SKILL.md` give both forms of the command and say which applies
+   where: `npm run <name> -- '<json>'` from the repository root, and, against
+   a clone kept in a cache directory,
+   `node <clone>/src/cli/<name>.ts '<json>'` from anywhere else.
+   `test/skills-reach-the-core-from-outside.test.ts` fails a `SKILL.md` that
+   gives only the first form, or whose second form names a file that does not
+   exist under `src/cli/`.
+6. Open a PR describing what the skill does and when it should trigger.

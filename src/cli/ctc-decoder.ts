@@ -1,5 +1,11 @@
 /**
- * CLI seam for the CTC decoder (ADR 0003): `npm run ctc-decoder -- '<json>'`.
+ * CLI seam for the CTC decoder (ADR 0003): `npm run ctc-decoder -- '<json>'`
+ * from the repository root, or — where a skill has only its own directory,
+ * with no repository root beside it — `node <clone>/src/cli/ctc-decoder.ts
+ * '<json>'` against a clone in a cache directory (ADR 0020). Node 22.18+ runs
+ * this file directly either way; what differs is only the path in front of
+ * it, never the file itself.
+ *
  * Prints one JSON document to stdout on success. On rejection prints a JSON
  * error to stderr and exits non-zero. No arithmetic lives here.
  */
@@ -27,7 +33,7 @@ if (argument === undefined || process.argv.length > 3) {
     {
       code: "usage",
       message:
-        "expected exactly one argument: the offer as a JSON document, e.g. npm run ctc-decoder -- '{\"financial_year\":\"2026-27\",\"components\":[...]}'",
+        "expected exactly one argument: the offer as a JSON document, e.g. npm run ctc-decoder -- '{\"financial_year\":\"2026-27\",\"components\":[...]}' from the repository root, or node <clone>/src/cli/ctc-decoder.ts '{...}' against a cached clone from anywhere else",
     },
     EXIT_REJECTED,
   );

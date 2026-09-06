@@ -16,7 +16,23 @@ More skills will be added here as they are built.
 
 ## Using a skill
 
-Clone the repository and start Claude Code inside it. The skills load
+Two routes, and both need git and Node 22.18 or later.
+
+**Add a skill to a project you already have** with the
+[`skills` CLI](https://skills.sh), from inside that project:
+
+```
+npx skills add varunbhanot/indian-finance-skills
+```
+
+It lists the skills in the table above and copies the ones you pick into the
+project's skills directory, for Claude Code or whichever coding agent you name
+with `-a`. The arithmetic does not come with the copy: the first time a skill
+runs its core, it clones this repository into a cache directory and runs the
+core from there, and later runs just pull and reuse that clone (ADR 0020).
+Nothing is installed into your project beyond the skill's own directory.
+
+**Or clone the repository** and start Claude Code inside it. The skills load
 themselves from `.claude/skills/`, which is where Claude Code reads a project's
 skills from, so there is nothing to install or enable beyond the dependency the
 arithmetic needs:

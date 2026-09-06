@@ -37,7 +37,12 @@ even to confirm you read the right letter (ADR 0011). Name a line by what the
 letter calls it, never by who it belongs to.
 
 The catalogue types are the keys under `groups.components.entries` in
-`rules/fy<YYYY-YY>.yaml`; read them from the file. A line no type fits is
+`rules/fy<YYYY-YY>.yaml`; read them from the file. Inside the repository that
+is the file at `rules/`; where this skill was installed into another project
+there is no local copy (ADR 0020), so read
+`https://raw.githubusercontent.com/varunbhanot/indian-finance-skills/main/rules/fy<YYYY-YY>.yaml`
+instead. Either way the CLI refuses a type the file does not carry, so a
+misread costs a rerun and nothing else. A line no type fits is
 classified inline with `certainty`, `form` and `recurring` — three questions to
 the user, whose answers are theirs.
 
@@ -123,11 +128,38 @@ is the typing (ADR 0011).
 
 ## 4. Run
 
-From the repository root:
+One command in two forms, and where you are decides which:
 
-```
-npm run ctc-decoder -- '<json>'
-```
+- **Inside the repository** — the working directory holds a `package.json`
+  whose `name` is `indian-finance-skills`, with `src/`, `rules/` and
+  `.claude/skills/` beside it:
+
+  ```
+  npm run ctc-decoder -- '<json>'
+  ```
+
+- **Anywhere else** — this skill was installed into the project by the
+  `skills` CLI, and only this directory came with it (ADR 0020). Keep a clone
+  in a cache directory and run the file in it directly — `npm run` has no
+  repository root to run from here, and an npm-installed copy cannot run its
+  `.ts` source at all (Node refuses to strip types from anything under
+  `node_modules`, with no override):
+
+  ```
+  [ -d ~/.cache/indian-finance-skills/.git ] \
+    && git -C ~/.cache/indian-finance-skills pull --ff-only -q \
+    || git clone -q --depth 1 https://github.com/varunbhanot/indian-finance-skills ~/.cache/indian-finance-skills
+  (cd ~/.cache/indian-finance-skills && npm install --no-fund --no-audit -q)
+  node ~/.cache/indian-finance-skills/src/cli/ctc-decoder.ts '<json>'
+  ```
+
+  The first run clones and installs, which takes a moment and needs git and
+  Node 22.18 or later; later runs just `pull` and reuse the checkout. A
+  failure naming `ERR_UNKNOWN_FILE_EXTENSION` is Node below 22.18 and not a
+  fault in the offer: say so.
+
+Both forms run the same file against the same `rules/`; the JSON in and the
+JSON out are identical.
 
 Success prints the decoded offer on stdout. A rejection prints
 `{ "error": { "code", "message", "path" } }` on stderr: relay `message`, fix

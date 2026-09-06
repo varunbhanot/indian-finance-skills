@@ -93,6 +93,18 @@ Node 22.18+ runs the `.ts` sources directly, so there is no build step:
 TypeScript syntax is used (no enums, no parameter properties); `tsc` enforces
 both.
 
+A skill the `skills` CLI has copied into another project has no repository
+root for `npm run` to run from, and an npm-installed copy of a `src/cli/`
+entrypoint cannot run its `.ts` source at all — Node refuses to strip types
+from a file under `node_modules`, with no override — so `npx` and a `bin`
+are both out. Every such skill's `SKILL.md` instead gives a second form:
+clone the repository into a cache directory and run
+`node <clone>/src/cli/<name>.ts '<json>'` there directly, no npm install of
+the package itself involved (ADR 0020).
+`test/skills-reach-the-core-from-outside.test.ts` holds that every `SKILL.md`
+with an `npm run <name>` line also gives that second form, naming a real file
+under `src/cli/`.
+
 Layout: `src/core/` is the deterministic core (linted for floats), `src/cli/`
 the entrypoints, `rules/` the YAML, `fixtures/` the behavioural tests, `test/`
 the runners and invariant checks.

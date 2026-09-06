@@ -1,7 +1,7 @@
 # Context
 
 The domain language of this project. Glossary only — no implementation
-details, no decisions (those live in `docs/adr/`).
+details, no decisions (those live in `.claude/skills/ctc-decoder/docs/adr/`).
 
 ## Tax year
 

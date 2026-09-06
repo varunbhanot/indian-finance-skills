@@ -77,6 +77,42 @@ Then one ticket per context window; `/clear` between; restart the working
 branch from `origin/main` first (CLAUDE.md § Every session starts from
 `main`).
 
+## Progress: #64, #65, #66 built and merged; the fan-out is next
+
+PR #75 (#64), #76 (#65) and #77 (#66) — merged in that order. `irr`,
+`real_return` and `classifications` land **per scenario**
+(`scenarios[n].irr`, not a top-level field), even with only `guaranteed` to
+run yet: #71 extends the array rather than restructuring the output.
+`classifications` carries `scenario` naming which one a finding is about.
+`inflation-target.ts` is a small self-contained reader, not a
+generalisation of the CTC decoder's `RulesNode` — that reader's
+`citation()` throws a `DecoderError` this skill may not raise. Every
+solver fixture's IRR was independently verified by a from-scratch `BigInt`
+script, never by running the CLI first. A latent `money.ts` formatting bug
+(a negative rate under 100 bp displayed as `-.97%`, missing its leading
+digit) surfaced by #66's own output and fixed the same commit, the way
+`formatIndianRupees` already handles a negative amount.
+
+**A collision, resolved.** Two sessions built #66 independently on this
+shared branch — this is a hazard of one working branch shared across
+sessions, worth naming so the next one checks `git log` and
+`git fetch origin <branch>` before assuming a clean start, even mid-ticket.
+Both implementations were algorithmically equivalent (roll-forward,
+signed division, bisection, a saturating clamp against overflow) but
+diverged on output shape: one put `irr`/`real_return` at the top level
+(scoped to `guaranteed` only, since that was all this ticket runs), the
+other per-scenario as above. The per-scenario shape was kept — it needs no
+restructuring when #71 generalises to every scenario — and the top-level
+attempt was discarded rather than merged: two solver modules side by side
+would have been a worse outcome than picking the better one. Discarding
+work is not itself the lesson; the lesson is to check the shared branch's
+tip before building on an assumption of who last touched it.
+
+#67, #68 and #69 all read only what #66 produced and can now proceed
+independently — but not concurrently on this one branch, per the collision
+above. Pick one ticket, finish and merge it, `/clear`, restart from
+`origin/main`, then the next.
+
 ## The decisions in one breath
 
 Figures and a classification, never a verdict (0001). A benchmark is a rule

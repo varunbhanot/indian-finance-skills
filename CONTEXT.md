@@ -235,3 +235,14 @@ and the tool cannot compute that one.
 `regulatory-floor`, or `insurer-defined` when the regulation leaves the year
 to the insurer and the tool emits nothing. Every surrender and paid-up figure
 carries one.
+
+**Scenario** — one set of benefit figures for the same policy: `guaranteed`
+(only what the contract guarantees in absolute amount) or an illustration
+scenario named by the regulator's gross rate (4%, 8%). The figures are the
+insurer's, read from its benefit illustration; the tool reduces each to an
+IRR and never derives one scenario from another.
+
+**Benefit illustration** — the document an insurer must give before sale,
+showing benefits under each regulatory scenario. The source every
+non-guaranteed figure is confirmed against.
+_Avoid_: "brochure" (a brochure headlines; an illustration tabulates).

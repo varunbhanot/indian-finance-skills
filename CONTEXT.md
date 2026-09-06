@@ -196,3 +196,14 @@ it.
 the Fisher relation, `(1 + nominal) ÷ (1 + inflation) − 1`. Never the
 subtraction `nominal − inflation`, which is a different and larger number.
 _Avoid_: "inflation-adjusted return" as a synonym for the subtraction.
+
+**Comparison column** — one world in which the same premiums are spent: the
+policy as written, or term cover plus the difference invested at one benchmark.
+Every figure in a column is compounded at that column's benchmark, survival
+benefits included, so columns are compared and never mixed. The distance
+between two columns is the reader's to see; it is never itself a figure.
+
+**Buy term, invest the difference (BTID)** — the alternative a comparison
+column models: a typed term premium buys the cover, and what remains of the
+policy's premium is invested. The term premium and the cover it buys are the
+user's figures, never the tool's estimate.

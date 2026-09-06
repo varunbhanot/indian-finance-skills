@@ -139,16 +139,24 @@ One command in two forms, and where you are decides which:
   ```
 
 - **Anywhere else** — this skill was installed into the project by the
-  `skills` CLI, and only this directory came with it (ADR 0020):
+  `skills` CLI, and only this directory came with it (ADR 0020). Keep a clone
+  in a cache directory and run the file in it directly — `npm run` has no
+  repository root to run from here, and an npm-installed copy cannot run its
+  `.ts` source at all (Node refuses to strip types from anything under
+  `node_modules`, with no override):
 
   ```
-  npx --yes --package=github:varunbhanot/indian-finance-skills ctc-decoder '<json>'
+  [ -d ~/.cache/indian-finance-skills/.git ] \
+    && git -C ~/.cache/indian-finance-skills pull --ff-only -q \
+    || git clone -q --depth 1 https://github.com/varunbhanot/indian-finance-skills ~/.cache/indian-finance-skills
+  (cd ~/.cache/indian-finance-skills && npm install --no-fund --no-audit -q)
+  node ~/.cache/indian-finance-skills/src/cli/ctc-decoder.ts '<json>'
   ```
 
-  The first run clones the repository into npm's cache and installs its one
-  dependency, which takes a moment and needs git and Node 22.18 or later;
-  later runs reuse the cache. A failure naming `ERR_UNKNOWN_FILE_EXTENSION` is
-  Node below 22.18 and not a fault in the offer: say so.
+  The first run clones and installs, which takes a moment and needs git and
+  Node 22.18 or later; later runs just `pull` and reuse the checkout. A
+  failure naming `ERR_UNKNOWN_FILE_EXTENSION` is Node below 22.18 and not a
+  fault in the offer: say so.
 
 Both forms run the same file against the same `rules/`; the JSON in and the
 JSON out are identical.

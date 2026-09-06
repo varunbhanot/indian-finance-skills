@@ -88,10 +88,15 @@ npm run ctc-decoder -- '<json>'
 ```
 
 Installed into another project by the `skills` CLI, where only this directory
-came along, it reaches the same file through npm's cache (ADR 0020):
+came along, it reaches the same file through a clone kept in a cache
+directory (ADR 0020):
 
 ```
-npx --yes --package=github:varunbhanot/indian-finance-skills ctc-decoder '<json>'
+[ -d ~/.cache/indian-finance-skills/.git ] \
+  && git -C ~/.cache/indian-finance-skills pull --ff-only -q \
+  || git clone -q --depth 1 https://github.com/varunbhanot/indian-finance-skills ~/.cache/indian-finance-skills
+(cd ~/.cache/indian-finance-skills && npm install --no-fund --no-audit -q)
+node ~/.cache/indian-finance-skills/src/cli/ctc-decoder.ts '<json>'
 ```
 
 Rules it reads live in `rules/fy<YYYY-YY>.yaml`; the judgement thresholds

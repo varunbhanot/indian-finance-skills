@@ -28,9 +28,9 @@ npx skills add varunbhanot/indian-finance-skills
 It lists the skills in the table above and copies the ones you pick into the
 project's skills directory, for Claude Code or whichever coding agent you name
 with `-a`. The arithmetic does not come with the copy: the first time a skill
-runs its core, `npx` fetches this repository into npm's cache and runs the
-core from there, and later runs reuse it (ADR 0020). Nothing is installed into
-your project beyond the skill's own directory.
+runs its core, it clones this repository into a cache directory and runs the
+core from there, and later runs just pull and reuse that clone (ADR 0020).
+Nothing is installed into your project beyond the skill's own directory.
 
 **Or clone the repository** and start Claude Code inside it. The skills load
 themselves from `.claude/skills/`, which is where Claude Code reads a project's

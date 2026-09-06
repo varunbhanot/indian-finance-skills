@@ -3,21 +3,22 @@
  *
  * `npx skills add varunbhanot/indian-finance-skills` copies a skill's directory
  * and nothing beside it, so the repository root that `npm run <name>` needs is
- * not there. The route that works from anywhere is the package's `bin`:
- * `npx --yes --package=github:varunbhanot/indian-finance-skills <name> '<json>'`.
- * Three things have to hold for that, and each is easy to forget when adding a
- * skill, so each is a test rather than a note:
+ * not there. Reaching the entrypoint through an npm install instead — a `bin`,
+ * run via `npx` — does not work either: Node refuses to strip types from any
+ * file resolved under `node_modules`, which is exactly where an npm install
+ * puts one, and there is no flag to lift that. The route that actually works
+ * is a plain `git clone` into a cache directory, outside any `node_modules`,
+ * with `node <clone>/src/cli/<file>.ts '<json>'` run against it directly.
  *
- *   1. every entrypoint in `src/cli/` is declared as a `bin` in `package.json`,
- *      and every `bin` points at a file that exists there;
- *   2. every bin file starts with `#!/usr/bin/env node`, which is what lets npm
- *      link it and the shell hand it to Node;
- *   3. every `SKILL.md` names its bin through the `--package=github:...` form,
- *      so the skill is not written for the clone alone.
+ * So every `SKILL.md` that gives the repository-root form
+ * (`npm run <name> -- ...`) must also give this second form, naming a real
+ * file under `src/cli/` — a skill written only for the clone silently strands
+ * everyone who installed it any other way.
  *
- * What this does not check: that the git install itself succeeds. That needs
- * the network, and CI runs without it; the fixtures already prove the file the
- * bin points at, and `npm install` from a path proves the link.
+ * What this does not check: that the clone-and-run sequence actually succeeds
+ * against the network. That needs git and the network, which CI runs without;
+ * the fixtures already prove the file the command names behaves correctly
+ * once reached.
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -25,76 +26,50 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const repositoryRoot = resolve(import.meta.dirname, "..");
-const packageSpec = "github:varunbhanot/indian-finance-skills";
-const shebang = "#!/usr/bin/env node";
-
-const manifest = JSON.parse(readFileSync(join(repositoryRoot, "package.json"), "utf8")) as {
-  bin?: unknown;
-};
-
-test("package.json declares its bins as a name-to-path object", () => {
-  assert.ok(
-    typeof manifest.bin === "object" && manifest.bin !== null && !Array.isArray(manifest.bin),
-    `package.json has no "bin" object. A skill installed by the skills CLI reaches the core through ` +
-      `npx --package=${packageSpec} <bin>, and there is no bin to reach — see ADR 0020.`,
-  );
-});
-
-const bins = new Map(
-  Object.entries((manifest.bin ?? {}) as Record<string, string>).sort(([a], [b]) =>
-    a.localeCompare(b),
-  ),
-);
-
-for (const [name, path] of bins) {
-  test(`bin ${name} points at an entrypoint under src/cli/ that begins with a shebang`, () => {
-    assert.ok(
-      path.startsWith("src/cli/"),
-      `bin ${name} is ${path}; entrypoints live in src/cli/ (CLAUDE.md, Tooling)`,
-    );
-    const file = join(repositoryRoot, path);
-    assert.ok(existsSync(file), `bin ${name} names ${path}, which does not exist`);
-    const firstLine = readFileSync(file, "utf8").split("\n", 1)[0];
-    assert.equal(
-      firstLine,
-      shebang,
-      `${path} must start with "${shebang}": npm links the bin to this file and the shell needs ` +
-        `the line to hand it to Node. Without it the installed skill's command fails before Node runs.`,
-    );
-  });
-}
-
-test("every entrypoint in src/cli/ is a bin", () => {
-  const entrypoints = readdirSync(join(repositoryRoot, "src", "cli"))
-    .filter((name) => name.endsWith(".ts"))
-    .sort();
-  const declared = new Set(bins.values());
-  for (const name of entrypoints) {
-    const path = `src/cli/${name}`;
-    assert.ok(
-      declared.has(path),
-      `${path} is not a bin in package.json, so a skill installed outside the repository cannot ` +
-        `reach it. Add "<name>": "${path}" under "bin" — see ADR 0020.`,
-    );
-  }
-});
-
 const skillsRoot = join(repositoryRoot, ".claude", "skills");
+
+const npmRunPattern = /npm run ([a-z0-9-]+)/;
+const clonedNodePattern = /node ~?[^\s'"]*\/src\/cli\/([a-zA-Z0-9-]+\.ts)/;
+
 for (const name of readdirSync(skillsRoot).sort()) {
   const skillFile = join(skillsRoot, name, "SKILL.md");
   if (!existsSync(skillFile)) continue; // the layout test reports that one
 
-  test(`skill ${name} names its bin through the npx form, not the clone's npm run alone`, () => {
-    const text = readFileSync(skillFile, "utf8");
-    const named = [...bins.keys()].filter((bin) =>
-      text.includes(`--package=${packageSpec} ${bin} `),
-    );
+  const text = readFileSync(skillFile, "utf8");
+  const npmRunMatch = npmRunPattern.exec(text);
+  if (npmRunMatch === null) continue; // no CLI seam to check
+  const npmRunName = npmRunMatch[1];
+
+  test(`skill ${name} gives a clone-and-run form alongside its npm run form`, () => {
+    const clonedMatch = clonedNodePattern.exec(text);
     assert.ok(
-      named.length > 0,
-      `.claude/skills/${name}/SKILL.md never says ` +
-        `"npx --yes --package=${packageSpec} <bin> '<json>'" for any bin in package.json ` +
-        `(${[...bins.keys()].join(", ")}). The skills CLI copies this directory and nothing beside it, ` +
-        `so "npm run" from the repository root has nowhere to run — see ADR 0020.`,
+      clonedMatch !== null,
+      `.claude/skills/${name}/SKILL.md gives "npm run ${npmRunName}" but never ` +
+        `"node <clone>/src/cli/<file>.ts": that form has no repository root to run from once ` +
+        `the skills CLI has copied this directory elsewhere, and an npm-installed copy cannot run ` +
+        `its .ts source at all (Node refuses to strip types under node_modules) — see ADR 0020.`,
+    );
+
+    if (clonedMatch === null) return; // already reported by the assertion above
+    const clonedFile = clonedMatch[1];
+    assert.ok(clonedFile !== undefined, "regex has one capturing group, so a match always fills it");
+    const file = join(repositoryRoot, "src", "cli", clonedFile);
+    assert.ok(
+      existsSync(file),
+      `.claude/skills/${name}/SKILL.md names src/cli/${clonedFile} for the clone-and-run form, ` +
+        `which does not exist`,
     );
   });
 }
+
+test("at least one skill documents the clone-and-run form", () => {
+  const anyDocumented = readdirSync(skillsRoot).some((name) => {
+    const skillFile = join(skillsRoot, name, "SKILL.md");
+    return existsSync(skillFile) && clonedNodePattern.test(readFileSync(skillFile, "utf8"));
+  });
+  assert.ok(
+    anyDocumented,
+    "no SKILL.md documents reaching its core through a cached clone; this test would pass " +
+      "vacuously if every skill dropped its npm run line, so this checks the positive case too",
+  );
+});

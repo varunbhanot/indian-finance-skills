@@ -208,11 +208,15 @@ by a contributor, not CI.
    output.
 5. Make that entrypoint reachable from outside the clone (ADR 0020). The
    `skills` CLI copies the skill's directory into another project and nothing
-   beside it, so: declare the entrypoint as a `bin` in `package.json`, give the
-   file a `#!/usr/bin/env node` first line, and have `SKILL.md` give both forms
-   of the command — `npm run <name> -- '<json>'` from the repository root, and
-   `npx --yes --package=github:varunbhanot/indian-finance-skills <name> '<json>'`
-   from anywhere else — saying which applies where.
-   `test/skills-reach-the-core-from-outside.test.ts` fails a skill that gives
-   only the first, and an entrypoint in `src/cli/` that is not a bin.
+   beside it, so `npm run <name>` has no repository root to run from there —
+   and an npm-installed copy of the entrypoint cannot run its `.ts` source at
+   all, because Node refuses to strip types from a file under `node_modules`
+   with no override, which rules out reaching it through `npx` or a `bin`.
+   Have `SKILL.md` give both forms of the command and say which applies
+   where: `npm run <name> -- '<json>'` from the repository root, and, against
+   a clone kept in a cache directory,
+   `node <clone>/src/cli/<name>.ts '<json>'` from anywhere else.
+   `test/skills-reach-the-core-from-outside.test.ts` fails a `SKILL.md` that
+   gives only the first form, or whose second form names a file that does not
+   exist under `src/cli/`.
 6. Open a PR describing what the skill does and when it should trigger.

@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "unknown_financial_year",
+    "message": "No rules file for financial year 2031-32: expected rules/fy2031-32.yaml",
+    "path": "financial_year",
+    "details": { "financial_year": "2031-32", "expected_file": "rules/fy2031-32.yaml" }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "in_force_without_issued_on",
+    "message": "issued_on is required once premiums_paid is 1 or more: an in-force policy's issue date has no honest default",
+    "path": "issued_on",
+    "details": { "premiums_paid": 1 }
+  }
+}

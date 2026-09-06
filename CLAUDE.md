@@ -106,8 +106,8 @@ with an `npm run <name>` line also gives that second form, naming a real file
 under `src/cli/`.
 
 Layout: `src/core/` is the deterministic core (linted for floats), `src/cli/`
-the entrypoints, `rules/` the YAML, `fixtures/` the behavioural tests, `test/`
-the runners and invariant checks.
+the entrypoints, `rules/` the YAML, `fixtures/<skill>/` the behavioural tests
+for each skill, `test/` the runners and invariant checks.
 
 Skills live in `.claude/skills/<name>/SKILL.md` — that is the only directory
 Claude Code auto-loads project skills from. A top-level skill directory does
@@ -130,10 +130,13 @@ still resolves while nothing else in the session claims it. Where this file and
 ## Evals
 
 Fixtures test the CLI seam only: JSON in, JSON out, through the same entrypoint
-the skill uses. Nothing is tested below it. One directory per fixture under
-`fixtures/`, holding `input.json` and either `expected.json` (exact stdout, exit
-0) or `expected-error.json` (exact stderr, exit non-zero); `test/fixtures.test.ts`
-discovers them. A fixture may also hold a `rules/` directory or a
+the skill uses. Nothing is tested below it. One directory per fixture at
+`fixtures/<skill>/<name>/`, holding `input.json` and either `expected.json`
+(exact stdout, exit 0) or `expected-error.json` (exact stderr, exit non-zero);
+`test/fixtures.test.ts` discovers them, and the skill directory is the npm
+script each runs through (`npm run <skill>`), so a fixture never has to say
+which entrypoint it belongs to and two skills may each have a
+`reject-above-cap`. A fixture may also hold a `rules/` directory or a
 `heuristics.yaml`, which the runner pins through `CTC_DECODER_RULES_DIR` and
 `CTC_DECODER_HEURISTICS_FILE` so it can exercise a document this repository does
 not ship — an absent group, a catalogue entry added without code (ADR 0009), or

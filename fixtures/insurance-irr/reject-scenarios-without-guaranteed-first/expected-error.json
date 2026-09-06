@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "scenarios_without_guaranteed_first",
+    "message": "scenarios[0].name must be \"guaranteed\", got \"8%\"",
+    "path": "scenarios[0].name"
+  }
+}

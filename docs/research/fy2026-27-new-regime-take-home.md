@@ -1026,7 +1026,7 @@ income-tax **and surcharge** thereon". The Health and Education Cess is imposed 
 a separate sub-section (s.3(15), §4 above) on income-tax as increased by the
 surcharge, and no ceiling touches it. So marginal relief stops take-home falling
 off a cliff at a threshold, but a rupee earned just above one still carries the
-4% cess on its own rupee of tax — the `fixtures/marginal-relief` README works the
+4% cess on its own rupee of tax — the `fixtures/ctc-decoder/marginal-relief` README works the
 arithmetic through.
 
 **Interaction with the rebate: none, in practice.** The rebate thresholds are
@@ -1153,7 +1153,7 @@ directly. Two notes on getting to it:
 No new statutory research: `break-even.ts` reads only the two regimes'
 slabs, standard deduction and rebate that §7–§11 already sourced, applied at
 a reduced salary rather than as any new provision. This section records how
-`fixtures/break-even-mid-income` and `fixtures/break-even-rebate-boundary`
+`fixtures/ctc-decoder/break-even-mid-income` and `fixtures/ctc-decoder/break-even-rebate-boundary`
 were cross-checked against the Department's engine, alongside §8.5 and
 §11.5 rather than duplicating their method.
 
@@ -1196,7 +1196,7 @@ section 516 as well (`break-even-mid-income`'s README shows this: engine
 | rebate-boundary | new | 5,25,000 | 6,250 | 6,250 | 0 | 0 | yes |
 | rebate-boundary | old, at the break-even (₹49,996) | 5,00,000 | 12,500 | 12,500 | 0 | 0 | yes |
 
-Exact to the rupee in every case. `fixtures/break-even-old-never-wins` is not
+Exact to the rupee in every case. `fixtures/ctc-decoder/break-even-old-never-wins` is not
 in this table: its new regime is invented for that fixture alone (ADR 0009,
 its own README explains why), so the Department's engine — which implements
 the real statute — is not a valid check on it; that fixture's own README

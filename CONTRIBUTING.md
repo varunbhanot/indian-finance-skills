@@ -84,11 +84,15 @@ pay — they share both and differ only in `recurring`.
 
 ## Adding a fixture
 
-Create `fixtures/<name>/` with `input.json` and either `expected.json` (the
-exact stdout) or `expected-error.json` (the exact stderr). The suite discovers
-the directory and runs it through `npm run ctc-decoder`. Expected values must
-come from an independent source (a worked example, an official calculator, a
-hand-checked literal), never from running the decoder and pasting its output.
+Create `fixtures/<skill>/<name>/` with `input.json` and either `expected.json`
+(the exact stdout) or `expected-error.json` (the exact stderr). The suite
+discovers the directory and runs it through `npm run <skill>` — the skill
+directory is the npm script, so `fixtures/ctc-decoder/no-flags` runs through
+`npm run ctc-decoder` and `fixtures/insurance-irr/reject-above-cap` through
+`npm run insurance-irr`, and nothing inside a fixture has to say which. Names
+need only be unique within a skill. Expected values must come from an
+independent source (a worked example, an official calculator, a hand-checked
+literal), never from running the CLI and pasting its output.
 
 Two fixtures may share an input and a golden — `take-home-new-regime` and
 `take-home-old-regime` are one package under two names, since the decoder
@@ -99,8 +103,8 @@ for, and `npm test` fails until it does (issue #38).
 
 A fixture that needs a rules file this repository does not ship — one missing a
 group, or one carrying a catalogue entry that does not exist yet — may add a
-`fixtures/<name>/rules/fy<YYYY-YY>.yaml`, and the runner points the decoder at
-it (ADR 0009). Such a file is test data, not statutory fact; say so in a comment
+`fixtures/<skill>/<name>/rules/fy<YYYY-YY>.yaml`, and the runner points the
+core at it (ADR 0009). Such a file is test data, not statutory fact; say so in a comment
 at its head.
 
 ## Adding or changing a heuristic
@@ -118,7 +122,7 @@ tax-year concept — which is why it sits beside `rules/` rather than inside it.
 Disagreeing with a threshold is a pull request against this one file, and an
 argument about judgement, with nobody wondering whether a tax rate was edited.
 Changing one changes what the decoder flags with no code change at all;
-`fixtures/flag-threshold-from-the-file` is that claim, shown rather than
+`fixtures/ctc-decoder/flag-threshold-from-the-file` is that claim, shown rather than
 asserted.
 
 A flag states a fact and never a recommendation (ADR 0007), and the wording is

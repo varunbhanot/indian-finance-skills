@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "above_cap",
+    "message": "sum_assured must not exceed ₹1,00,00,00,000, got ₹1,00,00,00,001",
+    "path": "sum_assured",
+    "details": { "cap_rupees": 1000000000 }
+  }
+}

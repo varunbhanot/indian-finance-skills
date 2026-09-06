@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "fractional_rupees",
+    "message": "annual_premium must be whole rupees, got 100000.5",
+    "path": "annual_premium"
+  }
+}

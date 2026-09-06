@@ -24,7 +24,7 @@ One directory per transcript, each holding `transcript.json`:
 
 `events` is the conversation in order. `letter` names the fixture whose
 `input.json` the transcript was recorded against, so a reader can find the same
-package under `fixtures/` and the decoder's own assertions about it. `step`
+package under `fixtures/ctc-decoder/` and the decoder's own assertions about it. `step`
 names the section of `SKILL.md` the turn is following, so a transcript that
 drifts from the skill is visible as drift rather than as a difference of
 opinion.

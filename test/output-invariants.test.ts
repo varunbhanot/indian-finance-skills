@@ -15,15 +15,13 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ADVISORY } from "./lib/advisory-language.ts";
+import { listFixtures } from "./lib/fixtures.ts";
 
-const fixturesRoot = join(resolve(import.meta.dirname, ".."), "fixtures");
-
-const outputs = readdirSync(fixturesRoot, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
-  .map((entry) => ({ name: entry.name, path: join(fixturesRoot, entry.name, "expected.json") }))
+const outputs = listFixtures()
+  .map((fixture) => ({ name: fixture.label, path: join(fixture.directory, "expected.json") }))
   .filter((fixture) => existsSync(fixture.path))
   .map((fixture) => ({
     name: fixture.name,

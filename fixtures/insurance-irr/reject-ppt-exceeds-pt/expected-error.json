@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "premium_paying_term_exceeds_policy_term",
+    "message": "premium_paying_term (25) must not exceed policy_term (20)",
+    "path": "premium_paying_term",
+    "details": { "premium_paying_term": 25, "policy_term": 20 }
+  }
+}

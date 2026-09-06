@@ -1,0 +1,10 @@
+# Test-only rules document, not statutory fact. Its `inflation_target` group
+# carries a valid rate but no `title`, which the core must refuse rather than
+# cite a document it cannot name (ADR 0013 [insurance-irr], ADR 0015).
+financial_year: 2026-27
+groups:
+  inflation_target:
+    source: https://example.test/inflation-target
+    retrieved: 2026-09-06
+    section: Test section, deliberately untitled
+    rate: 0.04

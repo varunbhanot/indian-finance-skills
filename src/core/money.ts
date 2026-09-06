@@ -40,12 +40,21 @@ export function money(paise: number): Money {
   return { paise, display: formatIndianRupees(paise) };
 }
 
-/** `1200` basis points → `12%`; `250` → `2.5%`. Pure string handling: no division. */
+/**
+ * `1200` basis points → `12%`; `250` → `2.5%`; `-364` → `-3.64%`. Pure string
+ * handling: no division. The sign is split off and reapplied around the
+ * magnitude's digits, the way `formatIndianRupees` already handles a negative
+ * amount — padding the raw digits of a negative number would corrupt the
+ * split between whole and fractional percent for anything smaller in
+ * magnitude than 100 bp, which is why the sign cannot simply be left in.
+ */
 export function rate(basisPoints: number): Rate {
-  const digits = String(basisPoints).padStart(3, "0");
+  const sign = basisPoints < 0 ? "-" : "";
+  const magnitude = basisPoints < 0 ? -basisPoints : basisPoints;
+  const digits = String(magnitude).padStart(3, "0");
   const whole = digits.slice(0, -2);
   const fraction = digits.slice(-2).replace(/0+$/, "");
-  return { bp: basisPoints, display: `${whole}${fraction === "" ? "" : `.${fraction}`}%` };
+  return { bp: basisPoints, display: `${sign}${whole}${fraction === "" ? "" : `.${fraction}`}%` };
 }
 
 /** `123456700` paise → `₹12,34,567`; `5050` → `₹50.50`. Pure string handling: no division. */

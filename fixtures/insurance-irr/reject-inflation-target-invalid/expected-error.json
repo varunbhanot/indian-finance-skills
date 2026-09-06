@@ -1,0 +1,10 @@
+{
+  "error": {
+    "code": "rules_file_invalid",
+    "message": "fixtures/insurance-irr/reject-inflation-target-invalid/rules/fy2026-27.yaml:groups.inflation_target.title expected a title naming the document",
+    "details": {
+      "rules_file": "fixtures/insurance-irr/reject-inflation-target-invalid/rules/fy2026-27.yaml",
+      "rules_key": "groups.inflation_target.title"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "rules/fy2026-27.yaml",
+  "linked": false,
+  "annual_premium": {
+    "paise": 10000000,
+    "display": "₹1,00,000"
+  },
+  "premium_paying_term": 10,
+  "policy_term": 10,
+  "sum_assured": {
+    "paise": 150000000,
+    "display": "₹15,00,000"
+  },
+  "scenarios": [
+    {
+      "name": "guaranteed",
+      "maturity_benefit": {
+        "paise": 175000000,
+        "display": "₹17,50,000"
+      },
+      "survival_benefits": [],
+      "irr": {
+        "bp": 996,
+        "display": "9.96%"
+      },
+      "real_return": {
+        "bp": 373,
+        "display": "3.73%",
+        "method": "Fisher relation: (1 + nominal) ÷ (1 + inflation) − 1, floored to the basis point"
+      }
+    }
+  ],
+  "premiums_paid": 0,
+  "inflation": {
+    "bp": 600,
+    "display": "6%",
+    "source": "user-typed"
+  },
+  "classifications": [],
+  "sources": []
+}

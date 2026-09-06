@@ -1,0 +1,6 @@
+# Test-only rules document, not statutory fact. It is well-formed under the
+# rules schema but carries no `inflation_target` group (ADR 0013
+# [insurance-irr]), which the core must report absent by key rather than
+# compare a typed inflation figure against nothing.
+financial_year: 2026-27
+groups: {}

@@ -14,14 +14,26 @@
       "survival_benefits": [
         { "year": 4, "amount": { "paise": 10000000, "display": "₹1,00,000" } },
         { "year": 8, "amount": { "paise": 10000000, "display": "₹1,00,000" } }
-      ]
+      ],
+      "irr": { "bp": 399, "display": "3.99%" },
+      "real_return": {
+        "bp": -97,
+        "display": "-0.97%",
+        "method": "Fisher relation: (1 + nominal) ÷ (1 + inflation) − 1, floored to the basis point"
+      }
     },
     {
       "name": "8%",
       "maturity_benefit": { "paise": 220000000, "display": "₹22,00,000" },
       "survival_benefits": [
         { "year": 4, "amount": { "paise": 15000000, "display": "₹1,50,000" } }
-      ]
+      ],
+      "irr": { "bp": 624, "display": "6.24%" },
+      "real_return": {
+        "bp": 118,
+        "display": "1.18%",
+        "method": "Fisher relation: (1 + nominal) ÷ (1 + inflation) − 1, floored to the basis point"
+      }
     }
   ],
   "premiums_paid": 5,
@@ -33,7 +45,7 @@
     ],
     "sum_assured": { "paise": 100000000, "display": "₹10,00,000" }
   },
-  "inflation": { "bp": 500, "display": "5%" },
+  "inflation": { "bp": 500, "display": "5%", "source": "user-typed" },
   "benchmarks": [
     { "name": "PPF", "rate": { "bp": 710, "display": "7.1%" }, "net_of_tax": true },
     {
@@ -48,6 +60,23 @@
     "sum_assured": { "paise": 200000000, "display": "₹20,00,000" }
   },
   "other_premiums_aggregate": { "paise": 6000000, "display": "₹60,000" },
+  "classifications": [
+    {
+      "code": "real-return-negative",
+      "kind": "comparison",
+      "scenario": "guaranteed",
+      "measured": {
+        "nominal_irr": { "bp": 399, "display": "3.99%" },
+        "real_return": { "bp": -97, "display": "-0.97%" }
+      }
+    },
+    {
+      "code": "multiple-sign-changes",
+      "kind": "comparison",
+      "scenario": "8%",
+      "measured": { "irr": { "bp": 624, "display": "6.24%" } }
+    }
+  ],
   "sources": [
     { "title": "Adviser's illustration", "url": "https://example.com/illustration" }
   ]

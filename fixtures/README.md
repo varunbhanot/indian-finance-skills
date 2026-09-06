@@ -137,3 +137,46 @@ What this ticket deliberately does not refuse — a term premium at or above the
 policy premium, a surrender value above premiums paid, a paid-up benefit above
 the maturity benefit — has no rejection fixture, because there is no rejection
 to assert; a later ticket classifies these instead (ADR 0016 [insurance-irr]).
+
+### The solver: nominal IRR, real return, the inflation target (issue #66)
+
+Every scenario's cash flows are now reduced to a nominal IRR (ADR 0003, ADR
+0004) and, when one is found, a real return against the typed inflation
+figure by the Fisher relation (ADR 0005). `classifications` and its
+`comparison` kind (ADR 0015) are new here too, and `accepts-a-policy`'s golden
+grew both fields on its two scenarios rather than gaining a sibling fixture,
+since it was already the one policy proving a well-formed input is accepted
+and echoed back.
+
+Every expected IRR and real return below was hand-checked to the basis point
+by an independent script performing the same roll-forward in exact
+arbitrary-precision (`BigInt`) arithmetic — never by running the CLI and
+pasting what it said — and cross-checked against the CLI's own output only
+afterwards, to confirm the two agree.
+
+| What it exercises | Fixture |
+|---|---|
+| A plain multi-year endowment: level premiums, one maturity payout, a single sign change, no classification fires | `endowment-flat` |
+| A money-back pattern paying out every fourth year: `multiple-sign-changes` (more than one sign change in the flow sequence) alongside `real-return-negative` | `money-back-every-fourth-year` |
+| Benefits nominally less than premiums paid in: a negative IRR, reported rather than refused | `negative-irr` |
+| A one-year policy whose reconciling rate is beyond 100%: `rate_bp: null`, `above-search-range`, no real return | `above-search-range` |
+| A round 6% nominal IRR against 10% typed inflation: the Fisher relation's `method` field, and `real-return-negative` | `real-return-fisher` |
+| A typed inflation figure that exactly equals `groups.inflation_target`'s rate: the rules citation and its `assumption` sentence, folded into `sources` | `inflation-target-proposed` |
+| `rules/fy2026-27.yaml` carrying no `inflation_target` group at all | `reject-inflation-target-absent` |
+| `inflation_target` present but missing the `title` its citation needs | `reject-inflation-target-invalid` |
+
+The last two pin their own `rules/` (ADR 0009 [ctc-decoder]) rather than the
+repository's, the same way the CTC decoder's own `rule-absent` and
+`reject-invalid-catalogue-entry` do — this is the first ticket to read a
+rules group besides `financial_year` itself, so nothing before it could
+exercise `rule_absent` or `rules_file_invalid` from this skill's own reader
+(`inflation-target.ts`).
+
+The roll-forward's own intermediate balance can, at a search candidate far
+from where a real policy's flows ever cross zero (a term of ten years or more
+bisected all the way up towards the 10000 bp ceiling), grow past what a safe
+integer product can hold before `irr.ts` divides it back down. None of the six
+fixtures above happens to reach that magnitude, so none of them is what proves
+the clamp that keeps it a safe integer regardless — `accepts-a-policy`'s own
+twenty-year term already does, now that its golden carries an IRR for both of
+its scenarios.

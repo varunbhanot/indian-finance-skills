@@ -8,7 +8,11 @@
  * other two (`invalid_input`, `invalid_financial_year`) are the same general
  * shape checks the CTC decoder's own error list carries, for a value that is
  * simply the wrong type or shape rather than one of the eleven named
- * impossibilities.
+ * impossibilities. `rule_absent` and `rules_file_invalid` are new in issue
+ * #66, the first ticket to read a rules group beyond `financial_year` itself
+ * (the RBI inflation target, ADR 0013): the same two rejections the CTC
+ * decoder's own rules reader raises, for the same reason — an absent key is
+ * never a default, and a malformed one is never guessed at.
  */
 import { CoreError, type ErrorReport } from "../errors.ts";
 
@@ -25,7 +29,9 @@ export type InsuranceErrorCode =
   | "survival_benefit_outside_policy_term"
   | "scenarios_without_guaranteed_first"
   | "duplicate_scenario_name"
-  | "in_force_without_issued_on";
+  | "in_force_without_issued_on"
+  | "rule_absent"
+  | "rules_file_invalid";
 
 export class InsuranceError extends CoreError<InsuranceErrorCode> {
   constructor(report: ErrorReport<InsuranceErrorCode>) {

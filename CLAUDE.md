@@ -101,6 +101,18 @@ Skills live in `.claude/skills/<name>/SKILL.md` — that is the only directory
 Claude Code auto-loads project skills from. A top-level skill directory does
 nothing.
 
+A real directory under `.claude/skills/` is a finance skill of this project's
+own. A symlink there points into `vendor/mattpocock-skills/` and is borrowed
+engineering tooling (`tdd`, `triage`, `code-review` and the rest), vendored
+from [mattpocock/skills](https://github.com/mattpocock/skills) and governed by
+`vendor/mattpocock-skills/README.md`, not by this file. Claude Code follows the
+symlink, so those skills keep their bare names (`/tdd`, not
+`/mattpocock-skills:tdd`). Do not move them into a subdirectory of
+`.claude/skills/` or convert them into a skills-directory plugin: a nested
+directory does not load at session start, and a project-scope plugin loads
+only after a workspace trust dialog that Claude Code on the web never
+presents.
+
 ## Evals
 
 Fixtures test the CLI seam only: JSON in, JSON out, through the same entrypoint

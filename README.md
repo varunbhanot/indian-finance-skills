@@ -55,6 +55,16 @@ and follows the standard Claude Skill layout:
   references/   # optional — reference material loaded on demand
 ```
 
+`.claude/skills/` also holds a symlink per vendored engineering skill —
+`tdd`, `triage`, `code-review` and the rest of
+[mattpocock/skills](https://github.com/mattpocock/skills). Those are
+development tooling for working *on* this repository, not finance skills, so
+their content sits in `vendor/mattpocock-skills/` and only the links live
+beside the real skills. A directory under `.claude/skills/` is a finance
+skill; a symlink is borrowed tooling. See
+[`vendor/mattpocock-skills/README.md`](vendor/mattpocock-skills/README.md) for
+why the links are needed rather than a subdirectory.
+
 The deterministic core behind the skills lives in `src/core/`, the CLI
 entrypoints in `src/cli/`, statutory rules in `rules/`, and behavioural
 fixtures in `fixtures/`. Design decisions are recorded in `docs/adr/`.

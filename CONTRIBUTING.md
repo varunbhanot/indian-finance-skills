@@ -160,8 +160,10 @@ by a contributor, not CI.
 
 ## Adding a new skill
 
-1. Create `.claude/skills/<skill-name>/` (kebab-case). A top-level directory
-   will not be loaded by Claude Code.
+1. Create `.claude/skills/<skill-name>/` (kebab-case) as a real directory. A
+   top-level directory will not be loaded by Claude Code, and a symlink there
+   means something else: it is a vendored engineering skill living in
+   `vendor/mattpocock-skills/`, not a skill of this project's own.
 2. Add a `SKILL.md` with frontmatter (`name`, `description`) and clear instructions.
 3. Keep helper scripts in `scripts/` and reference-only material in `references/`.
    A skill needs neither: `ctc-decoder` is one `SKILL.md` and nothing else.

@@ -225,3 +225,13 @@ benefits are the insurer's figures when the user has them.
 premiums and the remaining benefits reconcile. The rate continuing earns on
 what continuing costs; never the policy's original nominal IRR.
 _Avoid_: "IRR if you continue", "IRR from here".
+
+**Guaranteed surrender value (GSV)** — the regulatory floor on a surrender
+value: a stated percentage of premiums paid, fixed by policy year. A floor,
+never the figure: the insurer's **special surrender value** may sit above it,
+and the tool cannot compute that one.
+
+**Basis** — where an in-force figure came from: `insurer-quoted`,
+`regulatory-floor`, or `insurer-defined` when the regulation leaves the year
+to the insurer and the tool emits nothing. Every surrender and paid-up figure
+carries one.

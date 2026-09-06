@@ -1,7 +1,8 @@
 # Context
 
 The domain language of this project. Glossary only — no implementation
-details, no decisions (those live in `.claude/skills/ctc-decoder/docs/adr/`).
+details, no decisions (those live in each skill's own `docs/adr/`, under
+`.claude/skills/<name>/`).
 
 ## Tax year
 
@@ -159,3 +160,29 @@ grant-date fair market value (units × price, held flat), the claimed value take
 as the grant-date value, intrinsic value (the amount the price exceeds the
 strike, usually nil), unvaluable, or employee-funded. Four of the five are ways
 of declining to guess, which is why each carries its assumption in words.
+
+## Insurance
+
+**Policy year** — the unit of time in a life policy: an integer count from the
+policy's start, never a calendar date. Premiums fall at the *start* of a policy
+year, benefits at its *end*.
+
+**Premium paying term (PPT)** — the number of policy years in which a premium
+is due. Never longer than the policy term, and often shorter: a "pay 10, cover
+20" plan has a PPT of 10.
+
+**Policy term (PT)** — the number of policy years the policy runs before it
+matures. Maturity falls at the end of the last one.
+
+**Survival benefit** — a scheduled payout made while the policy is in force and
+the life assured is alive; the "money-back" of a money-back plan. Landed at the
+end of its policy year. Never a synonym for maturity benefit.
+
+**Maturity benefit** — the payout at the end of the policy term. The figure a
+brochure headlines, and the one an IRR is computed against.
+
+**Benchmark** — a rate the freed-up premiums are compounded at for comparison.
+Either a **rules benchmark** (a statutory rate with a primary source, such as
+PPF) or a **typed benchmark** (a figure the user asserts and the output labels
+as theirs). Never a default the tool chose.
+_Avoid_: "growth benchmark", "market return", "expected return".

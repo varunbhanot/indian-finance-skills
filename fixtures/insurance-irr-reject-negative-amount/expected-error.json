@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "negative_amount",
+    "message": "sum_assured must not be negative, got -2000000",
+    "path": "sum_assured"
+  }
+}

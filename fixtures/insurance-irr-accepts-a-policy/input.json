@@ -1,0 +1,43 @@
+{
+  "financial_year": "2026-27",
+  "issued_on": "2020-06-15",
+  "linked": false,
+  "annual_premium": 100000,
+  "premium_paying_term": 10,
+  "policy_term": 20,
+  "sum_assured": 2000000,
+  "scenarios": [
+    {
+      "name": "guaranteed",
+      "maturity_benefit": 1500000,
+      "survival_benefits": [
+        { "year": 4, "amount": 100000 },
+        { "year": 8, "amount": 100000 }
+      ]
+    },
+    {
+      "name": "8%",
+      "maturity_benefit": 2200000,
+      "survival_benefits": [{ "year": 4, "amount": 150000 }]
+    }
+  ],
+  "premiums_paid": 5,
+  "surrender_value": 350000,
+  "paid_up": {
+    "maturity_benefit": 900000,
+    "survival_benefits": [{ "year": 8, "amount": 50000 }],
+    "sum_assured": 1000000
+  },
+  "inflation_bp": 500,
+  "benchmarks": [
+    { "name": "PPF", "rate_bp": 710, "net_of_tax": true },
+    {
+      "name": "Adviser's pitch",
+      "rate_bp": 1200,
+      "net_of_tax": false,
+      "source": { "title": "Adviser's illustration", "url": "https://example.com/illustration" }
+    }
+  ],
+  "term_premium": { "amount": 12000, "sum_assured": 2000000 },
+  "other_premiums_aggregate": 60000
+}

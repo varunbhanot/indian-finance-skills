@@ -86,9 +86,16 @@ pay — they share both and differ only in `recurring`.
 
 Create `fixtures/<name>/` with `input.json` and either `expected.json` (the
 exact stdout) or `expected-error.json` (the exact stderr). The suite discovers
-the directory and runs it through `npm run ctc-decoder`. Expected values must
-come from an independent source (a worked example, an official calculator, a
-hand-checked literal), never from running the decoder and pasting its output.
+the directory and runs it through `npm run ctc-decoder`. A fixture for another
+skill's CLI (e.g. `insurance-irr`) adds a plain-text `entrypoint` file naming
+that npm script instead — every fixture predating that file belongs to the CTC
+decoder, which is why it is the default. Fixture directories are one flat
+namespace, so a name must be unique across every skill's fixtures; when a
+rejection shares its natural name with another skill's (e.g. `reject-above-cap`
+already belongs to the decoder), prefix it with the skill's own name instead of
+overwriting the other skill's fixture. Expected values must come from an
+independent source (a worked example, an official calculator, a hand-checked
+literal), never from running the CLI and pasting its output.
 
 Two fixtures may share an input and a golden — `take-home-new-regime` and
 `take-home-old-regime` are one package under two names, since the decoder

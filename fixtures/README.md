@@ -3,11 +3,14 @@
 One directory per fixture, each holding `input.json` and either `expected.json`
 (the exact stdout, exit 0) or `expected-error.json` (the exact stderr, exit
 non-zero). `test/fixtures.test.ts` discovers them and runs every one through
-`npm run ctc-decoder`, the same entrypoint the skill uses. Nothing is tested
-below that seam. CONTRIBUTING.md says how to add one, and the rule that matters
-most: an expected value comes from an independent source — a worked example, an
-official calculator, a hand-checked literal — and never from running the decoder
-and pasting what it said.
+`npm run ctc-decoder`, the same entrypoint the skill uses, unless the fixture
+carries its own `entrypoint` file naming another skill's npm script (e.g.
+`insurance-irr`) — every fixture from before that file existed belongs to the
+CTC decoder, which is why it is the default rather than something every
+fixture has to say. Nothing is tested below that seam. CONTRIBUTING.md says how
+to add one, and the rule that matters most: an expected value comes from an
+independent source — a worked example, an official calculator, a hand-checked
+literal — and never from running the CLI and pasting what it said.
 
 Each fixture's own README says what it exercises and how its figures were
 derived. This file is the index over them: what the suite covers as a whole, and
@@ -51,6 +54,41 @@ classification, equity valuation, the year-by-year table, the flags and the
 rejections, none of which needs a typed `pf_wage_base`; adding one would assert
 the same take-home arithmetic again under a different name rather than cover
 anything new.
+
+## insurance-irr: the CLI seam and its rejections (issue #65)
+
+Named `insurance-irr-*` so they sit apart from the CTC decoder's own fixtures
+in this one flat directory — several of the eleven rejections issue #65 names
+share a name with a decoder rejection (`reject-negative-amount`,
+`reject-above-cap`, `reject-fractional-rupees`, `reject-unknown-fy`), and a
+fixture directory can only belong to one skill. Each carries an `entrypoint`
+file naming `insurance-irr`.
+
+This ticket validates structure only — no IRR, no comparison column, no
+classification exists yet — so every fixture here is either the one
+acceptance echo or one of the eleven structural rejections ADR 0016
+[insurance-irr] names, each exercised on its own otherwise-valid policy so the
+fixture proves one thing.
+
+| What it exercises | Fixture |
+|---|---|
+| A well-formed policy accepted and echoed back — figures as `Money`, rates as `Rate`, a benchmark's typed source folded into `sources` | `insurance-irr-accepts-a-policy` |
+| Premium paying term longer than the policy term | `insurance-irr-reject-ppt-exceeds-pt` |
+| More premiums paid than the paying term has | `insurance-irr-reject-premiums-paid-exceeds-ppt` |
+| A survival benefit scheduled outside the policy term | `insurance-irr-reject-survival-benefit-outside-term` |
+| A scenario list without `guaranteed` first | `insurance-irr-reject-scenarios-without-guaranteed-first` |
+| A duplicate scenario name | `insurance-irr-reject-duplicate-scenario` |
+| A fractional rupee | `insurance-irr-reject-fractional-rupees` |
+| A negative amount | `insurance-irr-reject-negative-amount` |
+| A figure above the ₹100 crore cap | `insurance-irr-reject-above-cap` |
+| A rate outside −9999..10000 basis points | `insurance-irr-reject-rate-out-of-range` |
+| An unknown financial year | `insurance-irr-reject-unknown-fy` |
+| An in-force policy (`premiums_paid ≥ 1`) with no `issued_on` | `insurance-irr-reject-in-force-without-issued-on` |
+
+What this ticket deliberately does not refuse — a term premium at or above the
+policy premium, a surrender value above premiums paid, a paid-up benefit above
+the maturity benefit — has no rejection fixture, because there is no rejection
+to assert; a later ticket classifies these instead (ADR 0016 [insurance-irr]).
 
 ## What no fixture covers, and why
 

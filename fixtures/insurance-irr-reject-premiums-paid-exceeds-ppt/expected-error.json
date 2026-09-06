@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "premiums_paid_exceeds_premium_paying_term",
+    "message": "premiums_paid (12) must not exceed premium_paying_term (10)",
+    "path": "premiums_paid",
+    "details": { "premiums_paid": 12, "premium_paying_term": 10 }
+  }
+}

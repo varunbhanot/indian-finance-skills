@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "rate_out_of_range",
+    "message": "inflation_bp must be between -9999 and 10000 basis points, got 10001",
+    "path": "inflation_bp",
+    "details": { "value": 10001, "minimum": -9999, "maximum": 10000 }
+  }
+}

@@ -4,8 +4,15 @@
  * One directory per fixture under `fixtures/`, holding `input.json` and either
  * `expected.json` (stdout must equal it, exit 0, stderr empty) or
  * `expected-error.json` (stderr must equal it, exit non-zero, stdout empty).
- * Every fixture runs through `npm run ctc-decoder -- '<json>'`, the same
- * entrypoint the skill uses (ADR 0003). Nothing is tested below that seam.
+ * Every fixture runs through `npm run <entrypoint> -- '<json>'`, the same
+ * entrypoint the skill uses (ADR 0003 [ctc-decoder]). Nothing is tested below
+ * that seam.
+ *
+ * A fixture belongs to the CTC decoder unless it names another entrypoint in
+ * a plain-text `entrypoint` file — the npm script to run it through, e.g.
+ * `insurance-irr`. Every fixture from before that file existed decodes
+ * through the CTC decoder, so the CTC decoder is the default rather than
+ * something every one of them has to say.
  *
  * A fixture may also hold a `rules/` directory, or a `heuristics.yaml`. When it
  * does, the decoder reads that instead of the repository's own, which is how a
@@ -13,7 +20,10 @@
  * missing a group, one carrying a catalogue entry that does not exist yet, or a
  * heuristics file whose thresholds differ — which is how "changing a threshold
  * changes what is flagged, with no code change" is shown rather than asserted
- * (ADR 0009, ADR 0006).
+ * (ADR 0009, ADR 0006). Both variables are named for the CTC decoder because
+ * they predate any other entrypoint, but the loader they steer
+ * (`src/core/rules/files.ts`) is shared, so a fixture pinning `rules/` pins it
+ * for whichever entrypoint the fixture names.
  *
  * `fixtures/transcripts/` is not a fixture and is skipped here. It holds
  * recorded skill transcripts — what the model said around these same tool calls
@@ -31,10 +41,13 @@ const repositoryRoot = resolve(import.meta.dirname, "..");
 const fixturesRoot = join(repositoryRoot, "fixtures");
 const npm = process.platform === "win32" ? "npm.cmd" : "npm";
 
-function runDecoder(inputJson: string, pinned: PinnedDocuments) {
+/** The entrypoint a fixture runs through when it names none of its own. */
+const DEFAULT_ENTRYPOINT = "ctc-decoder";
+
+function runCli(entrypoint: string, inputJson: string, pinned: PinnedDocuments) {
   // Always set both variables, never inherit them: a fixture without its own
   // documents must read the repository's, whatever the surrounding shell says.
-  const result = spawnSync(npm, ["run", "--silent", "ctc-decoder", "--", inputJson], {
+  const result = spawnSync(npm, ["run", "--silent", entrypoint, "--", inputJson], {
     cwd: repositoryRoot,
     encoding: "utf8",
     env: {
@@ -70,6 +83,10 @@ for (const name of fixtureNames) {
   const input = readFileSync(join(directory, "input.json"), "utf8");
   const expectedPath = join(directory, "expected.json");
   const expectedErrorPath = join(directory, "expected-error.json");
+  const entrypointPath = join(directory, "entrypoint");
+  const entrypoint = existsSync(entrypointPath)
+    ? readFileSync(entrypointPath, "utf8").trim()
+    : DEFAULT_ENTRYPOINT;
   const pinned: PinnedDocuments = {
     ...(existsSync(join(directory, "rules")) ? { rules: `fixtures/${name}/rules` } : {}),
     ...(existsSync(join(directory, "heuristics.yaml"))
@@ -80,7 +97,7 @@ for (const name of fixtureNames) {
   if (existsSync(expectedPath)) {
     test(`fixture ${name} decodes as expected`, () => {
       const expected: unknown = JSON.parse(readFileSync(expectedPath, "utf8"));
-      const run = runDecoder(input, pinned);
+      const run = runCli(entrypoint, input, pinned);
       assert.equal(run.stderr, "", "stderr must be empty on success");
       assert.equal(run.status, 0, "exit status must be 0 on success");
       assert.deepEqual(JSON.parse(run.stdout), expected);
@@ -88,7 +105,7 @@ for (const name of fixtureNames) {
   } else if (existsSync(expectedErrorPath)) {
     test(`fixture ${name} is rejected as expected`, () => {
       const expected: unknown = JSON.parse(readFileSync(expectedErrorPath, "utf8"));
-      const run = runDecoder(input, pinned);
+      const run = runCli(entrypoint, input, pinned);
       assert.equal(run.stdout, "", "stdout must be empty on error");
       assert.notEqual(run.status, 0, "exit status must be non-zero on error");
       assert.deepEqual(JSON.parse(run.stderr), expected);

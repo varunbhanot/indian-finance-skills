@@ -10,6 +10,7 @@
   },
   "scripts": {
     "ctc-decoder": "node src/cli/ctc-decoder.ts",
+    "insurance-irr": "node src/cli/insurance-irr.ts",
     "record-transcript": "node scripts/record-transcript.ts",
     "check-transcript": "node scripts/check-transcript.ts",
     "pretypecheck": "node scripts/require-node.js",

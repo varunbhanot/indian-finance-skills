@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "duplicate_scenario_name",
+    "message": "scenarios[1].name: \"guaranteed\" already names an earlier scenario",
+    "path": "scenarios[1].name",
+    "details": { "name": "guaranteed" }
+  }
+}

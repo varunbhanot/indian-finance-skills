@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "survival_benefit_outside_policy_term",
+    "message": "scenarios[0].survival_benefits[0].year: a survival benefit must fall in years 1..20, got 25",
+    "path": "scenarios[0].survival_benefits[0].year",
+    "details": { "year": 25, "policy_term": 20 }
+  }
+}

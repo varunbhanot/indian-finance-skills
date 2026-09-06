@@ -1,0 +1,54 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "rules/fy2026-27.yaml",
+  "issued_on": "2020-06-15",
+  "linked": false,
+  "annual_premium": { "paise": 10000000, "display": "₹1,00,000" },
+  "premium_paying_term": 10,
+  "policy_term": 20,
+  "sum_assured": { "paise": 200000000, "display": "₹20,00,000" },
+  "scenarios": [
+    {
+      "name": "guaranteed",
+      "maturity_benefit": { "paise": 150000000, "display": "₹15,00,000" },
+      "survival_benefits": [
+        { "year": 4, "amount": { "paise": 10000000, "display": "₹1,00,000" } },
+        { "year": 8, "amount": { "paise": 10000000, "display": "₹1,00,000" } }
+      ]
+    },
+    {
+      "name": "8%",
+      "maturity_benefit": { "paise": 220000000, "display": "₹22,00,000" },
+      "survival_benefits": [
+        { "year": 4, "amount": { "paise": 15000000, "display": "₹1,50,000" } }
+      ]
+    }
+  ],
+  "premiums_paid": 5,
+  "surrender_value": { "paise": 35000000, "display": "₹3,50,000" },
+  "paid_up": {
+    "maturity_benefit": { "paise": 90000000, "display": "₹9,00,000" },
+    "survival_benefits": [
+      { "year": 8, "amount": { "paise": 5000000, "display": "₹50,000" } }
+    ],
+    "sum_assured": { "paise": 100000000, "display": "₹10,00,000" }
+  },
+  "inflation": { "bp": 500, "display": "5%" },
+  "benchmarks": [
+    { "name": "PPF", "rate": { "bp": 710, "display": "7.1%" }, "net_of_tax": true },
+    {
+      "name": "Adviser's pitch",
+      "rate": { "bp": 1200, "display": "12%" },
+      "net_of_tax": false,
+      "source": { "title": "Adviser's illustration", "url": "https://example.com/illustration" }
+    }
+  ],
+  "term_premium": {
+    "amount": { "paise": 1200000, "display": "₹12,000" },
+    "sum_assured": { "paise": 200000000, "display": "₹20,00,000" }
+  },
+  "other_premiums_aggregate": { "paise": 6000000, "display": "₹60,000" },
+  "sources": [
+    { "title": "Adviser's illustration", "url": "https://example.com/illustration" }
+  ]
+}

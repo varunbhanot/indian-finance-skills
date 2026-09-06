@@ -207,3 +207,21 @@ between two columns is the reader's to see; it is never itself a figure.
 column models: a typed term premium buys the cover, and what remains of the
 policy's premium is invested. The term premium and the cover it buys are the
 user's figures, never the tool's estimate.
+
+**In-force policy** — a policy on which at least one premium has been paid and
+which has neither matured nor lapsed. Evaluated forward from today: the
+premiums already paid are stated as context and enter no figure.
+
+**Surrender value** — the cash an insurer pays to end an in-force policy. The
+price of continuing: in the in-force IRR it is the outflow at today, since
+keeping the policy forgoes it. Always the insurer's figure when the user has
+one; a regulatory floor otherwise, and labelled as such.
+
+**Paid-up** — an in-force policy on which premiums have stopped and which
+continues, with its benefits reduced, to the original policy term. The reduced
+benefits are the insurer's figures when the user has them.
+
+**In-force IRR** — the rate at which the surrender value today, the remaining
+premiums and the remaining benefits reconcile. The rate continuing earns on
+what continuing costs; never the policy's original nominal IRR.
+_Avoid_: "IRR if you continue", "IRR from here".

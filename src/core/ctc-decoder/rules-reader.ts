@@ -24,17 +24,12 @@
  */
 import type { RulesFile } from "../rules/files.ts";
 import type { RulesValue } from "../rules/loader.ts";
+import type { Source } from "../sources.ts";
 import { DecoderError } from "./errors.ts";
 
 /** A type guard the catalogue reader shares, so "is this a nested map" is asked one way. */
 export function isRulesMap(value: RulesValue | undefined): value is { [key: string]: RulesValue } {
   return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-/** A document the output cites: the title the rules file gives it, and its URL. */
-export interface Source {
-  title: string;
-  url: string;
 }
 
 /** Where a figure came from, carried into the output beside the figure itself. */

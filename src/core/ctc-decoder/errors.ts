@@ -1,4 +1,11 @@
-/** Rejections the decoder reports to the caller as JSON with a machine-readable code. */
+/**
+ * Rejections the decoder reports to the caller as JSON with a machine-readable
+ * code. The report shape and the error class are shared with every skill's
+ * core (`../errors.ts`); only this code list, and the narrowing of that class
+ * to it, belong to the decoder.
+ */
+import { CoreError, type ErrorReport } from "../errors.ts";
+
 export type DecoderErrorCode =
   | "invalid_input"
   | "fractional_rupees"
@@ -12,19 +19,12 @@ export type DecoderErrorCode =
   | "vesting_schedule_not_whole"
   | "rules_file_invalid";
 
-export interface ErrorReport<Code extends string = DecoderErrorCode> {
-  code: Code;
-  message: string;
-  path?: string;
-  details?: { [key: string]: string | number };
-}
-
-export class DecoderError extends Error {
-  readonly report: ErrorReport;
-
-  constructor(report: ErrorReport) {
-    super(report.message);
+export class DecoderError extends CoreError<DecoderErrorCode> {
+  constructor(report: ErrorReport<DecoderErrorCode>) {
+    super(report);
+    // Nothing observable changes (issue #64): CoreError's own constructor
+    // names itself "CoreError", so a decoder rejection reclaims its own name
+    // the way it had one before the lift.
     this.name = "DecoderError";
-    this.report = report;
   }
 }

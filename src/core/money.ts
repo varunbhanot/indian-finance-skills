@@ -2,7 +2,7 @@
  * Money is integer paise (ADR 0002). Display strings use Indian digit
  * grouping and are produced here and nowhere else (ADR 0003).
  */
-import { divideWithRemainder } from "./arithmetic.ts";
+import { divideSignedWithRemainder, divideWithRemainder } from "./arithmetic.ts";
 
 export interface Money {
   paise: number;
@@ -114,13 +114,11 @@ export function periodic(annualPaise: number): PeriodicMoney {
  *
  * A negative figure is not nonsense to be refused here: deductions the user
  * typed can exceed the pay they were typed against, and a take-home below zero
- * is the honest report of that.
+ * is the honest report of that — which is why this goes through
+ * `divideSignedWithRemainder` rather than `divideWithRemainder` directly.
  */
 export function perMonth(annualPaise: number): number {
-  const negative = annualPaise < 0;
-  const magnitude = negative ? -annualPaise : annualPaise;
-  const month = divideWithRemainder(magnitude, MONTHS_PER_YEAR).quotient;
-  return negative ? -month : month;
+  return divideSignedWithRemainder(annualPaise, MONTHS_PER_YEAR).quotient;
 }
 
 /**

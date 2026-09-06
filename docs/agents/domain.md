@@ -6,7 +6,7 @@ How the engineering skills should consume this repo's domain documentation when 
 
 - **`CONTEXT.md`** at the repo root, or
 - **`CONTEXT-MAP.md`** at the repo root if it exists: it points at one `CONTEXT.md` per context. Read each one relevant to the topic.
-- **`.claude/skills/ctc-decoder/docs/adr/`**: read ADRs that touch the area you're about to work in. The ADRs are scoped to the CTC-decoder skill.
+- **`.claude/skills/<skill>/docs/adr/`**: read ADRs that touch the area you're about to work in. ADRs are scoped per skill and numbered per skill — `ctc-decoder/docs/adr/` and `insurance-irr/docs/adr/` each start at 0001, and a bare "ADR 0007" means the one in the skill under discussion. A cross-skill reference names the skill ("the CTC decoder's ADR 0007").
 
 If any of these files don't exist, **proceed silently**. Don't flag their absence; don't suggest creating them upfront. The `/domain-modeling` skill (reached via `/grill-with-docs` and `/improve-codebase-architecture`) creates them lazily when terms or decisions actually get resolved.
 
@@ -22,12 +22,16 @@ Skill-scoped repo (Indian Finance Skills):
 │   └── cli/                           ← CLI entrypoints
 └── .claude/
     └── skills/
-        └── ctc-decoder/
+        ├── ctc-decoder/
+        │   ├── SKILL.md
+        │   ├── README.md
+        │   └── docs/adr/              ← CTC-decoder decisions
+        │       ├── 0001-rules-file-schema.md
+        │       └── ...
+        └── insurance-irr/
             ├── SKILL.md
             ├── README.md
-            └── docs/adr/              ← CTC-decoder decisions
-                ├── 0001-rules-file-schema.md
-                └── ...
+            └── docs/adr/              ← insurance-irr decisions, numbered from 0001
 ```
 
 ## Use the glossary's vocabulary

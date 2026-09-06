@@ -224,5 +224,6 @@ The five canonical roles, unchanged. See `docs/agents/triage-labels.md`.
 
 ### Domain docs
 
-Single-context: `CONTEXT.md` and `docs/adr/` at the repo root. See
+Single-context: `CONTEXT.md` at the repo root. ADRs are scoped to the CTC-decoder 
+skill and live in `.claude/skills/ctc-decoder/docs/adr/`. See
 `docs/agents/domain.md`.

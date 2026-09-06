@@ -110,7 +110,8 @@ maintainer loads them.
 
 The deterministic core behind the skills lives in `src/core/`, the CLI
 entrypoints in `src/cli/`, statutory rules in `rules/`, and behavioural
-fixtures in `fixtures/`. Design decisions are recorded in `docs/adr/`.
+fixtures in `fixtures/`. Design decisions are recorded in 
+`.claude/skills/ctc-decoder/docs/adr/`.
 
 ## Running the core directly
 

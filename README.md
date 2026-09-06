@@ -14,6 +14,35 @@ threshold traced to its primary source. No skill ever tells you what to do.
 
 More skills will be added here as they are built.
 
+## Using a skill
+
+Clone the repository and start Claude Code inside it. The skills load
+themselves from `.claude/skills/`, which is where Claude Code reads a project's
+skills from, so there is nothing to install or enable beyond the dependency the
+arithmetic needs:
+
+```
+git clone https://github.com/varunbhanot/indian-finance-skills
+cd indian-finance-skills
+npm install    # Node 22.18 or later
+claude
+```
+
+Then say what you have. Each skill carries the conditions it triggers on, so a
+sentence like *"I've got an offer letter, what's actually guaranteed here?"*
+reaches the CTC decoder on its own. Naming it works too — `/ctc-decoder`.
+
+From there the skill asks for what it needs. You can hand it the offer letter
+as a document, paste the breakdown, or type figures one at a time; every figure
+it reads is confirmed with you beside the line it came from before any of it is
+used. It never asks for a password, a PAN or an account number, and it does not
+repeat an identifying detail from a document you hand it.
+
+The arithmetic runs locally, in a CLI the skill calls and whose output it
+narrates — see [Running the core directly](#running-the-core-directly) to call
+that yourself. What reaches Anthropic is your conversation with Claude, the
+same as any other Claude Code session.
+
 ## How every skill is built
 
 Each skill has two layers, and the boundary between them is strict
@@ -55,11 +84,19 @@ and follows the standard Claude Skill layout:
   references/   # optional — reference material loaded on demand
 ```
 
+Everything in that directory is a finance skill, and the skills you get on
+cloning are the ones in the table above. The general-purpose engineering skills
+this project is *built with* — TDD, triage, code review — are the maintainer's
+tooling rather than the product, so they are not vendored in here and load
+separately, per person. They never crowd the menu for someone who came for
+their offer letter, and [CONTRIBUTING.md](CONTRIBUTING.md) says how a
+maintainer loads them.
+
 The deterministic core behind the skills lives in `src/core/`, the CLI
 entrypoints in `src/cli/`, statutory rules in `rules/`, and behavioural
 fixtures in `fixtures/`. Design decisions are recorded in `docs/adr/`.
 
-## Running it
+## Running the core directly
 
 **Node 22.18 or later is required**, and it is not a preference. There is no
 build step: every script hands Node a `.ts` file and relies on it stripping the

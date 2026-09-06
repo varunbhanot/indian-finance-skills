@@ -101,6 +101,20 @@ Skills live in `.claude/skills/<name>/SKILL.md` — that is the only directory
 Claude Code auto-loads project skills from. A top-level skill directory does
 nothing.
 
+Everything in `.claude/skills/` is a finance skill of this project's own, and
+nothing else goes there. The engineering skills this project is built with
+(`/tdd`, `/triage`, `/code-review`, `/handoff`, `/to-tickets` and the rest of
+[mattpocock/skills](https://github.com/mattpocock/skills)) are the maintainer's
+tooling, not the product: they load per person from Matt Pocock's own plugin,
+so someone who clones this repository for the CTC decoder gets the decoder and
+not a menu of 27 skills. CONTRIBUTING.md says how to load them, and
+`test/skills-are-this-projects-own.test.ts` keeps them from being copied back
+in.
+
+Those skills arrive namespaced — `/mattpocock-skills:tdd` — and the bare name
+still resolves while nothing else in the session claims it. Where this file and
+`docs/agents/` name one, they mean whichever form the reader's session offers.
+
 ## Evals
 
 Fixtures test the CLI seam only: JSON in, JSON out, through the same entrypoint
@@ -113,7 +127,7 @@ discovers them. A fixture may also hold a `rules/` directory or a
 not ship — an absent group, a catalogue entry added without code (ADR 0009), or
 a threshold moved to show that what is flagged is data and not code. Both
 variables are test affordances and are not part of the JSON contract.
-Six checks sit beside the seam: the rules schema check
+Seven checks sit beside the seam: the rules schema check
 (every `rules/*.yaml` loads, and titles each document it cites exactly once),
 the heuristics schema check (every threshold gives a `rationale`, and none
 carries a `source` at any depth — the guarantee ADR 0006 rests on, and the one
@@ -122,9 +136,12 @@ every fixture's `expected.json` (`sources` is the complete deduplicated union of
 the documents cited above it, and nothing in the output reads as advice —
 ADR 0007), the duplicate-goldens check (a fixture sharing both its input and its
 golden with another names that twin in its README, so a copy is never silent —
-issue #38), and the two loaders' own tests against test-only YAML documents (the
+issue #38), the two loaders' own tests against test-only YAML documents (the
 ticket that built the rules loader permits this, since no statutory value may be
-typed from memory to test it).
+typed from memory to test it), and the skills-layout check (every entry in
+`.claude/skills/` is a real self-describing directory and no `vendor/` tree
+exists, so third-party tooling cannot be copied back in beside the finance
+skills).
 
 The traceability eval (ADR 0003) runs **against checked-in recorded
 transcripts**: recording one needs a model and is done on demand
@@ -176,6 +193,12 @@ default (the OS temp directory) does not survive Claude Code web session
 isolation, where only committed files carry over.
 
 ## Agent skills
+
+These sections configure the engineering skills above. They are not vendored
+into this repository (see the skills-layout note under **Tooling**); load them
+as CONTRIBUTING.md describes. The configuration below stays committed either
+way, because it records this project's tracker, labels and doc layout rather
+than the skills' own contents.
 
 ### Issue tracker
 

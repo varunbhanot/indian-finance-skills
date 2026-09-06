@@ -7,6 +7,39 @@
 - Open a pull request into `main` and let CI pass before merging.
 - Keep PRs focused on a single skill or a single change; avoid mixing unrelated edits.
 
+## The engineering skills this project is built with
+
+CLAUDE.md, the tickets and `docs/agents/` all speak in terms of skills like
+`/tdd`, `/triage`, `/code-review`, `/handoff`, `/to-tickets` and `/wayfinder`.
+Those come from [mattpocock/skills](https://github.com/mattpocock/skills) and
+they are **not in this repository**. They are tooling for working on the code,
+so vendoring them into `.claude/skills/` would hand all 26 of them to every
+person who clones this repository for the CTC decoder — a menu of 27 skills,
+one of which is about their offer letter.
+`test/skills-are-this-projects-own.test.ts` fails the build if a copy comes
+back.
+
+Load them once, for yourself, in whichever place you work:
+
+- **Your own terminal**: `claude plugin marketplace add mattpocock/skills`,
+  then `claude plugin install mattpocock-skills@mattpocock --scope user`.
+- **Claude Code on the web**: enable the plugin for your claude.ai account and
+  every cloud session downloads it automatically (Claude Code loads it as a
+  *synced plugin*). If it isn't offered there, put the two commands above in
+  your [cloud environment's](https://code.claude.com/docs/en/cloud-environments)
+  **Setup script** field instead, which runs before Claude Code launches and is
+  kept in the environment's cache.
+
+Either way the skills arrive namespaced, as `/mattpocock-skills:tdd`. The bare
+`/tdd` still works while nothing else in the session claims the name, which is
+the form the docs here use. Nothing about the finance skills or the core
+depends on having them installed: `npm test`, `npm run lint` and
+`npm run typecheck` are the contract, and they need none of this.
+
+`docs/agents/` stays committed, because it configures those skills *for this
+project* — which tracker they file to, which labels they use, where the domain
+docs live — and that is this repository's decision to record, not Matt's code.
+
 ## Running the core
 
 **Node 22.18 or later**, then `npm install`. There is no build step, and that is
@@ -160,8 +193,12 @@ by a contributor, not CI.
 
 ## Adding a new skill
 
-1. Create `.claude/skills/<skill-name>/` (kebab-case). A top-level directory
-   will not be loaded by Claude Code.
+1. Create `.claude/skills/<skill-name>/` (kebab-case) as a real directory
+   holding a `SKILL.md` and a `README.md`. A top-level directory will not be
+   loaded by Claude Code, and a symlink, a `vendor/` tree or a bundled
+   `.claude-plugin/` manifest each fails
+   `test/skills-are-this-projects-own.test.ts`: that directory is for finance
+   skills written here, and third-party tooling loads from its own plugin.
 2. Add a `SKILL.md` with frontmatter (`name`, `description`) and clear instructions.
 3. Keep helper scripts in `scripts/` and reference-only material in `references/`.
    A skill needs neither: `ctc-decoder` is one `SKILL.md` and nothing else.

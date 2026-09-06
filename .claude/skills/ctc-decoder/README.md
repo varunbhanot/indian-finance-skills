@@ -101,4 +101,4 @@ node ~/.cache/indian-finance-skills/src/cli/ctc-decoder.ts '<json>'
 
 Rules it reads live in `rules/fy<YYYY-YY>.yaml`; the judgement thresholds
 behind its flags live in `heuristics.yaml`. Behavioural fixtures for it are
-under `fixtures/`.
+under `fixtures/ctc-decoder/`.

@@ -84,16 +84,13 @@ pay — they share both and differ only in `recurring`.
 
 ## Adding a fixture
 
-Create `fixtures/<name>/` with `input.json` and either `expected.json` (the
-exact stdout) or `expected-error.json` (the exact stderr). The suite discovers
-the directory and runs it through `npm run ctc-decoder`. A fixture for another
-skill's CLI (e.g. `insurance-irr`) adds a plain-text `entrypoint` file naming
-that npm script instead — every fixture predating that file belongs to the CTC
-decoder, which is why it is the default. Fixture directories are one flat
-namespace, so a name must be unique across every skill's fixtures; when a
-rejection shares its natural name with another skill's (e.g. `reject-above-cap`
-already belongs to the decoder), prefix it with the skill's own name instead of
-overwriting the other skill's fixture. Expected values must come from an
+Create `fixtures/<skill>/<name>/` with `input.json` and either `expected.json`
+(the exact stdout) or `expected-error.json` (the exact stderr). The suite
+discovers the directory and runs it through `npm run <skill>` — the skill
+directory is the npm script, so `fixtures/ctc-decoder/no-flags` runs through
+`npm run ctc-decoder` and `fixtures/insurance-irr/reject-above-cap` through
+`npm run insurance-irr`, and nothing inside a fixture has to say which. Names
+need only be unique within a skill. Expected values must come from an
 independent source (a worked example, an official calculator, a hand-checked
 literal), never from running the CLI and pasting its output.
 
@@ -106,8 +103,8 @@ for, and `npm test` fails until it does (issue #38).
 
 A fixture that needs a rules file this repository does not ship — one missing a
 group, or one carrying a catalogue entry that does not exist yet — may add a
-`fixtures/<name>/rules/fy<YYYY-YY>.yaml`, and the runner points the decoder at
-it (ADR 0009). Such a file is test data, not statutory fact; say so in a comment
+`fixtures/<skill>/<name>/rules/fy<YYYY-YY>.yaml`, and the runner points the
+core at it (ADR 0009). Such a file is test data, not statutory fact; say so in a comment
 at its head.
 
 ## Adding or changing a heuristic
@@ -125,7 +122,7 @@ tax-year concept — which is why it sits beside `rules/` rather than inside it.
 Disagreeing with a threshold is a pull request against this one file, and an
 argument about judgement, with nobody wondering whether a tax rate was edited.
 Changing one changes what the decoder flags with no code change at all;
-`fixtures/flag-threshold-from-the-file` is that claim, shown rather than
+`fixtures/ctc-decoder/flag-threshold-from-the-file` is that claim, shown rather than
 asserted.
 
 A flag states a fact and never a recommendation (ADR 0007), and the wording is

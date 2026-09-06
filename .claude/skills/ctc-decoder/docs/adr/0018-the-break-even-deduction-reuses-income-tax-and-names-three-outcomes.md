@@ -37,7 +37,7 @@ misreport two real cases:
   (Income-tax Act, 2025, section 156(1): one rupee either side of total income
   ₹5,00,000 loses the whole rebate rather than a sliver of it), and that cliff
   can make its tax drop by more in one rupee of deduction than the new
-  regime's figure sits inside — see `fixtures/break-even-old-never-wins`.
+  regime's figure sits inside — see `fixtures/ctc-decoder/break-even-old-never-wins`.
 
 So `breakEvenDeductionFor` reports one of three outcomes rather than a `Money`
 that is sometimes a coincidental zero: `"deduction"` with the amount, only
@@ -52,7 +52,7 @@ new tax alongside it, do not produce the third outcome: this file's own new
 regime has a rebate cliff of its own (total income ₹12,00,000), and above it
 its tax starts well clear of the old regime's cliff-gap and only grows —
 there is no salary at which the new regime's real tax lands inside the old
-regime's real gap. `fixtures/break-even-old-never-wins` pins its own rules
+regime's real gap. `fixtures/ctc-decoder/break-even-old-never-wins` pins its own rules
 directory (ADR 0009) with the real old regime, unchanged, and an invented new
 regime engineered to land a tax figure inside that gap; its README records
 why the Income Tax Department's engine cannot check that fixture (it

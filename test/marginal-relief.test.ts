@@ -16,7 +16,7 @@
  * 2. Every rupee of the rest of the rise is the cess. The ceiling does not cover
  *    the cess (s.3(15) imposes it separately on tax as increased by surcharge),
  *    so take-home does still fall a little on crossing a threshold — by the cess
- *    on the income gained, and by nothing else. `fixtures/marginal-relief`'s
+ *    on the income gained, and by nothing else. `fixtures/ctc-decoder/marginal-relief`'s
  *    README works one crossing through in rupees.
  *
  * The sweep is expensive — a process per salary — so it is deliberately narrow:

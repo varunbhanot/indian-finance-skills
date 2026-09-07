@@ -1,0 +1,66 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "fixtures/insurance-irr/gst-rate-moved/rules/fy2026-27.yaml",
+  "linked": false,
+  "annual_premium": {
+    "paise": 10000000,
+    "display": "₹1,00,000"
+  },
+  "gst_on_premium": {
+    "rate": {
+      "bp": 1200,
+      "display": "12%"
+    },
+    "source": {
+      "section": "A synthetic 12% rate standing in for whatever a rules ticket would source, to show the cash outflow and the IRR both move with the rules file and no code change (issue #67). Never read as a real GST rate: the shipped rules file carries the actual, nil rate.",
+      "document": {
+        "title": "Test rate, not statutory fact",
+        "url": "https://example.test/gst-rate-moved"
+      },
+      "retrieved": "2026-09-06",
+      "rules_key": "groups.gst.individual_life_insurance"
+    },
+    "cash_outflow": {
+      "paise": 11200000,
+      "display": "₹1,12,000"
+    }
+  },
+  "premium_paying_term": 1,
+  "policy_term": 1,
+  "sum_assured": {
+    "paise": 10000000,
+    "display": "₹1,00,000"
+  },
+  "scenarios": [
+    {
+      "name": "guaranteed",
+      "maturity_benefit": {
+        "paise": 11760000,
+        "display": "₹1,17,600"
+      },
+      "survival_benefits": [],
+      "irr": {
+        "bp": 500,
+        "display": "5%"
+      },
+      "real_return": {
+        "bp": 194,
+        "display": "1.94%",
+        "method": "Fisher relation: (1 + nominal) ÷ (1 + inflation) − 1, floored to the basis point"
+      }
+    }
+  ],
+  "premiums_paid": 0,
+  "inflation": {
+    "bp": 300,
+    "display": "3%",
+    "source": "user-typed"
+  },
+  "classifications": [],
+  "sources": [
+    {
+      "title": "Test rate, not statutory fact",
+      "url": "https://example.test/gst-rate-moved"
+    }
+  ]
+}

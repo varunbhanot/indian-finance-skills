@@ -3,8 +3,8 @@
   "rules_file": "rules/fy2026-27.yaml",
   "linked": false,
   "annual_premium": {
-    "paise": 10000000,
-    "display": "₹1,00,000"
+    "paise": 20000000,
+    "display": "₹2,00,000"
   },
   "gst_on_premium": {
     "rate": {
@@ -22,58 +22,42 @@
       "note": "\"Group\" is defined by clause (zfb), inserted into paragraph 2 of the principal notification by this same amendment: employer-employee groups and non-employer-employee groups formed for a purpose other than insurance. Group life insurance is out of scope of this rules group (ADR 0012 [insurance-irr]) and stays at the rate Rule 32(4), CGST Rules, 2017 sets."
     },
     "cash_outflow": {
-      "paise": 10000000,
-      "display": "₹1,00,000"
+      "paise": 20000000,
+      "display": "₹2,00,000"
     }
   },
   "premium_paying_term": 1,
   "policy_term": 1,
   "sum_assured": {
-    "paise": 10600000,
-    "display": "₹1,06,000"
+    "paise": 20000000,
+    "display": "₹2,00,000"
   },
   "scenarios": [
     {
       "name": "guaranteed",
       "maturity_benefit": {
-        "paise": 10600000,
-        "display": "₹1,06,000"
+        "paise": 22000000,
+        "display": "₹2,20,000"
       },
       "survival_benefits": [],
       "irr": {
-        "bp": 600,
-        "display": "6%"
+        "bp": 1000,
+        "display": "10%"
       },
       "real_return": {
-        "bp": -364,
-        "display": "-3.64%",
+        "bp": 476,
+        "display": "4.76%",
         "method": "Fisher relation: (1 + nominal) ÷ (1 + inflation) − 1, floored to the basis point"
       }
     }
   ],
   "premiums_paid": 0,
   "inflation": {
-    "bp": 1000,
-    "display": "10%",
+    "bp": 500,
+    "display": "5%",
     "source": "user-typed"
   },
-  "classifications": [
-    {
-      "code": "real-return-negative",
-      "kind": "comparison",
-      "scenario": "guaranteed",
-      "measured": {
-        "nominal_irr": {
-          "bp": 600,
-          "display": "6%"
-        },
-        "real_return": {
-          "bp": -364,
-          "display": "-3.64%"
-        }
-      }
-    }
-  ],
+  "classifications": [],
   "sources": [
     {
       "title": "Notification No. 16/2025-Central Tax (Rate)",

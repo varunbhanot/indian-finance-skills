@@ -1,5 +1,5 @@
 /**
- * The classifications this skill emits (issue #66, #68, ADR 0001, ADR
+ * The classifications this skill emits (issue #66, #68, #69, ADR 0001, ADR
  * 0015): a stated fact about figures already in the output, never a
  * recommendation. `comparison` carries no citation and no rationale,
  * because both figures it rests on are right there beside it — two
@@ -7,7 +7,9 @@
  * or the solver's own limits. `statute` carries a citation into the rules
  * file: a condition of the Income-tax Act, 2025's maturity-proceeds
  * exemption (issue #68, ADR 0010 [insurance-irr], `taxability.ts`), the
- * first kind to reach this array.
+ * first kind to reach this array, joined in issue #69 by a typed surrender
+ * quote under the guaranteed surrender value floor (`in-force.ts`,
+ * ADR 0008, ADR 0017 [insurance-irr]).
  */
 import type { Money, Rate } from "../money.ts";
 import { rate } from "../money.ts";
@@ -33,7 +35,8 @@ export interface Classification {
     | "premium-exceeds-10pc-of-sum-assured"
     | "aggregate-exceeds-threshold"
     | "aggregate-unknown"
-    | "death-benefit-exempt-regardless";
+    | "death-benefit-exempt-regardless"
+    | "below-regulatory-floor";
   kind: ClassificationKind;
   /**
    * The scenario this is about, by the name the policy gave it; absent

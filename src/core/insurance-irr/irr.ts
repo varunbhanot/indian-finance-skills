@@ -1,14 +1,17 @@
 /**
  * The nominal IRR of one scenario's cash flows (issue #66, ADR 0003, ADR
- * 0004): premiums at the start of each paying year, survival benefits at the
- * end of the policy year they are scheduled for, the maturity benefit at the
- * end of the policy term.
+ * 0004): the cash outflow at the start of each paying year, survival
+ * benefits at the end of the policy year they are scheduled for, the
+ * maturity benefit at the end of the policy term. The outflow is the
+ * premium plus GST (issue #67, ADR 0012 [insurance-irr]), computed by the
+ * caller and passed in already summed — this module reconciles whatever
+ * figure it is given, never the bare premium by name.
  *
  * The balance is rolled forward one policy year at a time —
  * `balance × (10000 + bp) ÷ 10000`, through `divideSignedWithRemainder`
- * because the balance is negative from the first year, premiums leaving
- * before any benefit arrives — and the IRR is found by bisecting on the
- * integer basis-point rate for the sign change of the terminal balance.
+ * because the balance is negative from the first year, the cash outflow
+ * leaving before any benefit arrives — and the IRR is found by bisecting on
+ * the integer basis-point rate for the sign change of the terminal balance.
  *
  * The terminal balance is non-increasing as the rate rises: growing a
  * negative outflow at a higher rate only makes it more negative, so a policy
@@ -63,13 +66,16 @@ export interface IrrSolution {
 }
 
 /**
- * One policy year's flow, landing at the end of that year (or, for a
- * premium, leaving at the start of it — see `netFlows`).
+ * One policy year's flow, landing at the end of that year (or, for the cash
+ * outflow, leaving at the start of it — see `netFlows`). `annual_cash_outflow_paise`
+ * is the premium plus GST (issue #67, ADR 0012 [insurance-irr]), not the
+ * bare premium: the solver reconciles what actually leaves the bank each
+ * paying year, whatever that figure is built from.
  */
 export interface PolicyFlows {
   premium_paying_term: number;
   policy_term: number;
-  annual_premium_paise: number;
+  annual_cash_outflow_paise: number;
 }
 
 /** The one scenario shape the solver needs: independent of `policy.ts`'s own `DecodedScenario`, so neither imports the other. */
@@ -102,9 +108,9 @@ function netFlows(policy: PolicyFlows, scenario: ScenarioFlows): number[] {
     flows[t] = (flows[t] ?? 0) + delta;
   };
 
-  add(0, -policy.annual_premium_paise);
+  add(0, -policy.annual_cash_outflow_paise);
   for (let t = 1; t < policy.premium_paying_term; t++) {
-    add(t, -policy.annual_premium_paise);
+    add(t, -policy.annual_cash_outflow_paise);
   }
   for (const benefit of scenario.survival_benefits) {
     add(benefit.year, benefit.amount.paise);

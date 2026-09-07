@@ -180,3 +180,41 @@ fixtures above happens to reach that magnitude, so none of them is what proves
 the clamp that keeps it a safe integer regardless — `accepts-a-policy`'s own
 twenty-year term already does, now that its golden carries an IRR for both of
 its scenarios.
+
+### GST on the premium (issue #67)
+
+Every scenario's cash outflow is now the typed premium plus GST (ADR 0012),
+not the bare premium: `gst_on_premium` carries the rate `groups.gst.individual_life_insurance`
+holds today, its citation, and the resulting `cash_outflow`, which is what
+every IRR above reconciles from here on. At today's nil rate the arithmetic
+is a no-op, so all seven fixtures above gained `gst_on_premium` on their
+goldens (rate 0%, `cash_outflow` equal to `annual_premium`) and a
+`Notification No. 16/2025-Central Tax (Rate)` entry in `sources`, with no
+change to any IRR or real return they already asserted.
+
+| What it exercises | Fixture |
+|---|---|
+| The nil rate cited on a fresh one-year policy: `gst_on_premium.rate` at 0%, `cash_outflow` equal to the premium, the notification folded into `sources` | `gst-nil-cited` |
+| A pinned `rules/` carrying a synthetic non-nil rate: the cash outflow *and* the IRR both move from what the same premium and maturity benefit would give at nil, with no code change | `gst-rate-moved` |
+
+Both fixtures' figures were derived independently before the CLI was run
+once to confirm them, never the other way round. Each is a single premium
+year, which makes the arithmetic exact by hand: `gst-nil-cited`'s ₹2,20,000
+maturity on a ₹2,00,000 outflow is `200000 × 1.10 = 220000`, an exact 10%,
+and its real return follows the Fisher relation already hand-checked
+elsewhere in this file. `gst-rate-moved`'s pinned 12% rate turns a
+₹1,00,000 premium into a ₹1,12,000 cash outflow, and its ₹1,17,600 maturity
+is exactly `112000 × 1.05`, an exact 5% — a different rate from what the
+same premium and maturity would reconcile to at the shipped nil rate, which
+is the point: the rules file moved the outflow, and the outflow moved the
+IRR, with nothing in `src/core` touched.
+
+`gst-rate-moved` pins its own `rules/` (ADR 0009 [ctc-decoder]) the same way
+`reject-inflation-target-absent` and `reject-inflation-target-invalid` do,
+carrying `inflation_target` unchanged from the shipped file (`gst.ts` is
+read after `inflation-target.ts`, so a policy year still has to resolve)
+and a `gst.individual_life_insurance` of 12% that is test-only and cites
+nothing real — the shipped `rules/fy2026-27.yaml` carries the actual, nil
+rate and its notification, and no fixture anywhere in this suite carries
+the historical 4.5% or 2.25% rates the PRD described, since group policies
+and pre-repeal premiums are both out of scope (ADR 0012).

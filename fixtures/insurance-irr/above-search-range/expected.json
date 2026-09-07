@@ -6,6 +6,26 @@
     "paise": 1000000,
     "display": "₹10,000"
   },
+  "gst_on_premium": {
+    "rate": {
+      "bp": 0,
+      "display": "0%"
+    },
+    "source": {
+      "section": "New Delhi, 17 September 2025, G.S.R. 666(E), F. No. 190341/188/2025-TRU, amending Notification No. 12/2017-Central Tax (Rate) to insert serial number 36C, Heading 9971: \"Services of life insurance business provided by an insurer to the insured, where the insured is not a group\" -- Nil. Serial number 36E does the same for reinsurance of that service. Clause 2: \"This notification shall come into force with effect from the 22nd day of September, 2025.\"",
+      "document": {
+        "title": "Notification No. 16/2025-Central Tax (Rate)",
+        "url": "https://cbic-gst.gov.in/central-tax-rate.html"
+      },
+      "retrieved": "2026-09-06",
+      "rules_key": "groups.gst.individual_life_insurance",
+      "note": "\"Group\" is defined by clause (zfb), inserted into paragraph 2 of the principal notification by this same amendment: employer-employee groups and non-employer-employee groups formed for a purpose other than insurance. Group life insurance is out of scope of this rules group (ADR 0012 [insurance-irr]) and stays at the rate Rule 32(4), CGST Rules, 2017 sets."
+    },
+    "cash_outflow": {
+      "paise": 1000000,
+      "display": "₹10,000"
+    }
+  },
   "premium_paying_term": 1,
   "policy_term": 1,
   "sum_assured": {
@@ -43,5 +63,10 @@
       }
     }
   ],
-  "sources": []
+  "sources": [
+    {
+      "title": "Notification No. 16/2025-Central Tax (Rate)",
+      "url": "https://cbic-gst.gov.in/central-tax-rate.html"
+    }
+  ]
 }

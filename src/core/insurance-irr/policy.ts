@@ -11,8 +11,14 @@
  * recommending anything (ADR 0001). The inflation figure itself is read
  * back against the RBI's own statutory target (`inflation-target.ts`,
  * ADR 0013): never a default, but cited as the target when the two agree.
+ *
+ * Issue #67 adds GST (`gst.ts`, ADR 0012): the typed `annual_premium` is
+ * always the pre-GST premium, and this module adds the rules file's rate to
+ * it before the IRR solver ever sees a cash outflow, so `gst_on_premium`'s
+ * `cash_outflow` — not the bare premium — is what every scenario's IRR
+ * reconciles.
  */
-import { money, rate, rupeesToPaise, type Money, type Rate } from "../money.ts";
+import { applyRate, money, rate, rupeesToPaise, type Money, type Rate } from "../money.ts";
 import { resolveRulesFile, rulesFilePathFor, type RulesFile } from "../rules/files.ts";
 import { RulesFileError } from "../rules/loader.ts";
 import { InsuranceError } from "./errors.ts";
@@ -30,6 +36,7 @@ import { solveIrr, type PolicyFlows } from "./irr.ts";
 import { realReturnBp, REAL_RETURN_METHOD } from "./real-return.ts";
 import { classificationsFor, type Classification } from "./classifications.ts";
 import { inflationTargetFor, type InflationTarget, type InflationTargetCitation } from "./inflation-target.ts";
+import { gstOnIndividualLifeInsuranceFor, type Gst, type GstCitation } from "./gst.ts";
 
 export interface DecodedSurvivalBenefit {
   year: number;
@@ -72,6 +79,18 @@ export interface DecodedTermPremium {
 }
 
 /**
+ * GST on the typed premium (issue #67, ADR 0012 [insurance-irr]): the rate
+ * the rules file carries today, its citation, and the resulting cash
+ * outflow — premium plus that rate, applied through `applyRate` — which is
+ * what every scenario's IRR reconciles from here on, not the bare premium.
+ */
+export interface GstOnPremium {
+  rate: Rate;
+  source: GstCitation;
+  cash_outflow: Money;
+}
+
+/**
  * The typed inflation figure, read back against the RBI's own statutory
  * target (ADR 0013): `source` is the rules file's citation when the two
  * agree, in basis points, and the literal string `"user-typed"` otherwise.
@@ -95,6 +114,7 @@ export interface DecodedPolicy {
   issued_on?: string;
   linked: boolean;
   annual_premium: Money;
+  gst_on_premium: GstOnPremium;
   premium_paying_term: number;
   policy_term: number;
   sum_assured: Money;
@@ -121,11 +141,15 @@ export function intake(raw: unknown): DecodedPolicy {
   const input = validatePolicyInput(raw);
   const rules = rulesFor(input.financial_year);
   const inflationTarget = inflationTargetFor(rules);
+  const gst = gstOnIndividualLifeInsuranceFor(rules);
+
+  const annualPremiumPaise = rupeesToPaise(input.annual_premium);
+  const cashOutflowPaise = annualPremiumPaise + applyRate(annualPremiumPaise, gst.rate_bp);
 
   const flows: PolicyFlows = {
     premium_paying_term: input.premium_paying_term,
     policy_term: input.policy_term,
-    annual_premium_paise: rupeesToPaise(input.annual_premium),
+    annual_cash_outflow_paise: cashOutflowPaise,
   };
   const solved = input.scenarios.map((scenario) => solveScenario(scenario, flows, input.inflation_bp));
 
@@ -134,7 +158,8 @@ export function intake(raw: unknown): DecodedPolicy {
     rules_file: rules.path,
     ...(input.issued_on === undefined ? {} : { issued_on: input.issued_on }),
     linked: input.linked,
-    annual_premium: money(rupeesToPaise(input.annual_premium)),
+    annual_premium: money(annualPremiumPaise),
+    gst_on_premium: gstOnPremiumFor(gst, cashOutflowPaise),
     premium_paying_term: input.premium_paying_term,
     policy_term: input.policy_term,
     sum_assured: money(rupeesToPaise(input.sum_assured)),
@@ -205,6 +230,11 @@ function decodeTermPremium(termPremium: TermPremiumInput): DecodedTermPremium {
     amount: money(rupeesToPaise(termPremium.amount)),
     sum_assured: money(rupeesToPaise(termPremium.sum_assured)),
   };
+}
+
+/** The rate the rules file carries, its citation, and the cash outflow already computed from it. */
+function gstOnPremiumFor(gst: Gst, cashOutflowPaise: number): GstOnPremium {
+  return { rate: rate(gst.rate_bp), source: gst.citation, cash_outflow: money(cashOutflowPaise) };
 }
 
 /** The typed inflation figure, cited against the rules file's target when the two agree bp for bp (ADR 0013). */

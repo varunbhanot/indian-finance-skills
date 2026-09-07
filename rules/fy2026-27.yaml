@@ -700,6 +700,74 @@ groups:
     individual_life_insurance:
       rate: 0.00
 
+  # Maturity-proceeds exemption bands (issue #68, ADR 0010 [insurance-irr]):
+  # Income-tax Act, 2025, Schedule II (see section 11), Table Sl. No. 2 --
+  # "Any sum received under a life insurance policy, including the sum
+  # allocated by way of bonus on such policy", except where the sum is
+  # received on death, which Column C exempts regardless of every band
+  # below. Same Act and gazette as `income_tax` above; a separate group
+  # because a policy's issue date, not the evaluation year, picks the band
+  # (ADR 0016 [insurance-irr]).
+  #
+  # Column C states two further, independent conditions by policy issue
+  # date: the premium-to-sum-assured ratio, and, from 1 February 2021, an
+  # aggregate premium ceiling across every policy of that kind the holder
+  # carries, tighter for a linked (ULIP) policy than a non-linked one.
+  life_insurance_maturity_exemption:
+    title: The Income-tax Act, 2025 (No. 30 of 2025)
+    source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+    retrieved: 2026-09-06
+    effective_from: 2026-04-01
+    section: Income-tax Act, 2025, Schedule II (see section 11), Table Sl. No. 2, Column C
+    note: >-
+      Note 1(d): "premium to sum assured ratio" is "the highest percentage
+      of annual premium payable to the actual capital sum assured, during
+      the term of the policy" -- this file reads a flat annual_premium
+      against sum_assured, so the highest and only percentage coincide.
+      Note 1(a), read with Schedule XV para 2(2): "actual capital sum
+      assured" is the minimum sum assured on the insured event at any time
+      during the term, ignoring any premium agreed to be returned and any
+      bonus or other benefit over and above the sum actually assured. A
+      policy on a person with a disability (section 154) or a specified
+      disease -- a "special policy" -- reads 15% where this file reads
+      10%; the skill's input carries no field naming a policy as one, so
+      only the ordinary ratio is read here, and the special-policy figure
+      is not encoded. Note 1(b): the aggregate-premium conditions do not
+      apply to a policy issued on or after 1 April 2025 by an IFSC
+      Insurance Office, which this file carries no band for. Every
+      condition here sits under the opening words of Sl. No. 2 itself:
+      "except where the sum is received on death" -- death proceeds are
+      exempt regardless, in every band.
+    bands:
+      # 1 Apr 2003 - 31 Mar 2012.
+      - issued_from: 2003-04-01
+        issued_to: 2012-03-31
+        ratio_rate: 0.20
+      # 1 Apr 2012 - 31 Mar 2013.
+      - issued_from: 2012-04-01
+        issued_to: 2013-03-31
+        ratio_rate: 0.10
+      # 1 Apr 2013 - 31 Jan 2021. Ratio test only: the aggregate condition
+      # does not exist yet.
+      - issued_from: 2013-04-01
+        issued_to: 2021-01-31
+        ratio_rate: 0.10
+      # 1 Feb 2021 - 31 Mar 2023. The aggregate condition begins, and binds
+      # a linked (ULIP) policy only; a non-linked policy in this band
+      # carries the ratio test alone.
+      - issued_from: 2021-02-01
+        issued_to: 2023-03-31
+        ratio_rate: 0.10
+        aggregate_threshold_linked: 250000
+      # On or after 1 Apr 2023: the open-ended, current band -- what a
+      # policy not yet issued is read against (ADR 0016 [insurance-irr]).
+      # Both linked and non-linked policies now carry an aggregate
+      # condition, at different ceilings.
+      - issued_from: 2023-04-01
+        ratio_rate: 0.10
+        aggregate_threshold_linked: 250000
+        aggregate_threshold_non_linked: 500000
+
   # Gratuity: what basic drives on termination of employment (spec #7). Only the
   # accrual formula, the qualifying service period and the wage base are carried;
   # this file computes no gratuity figure.

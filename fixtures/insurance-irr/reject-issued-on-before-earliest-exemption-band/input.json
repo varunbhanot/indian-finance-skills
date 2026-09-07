@@ -1,0 +1,14 @@
+{
+  "financial_year": "2026-27",
+  "issued_on": "2000-01-01",
+  "linked": false,
+  "annual_premium": 30000,
+  "premium_paying_term": 1,
+  "policy_term": 1,
+  "sum_assured": 1000000,
+  "scenarios": [
+    { "name": "guaranteed", "maturity_benefit": 33000 }
+  ],
+  "premiums_paid": 1,
+  "inflation_bp": 500
+}

@@ -1,0 +1,11 @@
+{
+  "error": {
+    "code": "issued_on_before_earliest_exemption_band",
+    "message": "issued_on (2000-01-01) predates every issue-date band in groups.life_insurance_maturity_exemption: the earliest starts 2003-04-01",
+    "path": "issued_on",
+    "details": {
+      "issued_on": "2000-01-01",
+      "rules_key": "groups.life_insurance_maturity_exemption"
+    }
+  }
+}

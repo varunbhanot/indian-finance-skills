@@ -13,6 +13,11 @@
  * (the RBI inflation target, ADR 0013): the same two rejections the CTC
  * decoder's own rules reader raises, for the same reason — an absent key is
  * never a default, and a malformed one is never guessed at.
+ *
+ * `issued_on_before_earliest_exemption_band` is new in issue #68
+ * (`taxability.ts`, ADR 0010 [insurance-irr]): a policy's `issued_on` is
+ * structurally valid but predates every issue-date band the rules file
+ * carries, so no band — and so no ratio, no threshold — can be read for it.
  */
 import { CoreError, type ErrorReport } from "../errors.ts";
 
@@ -31,7 +36,8 @@ export type InsuranceErrorCode =
   | "duplicate_scenario_name"
   | "in_force_without_issued_on"
   | "rule_absent"
-  | "rules_file_invalid";
+  | "rules_file_invalid"
+  | "issued_on_before_earliest_exemption_band";
 
 export class InsuranceError extends CoreError<InsuranceErrorCode> {
   constructor(report: ErrorReport<InsuranceErrorCode>) {

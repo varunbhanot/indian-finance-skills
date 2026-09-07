@@ -57,11 +57,51 @@
     "display": "6%",
     "source": "user-typed"
   },
-  "classifications": [],
+  "classifications": [
+    {
+      "code": "aggregate-unknown",
+      "kind": "statute",
+      "measured": {
+        "threshold": {
+          "paise": 50000000,
+          "display": "₹5,00,000"
+        }
+      },
+      "citation": {
+        "section": "Income-tax Act, 2025, Schedule II (see section 11), Table Sl. No. 2, Column C",
+        "document": {
+          "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+          "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+        },
+        "retrieved": "2026-09-06",
+        "rules_key": "groups.life_insurance_maturity_exemption.bands[4]",
+        "note": "Note 1(d): \"premium to sum assured ratio\" is \"the highest percentage of annual premium payable to the actual capital sum assured, during the term of the policy\" -- this file reads a flat annual_premium against sum_assured, so the highest and only percentage coincide. Note 1(a), read with Schedule XV para 2(2): \"actual capital sum assured\" is the minimum sum assured on the insured event at any time during the term, ignoring any premium agreed to be returned and any bonus or other benefit over and above the sum actually assured. A policy on a person with a disability (section 154) or a specified disease -- a \"special policy\" -- reads 15% where this file reads 10%; the skill's input carries no field naming a policy as one, so only the ordinary ratio is read here, and the special-policy figure is not encoded. Note 1(b): the aggregate-premium conditions do not apply to a policy issued on or after 1 April 2025 by an IFSC Insurance Office, which this file carries no band for. Every condition here sits under the opening words of Sl. No. 2 itself: \"except where the sum is received on death\" -- death proceeds are exempt regardless, in every band."
+      }
+    },
+    {
+      "code": "death-benefit-exempt-regardless",
+      "kind": "statute",
+      "measured": {},
+      "citation": {
+        "section": "Income-tax Act, 2025, Schedule II (see section 11), Table Sl. No. 2, Column C",
+        "document": {
+          "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+          "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+        },
+        "retrieved": "2026-09-06",
+        "rules_key": "groups.life_insurance_maturity_exemption",
+        "note": "Note 1(d): \"premium to sum assured ratio\" is \"the highest percentage of annual premium payable to the actual capital sum assured, during the term of the policy\" -- this file reads a flat annual_premium against sum_assured, so the highest and only percentage coincide. Note 1(a), read with Schedule XV para 2(2): \"actual capital sum assured\" is the minimum sum assured on the insured event at any time during the term, ignoring any premium agreed to be returned and any bonus or other benefit over and above the sum actually assured. A policy on a person with a disability (section 154) or a specified disease -- a \"special policy\" -- reads 15% where this file reads 10%; the skill's input carries no field naming a policy as one, so only the ordinary ratio is read here, and the special-policy figure is not encoded. Note 1(b): the aggregate-premium conditions do not apply to a policy issued on or after 1 April 2025 by an IFSC Insurance Office, which this file carries no band for. Every condition here sits under the opening words of Sl. No. 2 itself: \"except where the sum is received on death\" -- death proceeds are exempt regardless, in every band."
+      }
+    }
+  ],
   "sources": [
     {
       "title": "Notification No. 16/2025-Central Tax (Rate)",
       "url": "https://cbic-gst.gov.in/central-tax-rate.html"
+    },
+    {
+      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
     }
   ]
 }

@@ -2,10 +2,13 @@
 # `gst.individual_life_insurance` carries a synthetic 12% rate rather than
 # the shipped file's nil one, to show the cash outflow and the IRR both
 # move with the rules file and no code change (ADR 0012 [insurance-irr]).
-# `inflation_target` is copied unchanged from the shipped rules file so the
-# policy year still resolves; the source below is a placeholder and cites
-# nothing real -- the shipped `rules/fy2026-27.yaml` carries the actual,
-# nil rate and its notification.
+# `inflation_target` and `life_insurance_maturity_exemption` are copied
+# unchanged from the shipped rules file so the policy year and the
+# taxability classifications still resolve; `life_insurance_maturity_exemption`
+# carries only the one open-ended band this fixture's un-issued policy is
+# read against (ADR 0016 [insurance-irr]), not the full schedule. Both
+# citations are real; only `gst` here is a placeholder that cites nothing
+# real -- the shipped `rules/fy2026-27.yaml` carries the actual, nil rate.
 financial_year: 2026-27
 groups:
   inflation_target:
@@ -26,3 +29,14 @@ groups:
     section: 'A synthetic 12% rate standing in for whatever a rules ticket would source, to show the cash outflow and the IRR both move with the rules file and no code change (issue #67). Never read as a real GST rate: the shipped rules file carries the actual, nil rate.'
     individual_life_insurance:
       rate: 0.12
+  life_insurance_maturity_exemption:
+    title: The Income-tax Act, 2025 (No. 30 of 2025)
+    source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+    retrieved: 2026-09-06
+    effective_from: 2026-04-01
+    section: Income-tax Act, 2025, Schedule II (see section 11), Table Sl. No. 2, Column C
+    bands:
+      - issued_from: 2023-04-01
+        ratio_rate: 0.10
+        aggregate_threshold_linked: 250000
+        aggregate_threshold_non_linked: 500000

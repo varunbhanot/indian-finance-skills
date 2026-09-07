@@ -3,8 +3,8 @@
   "rules_file": "rules/fy2026-27.yaml",
   "linked": false,
   "annual_premium": {
-    "paise": 10000000,
-    "display": "₹1,00,000"
+    "paise": 20000000,
+    "display": "₹2,00,000"
   },
   "gst_on_premium": {
     "rate": {
@@ -22,40 +22,44 @@
       "note": "\"Group\" is defined by clause (zfb), inserted into paragraph 2 of the principal notification by this same amendment: employer-employee groups and non-employer-employee groups formed for a purpose other than insurance. Group life insurance is out of scope of this rules group (ADR 0012 [insurance-irr]) and stays at the rate Rule 32(4), CGST Rules, 2017 sets."
     },
     "cash_outflow": {
-      "paise": 10000000,
-      "display": "₹1,00,000"
+      "paise": 20000000,
+      "display": "₹2,00,000"
     }
   },
   "premium_paying_term": 1,
   "policy_term": 1,
   "sum_assured": {
-    "paise": 10600000,
-    "display": "₹1,06,000"
+    "paise": 100000000,
+    "display": "₹10,00,000"
   },
   "scenarios": [
     {
       "name": "guaranteed",
       "maturity_benefit": {
-        "paise": 10600000,
-        "display": "₹1,06,000"
+        "paise": 22000000,
+        "display": "₹2,20,000"
       },
       "survival_benefits": [],
       "irr": {
-        "bp": 600,
-        "display": "6%"
+        "bp": 1000,
+        "display": "10%"
       },
       "real_return": {
-        "bp": -364,
-        "display": "-3.64%",
+        "bp": 476,
+        "display": "4.76%",
         "method": "Fisher relation: (1 + nominal) ÷ (1 + inflation) − 1, floored to the basis point"
       }
     }
   ],
   "premiums_paid": 0,
   "inflation": {
-    "bp": 1000,
-    "display": "10%",
+    "bp": 500,
+    "display": "5%",
     "source": "user-typed"
+  },
+  "other_premiums_aggregate": {
+    "paise": 60000000,
+    "display": "₹6,00,000"
   },
   "classifications": [
     {
@@ -63,16 +67,16 @@
       "kind": "statute",
       "measured": {
         "annual_premium": {
-          "paise": 10000000,
-          "display": "₹1,00,000"
+          "paise": 20000000,
+          "display": "₹2,00,000"
         },
         "sum_assured": {
-          "paise": 10600000,
-          "display": "₹1,06,000"
+          "paise": 100000000,
+          "display": "₹10,00,000"
         },
         "premium_to_sum_assured_ratio": {
-          "bp": 9433,
-          "display": "94.33%"
+          "bp": 2000,
+          "display": "20%"
         },
         "threshold_ratio": {
           "bp": 1000,
@@ -91,9 +95,13 @@
       }
     },
     {
-      "code": "aggregate-unknown",
+      "code": "aggregate-exceeds-threshold",
       "kind": "statute",
       "measured": {
+        "other_premiums_aggregate": {
+          "paise": 60000000,
+          "display": "₹6,00,000"
+        },
         "threshold": {
           "paise": 50000000,
           "display": "₹5,00,000"
@@ -123,21 +131,6 @@
         "retrieved": "2026-09-06",
         "rules_key": "groups.life_insurance_maturity_exemption",
         "note": "Note 1(d): \"premium to sum assured ratio\" is \"the highest percentage of annual premium payable to the actual capital sum assured, during the term of the policy\" -- this file reads a flat annual_premium against sum_assured, so the highest and only percentage coincide. Note 1(a), read with Schedule XV para 2(2): \"actual capital sum assured\" is the minimum sum assured on the insured event at any time during the term, ignoring any premium agreed to be returned and any bonus or other benefit over and above the sum actually assured. A policy on a person with a disability (section 154) or a specified disease -- a \"special policy\" -- reads 15% where this file reads 10%; the skill's input carries no field naming a policy as one, so only the ordinary ratio is read here, and the special-policy figure is not encoded. Note 1(b): the aggregate-premium conditions do not apply to a policy issued on or after 1 April 2025 by an IFSC Insurance Office, which this file carries no band for. Every condition here sits under the opening words of Sl. No. 2 itself: \"except where the sum is received on death\" -- death proceeds are exempt regardless, in every band."
-      }
-    },
-    {
-      "code": "real-return-negative",
-      "kind": "comparison",
-      "scenario": "guaranteed",
-      "measured": {
-        "nominal_irr": {
-          "bp": 600,
-          "display": "6%"
-        },
-        "real_return": {
-          "bp": -364,
-          "display": "-3.64%"
-        }
       }
     }
   ],

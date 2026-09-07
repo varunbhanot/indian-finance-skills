@@ -1,0 +1,12 @@
+{
+  "financial_year": "2026-27",
+  "linked": false,
+  "annual_premium": 50000,
+  "premium_paying_term": 1,
+  "policy_term": 1,
+  "sum_assured": 1000000,
+  "scenarios": [
+    { "name": "guaranteed", "maturity_benefit": 55000 }
+  ],
+  "inflation_bp": 500
+}

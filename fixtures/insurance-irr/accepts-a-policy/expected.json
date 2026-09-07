@@ -3,9 +3,15 @@
   "rules_file": "rules/fy2026-27.yaml",
   "issued_on": "2020-06-15",
   "linked": false,
-  "annual_premium": { "paise": 10000000, "display": "₹1,00,000" },
+  "annual_premium": {
+    "paise": 10000000,
+    "display": "₹1,00,000"
+  },
   "gst_on_premium": {
-    "rate": { "bp": 0, "display": "0%" },
+    "rate": {
+      "bp": 0,
+      "display": "0%"
+    },
     "source": {
       "section": "New Delhi, 17 September 2025, G.S.R. 666(E), F. No. 190341/188/2025-TRU, amending Notification No. 12/2017-Central Tax (Rate) to insert serial number 36C, Heading 9971: \"Services of life insurance business provided by an insurer to the insured, where the insured is not a group\" -- Nil. Serial number 36E does the same for reinsurance of that service. Clause 2: \"This notification shall come into force with effect from the 22nd day of September, 2025.\"",
       "document": {
@@ -16,20 +22,44 @@
       "rules_key": "groups.gst.individual_life_insurance",
       "note": "\"Group\" is defined by clause (zfb), inserted into paragraph 2 of the principal notification by this same amendment: employer-employee groups and non-employer-employee groups formed for a purpose other than insurance. Group life insurance is out of scope of this rules group (ADR 0012 [insurance-irr]) and stays at the rate Rule 32(4), CGST Rules, 2017 sets."
     },
-    "cash_outflow": { "paise": 10000000, "display": "₹1,00,000" }
+    "cash_outflow": {
+      "paise": 10000000,
+      "display": "₹1,00,000"
+    }
   },
   "premium_paying_term": 10,
   "policy_term": 20,
-  "sum_assured": { "paise": 200000000, "display": "₹20,00,000" },
+  "sum_assured": {
+    "paise": 200000000,
+    "display": "₹20,00,000"
+  },
   "scenarios": [
     {
       "name": "guaranteed",
-      "maturity_benefit": { "paise": 150000000, "display": "₹15,00,000" },
+      "maturity_benefit": {
+        "paise": 150000000,
+        "display": "₹15,00,000"
+      },
       "survival_benefits": [
-        { "year": 4, "amount": { "paise": 10000000, "display": "₹1,00,000" } },
-        { "year": 8, "amount": { "paise": 10000000, "display": "₹1,00,000" } }
+        {
+          "year": 4,
+          "amount": {
+            "paise": 10000000,
+            "display": "₹1,00,000"
+          }
+        },
+        {
+          "year": 8,
+          "amount": {
+            "paise": 10000000,
+            "display": "₹1,00,000"
+          }
+        }
       ],
-      "irr": { "bp": 399, "display": "3.99%" },
+      "irr": {
+        "bp": 399,
+        "display": "3.99%"
+      },
       "real_return": {
         "bp": -97,
         "display": "-0.97%",
@@ -38,11 +68,23 @@
     },
     {
       "name": "8%",
-      "maturity_benefit": { "paise": 220000000, "display": "₹22,00,000" },
+      "maturity_benefit": {
+        "paise": 220000000,
+        "display": "₹22,00,000"
+      },
       "survival_benefits": [
-        { "year": 4, "amount": { "paise": 15000000, "display": "₹1,50,000" } }
+        {
+          "year": 4,
+          "amount": {
+            "paise": 15000000,
+            "display": "₹1,50,000"
+          }
+        }
       ],
-      "irr": { "bp": 624, "display": "6.24%" },
+      "irr": {
+        "bp": 624,
+        "display": "6.24%"
+      },
       "real_return": {
         "bp": 118,
         "display": "1.18%",
@@ -51,44 +93,111 @@
     }
   ],
   "premiums_paid": 5,
-  "surrender_value": { "paise": 35000000, "display": "₹3,50,000" },
-  "paid_up": {
-    "maturity_benefit": { "paise": 90000000, "display": "₹9,00,000" },
-    "survival_benefits": [
-      { "year": 8, "amount": { "paise": 5000000, "display": "₹50,000" } }
-    ],
-    "sum_assured": { "paise": 100000000, "display": "₹10,00,000" }
+  "surrender_value": {
+    "paise": 35000000,
+    "display": "₹3,50,000"
   },
-  "inflation": { "bp": 500, "display": "5%", "source": "user-typed" },
+  "paid_up": {
+    "maturity_benefit": {
+      "paise": 90000000,
+      "display": "₹9,00,000"
+    },
+    "survival_benefits": [
+      {
+        "year": 8,
+        "amount": {
+          "paise": 5000000,
+          "display": "₹50,000"
+        }
+      }
+    ],
+    "sum_assured": {
+      "paise": 100000000,
+      "display": "₹10,00,000"
+    }
+  },
+  "inflation": {
+    "bp": 500,
+    "display": "5%",
+    "source": "user-typed"
+  },
   "benchmarks": [
-    { "name": "PPF", "rate": { "bp": 710, "display": "7.1%" }, "net_of_tax": true },
+    {
+      "name": "PPF",
+      "rate": {
+        "bp": 710,
+        "display": "7.1%"
+      },
+      "net_of_tax": true
+    },
     {
       "name": "Adviser's pitch",
-      "rate": { "bp": 1200, "display": "12%" },
+      "rate": {
+        "bp": 1200,
+        "display": "12%"
+      },
       "net_of_tax": false,
-      "source": { "title": "Adviser's illustration", "url": "https://example.com/illustration" }
+      "source": {
+        "title": "Adviser's illustration",
+        "url": "https://example.com/illustration"
+      }
     }
   ],
   "term_premium": {
-    "amount": { "paise": 1200000, "display": "₹12,000" },
-    "sum_assured": { "paise": 200000000, "display": "₹20,00,000" }
+    "amount": {
+      "paise": 1200000,
+      "display": "₹12,000"
+    },
+    "sum_assured": {
+      "paise": 200000000,
+      "display": "₹20,00,000"
+    }
   },
-  "other_premiums_aggregate": { "paise": 6000000, "display": "₹60,000" },
+  "other_premiums_aggregate": {
+    "paise": 6000000,
+    "display": "₹60,000"
+  },
   "classifications": [
+    {
+      "code": "death-benefit-exempt-regardless",
+      "kind": "statute",
+      "measured": {},
+      "citation": {
+        "section": "Income-tax Act, 2025, Schedule II (see section 11), Table Sl. No. 2, Column C",
+        "document": {
+          "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+          "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+        },
+        "retrieved": "2026-09-06",
+        "rules_key": "groups.life_insurance_maturity_exemption",
+        "note": "Note 1(d): \"premium to sum assured ratio\" is \"the highest percentage of annual premium payable to the actual capital sum assured, during the term of the policy\" -- this file reads a flat annual_premium against sum_assured, so the highest and only percentage coincide. Note 1(a), read with Schedule XV para 2(2): \"actual capital sum assured\" is the minimum sum assured on the insured event at any time during the term, ignoring any premium agreed to be returned and any bonus or other benefit over and above the sum actually assured. A policy on a person with a disability (section 154) or a specified disease -- a \"special policy\" -- reads 15% where this file reads 10%; the skill's input carries no field naming a policy as one, so only the ordinary ratio is read here, and the special-policy figure is not encoded. Note 1(b): the aggregate-premium conditions do not apply to a policy issued on or after 1 April 2025 by an IFSC Insurance Office, which this file carries no band for. Every condition here sits under the opening words of Sl. No. 2 itself: \"except where the sum is received on death\" -- death proceeds are exempt regardless, in every band."
+      }
+    },
     {
       "code": "real-return-negative",
       "kind": "comparison",
       "scenario": "guaranteed",
       "measured": {
-        "nominal_irr": { "bp": 399, "display": "3.99%" },
-        "real_return": { "bp": -97, "display": "-0.97%" }
+        "nominal_irr": {
+          "bp": 399,
+          "display": "3.99%"
+        },
+        "real_return": {
+          "bp": -97,
+          "display": "-0.97%"
+        }
       }
     },
     {
       "code": "multiple-sign-changes",
       "kind": "comparison",
       "scenario": "8%",
-      "measured": { "irr": { "bp": 624, "display": "6.24%" } }
+      "measured": {
+        "irr": {
+          "bp": 624,
+          "display": "6.24%"
+        }
+      }
     }
   ],
   "sources": [
@@ -96,6 +205,13 @@
       "title": "Notification No. 16/2025-Central Tax (Rate)",
       "url": "https://cbic-gst.gov.in/central-tax-rate.html"
     },
-    { "title": "Adviser's illustration", "url": "https://example.com/illustration" }
+    {
+      "title": "Adviser's illustration",
+      "url": "https://example.com/illustration"
+    },
+    {
+      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+    }
   ]
 }

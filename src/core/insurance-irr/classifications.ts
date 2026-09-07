@@ -1,25 +1,51 @@
 /**
- * The classifications this skill emits (issue #66, ADR 0001, ADR 0015): a
- * stated fact about figures already in the output, never a recommendation.
- * `comparison` is the only kind this ticket produces — two figures both
- * present in the output, and which side the first landed on, or the
- * solver's own limits — so every one here carries no citation and no
- * rationale, because both figures it rests on are right there beside it.
- * A `statute` kind, with its own citation, is a later ticket's addition to
- * this same array, not a change to this one.
+ * The classifications this skill emits (issue #66, #68, ADR 0001, ADR
+ * 0015): a stated fact about figures already in the output, never a
+ * recommendation. `comparison` carries no citation and no rationale,
+ * because both figures it rests on are right there beside it — two
+ * figures both present in the output, and which side the first landed on,
+ * or the solver's own limits. `statute` carries a citation into the rules
+ * file: a condition of the Income-tax Act, 2025's maturity-proceeds
+ * exemption (issue #68, ADR 0010 [insurance-irr], `taxability.ts`), the
+ * first kind to reach this array.
  */
-import { rate, type Money, type Rate } from "../money.ts";
+import type { Money, Rate } from "../money.ts";
+import { rate } from "../money.ts";
 import type { IrrSolution } from "./irr.ts";
+import type { Source } from "../sources.ts";
 
-export type ClassificationKind = "comparison";
+export type ClassificationKind = "comparison" | "statute";
+
+/** The same shape `GstCitation` and `InflationTargetCitation` carry (ADR 0015 [insurance-irr]). */
+export interface StatuteCitation {
+  section: string;
+  document: Source;
+  retrieved: string;
+  rules_key: string;
+  note?: string;
+}
 
 export interface Classification {
-  code: "above-search-range" | "multiple-sign-changes" | "real-return-negative";
+  code:
+    | "above-search-range"
+    | "multiple-sign-changes"
+    | "real-return-negative"
+    | "premium-exceeds-10pc-of-sum-assured"
+    | "aggregate-exceeds-threshold"
+    | "aggregate-unknown"
+    | "death-benefit-exempt-regardless";
   kind: ClassificationKind;
-  /** The scenario this is about, by the name the policy gave it. */
-  scenario: string;
+  /**
+   * The scenario this is about, by the name the policy gave it; absent
+   * when the classification is about the policy as a whole rather than
+   * one scenario — every `statute` code so far (ADR 0010
+   * [insurance-irr]).
+   */
+  scenario?: string;
   /** The figures this rests on, by name; every one of them appears above it in the output. */
   measured: { [name: string]: Money | Rate };
+  /** Present only for `kind: statute`; absent for `kind: comparison` (ADR 0015 [insurance-irr]). */
+  citation?: StatuteCitation;
 }
 
 /** 100%, the ceiling `irr.ts`'s search gives up at (ADR 0004). */

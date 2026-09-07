@@ -17,6 +17,13 @@
  * it before the IRR solver ever sees a cash outflow, so `gst_on_premium`'s
  * `cash_outflow` — not the bare premium — is what every scenario's IRR
  * reconciles.
+ *
+ * Issue #68 adds taxability (`taxability.ts`, ADR 0010 [insurance-irr]): the
+ * pre-GST `annual_premium`, `sum_assured`, `linked`, `issued_on` and
+ * `other_premiums_aggregate` are read against the rules file's issue-date
+ * bands, once per policy rather than per scenario — the ratio and the
+ * aggregate turn on the premium and the sum assured alone, neither of which
+ * a scenario's own maturity or survival figures touch.
  */
 import { applyRate, money, rate, rupeesToPaise, type Money, type Rate } from "../money.ts";
 import { resolveRulesFile, rulesFilePathFor, type RulesFile } from "../rules/files.ts";
@@ -37,6 +44,7 @@ import { realReturnBp, REAL_RETURN_METHOD } from "./real-return.ts";
 import { classificationsFor, type Classification } from "./classifications.ts";
 import { inflationTargetFor, type InflationTarget, type InflationTargetCitation } from "./inflation-target.ts";
 import { gstOnIndividualLifeInsuranceFor, type Gst, type GstCitation } from "./gst.ts";
+import { taxabilityClassificationsFor } from "./taxability.ts";
 
 export interface DecodedSurvivalBenefit {
   year: number;
@@ -127,8 +135,10 @@ export interface DecodedPolicy {
   term_premium?: DecodedTermPremium;
   other_premiums_aggregate?: Money;
   /**
-   * Facts about the scenarios' own figures, never a recommendation
-   * (ADR 0001, ADR 0015); see `classifications.ts`.
+   * Facts about the policy and its scenarios, never a recommendation
+   * (ADR 0001, ADR 0015); see `classifications.ts`. The taxability
+   * classifications (issue #68, `taxability.ts`) come first, once per
+   * policy; the per-scenario ones follow.
    */
   classifications: Classification[];
   /**
@@ -145,6 +155,10 @@ export function intake(raw: unknown): DecodedPolicy {
 
   const annualPremiumPaise = rupeesToPaise(input.annual_premium);
   const cashOutflowPaise = annualPremiumPaise + applyRate(annualPremiumPaise, gst.rate_bp);
+  const annualPremium = money(annualPremiumPaise);
+  const sumAssured = money(rupeesToPaise(input.sum_assured));
+  const otherPremiumsAggregate =
+    input.other_premiums_aggregate === undefined ? undefined : money(rupeesToPaise(input.other_premiums_aggregate));
 
   const flows: PolicyFlows = {
     premium_paying_term: input.premium_paying_term,
@@ -152,17 +166,24 @@ export function intake(raw: unknown): DecodedPolicy {
     annual_cash_outflow_paise: cashOutflowPaise,
   };
   const solved = input.scenarios.map((scenario) => solveScenario(scenario, flows, input.inflation_bp));
+  const taxability = taxabilityClassificationsFor(rules, {
+    ...(input.issued_on === undefined ? {} : { issued_on: input.issued_on }),
+    linked: input.linked,
+    annual_premium: annualPremium,
+    sum_assured: sumAssured,
+    ...(otherPremiumsAggregate === undefined ? {} : { other_premiums_aggregate: otherPremiumsAggregate }),
+  });
 
   const policy: Omit<DecodedPolicy, "sources"> = {
     financial_year: input.financial_year,
     rules_file: rules.path,
     ...(input.issued_on === undefined ? {} : { issued_on: input.issued_on }),
     linked: input.linked,
-    annual_premium: money(annualPremiumPaise),
+    annual_premium: annualPremium,
     gst_on_premium: gstOnPremiumFor(gst, cashOutflowPaise),
     premium_paying_term: input.premium_paying_term,
     policy_term: input.policy_term,
-    sum_assured: money(rupeesToPaise(input.sum_assured)),
+    sum_assured: sumAssured,
     scenarios: solved.map((one) => one.scenario),
     premiums_paid: input.premiums_paid,
     ...(input.surrender_value === undefined
@@ -172,10 +193,8 @@ export function intake(raw: unknown): DecodedPolicy {
     inflation: inflationReadingFor(input.inflation_bp, inflationTarget),
     ...(input.benchmarks === undefined ? {} : { benchmarks: input.benchmarks.map(decodeBenchmark) }),
     ...(input.term_premium === undefined ? {} : { term_premium: decodeTermPremium(input.term_premium) }),
-    ...(input.other_premiums_aggregate === undefined
-      ? {}
-      : { other_premiums_aggregate: money(rupeesToPaise(input.other_premiums_aggregate)) }),
-    classifications: solved.flatMap((one) => one.classifications),
+    ...(otherPremiumsAggregate === undefined ? {} : { other_premiums_aggregate: otherPremiumsAggregate }),
+    classifications: [...taxability, ...solved.flatMap((one) => one.classifications)],
   };
 
   return { ...policy, sources: sourcesIn(policy) };

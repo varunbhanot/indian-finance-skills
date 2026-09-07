@@ -1,0 +1,53 @@
+# Test-only rules document, not statutory fact (issue #69). Its
+# `surrender_value_floors.regular_premium` carries a synthetic 99% year-2
+# rate rather than the shipped file's 30%, to show a guaranteed surrender
+# value floor moves with the rules file and no code change (ADR 0008,
+# ADR 0017 [insurance-irr]). `inflation_target`, `gst` and
+# `life_insurance_maturity_exemption` are copied unchanged from the shipped
+# rules file so the rest of the output still resolves; the maturity
+# exemption group carries only the one open-ended band this fixture's
+# policy is read against (ADR 0016 [insurance-irr]), not the full schedule.
+financial_year: 2026-27
+groups:
+  inflation_target:
+    title: 'Reserve Bank of India, "Monetary Policy -- Overview"'
+    source: https://www.rbi.org.in/scripts/FS_Overview.aspx?fn=2752
+    retrieved: 2026-09-06
+    effective_from: 2026-04-01
+    effective_to: 2031-03-31
+    section: >-
+      Reserve Bank of India Act, 1934, section 45ZA, and the Government of
+      India's notification retaining the inflation target and tolerance band
+      for the five-year period 1 April 2026 to 31 March 2031
+    rate: 0.04
+  gst:
+    title: 'Notification No. 16/2025-Central Tax (Rate)'
+    source: https://cbic-gst.gov.in/central-tax-rate.html
+    retrieved: 2026-09-06
+    section: 'New Delhi, 17 September 2025, G.S.R. 666(E), F. No. 190341/188/2025-TRU, amending Notification No. 12/2017-Central Tax (Rate) to insert serial number 36C, Heading 9971: "Services of life insurance business provided by an insurer to the insured, where the insured is not a group" -- Nil.'
+    individual_life_insurance:
+      rate: 0.00
+  life_insurance_maturity_exemption:
+    title: The Income-tax Act, 2025 (No. 30 of 2025)
+    source: https://egazette.gov.in/WriteReadData/2025/265620.pdf
+    retrieved: 2026-09-06
+    effective_from: 2026-04-01
+    section: Income-tax Act, 2025, Schedule II (see section 11), Table Sl. No. 2, Column C
+    bands:
+      - issued_from: 2023-04-01
+        ratio_rate: 0.10
+        aggregate_threshold_linked: 250000
+        aggregate_threshold_non_linked: 500000
+  surrender_value_floors:
+    title: 'Test rate, not statutory fact'
+    source: https://example.test/gsv-percentages-moved
+    retrieved: 2026-09-06
+    section: 'A synthetic 99% year-2 rate standing in for whatever a rules ticket would source, to show a guaranteed surrender value floor moves with the rules file and no code change (issue #69). Never read as a real GSV floor: the shipped rules file carries the actual 30% figure.'
+    regular_premium:
+      bands:
+        - from_year: 2
+          to_year: 2
+          rate: 0.99
+    paid_up_sum_assured_floor:
+      section: 'Test rate placeholder -- clause 4(A)(a)(7)'
+      note: 'Not exercised by this fixture, which pins only the surrender value floor; a real file always carries this too.'

@@ -768,6 +768,76 @@ groups:
         aggregate_threshold_linked: 250000
         aggregate_threshold_non_linked: 500000
 
+  # Guaranteed surrender value (GSV) floors, and the pro-rata paid-up sum
+  # assured floor (issue #69, ADR 0008 [insurance-irr], ADR 0017
+  # [insurance-irr]): IRDAI (Insurance Products) Regulations, 2024, Schedule
+  # I, clause 4(A)(a), with the paid-up rule at clause 4(A)(a)(7). Per
+  # docs/research/insurance-irr-statutory-sources.md §4 (primary document
+  # read): a regular-premium policy acquires a GSV "on payment of premium for
+  # at least two consecutive years", at percentages of total premiums paid
+  # (less survival benefits already paid) fixed by the policy year a
+  # surrender falls in -- 30% in year 2, 35% in year 3, 50% in years 4-7, 90%
+  # in the last two policy years, with a smooth progression the insurer
+  # defines in between. A single-premium policy reads 75% up to year 3, 90%
+  # in year 4, and 90% in the last two years, again with a smooth
+  # progression in between. Clause 4(A)(a)(5): the surrender value actually
+  # payable is the higher of this guaranteed surrender value and a special
+  # surrender value the Master Circular on Life Insurance Products (12 June
+  # 2024), clause 26.4.3.2, ties to a discount rate linked to the prevailing
+  # 10-year G-Sec yield -- neither statutory nor stable, and so never
+  # computed here (ADR 0008 [insurance-irr]).
+  #
+  # The bands below carry only the fixed years and the last-two-years rule;
+  # the years between them, and (for a regular-premium policy) year 1, before
+  # a GSV exists at all, are absent by design and read as `insurer-defined`,
+  # never interpolated (ADR 0008, ADR 0017 [insurance-irr]).
+  surrender_value_floors:
+    title: The IRDAI (Insurance Products) Regulations, 2024
+    source: https://irdai.gov.in/web/guest/document-detail?documentId=4590475
+    retrieved: 2026-09-06
+    effective_from: 2024-04-01
+    section: IRDAI (Insurance Products) Regulations, 2024, Schedule I, clause 4(A)(a)
+    note: >-
+      A regular-premium policy acquires a guaranteed surrender value "on
+      payment of premium for at least two consecutive years"; a single-premium
+      policy acquires one from the first year. The percentage is of total
+      premiums paid, less survival benefits already paid. Clause 4(A)(a)(5):
+      the surrender value payable is the higher of this floor and a special
+      surrender value the Master Circular on Life Insurance Products,
+      clause 26.4.3.2, ties to a discount rate linked to the prevailing
+      10-year G-Sec yield, which is not computed here.
+    regular_premium:
+      bands:
+        - from_year: 2
+          to_year: 2
+          rate: 0.30
+        - from_year: 3
+          to_year: 3
+          rate: 0.35
+        - from_year: 4
+          to_year: 7
+          rate: 0.50
+        - last_years: 2
+          rate: 0.90
+    single_premium:
+      bands:
+        - from_year: 1
+          to_year: 3
+          rate: 0.75
+        - from_year: 4
+          to_year: 4
+          rate: 0.90
+        - last_years: 2
+          rate: 0.90
+    paid_up_sum_assured_floor:
+      section: IRDAI (Insurance Products) Regulations, 2024, Schedule I, clause 4(A)(a)(7)
+      note: >-
+        The paid-up sum assured is not less than the sum assured multiplied
+        by the ratio of the period for which premiums have actually been
+        paid to the period for which premiums were originally payable -- a
+        ratio of whole premium counts already in the input, needing no rate
+        of its own.
+
   # Gratuity: what basic drives on termination of employment (spec #7). Only the
   # accrual formula, the qualifying service period and the wage base are carried;
   # this file computes no gratuity figure.

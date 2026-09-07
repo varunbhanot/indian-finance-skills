@@ -24,6 +24,14 @@
  * bands, once per policy rather than per scenario — the ratio and the
  * aggregate turn on the premium and the sum assured alone, neither of which
  * a scenario's own maturity or survival figures touch.
+ *
+ * Issue #69 adds the surrender and paid-up readings (`in-force.ts`, ADR 0008,
+ * ADR 0017 [insurance-irr]), present once the policy is in force
+ * (`premiums_paid >= 1`): each carries its `basis` — `insurer-quoted`,
+ * `regulatory-floor`, or `insurer-defined` — against the guaranteed
+ * surrender value floor and the pro-rata paid-up sum assured floor
+ * (`surrender-value-floors.ts`), read for the `guaranteed` scenario's own
+ * survival benefits and premium, never a scenario's non-guaranteed figures.
  */
 import { applyRate, money, rate, rupeesToPaise, type Money, type Rate } from "../money.ts";
 import { resolveRulesFile, rulesFilePathFor, type RulesFile } from "../rules/files.ts";
@@ -45,6 +53,7 @@ import { classificationsFor, type Classification } from "./classifications.ts";
 import { inflationTargetFor, type InflationTarget, type InflationTargetCitation } from "./inflation-target.ts";
 import { gstOnIndividualLifeInsuranceFor, type Gst, type GstCitation } from "./gst.ts";
 import { taxabilityClassificationsFor } from "./taxability.ts";
+import { inForceReadingsFor, type InForcePaidUpInput, type PaidUpReading, type SurrenderReading } from "./in-force.ts";
 
 export interface DecodedSurvivalBenefit {
   year: number;
@@ -66,12 +75,6 @@ export interface DecodedScenario {
   irr: Rate | null;
   /** `null` exactly when `irr` is `null` — there is no nominal rate to compare against inflation. */
   real_return: RealReturn | null;
-}
-
-export interface DecodedPaidUp {
-  maturity_benefit: Money;
-  survival_benefits: DecodedSurvivalBenefit[];
-  sum_assured: Money;
 }
 
 export interface DecodedBenchmark {
@@ -128,8 +131,9 @@ export interface DecodedPolicy {
   sum_assured: Money;
   scenarios: DecodedScenario[];
   premiums_paid: number;
-  surrender_value?: Money;
-  paid_up?: DecodedPaidUp;
+  /** Present only once the policy is in force (`premiums_paid >= 1`, ADR 0007 [insurance-irr]). */
+  surrender?: SurrenderReading;
+  paid_up?: PaidUpReading;
   inflation: InflationReading;
   benchmarks?: DecodedBenchmark[];
   term_premium?: DecodedTermPremium;
@@ -138,7 +142,9 @@ export interface DecodedPolicy {
    * Facts about the policy and its scenarios, never a recommendation
    * (ADR 0001, ADR 0015); see `classifications.ts`. The taxability
    * classifications (issue #68, `taxability.ts`) come first, once per
-   * policy; the per-scenario ones follow.
+   * policy; the in-force reading's own classification (issue #69,
+   * `in-force.ts`) follows, still policy-wide; the per-scenario ones come
+   * last.
    */
   classifications: Classification[];
   /**
@@ -174,6 +180,26 @@ export function intake(raw: unknown): DecodedPolicy {
     ...(otherPremiumsAggregate === undefined ? {} : { other_premiums_aggregate: otherPremiumsAggregate }),
   });
 
+  // Guaranteed is always first (input.ts), and it alone holds the survival
+  // benefits the guaranteed surrender value floor nets against (ADR 0017
+  // [insurance-irr]) — a scenario's own non-guaranteed figures never enter it.
+  const guaranteedSurvivalBenefits = solved[0]?.scenario.survival_benefits ?? [];
+  const inForce =
+    input.premiums_paid >= 1
+      ? inForceReadingsFor(rules, {
+          premiums_paid: input.premiums_paid,
+          premium_paying_term: input.premium_paying_term,
+          policy_term: input.policy_term,
+          annual_premium: annualPremium,
+          sum_assured: sumAssured,
+          guaranteed_survival_benefits: guaranteedSurvivalBenefits,
+          ...(input.surrender_value === undefined
+            ? {}
+            : { surrender_value: money(rupeesToPaise(input.surrender_value)) }),
+          ...(input.paid_up === undefined ? {} : { paid_up: decodePaidUp(input.paid_up) }),
+        })
+      : undefined;
+
   const policy: Omit<DecodedPolicy, "sources"> = {
     financial_year: input.financial_year,
     rules_file: rules.path,
@@ -186,15 +212,16 @@ export function intake(raw: unknown): DecodedPolicy {
     sum_assured: sumAssured,
     scenarios: solved.map((one) => one.scenario),
     premiums_paid: input.premiums_paid,
-    ...(input.surrender_value === undefined
-      ? {}
-      : { surrender_value: money(rupeesToPaise(input.surrender_value)) }),
-    ...(input.paid_up === undefined ? {} : { paid_up: decodePaidUp(input.paid_up) }),
+    ...(inForce === undefined ? {} : { surrender: inForce.surrender, paid_up: inForce.paid_up }),
     inflation: inflationReadingFor(input.inflation_bp, inflationTarget),
     ...(input.benchmarks === undefined ? {} : { benchmarks: input.benchmarks.map(decodeBenchmark) }),
     ...(input.term_premium === undefined ? {} : { term_premium: decodeTermPremium(input.term_premium) }),
     ...(otherPremiumsAggregate === undefined ? {} : { other_premiums_aggregate: otherPremiumsAggregate }),
-    classifications: [...taxability, ...solved.flatMap((one) => one.classifications)],
+    classifications: [
+      ...taxability,
+      ...(inForce?.classifications ?? []),
+      ...solved.flatMap((one) => one.classifications),
+    ],
   };
 
   return { ...policy, sources: sourcesIn(policy) };
@@ -227,7 +254,7 @@ function decodeSurvivalBenefit(benefit: SurvivalBenefitInput): DecodedSurvivalBe
   return { year: benefit.year, amount: money(rupeesToPaise(benefit.amount)) };
 }
 
-function decodePaidUp(paidUp: PaidUpInput): DecodedPaidUp {
+function decodePaidUp(paidUp: PaidUpInput): InForcePaidUpInput {
   return {
     maturity_benefit: money(rupeesToPaise(paidUp.maturity_benefit)),
     survival_benefits: paidUp.survival_benefits.map(decodeSurvivalBenefit),

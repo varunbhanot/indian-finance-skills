@@ -1,0 +1,155 @@
+{
+  "financial_year": "2026-27",
+  "rules_file": "fixtures/insurance-irr/gsv-percentages-moved/rules/fy2026-27.yaml",
+  "issued_on": "2023-04-01",
+  "linked": false,
+  "annual_premium": {
+    "paise": 10000000,
+    "display": "₹1,00,000"
+  },
+  "gst_on_premium": {
+    "rate": {
+      "bp": 0,
+      "display": "0%"
+    },
+    "source": {
+      "section": "New Delhi, 17 September 2025, G.S.R. 666(E), F. No. 190341/188/2025-TRU, amending Notification No. 12/2017-Central Tax (Rate) to insert serial number 36C, Heading 9971: \"Services of life insurance business provided by an insurer to the insured, where the insured is not a group\" -- Nil.",
+      "document": {
+        "title": "Notification No. 16/2025-Central Tax (Rate)",
+        "url": "https://cbic-gst.gov.in/central-tax-rate.html"
+      },
+      "retrieved": "2026-09-06",
+      "rules_key": "groups.gst.individual_life_insurance"
+    },
+    "cash_outflow": {
+      "paise": 10000000,
+      "display": "₹1,00,000"
+    }
+  },
+  "premium_paying_term": 10,
+  "policy_term": 10,
+  "sum_assured": {
+    "paise": 150000000,
+    "display": "₹15,00,000"
+  },
+  "scenarios": [
+    {
+      "name": "guaranteed",
+      "maturity_benefit": {
+        "paise": 175000000,
+        "display": "₹17,50,000"
+      },
+      "survival_benefits": [],
+      "irr": {
+        "bp": 996,
+        "display": "9.96%"
+      },
+      "real_return": {
+        "bp": 373,
+        "display": "3.73%",
+        "method": "Fisher relation: (1 + nominal) ÷ (1 + inflation) − 1, floored to the basis point"
+      }
+    }
+  ],
+  "premiums_paid": 2,
+  "surrender": {
+    "value": {
+      "paise": 19800000,
+      "display": "₹1,98,000"
+    },
+    "basis": "regulatory-floor",
+    "floor": {
+      "paise": 19800000,
+      "display": "₹1,98,000"
+    },
+    "floor_percentage": {
+      "bp": 9900,
+      "display": "99%"
+    },
+    "citation": {
+      "section": "A synthetic 99% year-2 rate standing in for whatever a rules ticket would source, to show a guaranteed surrender value floor moves with the rules file and no code change (issue #69). Never read as a real GSV floor: the shipped rules file carries the actual 30% figure.",
+      "document": {
+        "title": "Test rate, not statutory fact",
+        "url": "https://example.test/gsv-percentages-moved"
+      },
+      "retrieved": "2026-09-06",
+      "rules_key": "groups.surrender_value_floors.regular_premium.bands[0]"
+    },
+    "assumption": "the guaranteed surrender value floor; the insurer's special surrender value, which may sit above it, is not computed"
+  },
+  "paid_up": {
+    "sum_assured": {
+      "paise": 30000000,
+      "display": "₹3,00,000"
+    },
+    "basis": "regulatory-floor",
+    "floor": {
+      "paise": 30000000,
+      "display": "₹3,00,000"
+    },
+    "citation": {
+      "section": "Test rate placeholder -- clause 4(A)(a)(7)",
+      "document": {
+        "title": "Test rate, not statutory fact",
+        "url": "https://example.test/gsv-percentages-moved"
+      },
+      "retrieved": "2026-09-06",
+      "rules_key": "groups.surrender_value_floors.paid_up_sum_assured_floor",
+      "note": "Not exercised by this fixture, which pins only the surrender value floor; a real file always carries this too."
+    }
+  },
+  "inflation": {
+    "bp": 600,
+    "display": "6%",
+    "source": "user-typed"
+  },
+  "classifications": [
+    {
+      "code": "aggregate-unknown",
+      "kind": "statute",
+      "measured": {
+        "threshold": {
+          "paise": 50000000,
+          "display": "₹5,00,000"
+        }
+      },
+      "citation": {
+        "section": "Income-tax Act, 2025, Schedule II (see section 11), Table Sl. No. 2, Column C",
+        "document": {
+          "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+          "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+        },
+        "retrieved": "2026-09-06",
+        "rules_key": "groups.life_insurance_maturity_exemption.bands[0]"
+      }
+    },
+    {
+      "code": "death-benefit-exempt-regardless",
+      "kind": "statute",
+      "measured": {},
+      "citation": {
+        "section": "Income-tax Act, 2025, Schedule II (see section 11), Table Sl. No. 2, Column C",
+        "document": {
+          "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+          "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+        },
+        "retrieved": "2026-09-06",
+        "rules_key": "groups.life_insurance_maturity_exemption"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "title": "Notification No. 16/2025-Central Tax (Rate)",
+      "url": "https://cbic-gst.gov.in/central-tax-rate.html"
+    },
+    {
+      "title": "Test rate, not statutory fact",
+      "url": "https://example.test/gsv-percentages-moved"
+    },
+    {
+      "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
+      "url": "https://egazette.gov.in/WriteReadData/2025/265620.pdf"
+    }
+  ]
+}

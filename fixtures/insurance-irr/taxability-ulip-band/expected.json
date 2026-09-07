@@ -53,6 +53,53 @@
     }
   ],
   "premiums_paid": 1,
+  "surrender": {
+    "value": {
+      "paise": 1350000,
+      "display": "₹13,500"
+    },
+    "basis": "regulatory-floor",
+    "floor": {
+      "paise": 1350000,
+      "display": "₹13,500"
+    },
+    "floor_percentage": {
+      "bp": 9000,
+      "display": "90%"
+    },
+    "citation": {
+      "section": "IRDAI (Insurance Products) Regulations, 2024, Schedule I, clause 4(A)(a)",
+      "document": {
+        "title": "The IRDAI (Insurance Products) Regulations, 2024",
+        "url": "https://irdai.gov.in/web/guest/document-detail?documentId=4590475"
+      },
+      "retrieved": "2026-09-06",
+      "rules_key": "groups.surrender_value_floors.single_premium.bands[2]",
+      "note": "A regular-premium policy acquires a guaranteed surrender value \"on payment of premium for at least two consecutive years\"; a single-premium policy acquires one from the first year. The percentage is of total premiums paid, less survival benefits already paid. Clause 4(A)(a)(5): the surrender value payable is the higher of this floor and a special surrender value the Master Circular on Life Insurance Products, clause 26.4.3.2, ties to a discount rate linked to the prevailing 10-year G-Sec yield, which is not computed here."
+    },
+    "assumption": "the guaranteed surrender value floor; the insurer's special surrender value, which may sit above it, is not computed"
+  },
+  "paid_up": {
+    "sum_assured": {
+      "paise": 100000000,
+      "display": "₹10,00,000"
+    },
+    "basis": "regulatory-floor",
+    "floor": {
+      "paise": 100000000,
+      "display": "₹10,00,000"
+    },
+    "citation": {
+      "section": "IRDAI (Insurance Products) Regulations, 2024, Schedule I, clause 4(A)(a)(7)",
+      "document": {
+        "title": "The IRDAI (Insurance Products) Regulations, 2024",
+        "url": "https://irdai.gov.in/web/guest/document-detail?documentId=4590475"
+      },
+      "retrieved": "2026-09-06",
+      "rules_key": "groups.surrender_value_floors.paid_up_sum_assured_floor",
+      "note": "The paid-up sum assured is not less than the sum assured multiplied by the ratio of the period for which premiums have actually been paid to the period for which premiums were originally payable -- a ratio of whole premium counts already in the input, needing no rate of its own."
+    }
+  },
   "inflation": {
     "bp": 500,
     "display": "5%",
@@ -107,6 +154,10 @@
     {
       "title": "Notification No. 16/2025-Central Tax (Rate)",
       "url": "https://cbic-gst.gov.in/central-tax-rate.html"
+    },
+    {
+      "title": "The IRDAI (Insurance Products) Regulations, 2024",
+      "url": "https://irdai.gov.in/web/guest/document-detail?documentId=4590475"
     },
     {
       "title": "The Income-tax Act, 2025 (No. 30 of 2025)",
